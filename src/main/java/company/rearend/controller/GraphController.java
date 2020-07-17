@@ -51,4 +51,14 @@ public class GraphController {
 		ResponseEntity<List<MemberBean>> re = new ResponseEntity<>(products, HttpStatus.OK);
 		return re;
 	}
+	@GetMapping("/rearend/Salaryex")
+	public String aa() {
+	
+		return "rearend/Salaryex";
+	}
+	@GetMapping("/rearend/myindex")
+	public String bb() {
+	
+		return "rearend/myindex";
+	}
 }
