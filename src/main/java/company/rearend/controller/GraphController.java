@@ -56,9 +56,9 @@ public class GraphController {
 	
 		return "rearend/Salaryex";
 	}
-	@GetMapping("/rearend/myindex")
+	@GetMapping("/rearend/meindex")
 	public String bb() {
 	
-		return "rearend/myindex";
+		return "rearend/meindex";
 	}
 }

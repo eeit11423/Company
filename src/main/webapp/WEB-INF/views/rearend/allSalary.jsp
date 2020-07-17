@@ -40,16 +40,16 @@
 		style="height: 1px; border: none; color: #333; background-color: #333;">
 	<section class="container">
 		<div class="row">
-			<c:forEach var='ga' items='${graph}'>
+<%-- 			<c:forEach var='ga' items='${graph}'> --%>
 
 
 
 
-			<input type="hidden" id="salary${ga.memberId}" value="${ga.memberSalary}">
-			<input type="hidden" id="name${ga.memberId}" value="${ga.memberName}">
+<%-- 			<input type="hidden" id="salary${ga.memberId}" value="${ga.memberSalary}"> --%>
+<%-- 			<input type="hidden" id="name${ga.memberId}" value="${ga.memberName}"> --%>
 			
 
-			</c:forEach>
+<%-- 			</c:forEach> --%>
 		
 		</div>
 		<figure class="highcharts-figure">
