@@ -12,7 +12,6 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
-
 <div style="text-align:center" >
 <hr>
 

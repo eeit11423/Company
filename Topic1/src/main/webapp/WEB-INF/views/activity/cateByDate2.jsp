@@ -15,6 +15,7 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<hr>
 	<div align='center'>
 		<h3>依日期篩選之活動資料</h3>
 		<a href='act'>新增活動資料</a> &nbsp;&nbsp;&nbsp;<a
