@@ -51,6 +51,8 @@
 
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/activity/index' />">活動資訊</a>
 					</li>
+					<li class="nav-item"><a class="nav-link" href="<c:url value='rearend/allSalary' />">圖表分析</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="contact.html">連絡我們</a>
 					</li>
 	
