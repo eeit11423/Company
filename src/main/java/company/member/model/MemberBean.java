@@ -52,9 +52,54 @@ public class MemberBean implements Serializable{
 	@JsonIgnore
 	@Transient
 	private MultipartFile productImage ;
+	@JsonIgnore
+	@Transient
+	private Integer boy ;
+	@JsonIgnore
+	@Transient
+	private Integer girl ;
 	
+	@JsonIgnore
+	@Transient
+	private Integer peopleNumber  ;
+
 	
-	
+	public Integer getPeopleNumber() {
+		return peopleNumber;
+	}
+
+	public void setPeopleNumber(Integer peopleNumber) {
+		this.peopleNumber = peopleNumber;
+	}
+
+	public Integer getBoy() {
+		return boy;
+	}
+
+	public void setBoy(Integer boy) {
+		this.boy = boy;
+	}
+
+
+
+
+
+	public Integer getGirl() {
+		return girl;
+	}
+
+
+
+
+
+	public void setGirl(Integer girl) {
+		this.girl = girl;
+	}
+
+
+
+
+
 	public MemberBean() {
 		super();
 	}

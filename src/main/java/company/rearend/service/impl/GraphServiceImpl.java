@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import company.member.model.MemberBean;
 import company.rearend.dao.GraphDao;
 import company.rearend.service.GraphService;
+import company.shopping.model.ShoppingBean;
 
 @Service
 @Transactional
@@ -33,6 +34,18 @@ public class GraphServiceImpl implements GraphService {
 	@Override
 	public List<MemberBean> getMemberBypeople(String people) {
 		return graphDao.getMemberBypeople(people);
+	}
+
+	@Override
+	public List<ShoppingBean> getShoppingNumber(String Number) {
+		
+		 return graphDao.getShoppingNumber(Number);
+	}
+
+	@Override
+	public List<MemberBean> getMemberNumberpeople(String people) {
+		 return graphDao.getMemberNumberpeople(people);
+
 	}
 	
 

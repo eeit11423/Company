@@ -44,13 +44,23 @@ public class GraphController {
 	}
 	@GetMapping("/rearend/allSpeople_ajax")
 	public ResponseEntity<List<MemberBean>>  allPeople_ajax() {
-		System.out.println("=========================================================a");
+		System.out.println("=========================================================b");
 		//List<MemberBean> beans =graphservice.getAllSalary();
 		//model.addAttribute("graph", beans);
 		List<MemberBean> products = graphservice.getMemberBypeople(null);
 		ResponseEntity<List<MemberBean>> re = new ResponseEntity<>(products, HttpStatus.OK);
 		return re;
 	}
+	@GetMapping("/number")
+	public String list1(Model model) {
+		System.out.println("=========================================================a");
+		List<MemberBean> beans =graphservice.getMemberNumberpeople(null);
+		List<ShoppingBean> beans1 =graphservice.getShoppingNumber(null);
+		
+		model.addAttribute("MemberNumber", beans);
+		model.addAttribute("SpringNumber", beans1);
+		return "rearend/Salaryex";
+	}//會員資料AJEX
 	@GetMapping("/rearend/Salaryex")
 	public String aa() {
 	
