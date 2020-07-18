@@ -57,7 +57,7 @@
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="<c:url value='rearend/allSalary' />">圖表分析</a>
 							<a class="dropdown-item" href="<c:url value='rearend/Salaryex' />">圖表分析2</a>
-							<a class="dropdown-item" href="<c:url value='rearend/myindex' />">測試</a>
+							<a class="dropdown-item" href="<c:url value='rearend/meindex' />">測試</a>
 							
 						</div></li>
 					<li class="nav-item"><a class="nav-link" href="<c:url value='orderLunch/order' />">訂餐系統</a>
