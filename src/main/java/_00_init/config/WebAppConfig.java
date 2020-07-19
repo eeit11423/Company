@@ -8,6 +8,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -50,5 +51,10 @@ public class WebAppConfig implements WebMvcConfigurer {
 		messageSource.setBasenames("MemberMessage", "ValidationMessages");
 		return messageSource;
 	}
-		
+//	@Override      
+//	public void addResourceHandlers(ResourceHandlerRegistry registry) {          
+////		registry.addResourceHandler("/css/").addResourceLocations("/WEB-INF/views/css/");          
+////		registry.addResourceHandler("/js/").addResourceLocations("/WEB-INF/views/js/");         
+////		registry.addResourceHandler("/img/").addResourceLocations("/WEB-INF/views/img/");         
+//	//	registry.addResourceHandler("/dist/**").addResourceLocations("/WEB-INF/views/dist/");     }
 }

@@ -71,4 +71,9 @@ public class GraphController {
 	
 		return "rearend/meindex";
 	}
+	@GetMapping("/rearend/rearEnd")
+	public String bbc() {
+	
+		return "rearend/rearEnd";
+	}
 }
