@@ -25,7 +25,7 @@
 	<!-- 引入共同的頁首 -->
 
 	<p />
-	<div style='margin:30px'>
+	<div class="container-fluid">
 		<table class="table table-hover bg-white table-bordered">
 
 			<tr class="text-white text-left" style='background: #646D73'>
