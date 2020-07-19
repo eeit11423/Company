@@ -101,7 +101,7 @@ function Abort() {
 				<h2 class="mb-3">購物車</h2>
 				<div class="table-responsive-sm table-middle">
 					<table class="table table-bordered">
-						<thead class="thead-dark">
+						<thead class="text-white text-left" style='background:#646D73'>
 							<tr>
 
 								<th scope="col" class="product-thumbnail">圖片</th>
@@ -198,7 +198,7 @@ function Abort() {
 								<td>NT$&nbsp;<fmt:formatNumber value="${subtotal}"
 										pattern="#,###,###" /></td>
 							</tr>
-							<tr class="bg-info">
+							<tr class="text-white text-left" style='background:#646D73'>
 								<td>總計</td>
 								<td>NT$&nbsp;<fmt:formatNumber value="${subtotal}"
 										pattern="#,###,###" /></td>
@@ -207,7 +207,8 @@ function Abort() {
 						<tfoot>
 							<tr>
 								<td colspan="2"><a href="<c:url value='OrderConfirm' />"
-									class="btn btn-outline-info btn-lg float-right">前往結帳</a></td>
+									class="btn btn-outline-secondary btn-lg float-right">前往結帳</a></td>
+									
 							</tr>
 						</tfoot>
 					</table>
