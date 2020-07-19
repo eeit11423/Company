@@ -25,19 +25,19 @@
 	<!-- 引入共同的頁首 -->
 
 	<p />
-	<div class='container'>
+	<div style='margin:30px'>
 		<table class="table table-hover bg-white table-bordered">
 
 			<tr class="text-white text-left" style='background: #646D73'>
 				<th colspan="8" align="center" font='30'><strong>編號${memberBean.memberNumber}:
 					${memberBean.memberName}的訂購紀錄</strong></th>
 			<tr class="text-white " style='background: #646D73'>
-				<th width="40" align="center">No</th>
+				<th width="30" align="center">No</th>
 
-				<th width="80" align="center">部門</th>
+				<th width="100" align="center">部門</th>
 				<th align="center">姓名</th>
-				<th width="150" align="center">電話</th>
-				<th width="300" align="center">寄送地址</th>
+				<th width="200" align="center">電話</th>
+				<th width="400" align="center">寄送地址</th>
 				<th align="center">總金額</th>
 				<th align="center">下單時間</th>
 				<th align="center">明細</th>
@@ -52,7 +52,7 @@
 					<TD align="left">&nbsp;${memberBean.memberPhone}</TD>
 					<TD align="left">&nbsp;${orderBean.orderAddress}</TD>
 					<TD align="left">&nbsp;${orderBean.orderTotalPrice}</TD>
-					<TD align="left">&nbsp;${orderBean.orderDate}</TD>
+					<TD align="left">&nbsp;<fmt:formatDate value="${orderBean.orderDate}" pattern="yyyy-MM-dd"/></TD>
 					<TD align="center">
 					<a	class='badge badge-secondary' style='background: #646D73' href="<c:url value='../shopping/order/ShowOrderDetail/${memberBean.memberNumber}/${orderBean.orderNo}' />">連結
 					</TD>

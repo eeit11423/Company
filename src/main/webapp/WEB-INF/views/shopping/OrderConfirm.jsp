@@ -71,8 +71,8 @@ function reconfirmOrder() {
 					
 			</tr >
 		<tr  class="text-white text-left" style='background:#646D73'>
-			<td colspan='6'>出貨地址：
-			  <Input size='100px' type="text" id='orderAddress' 
+			<td colspan='6'>
+			<span>出貨地址：</span><Input size='60px' type="text" id='orderAddress' 
                    name="orderAddress" value="" ></td>
                    
 			</tr>
