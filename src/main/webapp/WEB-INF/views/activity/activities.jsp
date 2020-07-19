@@ -25,32 +25,32 @@
 	    沒有任何活動資料<br>
 			</c:when>
 			<c:otherwise>
-				<table border='1' cellpadding="3" cellspacing="1">
-					<tr>
-						<th width='56'>活動序號</th>
-						<th width='56'>活動名稱</th>
-						<th width='140'>活動簡介</th>
-						<th width='56'>貼文人員</th>
-						<th width='56'>詳細資料</th>
+				<table class="table-striped" style="font-size:15px">
+					<tr align="center">
+						<th width='65'>序號</th>
+						<th width='120'>名稱</th>
+						<th width='180'>簡介</th>
+						<th width='65'>貼文者</th>
+						<th width='65'>詳細資料</th>
 						<!-- 			   <th width='130'>報名開始日</th> -->
-						<th width='64'>報名結束日</th>
-						<th width='56'>貼文單位</th>
-						<th width='56'>活動類型</th>
+						<th width='100'>報名結束日</th>
+						<th width='80'>貼文單位</th>
+						<th width='65'>類型</th>
 						<th>活動海報</th>
 						<th>異動時間</th>
 						<th>剩餘名額</th>
-						<th colspan='2' width='72'>資料維護</th>
+						<th colspan='2' width='90'>資料維護</th>
 						<th>報名狀態</th>
 					</tr>
 					<c:forEach var='activity' items='${activities}'>
-						<tr>
+						<tr align="center">
 							<td style="text-align: center">${activity.id}</td>
 							<td>${activity.activityTitle}</td>
 							<td>${activity.activitySubtitle}</td>
 							<td style="text-align:center">${activity.organiserId}</td>
 							<td><a
 								href="<spring:url value='activity?id=${activity.id}' />"
-								class="btn btn-primary"> <span
+								class="btn btn-secondary"> <span
 									class="glyphicon-info-sigh glyphicon"></span>詳細資料
 							</a></td>
 							<%-- 					<td style="text-align:center">${activity.startDate}</td> --%>
@@ -59,8 +59,8 @@
 							<td style="text-align: center">${activity.actCategory}</td>
 							<td><img width='60' height='72'
 								src='activity/picture/${activity.id}' /></td>
-							<td style="text-align: right">${activity.updateTime}</td>
-							<td style="text-align: right">${activity.joinNum}</td>
+							<td>${activity.updateTime}</td>
+							<td class="text-success">${activity.joinNum}</td>
 							
 <!-- 							身分決定是否有管理權限 -->
 							
@@ -91,11 +91,11 @@
 <!-- 				＃＃＃＃＃＃＃＃＃＃＃人數為零或日期截止停止報名＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
 							<c:choose>
 		                        	<c:when test="${activity.joinNum <= 0 || nowDate.time > activity.endDate.time}">
-                                                                                                報名截止
+                                     <span class="text-danger">報名截止</span>
                                      </c:when>
 									<c:otherwise>
 										<a
-											href="${pageContext.request.contextPath}/activity/join/${activity.id}">報名</a>
+											href="${pageContext.request.contextPath}/activity/join/${activity.id}" class="btn btn-info">報名</a>
 									</c:otherwise>
 								</c:choose></td>
 
