@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <jsp:include page="/fragment/header.jsp" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +66,7 @@
                 	</c:forEach>
                    
 
-                    <p>User Registrations</p>
+                    <p>員工總人數</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
