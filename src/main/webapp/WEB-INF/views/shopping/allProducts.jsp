@@ -147,7 +147,7 @@
                              <h6 class="d-inline-block">${ShoppingCart.value.shoppingProductName}</h6>
                                
                                 <p class="d-block text-secondary pl-4">${ShoppingCart.value.orderItemsNumber}
-                                    &nbsp;X&nbsp;NT${ShoppingCart.value.shoppingProductPrice}
+                                    &nbsp;X&nbsp;NT<fmt:formatNumber value="${ShoppingCart.value.shoppingProductPrice* ShoppingCart.value.shoppingProductDiscount }" pattern="#,###,###" />
                                     <input type='hidden'  name='shoppingId' value="${ShoppingCart.value.shoppingProductPrice * ShoppingCart.value.shoppingProductDiscount * ShoppingCart.value.orderItemsNumber}">
                                 </p>
                                 </c:forEach>
