@@ -18,6 +18,7 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<hr>
 <fieldset>
 	<legend >更新活動資料(Activity)</legend>
 	<form:form method="POST" modelAttribute="activity" enctype='multipart/form-data'>

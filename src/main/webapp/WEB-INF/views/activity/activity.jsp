@@ -24,6 +24,7 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<hr>
 	<section class="container">
 		<div>
 			<div class="container" style="text-align: center">

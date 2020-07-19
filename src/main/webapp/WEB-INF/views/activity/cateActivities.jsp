@@ -13,6 +13,7 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<hr>
 <div align='center'>
 <h3>查詢結果</h3>
 <a href="<c:url value='/'/> " >回首頁</a>

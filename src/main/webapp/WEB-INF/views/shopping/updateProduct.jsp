@@ -7,102 +7,141 @@
 <head>
 
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<style type="text/css">
-fieldset {
-	border: 1px solid rgb(255, 232, 57);
-	
-	width: 600px;
-	margin: auto;
-}
-</style>
+<script>
+body{ margin: 0; font-size: .9rem; font-weight: 400; line-height: 1.6;
+color: #212529; text-align: left; background-color: #f5f8fa; }
+
+.navbar-laravel { box-shadow: 0 2px 4px rgba(0,0,0,.04); } .navbar-brand
+, .nav-link, .my-form, .login-form { font-family: Raleway, sans-serif; }
+
+.my-form { padding-top: 1.5rem; padding-bottom: 1.5rem; } .my-form .row
+{ margin-left: 0; margin-right: 0; } .login-form { padding-top: 1.5rem;
+padding-bottom: 1.5rem; } .login-form .row { margin-left: 0;
+margin-right: 0; }
+
+</script>
+
+
+
 <title>Products</title>
 </head>
 <body>
-	<section>
-		<div class="container">
-			<h1 style="text-align: center">新增產品資料</h1>
+	<jsp:include page="/fragment/header.jsp" />
+
+	<main class="my-form">
+		<div class="cotainer">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div class="card">
+						<div class="card-header text-white" style='background: #646D73'>
+							<strong><h3>商品更新</h3></strong>
+						</div>
+						<div class="card-body">
+
+							<!--       三個地方要完全一樣 -->
+							<form:form method='POST' modelAttribute="shoppingBean"
+								enctype='multipart/form-data' class='form-horizontal'>
+								<fieldset>
+								   	<div class="form-group row">
+										<label class="col-md-4 col-form-label text-md-right"
+											for="memberNumber" > 上傳員工編號</label>
+										<div class="col-md-6">
+											<form:input id="memberNumber" path="memberNumber" type='text'
+												value='${memberBean.memberNumber}' class="form-control input-md" />
+										</div>
+									</div>
+								
+									<div class="form-group row">
+										<label for="shoppingname"
+											class="col-md-4 col-form-label text-md-right">產品名稱</label>
+										<div class="col-md-6">
+											<form:input type="text" id="shoppingname" path="shoppingname"
+												class="form-control input-md" />
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-md-4 col-form-label text-md-right"
+											for='shoppingProductTotal'> 數量</label>
+										<div class="col-md-6">
+											<form:input id="shoppingProductTotal"
+												path="shoppingProductTotal" type='text'
+												class="form-control input-md" />
+										</div>
+									</div>
+
+
+
+									<div class="form-group row">
+										<label class="col-md-4 col-form-label text-md-right"
+											for="shoppingProductPrice"> 價格 </label>
+										<div class="col-md-6">
+											<form:input id="shoppingProductPrice"
+												path="shoppingProductPrice" type='text'
+												class="form-control input-md" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-4 col-form-label text-md-right"
+											for="productrelation"> 敘述 </label>
+										<div class="col-md-6">
+											<form:input id="productrelation" path="productrelation"
+												type='text' class="form-control input-md" />
+										</div>
+									</div>
+								
+									<div class="form-group row">
+										<label class="col-md-4 col-form-label text-md-right"
+											for="shoppingProductDiscount"> 商品折扣</label>
+										<div class="col-md-6">
+											<form:input id="shoppingProductDiscount"
+												path="shoppingProductDiscount" type='text'
+												class="form-control input-md" />
+										</div>
+									</div>
+
+								
+									<div class="form-group row">
+										<label class="col-md-4 col-form-label text-md-right"
+											for="shoppingType"> 商品種類</label>
+										<div class="col-md-6">
+											<form:input id="shoppingType" path="shoppingType" type='text'
+												class="form-control input-md" />
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-md-4 col-form-label text-md-right"
+											for="productrelation"> 商品敘述</label>
+										<div class="col-md-6">
+											<form:input id="productrelation" path="productrelation"
+												type='text' class="form-control input-md" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-4 col-form-label text-md-right"
+											for='productImage'> 照片上傳 </label>
+										<div class="col-md-6">
+											<form:input path="productImage" type='file' />
+											
+										</div>
+						
+<br>&nbsp;
+									<div class='col-lg-offset-2 col-lg-12'>
+										<input id="btnAdd" type='submit'
+											class="btn btn-secondary btn-lg btn-block" value="送出" />
+									</div>
+
+								</fieldset>
+							</form:form>
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</section>
-	<hr style="height: 1px; border: none; color: #333; background-color: #333;">
-	<section class="container">
-		<!--       三個地方要完全一樣 -->
-		<form:form method='POST' modelAttribute="shoppingBean" enctype='multipart/form-data' class='form-horizontal'>
-			<fieldset >
-				<div class="form-group">
-					<label class="control-label col-lg-2 col-lg-2" for='shoppingname'>
-						產品名稱 </label>
-					<div class="col-lg-10">
-						 <form:input id="shoppingname" path="shoppingname" type='text'
-							class='form:input-large' />
-					</div>
-				</div>
 
-				<div class="form-group">
-					<label class="control-label col-lg-2 col-lg-2"  for='shoppingProductTotal'>
-						數量</label>
-					<div class="col-lg-10">
-						<form:input id="shoppingProductTotal" path="shoppingProductTotal" type='text'
-							class='form:input-large' />
-					</div>
-				</div>
+	</main>
 
-			<div class="form-group">
-					<label class="control-label col-lg-2 col-lg-2" for='productImage'>
-						照片上傳 </label>
-					<div class="col-lg-10">
-						  <form:input  path="productImage" type='file'/><br>&nbsp;
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="shoppingProductPrice">
-						價格 </label>
-					<div class='col-lg-10'>
- 						<form:input id="shoppingProductPrice" path="shoppingProductPrice" type='text' 
-					class='form:input-large' /> 
-					</div>
-				</div>
-					<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="productrelation">
-						敘述 </label>
-					<div class='col-lg-10'>
-					<form:input id="productrelation" path="productrelation" type='text'
- 					class='form:input-large' /> 
-				</div> 
-					</div>
-				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="memberNumber">
-						員工編號</label>
-					<div class='col-lg-10'>
-						<form:input id="memberNumber" path="memberNumber" type='text'
- 							class='form:input-large' />  
-					</div></div>
-				 	 
-					<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="shoppingItemId">
-						商品編號</label>
-					<div class='col-lg-10'>
-						<form:input id="shoppingItemId" path="shoppingItemId" type='text'
- 							class='form:input-large' />  
-					</div>
-					</div>
-					<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="shoppingProductDiscount">
-						商品折扣</label>
-					<div class='col-lg-10'>
-						<form:input id="shoppingProductDiscount" path="shoppingProductDiscount" type='text'
- 							class='form:input-large' />  
-					</div>
-					</div>
-					<div class='col-lg-offset-2 col-lg-10'>
-						<input id="btnAdd" type='submit' class='btn btn-primary'
-							value="送出" />
-					</div>
-			
-			</fieldset>
-		</form:form>
-	</section>
 </body>
 </html>

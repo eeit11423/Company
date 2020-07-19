@@ -8,6 +8,7 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<hr>
 無效的查詢，請重新輸入
 </body>
 </html>

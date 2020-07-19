@@ -17,6 +17,7 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<hr>
 <fieldset>
 	<legend >新增活動資料(Activity)</legend> 
 	<form:form method="POST" modelAttribute="activity" enctype='multipart/form-data'>
@@ -110,7 +111,8 @@
 	</form:form>
 	
 </fieldset>
-<br>
-<a href="<c:url value='/activity/showAllActivities'/> " >回前頁</a>
+<hr>
+<!-- <br> -->
+<%-- <a href="<c:url value='/activity/showAllActivities'/> " >回前頁</a> --%>
 </body>
 </html>
