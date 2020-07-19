@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 
 
 <link rel='stylesheet'
@@ -77,7 +79,7 @@ function Abort() {
 
 </head>
 <body>
-	<jsp:include page="/fragment/header.jsp" />
+<jsp:include page="/fragment/header.jsp" />
 	<form method='GET'>
 		<input type='hidden' name='_method' value='update'>
 	</form>
@@ -93,9 +95,9 @@ function Abort() {
 	</c:choose>
 
 	<!-- 購物車/start -->
-	<section class="page-content">
-	<div class="container pt-5 pb-5">
-		<div class="row">
+
+	
+		
 			<!-- 產品清單/start -->
 			<div class="col-12 mb-3">
 				<h2 class="mb-3">購物車</h2>
@@ -215,17 +217,12 @@ function Abort() {
 				</div>
 			</div>
 			<!-- 產品統計/end -->
-		</div>
-	</div>
-	</section>
+	
+
 	<!-- 購物車/end -->
 	<!-- 頁腳/start -->
 
 	<!-- 頁腳/end -->
-	<script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip({trigger: "click"});
-        })
-    </script>
+
 </body>
 </html>
