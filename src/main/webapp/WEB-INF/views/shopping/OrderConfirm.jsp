@@ -89,9 +89,6 @@ function reconfirmOrder() {
           </tr>
                <c:forEach  varStatus="vs" var='ShoppingCart' items='${ShoppingCart.content}'>
 				<tr>
-
-			
-		
 					<td>${ShoppingCart.value.shoppingProductName}</td>
 					<td>${ShoppingCart.value.productrelatio}</td>
 					<td>${ShoppingCart.value.shoppingProductPrice}</td>
