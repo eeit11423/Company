@@ -1,7 +1,7 @@
 1001|鍵盤|G913 無線RGB機械式短軸遊戲鍵盤 |7490|0.5|多媒體控制快捷鍵設計 支援程式軟體編輯自由選擇色調  青軸|data/images/shopping/product1.jpg|50
 1001|鍵盤|G413 機械式背光遊戲鍵盤|1990|0.5|FN搭配多媒體熱鍵 RGB支援紅色/白色切換  白軸|data/images/shopping/product2.jpg|50
-1001|鍵盤|Ducky One 2 Mini RGB 機械式鍵盤|2890|0.5|Ducky Marco2.0 硬體巨集設定功能  RGB黑色PBT二色 紅軸|data/images/shopping/product3.jpg|50
-1001|鍵盤|Ducky One 2 Mini RGB 機械式鍵盤|2690|0.5|Ducky Marco2.0 硬體巨集設定功能  RGB黑色PBT二色 茶軸|data/images/shopping/product4.jpg|50
+1001|鍵盤|Ducky One 2 Mini RGB 機械式鍵盤|2890|0.5|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 紅軸|data/images/shopping/product3.jpg|50
+1001|鍵盤|Ducky One 2 Mini RGB 機械式鍵盤|2690|0.5|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 茶軸|data/images/shopping/product4.jpg|50
 1001|鍵盤|Craft 創意輸入轉鈕無線鍵盤|5990|0.5|多媒體控制快捷鍵設計 智慧背光照明系統 靜音無噪按鍵|data/images/shopping/product5.jpg|50
 1001|鍵盤|羅技 G512機械式電競鍵盤 - GX線性軸|2990|0.5|羅技G HUB自訂功能鍵 1680萬色 LIGHTSYNC RGB 可自訂燈效 青-紅-茶軸|data/images/shopping/product6.jpg|50
 1001|鍵盤|羅技 G910 電競鍵盤|5990|0.5|9 個可自訂按鈕專用媒體控制鍵 智慧型 RGB 照明-可自訂超過 1680 萬種顏色 獨家 ROMER-G 機械軸|data/images/shopping/product7.jpg|50

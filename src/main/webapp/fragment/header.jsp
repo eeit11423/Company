@@ -13,6 +13,7 @@
 	crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
 
+
 <header class="container-fluid">
 		<nav class="navbar navbar-expand-lg navbar-light bg-white">
 			<a class="navbar-brand" href="index.html"> <img
@@ -41,6 +42,7 @@
 						data-toggle="dropdown"> 產品商城 </a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="<c:url value='/shopping/allProducts' />">查詢所有產品資料</a>
+							<a class="dropdown-item" href="<c:url value='/shopping/allProductsUpdateDelete' />">後台修改編輯產品資料</a>
 							<a class="dropdown-item" href="<c:url value='/products/add' />">新增產品資料</a>
 							<a class="dropdown-item" href="<c:url value='/shoppingCart' />">購物車</a>
 							<a class="dropdown-item" href="<c:url value='/orderList/list' />">訂單資訊</a>
