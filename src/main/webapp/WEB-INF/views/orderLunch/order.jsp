@@ -7,7 +7,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/orderLunchCss/css/main.css" />
-		<link rel='stylesheet'href='${pageContext.request.contextPath}/dist/orderLunchCss/css/adminlte.css' type="text/css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		<noscript><link rel="stylesheet" href="${pageContext.request.contextPath}/dist/orderLunchCss/css/noscript.css" /></noscript>
 		<style>
@@ -49,7 +48,11 @@
 										</header>
 										<p>選擇一家要進行訂購的店家  再+1吧！</p> 
 										<ul class="actions">
-										<li>店家名單：<a href="#second">麥當勞</a></li>
+											<li>店家名單：
+												<c:forEach var='store' items='${storeList}'>
+													<a id="${store}" onclick="getJson(${store})" style="cursor: pointer;">${store}</a>
+												</c:forEach>
+											</li>
 										</ul>
 									</div>
 									<span class="image"><img src="${pageContext.request.contextPath}/images/orderLunchImages/mm.jpg" alt="" /></span>
@@ -60,33 +63,53 @@
 								<header class="major">
 									<h2>如果上面沒喜歡的 那就自己建立清單吧！</h2>
 								</header>
-								<ul class="features">
-									<li>
-										店家：<input type="text">
-									</li>
-									<li>
-										結束時間：<input type="text">
-									</li>
-								</ul>
-								<ul class="features">
-									<li>
-										餐點：<input type="text"  class="button">
-									</li>
-									<li>
-										價格：<input type="text"  class="button">
-									</li>
-									<li >
-										<p id='insertText'>新增/刪除</p>
-										<a href="generic.html" class="far fa-plus-square fa-3x"></a>
-										<a href="generic.html" class="far fa-minus-square fa-3x" ></a>
-									</li>
-								</ul>
-								
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="generic.html" class="button">建立</a></li>
-									</ul>
-								</footer>
+								  <div>
+                                   <div style="display: flex; align-items: center; padding-bottom: 5%; border-bottom: 1px solid rgb(197, 197, 197);">
+              <div
+                style="
+                  display: flex;
+                  width: 50%;
+                  margin: 0 10px;
+                  align-items: center;
+                "
+              >
+                <span style="display: block;"> 店家：</span
+                ><input type="text" style="width: 80%;" />
+              </div>
+              <div
+                style="
+                  display: flex;
+                  width: 50%;
+                  margin: 0 10px;
+                  align-items: center;
+                "
+              >
+                <span style="display: block;">結束時間：</span
+                ><input type="text" style="width: 80%;" />
+              </div>
+            </div>
+            <ul class="features" style="margin:10px 0 0 0">
+             <li style="display:flex; align-items: center;">
+              <span style="white-space: nowrap;">餐點：</span>  
+                <select>
+                  <option>麥脆雞</option>
+                </select>
+              </li>
+              <li style="display:flex; align-items: center;">
+              <span style="white-space: nowrap;">價格：</span><input type="text" readonly="readonly" value="100" />
+              </li>
+              <li>
+                <a
+                  id="second-add"
+                  class="far fa-plus-square fa-3x second-add"
+                ></a>
+                <a
+                  id="second-remove"
+                  class="far fa-minus-square fa-3x second-remove"
+                ></a>
+              </li>
+            </ul>
+          </div>
 							</section>
 							
 							<!-- First Section -->
@@ -94,31 +117,35 @@
 								<header class="major">
 									<h2>選擇你要的餐點吧！</h2>
 								</header>
-								<ul class="features">
-									<li>
-										店家：
-									<select>
+								<div class="features-box">
+								<div  style="display:flex; align-items: center;padding-bottom:5%  ;border-bottom: 1px solid rgb(197, 197, 197);">
+										<span style="white-space: nowrap;">店家：</span>
+									<select id="second-store" style="width:60%">
 										<option>麥當勞</option>
 									</select>
-									</li>
-									<li>
-									餐點：
+									</div>
+								<ul class="features">
+									<li style="display:flex; align-items: center; width:60%;">
+									 <span style="white-space: nowrap;">餐點：</span>
 									<select>
 										<option>麥脆雞</option>
 									</select>
 									</li>
-									<li>
-										價格：<input type="text" readonly="readonly" value="100">
+									<li style="display:flex; align-items: center;">
+										 <span style="white-space: nowrap;">價格：</span><input type="text" readonly="readonly" value="100">
 									</li>
-									<li style="white-space: nowrap;">
-										數量：<input type="text" readonly="readonly" value="0">
+									<li style="white-space: nowrap; margin-top:0 ;display:flex; align-items: center;">
+										 <span style="white-space: nowrap;">數量：</span><input type="text" readonly="readonly" value="0">
 									</li>
-									<li >
-										<p id='insertText'>新增/刪除</p>
-										<a href="generic.html" class="far fa-plus-square fa-3x"></a>
-										<a href="generic.html" class="far fa-minus-square fa-3x" ></a>
+									    <li style=" margin-top:0 ;display:flex; align-items: center;">
+                                           <span style="white-space: nowrap;">點餐者：</span><input type="text" readonly="readonly" value="0" />
+                                        </li>
+									<li style="margin-top:1%">
+										  <a id="second-add" class="far fa-plus-square fa-3x second-add"></a>
+         								  <a id="second-remove" class="far fa-minus-square fa-3x second-remove" ></a>
 									</li>
 								</ul>
+								</div>
 								<footer class="major">
 									<ul class="actions special">
 										<li><a href="generic.html" class="button">送出</a></li>
@@ -173,6 +200,42 @@
 			<script src="${pageContext.request.contextPath}/dist/orderLunchCss/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/dist/orderLunchCss/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/dist/orderLunchCss/js/main.js"></script>
-
+ <script>
+ var item =
+	  '<ul class="features">'+
+		'<li style="display:flex; align-items: center; width:60%;"><span style="white-space: nowrap;">餐點：</span><select><option>麥脆雞</option></select></li>'+
+       '<li style="display:flex; align-items: center;"><span style="white-space: nowrap;">價格：</span><input type="text" readonly="readonly" value="100"></li>'+
+       '<li style="display:flex; align-items: center;"><span style="white-space: nowrap;">數量：</span><input type="text" readonly="readonly" value="0"></li>'+
+       '<li  style=" margin-top:0 ;display:flex; align-items: center;"><span style="white-space: nowrap;">餐點者：</span><input type="text" readonly="readonly" value="0"></li>'+
+       '<li style="margin-top:1%"><a id="second-add" class="far fa-plus-square fa-3x second-add"></a><a id="second-remove" class="far fa-minus-square fa-3x second-remove" ></a></li>'+
+       '</ul>';
+     
+     $(document).on("click", ".second-add", function () {
+         $(".features-box").append(item);
+       });
+      $(document).on("click", ".second-remove", function () {
+          $(".features").last().remove();
+        });
+      function getJson(e) {
+    	  $.ajax({'url':'/mvcExercisetest/orderLunch/selectStoreList',
+				'method' : "POST",
+				'data' : {'store' : e.id
+				},'success' : function(datas) {
+					var datasJson = JSON.parse(datas);
+					var i;
+					var text ='';
+					  for (var i = 0; i < datasJson.length; i++) {
+					        var a=datasJson[i].store;
+					        $( "#second-store").empty();
+					        $("#second-store").append("<option>"+a+"</option>");
+	              }
+					
+				},'error':function(xhr, ajaxOptions, thrownError){
+					console.log(xhr.responseText);
+				}
+     		 });
+      };
+      
+    </script>
 	</body>
 </html>
