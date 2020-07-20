@@ -27,7 +27,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		return new String[] {"/"}; // 表示所有請求交由分派器處理
 	}
 
-<<<<<<< HEAD
+
 	@Override
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
@@ -35,7 +35,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		//HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
 		return new Filter[] {characterEncodingFilter};
 	}
-=======
+
 	
 	// 這段程式碼會與Activity的Delete方法衝突
 //	@Override
@@ -45,5 +45,5 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 //		HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
 //		return new Filter[] {characterEncodingFilter, hiddenHttpMethodFilter};
 //	}
->>>>>>> 367c7dc9ec84da7e9b46400b0dece8b32ab280f7
+
 }
