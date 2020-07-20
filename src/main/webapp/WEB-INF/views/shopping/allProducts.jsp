@@ -12,9 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>全部商品</title>
    
-<!--     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-<!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script> -->
-<!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
@@ -77,12 +75,12 @@
                            <img class="card-img-top" src='picture/${product.shoppingId}' alt="${product.shoppingId}">
                                 <div class="card-body card" >
                                  <h5 class="card-img-top" >${product.shoppingname}</h5>
-                                     <h5 class="card-text text-danger" >
+                                     <h5 class="card-text " >
                                      <small class="mr-1" >
                                     <del >$&nbsp;${product.shoppingProductPrice}</del>
                                      </small>
                                      
-                                     <fmt:formatNumber value="${product.shoppingProductPrice * product.shoppingProductDiscount }" pattern="#,###,###" />
+                                     <span class="card-text text-danger"><fmt:formatNumber value="${product.shoppingProductPrice * product.shoppingProductDiscount }" pattern="#,###,###" /></span>
                                      </h5>
                                     <a href="<spring:url value='oneProduct?id=${product.shoppingId}' />" class="btn btn-outline-secondary btn-block">查看商品</a>
                                     <form action='addToCart' method='POST' >

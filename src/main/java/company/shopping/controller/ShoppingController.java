@@ -105,7 +105,7 @@ public class ShoppingController {
 		return "shopping/addProduct";
 	}
 
-	@PostMapping("/products/add")
+	@PostMapping("/products/add") //新增一筆商品
 	public String processAddNewProductForm(@ModelAttribute("shoppingBean") ShoppingBean bb, BindingResult result,
 			Model model) {
 		MultipartFile productImage = bb.getProductImage();
@@ -125,7 +125,7 @@ public class ShoppingController {
 		bb.setShoppingDate(new Timestamp(System.currentTimeMillis()));
 
 		service.addProduct(bb);
-		return "redirect:/";
+		return "redirect:/shopping/allProductsUpdateDelete";
 	}
 
 	@GetMapping("/shopping/picture/{id}")
@@ -182,7 +182,7 @@ public class ShoppingController {
 		return b;
 	}
 
-	@GetMapping("/shopping/sh/{id}")
+	@GetMapping("/shopping/sh/{id}")   
 	public String update(@PathVariable("id") Integer id, Model model) {
 		ShoppingBean shoppingBean = service.getshoppingId(id);
 		model.addAttribute(shoppingBean);
@@ -216,7 +216,7 @@ public class ShoppingController {
 		}
 		service.update(ss);
 
-		return "redirect:/shopping/allProducts";
+		return "redirect:/shopping/allProductsUpdateDelete";
 	}
 
 	@RequestMapping("/shopping/sh1/{id}")
@@ -224,7 +224,7 @@ public class ShoppingController {
 		ss.setShoppingId(id);
 		System.out.println("刪除ID====================="+id);
 		service.delete(id);
-		return "redirect:/shopping/allProducts";
+		return "redirect:/shopping/allProductsUpdateDelete";
 	}
 
 	@InitBinder
