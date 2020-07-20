@@ -8,14 +8,18 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
-<hr>
 <div style="text-align:center">
-<h3>依日期查詢活動</h3>
+
+<hr>
+	<div align='center'>
+		<h1 class="bg-secondary text-light">依截止日期查詢活動</h1>
+<hr>
 <form action="cateByDate.do"> 
 起始日期：<input type="date" name="begin"/> 
 結束日期：<input type="date" name="end"/> 
 <input type="submit" value="查詢"> 
 </form> 
+</div>
 </div>
 </body>
 </html>
