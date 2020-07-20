@@ -12,10 +12,11 @@
 <jsp:include page="/fragment/header.jsp" />
 <hr>
 	<div align='center'>
-		<h3>活動資料</h3>
-		<a href='act'>新增活動資料</a> &nbsp;&nbsp;&nbsp;<a
-			href="<c:url value='/'/> ">回前頁</a>
-		<hr>
+		<h1 class="bg-secondary text-light">全部活動資料</h1>
+<hr>
+		<a class="btn btn-info" href="<c:url value='act' />">新增活動</a> &nbsp;&nbsp;&nbsp;<a class="btn btn-info"
+			href="<c:url value='/activity/index' />">返回前頁</a>
+		
 		<form method='POST'>
 			<input type='hidden' name='_method' value='DELETE'>
 		</form>
