@@ -54,7 +54,8 @@
 					<TD align="left">&nbsp;${orderBean.orderTotalPrice}</TD>
 					<TD align="left">&nbsp;<fmt:formatDate value="${orderBean.orderDate}" pattern="yyyy-MM-dd"/></TD>
 					<TD align="center">
-					<a	class='badge badge-secondary' style='background: #646D73' href="<c:url value='../shopping/order/ShowOrderDetail/${memberBean.memberNumber}/${orderBean.orderNo}' />">連結
+					<a	class='btn btn-secondary btn-sm btn-block' style='background: #646D73' href="<c:url value='../shopping/order/ShowOrderDetail/${memberBean.memberNumber}/${orderBean.orderNo}' />">
+					連結
 					</TD>
 
 				</TR>
