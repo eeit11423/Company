@@ -29,8 +29,8 @@
 		<table class="table table-hover bg-white table-bordered">
 
 			<tr class="text-white text-left" style='background: #646D73'>
-				<th colspan="8" align="center" font='30'><strong>編號${memberBean.memberNumber}:
-					${memberBean.memberName}的訂購紀錄</strong></th>
+				<th colspan="8" align="center" font='30'><h3>編號${memberBean.memberNumber}:
+					${memberBean.memberName}的訂購紀錄</h3></th>
 			<tr class="text-white " style='background: #646D73'>
 				<th width="30" align="center">No</th>
 
