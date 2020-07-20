@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import company.attendance.model.Leave;
 import company.member.model.MemberBean;
 import company.attendance.service.LeaveService;
+import company.attendance.validators.AttendanceLeaveValidator;
 
 @Controller
 @RequestMapping(value ="attendance/leave/")
@@ -50,7 +51,13 @@ public class LeaveController {
 	}
 
 	@PostMapping(value = "/saveInsertLeave", consumes = "application/x-www-form-urlencoded")
-	public String saveInsertPunchTime(@ModelAttribute("leave") Leave leave, BindingResult bindingResult) {
+	public String saveInsertPunchTime(@ModelAttribute("leave") Leave leave, BindingResult bindingResult, Model model,
+			HttpServletRequest request) {
+		AttendanceLeaveValidator validator = new AttendanceLeaveValidator();
+		validator.validate(leave, bindingResult);
+		if (bindingResult.hasErrors()) {
+			return "attendance/leave/insertLeave";
+		}
 		int n = service.saveLeave(leave);
 		if (n == 1) {
 			return "redirect:/attendance/leave/queryLeave";
