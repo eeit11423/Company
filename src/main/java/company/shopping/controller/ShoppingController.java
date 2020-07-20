@@ -264,6 +264,8 @@ public class ShoppingController {
 	}
 	
 	
+	
+	
 
 @ModelAttribute("shoppingBean") //先抓取圖檔避免更新會有空值
 	public void getShoppingId(@PathVariable(value = "id", required = false) Integer id, Model model) {

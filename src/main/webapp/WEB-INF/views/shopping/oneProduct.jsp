@@ -11,6 +11,41 @@
     <title>OnePrduct</title>
 <meta charset="UTF-8">
 <title>shopping</title>
+<script>
+function modifynumber() {
+	var newQty = document.getElementById(newQty).value;
+	var orderItemsNumber = document.getElementById(orderItemsNumber).value;
+	newQty=orderItemsNumber
+
+	
+	
+}
+
+function modify() {
+	
+	var newQty = document.getElementById(newQty).value;
+	if  (newQty < 0 ) {
+		window.alert ('數量不能小於 0');
+		return ; 
+	}
+	if  (newQty == 0 ) {
+		window.alert ("請輸入數量");
+		document.getElementById(newQty).value = qty;
+		return ; 
+	}
+
+	if (confirm("確定將此商品的加入數量是否" + newQty + " ? ") ) {
+		document.forms[0].action="<c:url value='addToCartOneProduct' />";
+		document.forms[0].method="POST";
+		document.forms[0].submit();
+	} else {
+		document.getElementById(x).value = qty;
+	}
+}
+
+
+</script>
+
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
@@ -36,21 +71,23 @@
                                 NT$&nbsp;<fmt:formatNumber value="${shoppingBean.shoppingProductPrice * shoppingBean.shoppingProductDiscount }" pattern="#,###,###" />
                             </h5>
 <%--                             <p class="mt-4">${shoppingBean.shoppingname}</p> --%>
+                             <form   action='addToCartOneProduct' method='POST'>
                             <div class="d-block mb-3">
                                 <p class="mb-0 d-inline-block">數量</p>
-                                <form action="" class="d-inline-block">
-                                    <input type="number" class="form-control w-25" id="quantity" value='1'>
-                                </form>
+                               
+                                    <input class="d-inline-block" type="number"  name='orderItemsNumber'  class="form-control w-25" id="quantity" value='1' >
+                       
                             </div>
                             <div class="mb-3">
-                                    <form action='addToCartOneProduct' method='POST' >
+                                    
                                     <input type='hidden'  name='shoppingId' value='${shoppingBean.shoppingId}'> 
-                                    <input type='hidden'  name='orderItemsNumber'  value='1'>
+                                    <input type='hidden'  value='1'  id='orderItemsNumber'>
                              
                                     <input class="btn btn-primary text-white mr-1" type='submit' value='加入購物車' >
                                     
-                                <span><a href="${pageContext.request.contextPath}/OrderConfirm" onClick="return Checkout(${ShoppingCart.subtotal});"  class="btn btn-secondary text-white">直接結帳</a></span>
-                            	</div>
+                                <span><a href="${pageContext.request.contextPath}/OrderConfirm" onClick="return Checkout(${ShoppingCart.subtotal});"  class="btn btn-secondary text-white mr-1">直接結帳</a></span>
+                            	
+                            	</div>  </form>
                             <p class="d-block text-secondary">產品分類：<span>${shoppingBean.shoppingType}</span></p>
                         </div>
                         <!-- 商品介紹/end -->
