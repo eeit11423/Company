@@ -39,7 +39,7 @@
                             <div class="d-block mb-3">
                                 <p class="mb-0 d-inline-block">數量</p>
                                 <form action="" class="d-inline-block">
-                                    <input type="number" class="form-control w-25" id="quantity" value="1">
+                                    <input type="number" class="form-control w-25" id="quantity" value='1'>
                                 </form>
                             </div>
                             <div class="mb-3">
@@ -48,9 +48,9 @@
                                     <input type='hidden'  name='orderItemsNumber'  value='1'>
                              
                                     <input class="btn btn-primary text-white mr-1" type='submit' value='加入購物車' >
-                                    </form>
+                                    
                                 <span><a href="${pageContext.request.contextPath}/OrderConfirm" onClick="return Checkout(${ShoppingCart.subtotal});"  class="btn btn-secondary text-white">直接結帳</a></span>
-                            </div>
+                            	</div>
                             <p class="d-block text-secondary">產品分類：<span>${shoppingBean.shoppingType}</span></p>
                         </div>
                         <!-- 商品介紹/end -->
