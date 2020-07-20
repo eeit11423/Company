@@ -4,7 +4,7 @@ import javax.servlet.Filter;
 
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
+//import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -27,11 +27,23 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		return new String[] {"/"}; // 表示所有請求交由分派器處理
 	}
 
+
 	@Override
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		characterEncodingFilter.setEncoding("UTF-8");
-		HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
-		return new Filter[] {characterEncodingFilter, hiddenHttpMethodFilter};
+		//HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
+		return new Filter[] {characterEncodingFilter};
 	}
+
+	
+	// 這段程式碼會與Activity的Delete方法衝突
+//	@Override
+//	protected Filter[] getServletFilters() {
+//		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+//		characterEncodingFilter.setEncoding("UTF-8");
+//		HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
+//		return new Filter[] {characterEncodingFilter, hiddenHttpMethodFilter};
+//	}
+
 }

@@ -69,11 +69,12 @@
 							<a class="dropdown-item" href="<c:url value='rearend/allSalary' />">圖表分析</a>
 							<a class="dropdown-item" href="<c:url value='rearend/Salaryex' />">圖表分析2</a>
 							<a class="dropdown-item" href="<c:url value='rearend/meindex' />">測試</a>
-							<a class="dropdown-item" href="<c:url value='rearend/rearEnd' />">測試2</a>
+							<a class="dropdown-item" href="<c:url value='orderprice' />">測試2</a>
 							
 						</div></li>
 		
 					<li class="nav-item"><a class="nav-link" href="contact.html">連絡我們</a>
+					<li class="nav-item"><a class="nav-link" href="rearendd">後端</a>
 					</li>
 	
 

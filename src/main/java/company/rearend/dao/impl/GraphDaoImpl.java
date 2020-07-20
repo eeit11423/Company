@@ -1,7 +1,5 @@
 package company.rearend.dao.impl;
 
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import company.member.model.MemberBean;
 import company.rearend.dao.GraphDao;
+import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 
 @Repository
@@ -77,6 +76,21 @@ public class GraphDaoImpl implements GraphDao {
 		Session session = factory.getCurrentSession();
 		List<MemberBean> list = session.createQuery(hql).getResultList();
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderItemBean> getOrderprice(String price) {
+		String hql = "SELECT SUM(O.shoppingProductPrice) FROM OrderItemBean O ";
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list = session.createQuery(hql).getResultList();
+		List<Double> list1 = session.createQuery(hql).getResultList();
+		
+		for (Double orderItemBean : list1) {
+			System.out.println(orderItemBean);
+		}
+		return list;
+		
 	}
 
 }

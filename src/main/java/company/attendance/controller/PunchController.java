@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,15 +23,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.mysql.cj.Session;
 
 import company.member.model.MemberBean;
 import company.attendance.model.Punch;
 import company.attendance.service.PunchService;
+import company.attendance.validators.AttendancePunchValidator;
 
 @Controller
 @RequestMapping(value ="attendance/punch/")
-@SessionAttributes({"punch"})
+@SessionAttributes({"punch", "memberBean"})
 public class PunchController {
 	public PunchController() { }
 
@@ -38,10 +43,16 @@ public class PunchController {
 	PunchService service;
 	
 	@RequestMapping("punch")
-	public String punch(Model model) {
-		List<Punch> list = service.getPunchTime();
-		model.addAttribute("punch",list);
-		return "attendance/punch/punch";
+	public String punch( Model model, HttpSession session) {
+//		if (condition) {
+//			List<Punch> list = service.getPunchTime();
+//			session.getAttribute(memberBean);
+//			return "attendance/punch/punch";
+//		}else {
+			List<Punch> list = service.getPunchTime();
+			model.addAttribute("punch",list);
+			return "attendance/punch/punch";
+//		}
 	}
 	
 	
@@ -74,7 +85,13 @@ public class PunchController {
 	}
 	
 	@PostMapping(value = "/saveInsertPunchTime", consumes = "application/x-www-form-urlencoded")   
-	public String saveInsertPunchTime(@ModelAttribute("punch") Punch punch, BindingResult bindingResult) {
+	public String saveInsertPunchTime(@ModelAttribute("punch") Punch punch, BindingResult bindingResult, Model model,
+			HttpServletRequest request) {
+		AttendancePunchValidator validator = new AttendancePunchValidator();
+		validator.validate(punch, bindingResult);
+		if (bindingResult.hasErrors()) {
+			return "attendance/punch/insertPunchTime";
+		}
 		int n = service.savePunchTime(punch);
 		if (n==1) {
 			return "redirect:/attendance/punch/queryPunchTime";
@@ -105,7 +122,7 @@ public class PunchController {
 	@GetMapping("/queryPunchTimeData")
 	public ResponseEntity<Map<String, Object>> queryPunchTime(
 			@RequestParam(value="memberNumber", defaultValue = "0") int memberNumber,
-			@RequestParam(value="selectdate", defaultValue = "0-0") String selectdate ){ 
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate ){ 
 		List<Punch> listTarget = service.queryPunchTime(memberNumber, selectdate);
 		Map<String, Object> map =  new HashMap<>();
 		map.put("punchtimes", listTarget);
@@ -130,7 +147,7 @@ public class PunchController {
 		return "redirect:/attendance/punch/queryPunchTime";
 	}
 
-	@DeleteMapping("/punchTime/update/{key}")
+	@DeleteMapping("/punchTime/update/{key}")  
 	public String deletePunchTime(@PathVariable Integer key, Model model, HttpServletRequest req) {
 		service.deletePunchTimeByPunchId(key);
 		return "redirect:/attendance/punch/queryPunchTime";
@@ -140,5 +157,11 @@ public class PunchController {
 	public Punch punchModelAttribute(Model model) {
 		Punch punch = new Punch();
 		return punch;
+	}
+	
+	@ModelAttribute("memberBean")
+	public MemberBean modelAttribute(HttpServletRequest req, Model model) {
+		MemberBean memberbean = new MemberBean();
+		return memberbean;
 	}
 }

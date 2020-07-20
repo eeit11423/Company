@@ -12,6 +12,7 @@
 <title>查詢出勤紀錄</title>
 </head>
 <body>
+	<jsp:include page="/fragment/header.jsp" />
 	<div class="container" style="text-align: center">
 		<h1>
 			查詢出勤紀錄

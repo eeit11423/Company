@@ -32,6 +32,10 @@
 	   	  <td width='360'><form:input path='activityTitle'/><br>&nbsp;
 	   	   <form:errors path="activityTitle" cssClass="error"/>
 	   	  </td>
+	   	  <td>簡介：<br>&nbsp;</td>
+		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	
+		      <form:errors path='activitySubtitle' cssClass="error"/>
+		  </td>
 	   </tr>
     </c:if>	   
     	<c:if test='${activity.id != null}'>
@@ -40,17 +44,21 @@
 	   	  <td><form:hidden path='activityTitle'/>
 	   	  	${activity.activityTitle}<br>&nbsp;
 	   	  </td>
+	   	  <td>簡介：<br>&nbsp;</td>
+		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	
+		      <form:errors path='activitySubtitle' cssClass="error"/>
+		  </td>
 	   </tr>
     </c:if>	
     
 	   <tr>
-	      <td>簡介：<br>&nbsp;</td>
-		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	
-		      <form:errors path='activitySubtitle' cssClass="error"/>
-		  </td>
+<!-- 	      <td>簡介：<br>&nbsp;</td> -->
+<%-- 		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	 --%>
+<%-- 		      <form:errors path='activitySubtitle' cssClass="error"/> --%>
+<!-- 		  </td> -->
 		  <td>內容：<br>&nbsp;</td>
-	      <td  width='360'>
-	      	<form:input path="content"/><br>&nbsp;	
+	      <td  colspan="3">
+	      	<form:textarea path="content" cols="90"/><br>&nbsp;	
 		      <form:errors path='content' cssClass="error"/>
 		  </td>
 	   </tr>
@@ -117,7 +125,8 @@
 	</form:form>
 	
 </fieldset>
-<hr>
-
+<footer class="bg-secondary text-white" align='center' style="font-size:20px">
+© Copyright 2020
+</footer>
 </body>
 </html>
