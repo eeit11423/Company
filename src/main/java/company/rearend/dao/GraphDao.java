@@ -2,9 +2,8 @@ package company.rearend.dao;
 
 import java.util.List;
 
-
-
 import company.member.model.MemberBean;
+import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 
 
@@ -16,5 +15,7 @@ public interface GraphDao {
 	List<ShoppingBean> getShoppingNumber(String Number);
 
 	List<MemberBean>  getMemberNumberpeople(String people);
+	List<OrderItemBean>  getOrderprice(String price);
+	
 	//List<Map<ShoppingBean,MemberBean>>  getShoppingNumbera(String Number);
 }

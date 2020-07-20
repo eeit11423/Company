@@ -3,6 +3,7 @@ package company.rearend.service;
 import java.util.List;
 
 import company.member.model.MemberBean;
+import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 
 public interface GraphService {
@@ -11,4 +12,5 @@ public interface GraphService {
 	List<MemberBean>  getMemberBypeople(String people);
 	List<ShoppingBean> getShoppingNumber(String Number);
 	List<MemberBean>  getMemberNumberpeople(String people);
+	List<OrderItemBean>  getOrderprice(String price);
 }
