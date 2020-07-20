@@ -89,6 +89,13 @@ public class ShoppingController {
 		model.addAttribute("products", beans);
 		return "shopping/allProducts";
 	}
+	
+	@GetMapping("/shopping/allProductsUpdateDelete") // 後台show出全部商品
+	public String allProductsUpdateDeletelist(Model model, HttpServletRequest req) {
+		List<ShoppingBean> beans = service.getAllProducts();
+		model.addAttribute("products", beans);
+		return "shopping/allProductsUpdateDelete";
+	}
 
 	@GetMapping("/products/add")
 	public String getAddNewProductForm(Model model) {
