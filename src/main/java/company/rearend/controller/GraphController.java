@@ -82,9 +82,10 @@ public class GraphController {
 	
 		return "rearend/meindex";
 	}
-	@GetMapping("/rearend/rearEnd")
-	public String bbc() {
 	
-		return "rearend/rearEnd";
+	@GetMapping("/rearendd")
+	public String rearendd() {
+	
+		return "../../fragment/headerRearend";
 	}
 }

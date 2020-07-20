@@ -84,10 +84,10 @@ public class GraphDaoImpl implements GraphDao {
 		String hql = "SELECT SUM(O.shoppingProductPrice) FROM OrderItemBean O ";
 		Session session = factory.getCurrentSession();
 		List<OrderItemBean> list = session.createQuery(hql).getResultList();
-		List<Integer> list1 = session.createQuery(hql).getResultList();
-		for (Integer orderItemBean : list1) {
+		List<Double> list1 = session.createQuery(hql).getResultList();
+		
+		for (Double orderItemBean : list1) {
 			System.out.println(orderItemBean);
-			System.out.println("=====================================================");
 		}
 		return list;
 		

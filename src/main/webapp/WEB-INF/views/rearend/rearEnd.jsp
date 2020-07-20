@@ -126,7 +126,7 @@
             <div class="col-md-3 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title text-md-center text-xl-left">營業額</p>
+                  <p class="card-title text-md-center text-xl-left">員購營業額</p>
                   <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
                     <c:forEach var='prices' items="${price}" >
                     <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">${prices}</h3>
@@ -140,7 +140,7 @@
             <div class="col-md-3 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title text-md-center text-xl-left">會員總人數</p>
+                  <p class="card-title text-md-center text-xl-left">員工總人數</p>
                   <div class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
                    <c:forEach var='MN' items="${peopleNumber}" >
                     <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">${MN}</h3>
