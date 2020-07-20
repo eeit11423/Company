@@ -239,13 +239,21 @@
 	             var member = JSON.parse(xhr.responseText);
 	       	    var xhr_img = new XMLHttpRequest();
 				for (var i= 0 ; i<member.length ; i++){
-
-					
-					
-					
-					
+					content +='<div class="col-12 col-sm-6 col-md-4 mb-3 "><div class="card">'+
+					'<img class="card-img-top" src="picture/'+member[i].shoppingId+'" alt="${product.shoppingId}">'+
+					'<div class="card-body card">'+'<h5 class="card-img-top">'+member[i].shoppingname+'</h5>'+
+					'<h5 class="card-text ">'+'<small class="mr-1"> <del>$&nbsp;'+member[i].shoppingProductPrice+'</del>'+
+					'</small> <span class="card-text text-danger">$'+
+					Math.ceil(member[i].shoppingProductPrice * member[i].shoppingProductDiscount)+'</span></h5>'+
+					'<a href="oneProduct?id='+member[i].shoppingId+'" class="btn btn-outline-secondary btn-block">查看商品</a>'+
+					'<form action="addToCart" method="POST"><input type="hidden" name="shoppingId"'+
+					'value="'+member[i].shoppingId+'"> <input type="hidden" name="orderItemsNumber" value="1">'+
+					'<input class="btn btn-outline-primary btn-block" type="submit" value="加入購物車">		</form>'
+			            
+					+'</div></div></div>'
+												
 				}
-// 				content += "</div >";
+				content += "";
 				var div = document.getElementById("showAllProducts");
 				div.innerHTML = content;
 			}

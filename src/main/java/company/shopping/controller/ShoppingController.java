@@ -54,7 +54,7 @@ public class ShoppingController {
 	@Autowired
 	ServletContext context;
 
-	@GetMapping("/shopping/oneProduct")
+	@GetMapping("/shopping/oneProduct") //單項商品
 	public String oneProduct(@RequestParam("id") Integer id, Model model) {
 		ShoppingBean shoppingBean = service.getshoppingId(id);
 		model.addAttribute("shoppingBean", shoppingBean);
