@@ -61,8 +61,8 @@
 						<form action="" class="d-inline-block float-right">
 							<select id="ProductSelect" class="form-control"
 								onchange='javascript:handleSelect(this)'>
-								<option value="-1">請選擇排序</option>
-								<option value='allProducts'>上架時間舊到新</option>
+								<option value="allProducts">請選擇排序</option>
+								<option value='allProducts'>依上架時間舊到新</option>
 								<option value="<spring:url value='AllProductsNewtoOld' />">依上架時間新到舊</option>
 								<option value="<spring:url value='AllProductsPriceLowtoHigh' />">依價格排序:低至高</option>
 								<option value="<spring:url value='AllProductsPriceHightoLow' />">依價格排序:高至低</option>
@@ -233,7 +233,7 @@
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4 && xhr.status ==200){
 				var content ='<div class="col-12 mt-3 mb-3"> <p class="d-inline-block">顯示 21 筆結果中的 1–9 筆</p><form action="" class="d-inline-block float-right"> <select id="ProductSelect" class="form-control" onchange="javascript:handleSelect(this)">'+
-	                          '<option value="-1">請選擇排序</option><option value="allProducts">上架時間舊到新</option>'+
+	                          '<option value="allProducts">請選擇排序</option><option value="allProducts">依上架時間舊到新</option>'+
 	                        '<option value="AllProductsNewtoOld">依上架時間新到舊</option><option value="AllProductsPriceLowtoHigh">依價格排序:低至高</option>'+
 	                       '<option value="AllProductsPriceHightoLow">依價格排序:高至低</option>  </select>	</form> </div>'
 	             var member = JSON.parse(xhr.responseText);
