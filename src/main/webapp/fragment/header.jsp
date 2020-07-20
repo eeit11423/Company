@@ -36,6 +36,15 @@
 							<a class="dropdown-item" href="<c:url value='/register/add' />">會員註冊</a> <a
 								class="dropdown-item" href="<c:url value='/members' />">查詢會員資料</a>
 						</div></li>
+				
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbardrop"
+						data-toggle="dropdown"> 出勤系統 </a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="<c:url value='/attendance/punch/punch' />">打卡</a> 
+							<a class="dropdown-item" href="<c:url value='/attendance/leave/leave' />">請假</a>
+							<a class="dropdown-item" href="<c:url value='/attendance/overtime' />">加班</a>
+						</div></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
