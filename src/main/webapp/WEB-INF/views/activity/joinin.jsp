@@ -17,6 +17,7 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<hr>
 <fieldset>
 	<legend >您已報名此活動</legend> 
 	

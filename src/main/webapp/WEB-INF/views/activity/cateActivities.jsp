@@ -13,10 +13,12 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
-<div align='center'>
-<h3>查詢結果</h3>
-<a href="<c:url value='/'/> " >回首頁</a>
 <hr>
+	<div align='center'>
+		<h1 class="bg-secondary text-light">分類查詢結果</h1>
+<hr>
+		<a class="btn btn-info" href="<c:url value='/activity/index' />">返回前頁</a>
+			
 <form method='POST'>
 	<input type='hidden' name='_method' value='DELETE'>
 </form>
@@ -26,42 +28,44 @@
 	    沒有任何活動資料<br> 
 	</c:when>
 	<c:otherwise>
-		<table border='1' cellpadding="3" cellspacing="1" >
-			<tr>
-			   <th width='56'>活動序號</th>
-			   <th width='56'>活動名稱</th>
-			   <th width='140'>活動簡介</th>
-			   <th width='56'>貼文人員</th>
-			   <th width='56'>詳細資料</th>
-<!-- 			   <th width='130'>報名開始日</th> -->
-			   <th width='64'>報名結束日</th>
-			   <th width='56'>貼文單位</th>
-			   <th width='56'>活動類型</th>
-			   <th>活動海報</th>
-			   <th>異動時間</th>
-			   <th>剩餘名額</th>
-			   <th colspan='2' width='72'>資料維護</th>
-			   <th>報名狀態</th>
-			</tr>
-			<c:forEach var='activity' items='${activities}'>
-				<tr>
-					<td style="text-align:center">${activity.id}</td>
-					<td>${activity.activityTitle}</td>
-					<td>${activity.activitySubtitle}</td>
-					<td style="text-align:center">${activity.organiserId}</td>
-					<td><a href="<spring:url value='activity?id=${activity.id}' />"
-									class="btn btn-primary"> <span
+		<table class="table-striped" style="font-size:15px">
+					<tr align="center">
+						<th width='65'>序號</th>
+						<th width='120'>名稱</th>
+						<th width='180'>簡介</th>
+						<th width='65'>貼文者</th>
+						<th width='65'>詳細資料</th>
+						<!-- 			   <th width='130'>報名開始日</th> -->
+						<th width='100'>報名結束日</th>
+						<th width='80'>貼文單位</th>
+						<th width='65'>類型</th>
+						<th>活動海報</th>
+						<th>異動時間</th>
+						<th>剩餘名額</th>
+						<th colspan='2' width='90'>資料維護</th>
+						<th>報名狀態</th>
+					</tr>
+					<c:forEach var='activity' items='${activities}'>
+						<tr align="center">
+							<td style="text-align: center">${activity.id}</td>
+							<td>${activity.activityTitle}</td>
+							<td>${activity.activitySubtitle}</td>
+							<td style="text-align:center">${activity.organiserId}</td>
+							<td><a
+								href="<spring:url value='activity?id=${activity.id}' />"
+								class="btn btn-secondary"> <span
 									class="glyphicon-info-sigh glyphicon"></span>詳細資料
-								</a></td>
-<%-- 					<td style="text-align:center">${activity.startDate}</td> --%>
-					<td style="text-align:right">${activity.endDate}</td>
-					<td style="text-align:center">${activity.department.name}</td>
-					<td style="text-align:center">${activity.actCategory}</td>
-					<td><img width='60' height='72' src='activity/picture/${activity.id}' /></td>
-					<td style="text-align:right">${activity.updateTime}</td>
-					<td style="text-align:right">${activity.joinNum}</td>
-					
-				<!-- 							身分決定是否有管理權限 -->
+							</a></td>
+							<%-- 					<td style="text-align:center">${activity.startDate}</td> --%>
+							<td style="text-align: right">${activity.endDate}</td>
+							<td style="text-align: center">${activity.department.name}</td>
+							<td style="text-align: center">${activity.actCategory}</td>
+							<td><img width='60' height='72'
+								src='activity/picture/${activity.id}' /></td>
+							<td>${activity.updateTime}</td>
+							<td class="text-success">${activity.joinNum}</td>
+							
+<!-- 							身分決定是否有管理權限 -->
 							
 							<td>
 							<c:choose>
@@ -81,7 +85,6 @@
 								</c:choose>							
 								</td>						
 							<td>
-				
 <!-- 				＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃抓取當下的日期，判斷活動是否已截止＃＃＃＃＃＃＃＃＃＃ -->
 							<jsp:useBean id="nowDate" class="java.util.Date" />
 							<fmt:formatDate var="nowStr" value="${nowDate}" />
@@ -91,16 +94,18 @@
 <!-- 				＃＃＃＃＃＃＃＃＃＃＃人數為零或日期截止停止報名＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
 							<c:choose>
 		                        	<c:when test="${activity.joinNum <= 0 || nowDate.time > activity.endDate.time}">
-                                                                                                報名截止
+                                     <span class="text-danger">報名截止</span>
                                      </c:when>
 									<c:otherwise>
 										<a
-											href="${pageContext.request.contextPath}/activity/join/${activity.id}">報名</a>
+											href="${pageContext.request.contextPath}/activity/join/${activity.id}" class="btn btn-info">報名</a>
 									</c:otherwise>
 								</c:choose></td>
-				</tr>
-			</c:forEach>
-		</table>
+
+
+						</tr>
+					</c:forEach>
+				</table>
 	</c:otherwise>
 </c:choose>
 <hr>

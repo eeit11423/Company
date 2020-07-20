@@ -13,6 +13,7 @@
 	crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
 
+
 <header class="container-fluid">
 		<nav class="navbar navbar-expand-lg navbar-light bg-white">
 			<a class="navbar-brand" href="index.html"> <img
@@ -35,12 +36,22 @@
 							<a class="dropdown-item" href="<c:url value='/register/add' />">會員註冊</a> <a
 								class="dropdown-item" href="<c:url value='/members' />">查詢會員資料</a>
 						</div></li>
+				
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbardrop"
+						data-toggle="dropdown"> 出勤系統 </a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="<c:url value='/attendance/punch/punch' />">打卡</a> 
+							<a class="dropdown-item" href="<c:url value='/attendance/leave/leave' />">請假</a>
+							<a class="dropdown-item" href="<c:url value='/attendance/overtime' />">加班</a>
+						</div></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
 						data-toggle="dropdown"> 產品商城 </a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="<c:url value='/shopping/allProducts' />">查詢所有產品資料</a>
+							<a class="dropdown-item" href="<c:url value='/shopping/allProductsUpdateDelete' />">後台修改編輯產品資料</a>
 							<a class="dropdown-item" href="<c:url value='/products/add' />">新增產品資料</a>
 							<a class="dropdown-item" href="<c:url value='/shoppingCart' />">購物車</a>
 							<a class="dropdown-item" href="<c:url value='/orderList/list' />">訂單資訊</a>
@@ -58,11 +69,13 @@
 							<a class="dropdown-item" href="<c:url value='rearend/allSalary' />">圖表分析</a>
 							<a class="dropdown-item" href="<c:url value='rearend/Salaryex' />">圖表分析2</a>
 							<a class="dropdown-item" href="<c:url value='rearend/meindex' />">測試</a>
+							<a class="dropdown-item" href="<c:url value='orderprice' />">測試2</a>
 							
 						</div></li>
 					<li class="nav-item"><a class="nav-link" href="<c:url value='orderLunch/order' />">訂餐系統</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="contact.html">連絡我們</a>
+					<li class="nav-item"><a class="nav-link" href="rearendd">後端</a>
 					</li>
 	
 

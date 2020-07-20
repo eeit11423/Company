@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import company.member.model.MemberBean;
 import company.rearend.dao.GraphDao;
+import company.shopping.model.OrderItemBean;
+import company.shopping.model.ShoppingBean;
 
 @Repository
 public class GraphDaoImpl implements GraphDao {
@@ -22,6 +24,7 @@ public class GraphDaoImpl implements GraphDao {
 		
 		Session session=factory.getCurrentSession();
 		List<MemberBean> list=session.createQuery(hql)
+										
 								.getResultList();
 
 		return list;
@@ -41,13 +44,53 @@ public class GraphDaoImpl implements GraphDao {
 	@Override
 	public List<MemberBean> getMemberBypeople(String people) {
 		//String hq2 = "SELECT M.memberGender,count(memberGender) FROM MemberBean M GROUP BY M.memberDepartment,M.memberGender";
-		String hql = "SELECT M.memberDepartment,count(memberId),SUM(case when memberGender='男' then 1 else 0 end),SUM(case when memberGender='女' then 1 else 0 end)"
+		String hql = "SELECT M.memberDepartment,count(memberId) as peopleNumber,SUM(case when memberGender='男' then 1 else 0 end) as boy,SUM(case when memberGender='女' then 1 else 0 end) as girl"
 				+ "  FROM MemberBean M GROUP BY M.memberDepartment";
-		//String hql = "SELECT count() FROM MemberBean ";
+		
+//		String hql = "SELECT M.memberDepartment,count(memberId)"
+//				+ " FROM MemberBean M ";
+		Session session = factory.getCurrentSession();
+		List<MemberBean> list2 = session.createQuery(hql).getResultList();
+		List list = session.createQuery(hql).getResultList();
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).toString());
+		}
+		
+		return list2;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShoppingBean> getShoppingNumber(String Number) {
+		String hql = "SELECT count(ShoppingId) FROM ShoppingBean S ";
+		Session session = factory.getCurrentSession();
+		List<ShoppingBean> list = session.createQuery(hql).getResultList();
+	
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> getMemberNumberpeople(String people) {
+		String hql = "SELECT count(memberId) FROM MemberBean  ";
 		Session session = factory.getCurrentSession();
 		List<MemberBean> list = session.createQuery(hql).getResultList();
-		
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderItemBean> getOrderprice(String price) {
+		String hql = "SELECT SUM(O.shoppingProductPrice) FROM OrderItemBean O ";
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list = session.createQuery(hql).getResultList();
+		List<Double> list1 = session.createQuery(hql).getResultList();
+		
+		for (Double orderItemBean : list1) {
+			System.out.println(orderItemBean);
+		}
+		return list;
+		
 	}
 
 }
