@@ -8,6 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/orderLunchCss/css/main.css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<noscript><link rel="stylesheet" href="${pageContext.request.contextPath}/dist/orderLunchCss/css/noscript.css" /></noscript>
 		<style>
 			a {
@@ -76,7 +77,10 @@
                 <span style="display: block;"> 店家：</span
                 ><input type="text" style="width: 80%;" />
               </div>
-              <div
+              <div style="display: flex;width: 50%;margin: 0 10px; align-items: center;">
+                <span style="display: block;white-space: nowrap;" >結束時間：</span><input type="text" style="width: 80%;" id='datepicker' />
+              </div>
+                   <div
                 style="
                   display: flex;
                   width: 50%;
@@ -84,31 +88,11 @@
                   align-items: center;
                 "
               >
-                <span style="display: block;">結束時間：</span
+                <span style="display: block;white-space: nowrap;">建立者：</span
                 ><input type="text" style="width: 80%;" />
               </div>
             </div>
-            <ul class="features" style="margin:10px 0 0 0">
-             <li style="display:flex; align-items: center;">
-              <span style="white-space: nowrap;">餐點：</span>  
-                <select>
-                  <option>麥脆雞</option>
-                </select>
-              </li>
-              <li style="display:flex; align-items: center;">
-              <span style="white-space: nowrap;">價格：</span><input type="text" readonly="readonly" value="100" />
-              </li>
-              <li>
-                <a
-                  id="second-add"
-                  class="far fa-plus-square fa-3x second-add"
-                ></a>
-                <a
-                  id="second-remove"
-                  class="far fa-minus-square fa-3x second-remove"
-                ></a>
-              </li>
-            </ul>
+            <div class="first-feature-box"></div>
           </div>
 							</section>
 							
@@ -137,9 +121,10 @@
 									<li style="white-space: nowrap; margin-top:0 ;display:flex; align-items: center;">
 										 <span style="white-space: nowrap;">數量：</span><input type="text" readonly="readonly" value="0">
 									</li>
-									    <li style=" margin-top:0 ;display:flex; align-items: center;">
-                                           <span style="white-space: nowrap;">點餐者：</span><input type="text" readonly="readonly" value="0" />
+									    <li style=" margin-top:0 ;display:flex; align-items: center;width:50%">
+                                           <span style="white-space: nowrap;">點餐者：</span><input type="text" readonly="readonly" value="多多" />
                                         </li>
+                                        
 									<li style="margin-top:1%">
 										  <a id="second-add" class="far fa-plus-square fa-3x second-add"></a>
          								  <a id="second-remove" class="far fa-minus-square fa-3x second-remove" ></a>
@@ -200,6 +185,71 @@
 			<script src="${pageContext.request.contextPath}/dist/orderLunchCss/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/dist/orderLunchCss/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/dist/orderLunchCss/js/main.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+			<script>
+		
+		    var firstData = [{sale:'100',price:'100'}]
+		
+		    addFirstData(firstData);
+		    
+			function addFirstData(data){
+		    	data.map((item,index)=>
+			      {console.log(index)
+			        var htmlTag =`  <ul class="features" style="margin:10px 0 0 0;justify-content: inherit;">
+			        	             	 <li style="display:flex; align-items: center;margin-left: 0.5em;"> 
+			        	              		 <span style="white-space: nowrap;white-space: nowrap;">餐點：</span><input type="text" value=${'${item.sale}'}></span>
+			        	              	 </li>
+			        	               	<li style="display:flex; align-items: center;"> 
+			        	             	 	 <span style="white-space: nowrap;">價格：</span><input type="text" value=${'${item.sale}'}></span> 
+			        	            		</li>
+			        	             	<li> 
+			        	                	<a id="second-add" class="far fa-plus-square fa-3x second-add" onclick="insertMenu()" ></a>
+			        	                	<a id="second-remove" class="far fa-minus-square fa-3x second-remove" onclick="removeFirstData(item,index)"></a>
+			        	            	   </li>
+			        	           </ul>`
+			        $(".first-feature-box").append(htmlTag);
+			      }
+			      )
+		    }
+			
+		function	removeFirstData(item,index){
+			 var taskIndex = firstData.indexOf(item);
+			      firstData.splice(taskIndex, 1);
+			      console.log(firstData);
+			}
+			
+		      
+		      //  新增菜單選項
+      function insertMenu(e){
+//         	  $.ajax({'url':'/mvcExercisetest/orderLunch/insertMenu',
+//     				'method' : "POST",
+//     				'data' : {'store' : e.id
+//     				}
+//       })   
+    	  fetch('/mvcExercisetest/orderLunch/insertMenu', {
+    		    body: JSON.stringify(firstData), // must match 'Content-Type' header
+    		    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    		    credentials: 'same-origin', // include, same-origin, *omit
+    		    headers: {
+    		      'user-agent': 'Mozilla/4.0 MDN Example',
+    		      'content-type': 'application/json'
+    		    },
+    		    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    		    mode: 'cors', // no-cors, cors, *same-origin
+    		    redirect: 'follow', // manual, *follow, error
+    		    referrer: 'no-referrer', // *client, no-referrer
+    		  })
+    		  .then(response =>{
+    			     $(".features").remove();
+ 		        	firstData.push({sale:'',price:''});
+ 		        	addFirstData(firstData);
+    		  }) // 輸出成 json
+    		
+
+               
+      }
+			
+			</script>
  <script>
  var item =
 	  '<ul class="features">'+
@@ -209,13 +259,20 @@
        '<li  style=" margin-top:0 ;display:flex; align-items: center;"><span style="white-space: nowrap;">餐點者：</span><input type="text" readonly="readonly" value="0"></li>'+
        '<li style="margin-top:1%"><a id="second-add" class="far fa-plus-square fa-3x second-add"></a><a id="second-remove" class="far fa-minus-square fa-3x second-remove" ></a></li>'+
        '</ul>';
-     
+       $( function() {
+    	    $( "#datepicker" ).datepicker();
+    	  } );
+       
+       
      $(document).on("click", ".second-add", function () {
          $(".features-box").append(item);
        });
+     
       $(document).on("click", ".second-remove", function () {
           $(".features").last().remove();
         });
+      
+      //
       function getJson(e) {
     	  $.ajax({'url':'/mvcExercisetest/orderLunch/selectStoreList',
 				'method' : "POST",
@@ -236,6 +293,7 @@
      		 });
       };
       
+    
     </script>
 	</body>
 </html>
