@@ -44,6 +44,8 @@ import company.member.model.MemberBean;
 import company.shopping.model.ShoppingBean;
 import company.shopping.service.ShoppingService;
 
+
+
 @Controller
 @SessionAttributes({ "ShoppingCart", "memberBean", "shoppingBean","AllShoppingType" })
 public class ShoppingController {
@@ -240,6 +242,30 @@ public class ShoppingController {
 		binder.registerCustomEditor(java.sql.Date.class, ce2);
 
 	}
+	
+	
+	@GetMapping("/shopping/AllProductsNewtoOld") // show出全部商品新到舊
+	public String AllProductsNewtoOld(Model model, HttpServletRequest req) {
+		List<ShoppingBean> beans = service.getAllProductsNewtoOld();
+		model.addAttribute("products", beans);
+		return "shopping/allProducts";
+	}
+	@GetMapping("/shopping/AllProductsPriceLowtoHigh") // show出全部商品價格低到高
+	public String AllProductsPriceLowtoHigh(Model model, HttpServletRequest req) {
+		List<ShoppingBean> beans = service.getAllProductsPriceLowtoHigh();
+		model.addAttribute("products", beans);
+		return "shopping/allProducts";
+	}
+	@GetMapping("/shopping/AllProductsPriceHightoLow") // show出全部商品價格高到低
+	public String AllProductsPriceHightoLow(Model model, HttpServletRequest req) {
+		List<ShoppingBean> beans = service.getAllProductsPriceHightoLow();
+		model.addAttribute("products", beans);
+		return "shopping/allProducts";
+	}
+	
+	
+	
+	
 
 @ModelAttribute("shoppingBean") //先抓取圖檔避免更新會有空值
 	public void getShoppingId(@PathVariable(value = "id", required = false) Integer id, Model model) {

@@ -46,8 +46,8 @@ margin-right: 0; }
 										<label class="col-md-4 col-form-label text-md-right"
 											for="memberNumber" > 上傳員工編號</label>
 										<div class="col-md-6">
-											<form:input id="memberNumber" path="memberNumber" type='text'
-												value='${memberBean.memberNumber}' class="form-control input-md" />
+											<form:hidden id="memberNumber" path="memberNumber" 
+											 class="form-control input-md" /><h4>${memberBean.memberNumber}<h4>
 										</div>
 									</div>
 								

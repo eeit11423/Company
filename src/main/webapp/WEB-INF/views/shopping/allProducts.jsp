@@ -51,24 +51,25 @@
     <!-- 產品商城/start -->
     <section class="page-content">
         <div class="container pt-5 pb-5">
-            <div class="row">
+            <div class="row" >
                 <!-- 商品區/start -->
                 <div class="col-12 col-md-9">
-                    <div class="row">
+                    <div class="row" id='showAllProducts'>
                         <!-- 排序/start -->
                         <div class="col-12 mt-3 mb-3">
                             <p class="d-inline-block">顯示 21 筆結果中的 1–9 筆</p>
                             <form action="" class="d-inline-block float-right">
-                                <select id="ProductSelect" class="form-control">
-                                    <option>依上架時間</option>
-                                    <option>依熱銷度</option>
-                                    <option>依價格排序:低至高</option>
-                                    <option>依價格排序:高至低</option>
+                                <select id="ProductSelect" class="form-control" onchange='javascript:handleSelect(this)'>
+                                    <option value="<spring:url value='allProducts' />">上架時間舊到新</option>
+                                    <option value="<spring:url value='AllProductsNewtoOld' />">依上架時間新到舊</option>
+                                    <option value="<spring:url value='AllProductsPriceLowtoHigh' />">依價格排序:低至高</option>
+                                    <option value="<spring:url value='AllProductsPriceHightoLow' />">依價格排序:高至低</option>
                                 </select>
                             </form>
-                        </div>
+                        </div >
                         <!-- 排序/end -->
                         <!-- 商品/start -->
+                        
                         <c:forEach var='product' items='${products}'>
                         <div class="col-12 col-sm-6 col-md-4 mb-3 "  >
                             <div class="card">
@@ -92,35 +93,36 @@
                             </div>
                         </div>
                         </c:forEach>
+                     
                         <!-- 商品/end -->
                         <!-- 分頁/start -->
-                        <div class="col-12 mt-3 mb-5 ">
-                            <nav aria-label="Page navigation product">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+<!--                         <div class="col-12 mt-3 mb-5 "> -->
+<!--                             <nav aria-label="Page navigation product"> -->
+<!--                                 <ul class="pagination"> -->
+<!--                                     <li class="page-item"> -->
+<!--                                         <a class="page-link" href="#" aria-label="Previous"> -->
+<!--                                             <span aria-hidden="true">&laquo;</span> -->
+<!--                                             <span class="sr-only">Previous</span> -->
+<!--                                         </a> -->
+<!--                                     </li> -->
+<!--                                     <li class="page-item"> -->
+<!--                                         <a class="page-link" href="#">1</a> -->
+<!--                                     </li> -->
+<!--                                     <li class="page-item"> -->
+<!--                                         <a class="page-link" href="#">2</a> -->
+<!--                                     </li> -->
+<!--                                     <li class="page-item"> -->
+<!--                                         <a class="page-link" href="#">3</a> -->
+<!--                                     </li> -->
+<!--                                     <li class="page-item"> -->
+<!--                                         <a class="page-link" href="#" aria-label="Next"> -->
+<!--                                             <span aria-hidden="true">&raquo;</span> -->
+<!--                                             <span class="sr-only">Next</span> -->
+<!--                                         </a> -->
+<!--                                     </li> -->
+<!--                                 </ul> -->
+<!--                             </nav> -->
+<!--                         </div> -->
                         <!-- 分頁/end -->
                     </div>
                 </div>
@@ -198,7 +200,12 @@
 
     <!-- 頁腳/end -->
    <script>
-	
+   
+   function handleSelect(elm)
+   {
+   window.location = elm.value;
+   }
+
 	function memberChange(){
 		var Publish_member = document.getElementById("Publish_shoppingType").value;
 		var xhr = new XMLHttpRequest();
@@ -234,7 +241,7 @@
 					//xhr_img.send();
 				}
 				content += "</table>";
-				var div = document.getElementById("showsmember");
+				var div = document.getElementById("showAllProducts");
 				div.innerHTML = content;
 			}
 		}
