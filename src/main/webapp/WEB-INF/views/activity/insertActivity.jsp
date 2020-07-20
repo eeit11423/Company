@@ -17,9 +17,12 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<div style="text-align:center">
 <hr>
+		<h1 class="bg-secondary text-light">新增活動資料</h1>
+<hr>
+</div>
 <fieldset>
-	<legend >新增活動資料(Activity)</legend> 
 	<form:form method="POST" modelAttribute="activity" enctype='multipart/form-data'>
 	<Table align="center">
 	<c:if test='${activity.id == null}'>
@@ -102,9 +105,12 @@
 	   	  	 <form:input path="joinNum"/><br>&nbsp;	
 		      <form:errors path='joinNum' cssClass="error"/>
 	   	  </td>
-	    <td colspan='4' align='center'><br>&nbsp;
-	      <input type='submit'>
+	    <td>
+	      <input type='submit' class="btn btn-info" value=" 送出活動資料  " ><br>&nbsp;
         </td>
+        <td>
+        <a class="btn btn-outline-secondary" href="<c:url value='/activity/index' />"> 取消並返回活動系統 </a>
+        <br>&nbsp;</td>
 	   </tr>
 	</Table>
 		 
@@ -112,7 +118,6 @@
 	
 </fieldset>
 <hr>
-<!-- <br> -->
-<%-- <a href="<c:url value='/activity/showAllActivities'/> " >回前頁</a> --%>
+
 </body>
 </html>
