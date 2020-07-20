@@ -54,5 +54,24 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public List<ShoppingBean> getALLShoppingType() {
 		return shoppingDao.getALLShoppingType();
 	}
+	@Transactional
+	@Override
+	public List<ShoppingBean> getAllProductsNewtoOld() {
+		
+		return shoppingDao.getAllProductsNewtoOld();
+	}
+	@Transactional
+	@Override
+	public List<ShoppingBean> getAllProductsPriceHightoLow() {
+		
+		return  shoppingDao.getAllProductsPriceHightoLow();
+	}
+	
+	@Transactional
+	@Override
+	public List<ShoppingBean> getAllProductsPriceLowtoHigh() {
+		
+		return shoppingDao.getAllProductsPriceLowtoHigh();
+	}
 
 }

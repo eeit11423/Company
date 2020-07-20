@@ -76,5 +76,35 @@ public class ShoppingDaoImpl implements ShoppingDao {
 			                           .getResultList();
 		return (List<ShoppingBean>) list;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShoppingBean> getAllProductsNewtoOld() {
+		String hql="FROM ShoppingBean order by shoppingDate desc";
+//		
+		Session session=factory.getCurrentSession();
+		List<ShoppingBean> list=session.createQuery(hql)
+								.getResultList();		
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShoppingBean> getAllProductsPriceHightoLow() {
+		String hql="FROM ShoppingBean order by shoppingProductPrice desc";
+//		
+		Session session=factory.getCurrentSession();
+		List<ShoppingBean> list=session.createQuery(hql)
+								.getResultList();		
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShoppingBean> getAllProductsPriceLowtoHigh() {
+		String hql="FROM ShoppingBean order by shoppingProductPrice asc";
+//		
+		Session session=factory.getCurrentSession();
+		List<ShoppingBean> list=session.createQuery(hql)
+								.getResultList();		
+		return list;
+	}
 
 }

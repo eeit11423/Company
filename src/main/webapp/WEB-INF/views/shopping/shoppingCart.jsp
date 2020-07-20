@@ -7,9 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type='text/javascript'
-	src='${pageContext.request.contextPath}/scripts/jquery-1.9.1.min.js'></script>
-<title></title>
+
+
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/css/style.css' type="text/css" />
 <script type="text/javascript">
@@ -78,7 +77,10 @@ function Abort() {
 
 </head>
 <body>
-
+	<jsp:include page="/fragment/header.jsp" />
+	<form method='GET'>
+		<input type='hidden' name='_method' value='update'>
+	</form>
 	<c:choose>
 		<c:when test="${ShoppingCart.subtotal > 0}">
 			<c:set var="subtotalMessage" value="金額小計:${ShoppingCart.subtotal} 元" />
@@ -89,76 +91,141 @@ function Abort() {
 			<c:set var="subtotal" value="0" />
 		</c:otherwise>
 	</c:choose>
-	<div align='center'>
-		<h1>購物車</h1>
-		<a href="<c:url value='/'/> ">回前頁</a>
-		<hr>
-		<h2>員工帳號:${memberBean.memberNumber} 員工姓名:${memberBean.memberName}</h2>
+
+	<!-- 購物車/start -->
+	<section class="page-content">
+	<div class="container pt-5 pb-5">
+		<div class="row">
+			<!-- 產品清單/start -->
+			<div class="col-12 mb-3">
+				<h2 class="mb-3">購物車</h2>
+				<div class="table-responsive-sm table-middle">
+					<table class="table table-bordered">
+						<thead class="text-white text-left" style='background:#646D73'>
+							<tr>
+
+								<th scope="col" class="product-thumbnail">圖片</th>
+								<th scope="col" class="product-name">名稱</th>
+								<th scope="col" class="product-price">價格</th>
+								<th scope="col" class="product-quantity">數量</th>
+								<th scope="col" class="product-subtotal">總計</th>
+								<th scope="col" class="product-remove">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach varStatus="vs" var='ShoppingCart'
+								items='${ShoppingCart.content}'>
+								<tr>
+
+									<td class="product-thumbnail"><a href="product.html">
+											<img width='150' height='150'
+											src='shopping/picture/${ShoppingCart.value.shoppingId}'
+											alt="" class="img-fluid">
+									</a></td>
+									<td class="product-name"><a
+										href="<spring:url value='shopping/oneProduct?id=${ShoppingCart.value.shoppingId}' />">${ShoppingCart.value.shoppingProductName}</a>
+									</td>
+									<td class="product-price">NT$&nbsp;<fmt:formatNumber value="${ShoppingCart.value.shoppingProductPrice* ShoppingCart.value.shoppingProductDiscount }" pattern="#,###,###" /></td>
+									<td class="product-quantity"><Input id="newQty${vs.index}"
+										style="width: 80px; text-align: left" name="newQty"
+										type="number"
+										value="<fmt:formatNumber value="${ShoppingCart.value.orderItemsNumber}" />"
+										name="qty" onkeypress="return isNumberKey(event)" 
+											onblur="modify(${ShoppingCart.value.shoppingId}, ${ShoppingCart.value.orderItemsNumber}, ${vs.index})"
+										/>
+<!-- 										<Input type="button" name="update" value="修改" -->
+<%-- 					onclick="modify(${ShoppingCart.value.shoppingId}, ${ShoppingCart.value.orderItemsNumber}, ${vs.index})"> --%>
+										
+									</td>
+									<td class="product-subtotal"><fmt:formatNumber
+											value="${ShoppingCart.value.shoppingProductPrice * ShoppingCart.value.shoppingProductDiscount * ShoppingCart.value.orderItemsNumber}"
+											pattern="#,###,###" />元</td>
+									<td class="product-remove"><a
+										href="${pageContext.request.contextPath}/shoppingCart/delete/${ShoppingCart.value.shoppingId}">移除</a></td>
+								</tr>
+							</c:forEach>
+
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- 產品清單/end -->
+			<!-- 感興趣產品/start -->
+			<div class="col-12 col-md-6 d-none d-md-block mb-5">
+				<!-- 				<h2>您可能對此有興趣...</h2> -->
+				<div class="row">
+					<div class="col-6">
+						<!-- 						<div class="card mb-3"> -->
+						<!-- 							<img class="card-img-top" src="./images/product/eva_2.jpg" -->
+						<!-- 								alt="TG-B-0001" class="img-fluid"> -->
+						<!-- 							<div class="card-body"> -->
+						<!-- 								<h4 class="card-title">TG-B-0001</h4> -->
+						<!-- 								<p class="card-text">登山拐杖握把，EVA發泡材質</p> -->
+						<!-- 								<h5 class="card-text text-danger">NT$&nbsp;500</h5> -->
+						<%-- 								<a href="${pageContext.request.contextPath}/shopping/oneProduct?id=<fmt:formatNumber value='${Math.floor(Math.random()*30)}' /> " --%>
+						<!-- 									class="btn btn-outline-secondary btn-block">查看商品</a> <a -->
+						<!-- 									href="cart.html" class="btn btn-outline-primary btn-block">加入購物車</a> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
+						<!-- 					</div> -->
+						<!-- 					<div class="col-6"> -->
+						<!-- 						<div class="card mb-3"> -->
+						<!-- 							<img class="card-img-top" src="./images/product/eva_2.jpg" -->
+						<!-- 								alt="TG-B-0001" class="img-fluid"> -->
+						<!-- 							<div class="card-body"> -->
+						<!-- 								<h4 class="card-title">TG-B-0001</h4> -->
+						<!-- 								<p class="card-text">登山拐杖握把，EVA發泡材質</p> -->
+						<!-- 								<h5 class="card-text text-danger">NT$&nbsp;500</h5> -->
+						<!-- 								<a href="product.html" -->
+						<!-- 									class="btn btn-outline-secondary btn-block">查看商品</a> <a -->
+						<!-- 									href="cart.html" class="btn btn-outline-primary btn-block">加入購物車</a> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
+					</div>
+				</div>
+			</div>
+			<!-- 			<!-- 感興趣產品/end -->
+			<!-- 			<!-- 產品統計/start -->
+			<div class="col-12 col-md-6 mb-5">
+				<h2>購物車總計</h2>
+				<div class="table-responsive-sm">
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<td>小計</td>
+								<td>NT$&nbsp;<fmt:formatNumber value="${subtotal}"
+										pattern="#,###,###" /></td>
+							</tr>
+							<tr class="text-white text-left" style='background:#646D73'>
+								<td>總計</td>
+								<td>NT$&nbsp;<fmt:formatNumber value="${subtotal}"
+										pattern="#,###,###" /></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="2"><a href="<c:url value='OrderConfirm' />"
+									class="btn btn-outline-secondary btn-lg float-right">前往結帳</a></td>
+									
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<!-- 產品統計/end -->
+		</div>
 	</div>
+	</section>
+	<!-- 購物車/end -->
+	<!-- 頁腳/start -->
 
-	<hr>
-	<form method='GET'>
-		<input type='hidden' name='_method' value='update'>
-	</form>
-
-	<table border='1' cellpadding="3" cellspacing="1">
-		<tr>
-			<th width='20'>清單編號ID</th>
-			<th width='20'>訂單編號</th>
-			<th width='20'>下單時間</th>
-			<th width='20'>商品ID</th>
-			<th width='180'>商品名稱</th>
-			<th width='180'>商品敘述</th>
-			<th width='30'>商品價格</th>
-			<th width='30'>商品折扣</th>
-			<th width='30'>商品數量</th>
-			<th width='100'>商品總金額</th>
-			<th colspan='2' width='72'>資料維護</th>
-		</tr>
-		<c:forEach varStatus="vs" var='ShoppingCart'
-			items='${ShoppingCart.content}'>
-			<tr>
-
-				<td>${ShoppingCart.value.orderItemsId}</td>
-				<td>${ShoppingCart.value.orderId}</td>
-				<td>${ShoppingCart.value.orderDate}</td>
-				<td>${ShoppingCart.value.shoppingId}</td>
-				<td>${ShoppingCart.value.shoppingProductName}</td>
-				<td>${ShoppingCart.value.productrelatio}</td>
-				<td>${ShoppingCart.value.shoppingProductPrice}</td>
-				<td>${ShoppingCart.value.shoppingProductDiscount}</td>
-
-				<td style="text-align: right;"><Input id="newQty${vs.index}"
-					style="width: 28px; text-align: right" name="newQty" type="text"
-					value="<fmt:formatNumber value="${ShoppingCart.value.orderItemsNumber}" />"
-					name="qty" onkeypress="return isNumberKey(event)" />
-				<td style="text-align: right;"><fmt:formatNumber
-						value="${ShoppingCart.value.shoppingProductPrice * ShoppingCart.value.shoppingProductDiscount * ShoppingCart.value.orderItemsNumber}"
-						pattern="#,###,###" />元</td>
-
-				<td><Input type="button" name="update" value="修改"
-					onclick="modify(${ShoppingCart.value.shoppingId}, ${ShoppingCart.value.orderItemsNumber}, ${vs.index})"></td>
-
-				<td><a
-					href="${pageContext.request.contextPath}/shoppingCart/delete/${ShoppingCart.value.shoppingId}">刪除</a></td>
-			</tr>
-		</c:forEach>
-	</table>
-
-	<hr>
-	<div>
-		<table border='1'>
-
-			<tr height='16'>
-				<td colspan='5' align='right'>合計金額：</td>
-				<td align='right'><fmt:formatNumber value="${subtotal}"
-						pattern="#,###,###" />元</td>
-				<td width="265" align='center'><a
-					href="<c:url value='OrderConfirm' />"
-					onClick="return Checkout(${subtotal});">結帳</a></td>
-
-			</tr>
-		</table>
-	</div>
+	<!-- 頁腳/end -->
+	<script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({trigger: "click"});
+        })
+    </script>
 </body>
 </html>

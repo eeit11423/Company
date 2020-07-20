@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,10 +51,76 @@ public class ShoppingCartController {
 			return "redirect: " + context.getContextPath() + "/";
 		}
 		return  "shopping/shoppingCart";
+		
+	}
+	@PostMapping("/shopping/addToCartOneProduct") //單向商品加入購物車用的是此請求導回單向商品頁面
+	protected String addToCartOneProduct(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		
+
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/";
+		}
+	
+		HttpSession session = request.getSession(false); 
+		if (session == null) {
+			return "redirect: " + context.getContextPath() + "/";
+		}
+		
+		// 取出存放在session物件內的ShoppingCart物件
+		ShoppingCart cart = (ShoppingCart) model.getAttribute("ShoppingCart");
+		// 如果找不到ShoppingCart物件
+		if (cart == null) {
+			// 就新建ShoppingCart物件
+			cart = new ShoppingCart();
+			// 並將此新建ShoppingCart的物件放到session物件內，成為它的屬性物件
+			System.out.println("新建ShoppingCart...");
+			model.addAttribute("ShoppingCart", cart);   
+		}
+		String ShoppingIdStr = request.getParameter("shoppingId");
+		int ShoppingId  = Integer.parseInt(ShoppingIdStr.trim());
+		
+		String orderItemsNumberStr	= request.getParameter("orderItemsNumber" + "");
+		Integer orderItemsNumber = 0 ; 
+
+//		@SuppressWarnings("unchecked")
+//		Map<Integer, ShoppingBean> ShoppingMap = (Map<Integer, ShoppingBean>) session.getAttribute("ShoppingMap");
+		ShoppingBean bean = service.getshoppingId(ShoppingId);
+//		String pageNo 		= request.getParameter("pageNo");
+//		if (pageNo == null || pageNo.trim().length() == 0){
+//			pageNo = (String) model.getAttribute("pageNo") ;
+//			if (pageNo == null){
+//			   pageNo = "1";
+//			} 
+//		} 
+		
+		try{
+			// 進行資料型態的轉換
+			orderItemsNumber = Integer.parseInt(orderItemsNumberStr.trim());
+		} catch(NumberFormatException e){
+			throw new ServletException(e); 
+		}
+		// 將訂單資料(價格，數量，折扣與BookBean)封裝到OrderItemBean物件內
+		OrderItemBean oib = new  OrderItemBean();
+		oib.setOrderItemsNumber(orderItemsNumber);
+		oib.setShoppingId(ShoppingId);
+		oib.setShoppingProductName(bean.getShoppingname());
+		oib.setProductrelatio(bean.getProductrelation());
+		oib.setShoppingProductPrice(bean.getShoppingProductPrice());
+		oib.setShoppingProductDiscount(bean.getShoppingProductDiscount());
+		
+		System.out.println(oib.toString());
+		
+		// 將OrderItem物件內加入ShoppingCart的物件內
+		cart.addToCart(ShoppingId, oib);
+		
+		return "shopping/oneProduct";
 	}
 	@PostMapping("/shopping/addToCart")
 	protected String buyBook(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		
+		System.out.println("x==============="+request.getParameter("x"));
 		if (memberBean == null) {
 			return "redirect: " + context.getContextPath() + "/";
 		}
@@ -144,7 +211,7 @@ public class ShoppingCartController {
 		return shoppingCart;
 	}
 	
-	@ModelAttribute("ShoppingBean")
+	@ModelAttribute("shoppingBean")
 	public ShoppingBean createshoppingBean(Model model) {
 		ShoppingBean shoppingBean=new ShoppingBean();
 		return shoppingBean;

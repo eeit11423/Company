@@ -17,6 +17,7 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<hr>
 <fieldset>
 	<legend >活動報名(Activity)</legend> 
 	<form:form method="POST" modelAttribute="join" enctype='multipart/form-data'>
