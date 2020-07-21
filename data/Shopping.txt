@@ -1,10 +1,10 @@
-1001|鍵盤|G913 無線RGB機械式短軸遊戲鍵盤 |7490|0.9|多媒體控制快捷鍵設計 支援程式軟體編輯自由選擇色調  青軸|data/images/shopping/product1.jpg|50
-1001|鍵盤|G413 機械式背光遊戲鍵盤|1990|0.9|FN搭配多媒體熱鍵 RGB支援紅色/白色切換  白軸|data/images/shopping/product2.jpg|50
+1001|鍵盤|G913 無線RGB機械式短軸遊戲鍵盤 |7490|0.9|多媒體控制快捷鍵設計 支援程式軟體編輯青軸|data/images/shopping/product1.jpg|50
+1001|鍵盤|G413 機械式背光遊戲鍵盤|1990|0.9|FN搭配多媒體熱鍵 RGB支援紅色/白軸|data/images/shopping/product2.jpg|50
 1001|鍵盤|Ducky One 2 Mini RGB 機械式紅軸|2890|0.9|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 紅軸|data/images/shopping/product3.jpg|50
 1001|鍵盤|Ducky One 2 Mini RGB 機械式茶軸|2690|0.9|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 茶軸|data/images/shopping/product4.jpg|50
 1001|鍵盤|Craft 創意輸入轉鈕無線鍵盤|5990|0.9|多媒體控制快捷鍵設計 智慧背光照明系統 靜音無噪按鍵|data/images/shopping/product5.jpg|50
-1001|鍵盤|羅技 G512機械式電競鍵盤 - GX線性軸|2990|0.9|羅技G HUB自訂功能鍵 1680萬色 LIGHTSYNC RGB 可自訂燈效 青-紅-茶軸|data/images/shopping/product6.jpg|50
-1001|鍵盤|羅技 G910 電競鍵盤|5990|0.9|9 個可自訂按鈕專用媒體控制鍵 智慧型 RGB 照明-可自訂超過 1680 萬種顏色 獨家 ROMER-G 機械軸|data/images/shopping/product7.jpg|50
+1001|鍵盤|羅技 G512機械式電競鍵盤 - GX線性軸|2990|0.9|羅技G HUB自訂功能鍵 1680萬色 RGB 可自訂燈效 青-紅-茶軸|data/images/shopping/product6.jpg|50
+1001|鍵盤|羅技 G910 電競鍵盤|5990|0.9|9 個可自訂按鈕專用媒體控制鍵 智慧型 RGB 獨家 ROMER-G 機械軸|data/images/shopping/product7.jpg|50
 1001|鍵盤|華碩 ASUS機械式電競鍵盤 |4690|0.9|完全可編程按鍵|data/images/shopping/product8.jpg|50
 1001|螢幕|DELL 24吋IPS寬螢幕|4888|0.9|尺寸:24吋 亮度:300cd/m2 8MS反應時間|data/images/shopping/product10.jpg|50
 1001|螢幕|BENQ PD3220U 32型IPS 4K|42900|0.9|尺寸:31.5吋 亮度:300/m2  5mS反應時間|data/images/shopping/product11.jpg|50
@@ -25,7 +25,7 @@
 1001|滑鼠|ROGChakram無線三模RGB電競滑鼠|4990|0.9|無線/有線皆可可編程、可拆卸的搖桿/100-16000dpi|data/images/shopping/Mouse8.jpg|25
 1001|滑鼠|華碩ROGGladiusII電競滑鼠|2990|0.9|有線/提供軟體客製化編成先進/12000DPI光學感應器|data/images/shopping/Mouse9.jpg|25
 1001|滑鼠|MSI微星ClutchGM50TW電競滑鼠|1999|0.9|有線/6顆可編成按鍵/400-6400dpi|data/images/shopping/Mouse10.jpg|25
-1001|喇叭|EDIFIER C3X 2.1聲道三件木質喇叭|4990|0.9|RMS 65W/180Hz–20KHz/8吋低音單體 低音強勁有力/內建D-Class放大|data/images/shopping/horn1.jpg|25
+1001|喇叭|EDIFIER C3X 2.1聲道三件木質喇叭|4990|0.9|RMS 65W/180Hz–20KHz/8吋低音單體 低音強勁有力|data/images/shopping/horn1.jpg|25
 1001|喇叭|旗鑑款 JY2038 兩件式高純度藍牙喇叭|3990|0.9|50W/60Hz~20KHz/全方位電子分音數位控制 高、低音喇叭獨立功放|data/images/shopping/horn2.jpg|25
 1001|喇叭|JBL GO 2 可攜式防水藍牙喇叭(深海藍)|1880|0.9|3 W/180Hz–20KHz/"手機擴音喇叭功能支援外接音源輸入播放|data/images/shopping/horn3.jpg|25
 1001|喇叭|Razer Leviathan 利維坦巨獸|3990|0.9|30W /180Hz–20KHz/重低音揚聲器/3 種預設等化器模式|data/images/shopping/horn4.jpg|25
@@ -33,4 +33,4 @@
 1001|喇叭|harman/kardon 藍牙喇叭|7990|0.9|20W/44HZ-20kHz/優質並出色的全頻音表現|data/images/shopping/horn6.jpg|25
 1001|喇叭|KINYO 超重低音藍牙多媒體喇叭KY1759|1190|0.9| 34W/30Hz-160Hz/低音|data/images/shopping/horn7.jpg|25
 1001|喇叭|DYNAUDIO Music 1藍牙 WiFi 喇叭|14900|0.9|40W/50~20KHz/RoomAdapt技術|data/images/shopping/horn8.jpg|25
-1001|喇叭|Edifier S3000 PRO 藍牙喇叭|18900|0.9|256W/38Hz～40KHz/平面振膜高音，高解析、高靈敏度，音質細膩動聽|data/images/shopping/horn10.jpg|25
+1001|喇叭|Edifier S3000 PRO 藍牙喇叭|18900|0.9|256W/38Hz～40KHz/膜高音，高解析、高靈敏度，音質細膩|data/images/shopping/horn10.jpg|25
