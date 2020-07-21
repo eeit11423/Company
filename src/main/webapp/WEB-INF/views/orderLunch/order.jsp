@@ -80,16 +80,7 @@
               <div style="display: flex;width: 50%;margin: 0 10px; align-items: center;">
                 <span style="display: block;white-space: nowrap;" >結束時間：</span><input type="text" style="width: 80%;" id='datepicker' />
               </div>
-                   <div
-                style="
-                  display: flex;
-                  width: 50%;
-                  margin: 0 10px;
-                  align-items: center;
-                "
-              >
-                <span style="display: block;white-space: nowrap;">建立者：</span
-                ><input type="text" style="width: 80%;" />
+                   <div style="display: flex; width: 50%;margin: 0 10px; align-items: center; " >
               </div>
             </div>
             <div class="first-feature-box"></div>
@@ -105,7 +96,10 @@
 								<div  style="display:flex; align-items: center;padding-bottom:5%  ;border-bottom: 1px solid rgb(197, 197, 197);">
 										<span style="white-space: nowrap;">店家：</span>
 									<select id="second-store" style="width:60%">
-										<option>麥當勞</option>
+										<c:forEach var='store' items='${storeList}'>
+											<option name="selectStore" value="${store}" onclick="getJson(${store})" >${store}</option>
+										</c:forEach>
+<!-- 										<option>麥當勞</option> -->
 									</select>
 									</div>
 								<ul class="features" id="second-feature">
@@ -169,7 +163,7 @@
 								<p class="content">Nam elementum nisl et mi a commodo porttitor. Morbi sit amet nisl eu arcu faucibus hendrerit vel a risus. Nam a orci mi, elementum ac arcu sit amet, fermentum pellentesque et purus. Integer maximus varius lorem, sed convallis diam accumsan sed. Etiam porttitor placerat sapien, sed eleifend a enim pulvinar faucibus semper quis ut arcu. Ut non nisl a mollis est efficitur vestibulum. Integer eget purus nec nulla mattis et accumsan ut magna libero. Morbi auctor iaculis porttitor. Sed ut magna ac risus et hendrerit scelerisque. Praesent eleifend lacus in lectus aliquam porta. Cras eu ornare dui curabitur lacinia.</p>
 								<footer class="major">
 									<ul class="actions special">
-										<li><a href="generic.html" class="button">Learn More</a></li>
+										<li><a href="generic.html" class="button" >Learn More</a></li>
 									</ul>
 								</footer>
 							</section>
@@ -207,7 +201,7 @@
 			        	                	<a id="second-remove" class="far fa-minus-square fa-3x second-remove" onclick="removeFirstData(item)"></a>
 			        	            	   </li>
 			        	           </ul>`
-			        $(".first-feature-box").append(htmlTag);
+			                $(".first-feature-box").append(htmlTag);
 			      }
 			      )
 		    }
@@ -231,34 +225,19 @@ console.log(firstData)
 // 	        console.log(firstData);
 		}	
 			
-		function	removeFirstData(item,index){
+		function removeFirstData(item,index){
+			console.log(item,index)
 			 var taskIndex = firstData.indexOf(item);
 			     firstData.splice(taskIndex, 1);
 			}
 			
 		      
 		      //  新增菜單選項
-      function insertMenu(e){
-//         	  $.ajax({'url':'/mvcExercisetest/orderLunch/insertMenu',
-//     				'method' : "POST",
-//     				'data' : {'store' : e.id
-//     				}
-//       })   
-console.log('insertMenu',firstData)
-    	  fetch('/mvcExercisetest/orderLunch/insertMenu', {
-    		    body: JSON.stringify(firstData), // must match 'Content-Type' header
-    		    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    		    credentials: 'same-origin', // include, same-origin, *omit
-    		    headers: {
-    		      'user-agent': 'Mozilla/4.0 MDN Example',
-    		      'content-type': 'application/json'
-    		    },
-    		    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    		    mode: 'cors', // no-cors, cors, *same-origin
-    		    redirect: 'follow', // manual, *follow, error
-    		    referrer: 'no-referrer', // *client, no-referrer
-    		  })
-    		  .then(response =>{
+      function insertMenu(item1,item2){
+        	  $.ajax({'url':'/mvcExercisetest/orderLunch/insertMenu',
+    				'method' : "POST",
+    				'data' : {'sale':item1,'price':item2}
+      }).then(response =>{
     			     $(".first-feature").remove();
  		        	firstData.push({sale:'',price:''});
  		        	addFirstData(firstData);

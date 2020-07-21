@@ -17,8 +17,12 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<div style="text-align:center">
+<hr>
+		<h1 class="bg-secondary text-light">新增活動資料</h1>
+<hr>
+</div>
 <fieldset>
-	<legend >新增活動資料(Activity)</legend> 
 	<form:form method="POST" modelAttribute="activity" enctype='multipart/form-data'>
 	<Table align="center">
 	<c:if test='${activity.id == null}'>
@@ -28,6 +32,10 @@
 	   	  <td width='360'><form:input path='activityTitle'/><br>&nbsp;
 	   	   <form:errors path="activityTitle" cssClass="error"/>
 	   	  </td>
+	   	  <td>簡介：<br>&nbsp;</td>
+		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	
+		      <form:errors path='activitySubtitle' cssClass="error"/>
+		  </td>
 	   </tr>
     </c:if>	   
     	<c:if test='${activity.id != null}'>
@@ -36,17 +44,21 @@
 	   	  <td><form:hidden path='activityTitle'/>
 	   	  	${activity.activityTitle}<br>&nbsp;
 	   	  </td>
+	   	  <td>簡介：<br>&nbsp;</td>
+		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	
+		      <form:errors path='activitySubtitle' cssClass="error"/>
+		  </td>
 	   </tr>
     </c:if>	
     
 	   <tr>
-	      <td>簡介：<br>&nbsp;</td>
-		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	
-		      <form:errors path='activitySubtitle' cssClass="error"/>
-		  </td>
+<!-- 	      <td>簡介：<br>&nbsp;</td> -->
+<%-- 		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	 --%>
+<%-- 		      <form:errors path='activitySubtitle' cssClass="error"/> --%>
+<!-- 		  </td> -->
 		  <td>內容：<br>&nbsp;</td>
-	      <td  width='360'>
-	      	<form:input path="content"/><br>&nbsp;	
+	      <td  colspan="3">
+	      	<form:textarea path="content" cols="90"/><br>&nbsp;	
 		      <form:errors path='content' cssClass="error"/>
 		  </td>
 	   </tr>
@@ -101,16 +113,20 @@
 	   	  	 <form:input path="joinNum"/><br>&nbsp;	
 		      <form:errors path='joinNum' cssClass="error"/>
 	   	  </td>
-	    <td colspan='4' align='center'><br>&nbsp;
-	      <input type='submit'>
+	    <td>
+	      <input type='submit' class="btn btn-info" value=" 送出活動資料  " ><br>&nbsp;
         </td>
+        <td>
+        <a class="btn btn-outline-secondary" href="<c:url value='/activity/index' />"> 取消並返回活動系統 </a>
+        <br>&nbsp;</td>
 	   </tr>
 	</Table>
 		 
 	</form:form>
 	
 </fieldset>
-<br>
-<a href="<c:url value='/activity/showAllActivities'/> " >回前頁</a>
+<footer class="bg-secondary text-white" align='center' style="font-size:20px">
+© Copyright 2020
+</footer>
 </body>
 </html>

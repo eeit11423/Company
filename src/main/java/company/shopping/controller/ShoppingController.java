@@ -44,6 +44,8 @@ import company.member.model.MemberBean;
 import company.shopping.model.ShoppingBean;
 import company.shopping.service.ShoppingService;
 
+
+
 @Controller
 @SessionAttributes({ "ShoppingCart", "memberBean", "shoppingBean","AllShoppingType" })
 public class ShoppingController {
@@ -52,7 +54,7 @@ public class ShoppingController {
 	@Autowired
 	ServletContext context;
 
-	@GetMapping("/shopping/oneProduct")
+	@GetMapping("/shopping/oneProduct") //單項商品
 	public String oneProduct(@RequestParam("id") Integer id, Model model) {
 		ShoppingBean shoppingBean = service.getshoppingId(id);
 		model.addAttribute("shoppingBean", shoppingBean);
@@ -89,6 +91,13 @@ public class ShoppingController {
 		model.addAttribute("products", beans);
 		return "shopping/allProducts";
 	}
+	
+	@GetMapping("/shopping/allProductsUpdateDelete") // 後台show出全部商品
+	public String allProductsUpdateDeletelist(Model model, HttpServletRequest req) {
+		List<ShoppingBean> beans = service.getAllProducts();
+		model.addAttribute("products", beans);
+		return "shopping/allProductsUpdateDelete";
+	}
 
 	@GetMapping("/products/add")
 	public String getAddNewProductForm(Model model) {
@@ -98,7 +107,7 @@ public class ShoppingController {
 		return "shopping/addProduct";
 	}
 
-	@PostMapping("/products/add")
+	@PostMapping("/products/add") //新增一筆商品
 	public String processAddNewProductForm(@ModelAttribute("shoppingBean") ShoppingBean bb, BindingResult result,
 			Model model) {
 		MultipartFile productImage = bb.getProductImage();
@@ -118,7 +127,7 @@ public class ShoppingController {
 		bb.setShoppingDate(new Timestamp(System.currentTimeMillis()));
 
 		service.addProduct(bb);
-		return "redirect:/";
+		return "redirect:/shopping/allProductsUpdateDelete";
 	}
 
 	@GetMapping("/shopping/picture/{id}")
@@ -175,7 +184,7 @@ public class ShoppingController {
 		return b;
 	}
 
-	@GetMapping("/shopping/sh/{id}")
+	@GetMapping("/shopping/sh/{id}")   
 	public String update(@PathVariable("id") Integer id, Model model) {
 		ShoppingBean shoppingBean = service.getshoppingId(id);
 		model.addAttribute(shoppingBean);
@@ -209,7 +218,7 @@ public class ShoppingController {
 		}
 		service.update(ss);
 
-		return "redirect:/shopping/allProducts";
+		return "redirect:/shopping/allProductsUpdateDelete";
 	}
 
 	@RequestMapping("/shopping/sh1/{id}")
@@ -217,7 +226,7 @@ public class ShoppingController {
 		ss.setShoppingId(id);
 		System.out.println("刪除ID====================="+id);
 		service.delete(id);
-		return "redirect:/shopping/allProducts";
+		return "redirect:/shopping/allProductsUpdateDelete";
 	}
 
 	@InitBinder
@@ -233,6 +242,30 @@ public class ShoppingController {
 		binder.registerCustomEditor(java.sql.Date.class, ce2);
 
 	}
+	
+	
+	@GetMapping("/shopping/AllProductsNewtoOld") // show出全部商品新到舊
+	public String AllProductsNewtoOld(Model model, HttpServletRequest req) {
+		List<ShoppingBean> beans = service.getAllProductsNewtoOld();
+		model.addAttribute("products", beans);
+		return "shopping/allProducts";
+	}
+	@GetMapping("/shopping/AllProductsPriceLowtoHigh") // show出全部商品價格低到高
+	public String AllProductsPriceLowtoHigh(Model model, HttpServletRequest req) {
+		List<ShoppingBean> beans = service.getAllProductsPriceLowtoHigh();
+		model.addAttribute("products", beans);
+		return "shopping/allProducts";
+	}
+	@GetMapping("/shopping/AllProductsPriceHightoLow") // show出全部商品價格高到低
+	public String AllProductsPriceHightoLow(Model model, HttpServletRequest req) {
+		List<ShoppingBean> beans = service.getAllProductsPriceHightoLow();
+		model.addAttribute("products", beans);
+		return "shopping/allProducts";
+	}
+	
+	
+	
+	
 
 @ModelAttribute("shoppingBean") //先抓取圖檔避免更新會有空值
 	public void getShoppingId(@PathVariable(value = "id", required = false) Integer id, Model model) {

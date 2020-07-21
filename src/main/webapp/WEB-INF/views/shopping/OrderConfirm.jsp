@@ -42,69 +42,53 @@ function reconfirmOrder() {
 <jsp:useBean   id="today"  class="java.util.Date" scope="session"/> 
 <title>訂單明細資訊確認</title>
 </head>
-<body style="background:#EBFFEB;">
+<body>
+<jsp:include page="/fragment/header.jsp" />
 <c:set var="funcName" value="CHE" scope="session"/>
 <div style="text-align:center">
-<h3>請確認下列訊息：</h3>
-<FORM style="margin: 0 auto; width:750px;" action="<c:url value='ProcessOrder.do' />" method="POST" >
-   <TABLE border='1' style="background:#F5EBFF; border-color:rgb( 100, 100, 255); border-style: outset; width:810;">
-      <TR >
-         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
-         	會員編號：${memberBean.memberNumber}
-         </TD>
-         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
-         	客戶姓名：${memberBean.memberName}
-         </TD>
-         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
-         	訂單日期：<fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>
-         </TD>
-         <TR >
-         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
-         	電話：${memberBean.memberPhone}
-         </TD>
-         <TD style="text-align:left; border-color: #FFBD32; border-style: ridge;">
-         	部門：${memberBean.memberDepartment}
-         </TD>
-       
-      </TR>
-      <TR>
-         <TD colspan='3' style="text-align:left; border-color: #FFBD32; border-style: ridge;">
-         	會員地址：${memberBean.memberAddress}
-         </TD>
-      </TR>
-      <TR>
-         <TD colspan='3' style="text-align:left; border-color: #FFBD32; border-style: ridge;">
-                             出貨地址：<Input style="background:#ECFFCD;" size="60" type="text" id='orderAddress' 
-                   name="orderAddress" value="">
-                   
-         </TD>
-      </TR>
-  
-    
-      <TR>
-         <TD colspan='3'>
-         
-   <TABLE border='1' style="background:#FFE7CD; border-color:rgb( 100, 100, 255); " >
-      
-     <tr>
-				<th width='20'>清單編號ID</th>
-				<th width='20'>訂單編號</th>
-				<th width='20'>下單時間</th>
-				<th width='20'>商品ID</th>
-				<th width='180'>商品名稱</th>
-				<th width='180'>商品敘述</th>
-				<th width='30'>商品價格</th>
-				<th width='30'>商品折扣</th>
-				<th width='30'>商品數量</th>
-				<th width='100'>商品總金額</th>
-			</tr>
-     <c:forEach  varStatus="vs" var='ShoppingCart' items='${ShoppingCart.content}'>
-				<tr>
+<FORM style="margin: 0 auto; width:1000px;" action="<c:url value='ProcessOrder.do' />" method="POST" >
 
-					<td>${ShoppingCart.value.orderItemsId}</td>
-					<td>${ShoppingCart.value.orderId}</td>
-					<td>${ShoppingCart.value.orderDate}</td>
-					<td>${ShoppingCart.value.shoppingId}</td>
+<section class=" box-30">
+	<div class="container">
+		<h2 class="text-left  mb-4"  >
+			<strong  >請確認下列訊息：</strong>
+		</h2>
+		<table   class="table table-hover bg-white table-bordered" >
+				<tr  class="text-white text-left" style='background:#646D73'>
+					<td  colspan="1">會員編號:${memberBean.memberNumber}</td>
+					<td colspan="3">客戶姓名:${memberBean.memberName}</td>
+					<td colspan="2">部門：${memberBean.memberDepartment}</td>
+					
+			</tr>
+		<tr  class="text-white text-left" style='background:#646D73'>
+					<td colspan="2">電話：${memberBean.memberPhone}</td>
+					<td colspan="4" class='text-right'>訂單日期:<fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/></td>
+					
+			</tr>
+			<tr  class="text-white text-left" style='background:#646D73'>
+					<td colspan='6'>會員地址：${memberBean.memberAddress}</td>
+					
+					
+			</tr >
+		<tr  class="text-white text-left" style='background:#646D73'>
+			<td colspan='6'>
+			<span>出貨地址：</span><Input size='60px' type="text" id='orderAddress' 
+                   name="orderAddress" value="" ></td>
+                   
+			</tr>
+				</table>
+		<table   class="table table-hover bg-white table-bordered" >	
+          <tr>
+            <td scope="col" width='180'>商品名稱</td>
+            <td scope="col" width='180'>商品敘述</td>
+            <td scope="col" width='30'>價格</td>
+            <td scope="col" width='30'>折扣</td>
+                <td scope="col" width='30'>數量</td>
+            <td scope="col" width='100'>商品總金額</td>
+          
+          </tr>
+               <c:forEach  varStatus="vs" var='ShoppingCart' items='${ShoppingCart.content}'>
+				<tr>
 					<td>${ShoppingCart.value.shoppingProductName}</td>
 					<td>${ShoppingCart.value.productrelatio}</td>
 					<td>${ShoppingCart.value.shoppingProductPrice}</td>
@@ -112,10 +96,26 @@ function reconfirmOrder() {
 					<td>${ShoppingCart.value.orderItemsNumber}</td>
                     <td style="text-align:right;"><fmt:formatNumber value="${ShoppingCart.value.shoppingProductPrice * ShoppingCart.value.shoppingProductDiscount * ShoppingCart.value.orderItemsNumber}" pattern="#,###,###" />元</td>
 			</c:forEach>
+       
+		</table>
+	</div>
+</section>
+
+
+<div class="container">
+  
+  
+    
+      <TR>
+         <TD colspan='3'>
+         
+   <TABLE   class="table " >
+      
+
      
-        <TR height='16'>
-          <TD style="text-align:right;font-size: 11pt;" colspan='5' >合計金額：</TD>
-          <TD style="text-align:right;font-size: 11pt;" >
+        <TR height='80'>
+       
+          <TD style="text-align:right;font-size: 30pt;" colspan='6'  >合計金額：
           <fmt:formatNumber value="${ShoppingCart.subtotal}" pattern="#,###,###" />元</TD>
                   
         </TR>
@@ -123,12 +123,15 @@ function reconfirmOrder() {
           </TD>
       </TR>
  
-   </TABLE><P/>
+   </TABLE>
+   </div>
+   <P/>
    <input type="hidden" name="finalDecision"  value="">   
-   <input type="button" name="OrderBtn"  value="確定送出" onclick="reconfirmOrder()">
-   <input type="button" name="CancelBtn" value="取消訂單" onclick="cancelOrder()">
+   <input type="button"  class="btn btn-secondary slidedown" name="OrderBtn"  value="確定送出" onclick="reconfirmOrder()">
+   <input type="button"  class="btn btn-secondary slidedown" name="CancelBtn" value="取消訂單" onclick="cancelOrder()">
+   
 </FORM>
-</div>
+
 
 </body>
 </html>

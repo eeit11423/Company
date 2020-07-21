@@ -20,8 +20,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.mysql.cj.xdevapi.JsonArray;
 
 @Controller
 public class OrderLunchController extends HttpServlet{
@@ -35,7 +38,7 @@ public class OrderLunchController extends HttpServlet{
     //sql
     private static final String SELECT_LUNCH_STORE = "SELECT STORE FROM ORDERLUNCH ";
     private static final String SELECT_STORE_LIST = "SELECT * FROM ORDERLUNCH WHERE STORE = ? ";
-    private static final String INSERT_LUNCH_ORDER = "insert into OrderLunch (id,store,product,price,orderTime,userId) values(?,?,?,?,?,?)";
+    private static final String INSERT_LUNCH_ORDER = "insert into OrderLunch (id,store,product,price,orderTime,userName) values(?,?,?,?,?,?)";
     
     
 	//導頁
@@ -61,27 +64,28 @@ public class OrderLunchController extends HttpServlet{
 		return "orderLunch/order";
 	}
 	
-	@GetMapping("/orderLunch/insertOrder")
-	public String insertOrder() {
-		Connection con = null;
-		PreparedStatement ps = null;
-
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(INSERT_LUNCH_ORDER);
-			ps.setInt(1, 1);
-			ps.setNString(2,"麥當勞");
-			ps.setString(3, "麥脆雞");
-			ps.setInt(4,100);
-			ps.setDate(5, new java.sql.Date(System.currentTimeMillis()));
-			ps.setInt(6, 1001);
-			ps.execute();
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "orderLunch/order";
+	@RequestMapping(value = "/orderLunch/insertMenu",method = RequestMethod.POST )
+	public void insertOrder(HttpServletRequest request, HttpServletResponse response) {
+		String sale = request.getParameter("sale");
+		String price = request.getParameter("price");
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		try {
+//			
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			ps = con.prepareStatement(INSERT_LUNCH_ORDER);
+//			ps.setInt(1, 1);
+//			ps.setNString(2,"麥當勞");
+//			ps.setString(3, "麥脆雞");
+//			ps.setInt(4,100);
+//			ps.setDate(5, new java.sql.Date(System.currentTimeMillis()));
+//			ps.setInt(6, 1001);
+//			ps.execute();
+//			
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	@RequestMapping(value="/orderLunch/selectStoreList",method = RequestMethod.POST)
 	public void selectStore(HttpServletRequest request, HttpServletResponse response) {
@@ -105,11 +109,10 @@ public class OrderLunchController extends HttpServlet{
 				food.put("product", rs.getString("product"));
 				food.put("price", rs.getString("price"));
 				food.put("orderTime", rs.getString("orderTime"));
-				food.put("userId", rs.getString("userId"));
+				food.put("userName", rs.getString("userName"));
 				foodList.add(food);
 			}
 			foodListJson = JSON.toJSONString(foodList);
-			System.out.println(foodListJson);
 			PrintWriter out =response.getWriter();
 			out.print(foodListJson);
 			out.close();
@@ -118,5 +121,6 @@ public class OrderLunchController extends HttpServlet{
 		}
 		
 	}
+	
 	
 }
