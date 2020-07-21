@@ -1,6 +1,8 @@
 package company.rearend.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -91,6 +93,41 @@ public class GraphDaoImpl implements GraphDao {
 		}
 		return list;
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> getSalary(String sal) {
+		String hql = "SELECT SUM(M.memberSalary) FROM MemberBean M ";
+		Session session = factory.getCurrentSession();
+		List<MemberBean> list = session.createQuery(hql).getResultList();
+		
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<Integer,ShoppingBean> getShoppingType(String Type) {
+		String hql = "FROM ShoppingBean where shoppingId = :shoppingId";
+		String hql2 = "FROM OrderItemBean";
+		
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list = session.createQuery(hql2).getResultList();
+		Map<Integer,ShoppingBean> mapShop = new HashMap();
+		List<ShoppingBean> list1=null;
+		for (OrderItemBean shop : list) {
+			 list1 = session.createQuery(hql).
+					setParameter("shoppingId", shop.getShoppingId())
+					.getResultList();
+			 for (ShoppingBean shoppL : list1) {
+					mapShop.put(shoppL.getShoppingId(), shoppL);
+					System.out.println();
+				}
+			//mapShop.put(list1.get(shop.getShoppingId()).getShoppingId(),ShoppingBean);
+//			shop.getShoppingId();
+		}
+		
+		return mapShop;
 	}
 
 }

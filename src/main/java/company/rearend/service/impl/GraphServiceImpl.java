@@ -1,6 +1,7 @@
 package company.rearend.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -53,6 +54,17 @@ public class GraphServiceImpl implements GraphService {
 	public List<OrderItemBean> getOrderprice(String price) {
 		return graphDao.getOrderprice(price);
 		
+	}
+
+	@Override
+	public List<MemberBean> getSalary(String sal) {
+		return graphDao.getSalary(sal);
+	}
+
+	@Override
+	public Map<Integer,ShoppingBean> getShoppingType(String Type) {
+		return graphDao.getShoppingType(Type);
+
 	}
 	
 }

@@ -1,6 +1,7 @@
 package company.rearend.service;
 
 import java.util.List;
+import java.util.Map;
 
 import company.member.model.MemberBean;
 import company.shopping.model.OrderItemBean;
@@ -13,4 +14,6 @@ public interface GraphService {
 	List<ShoppingBean> getShoppingNumber(String Number);
 	List<MemberBean>  getMemberNumberpeople(String people);
 	List<OrderItemBean>  getOrderprice(String price);
+	List<MemberBean>  getSalary(String sal);
+	Map<Integer,ShoppingBean> getShoppingType(String Type);
 }
