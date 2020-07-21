@@ -17,11 +17,14 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+<div align="center">
 <hr>
+		<h1 class="bg-secondary text-light">活動報名</h1>
+<hr>
+</div>
 <fieldset>
-	<legend >活動報名(Activity)</legend> 
 	<form:form method="POST" modelAttribute="join" enctype='multipart/form-data'>
-	<Table align="center">
+	<Table align="center" border="1">
 	<c:if test='${activity.id == null}'>
 		<br>
 	 	<tr>
@@ -29,28 +32,28 @@
 	   </tr>
     </c:if>	   
     	<c:if test='${activity.id != null}'>
-	 	<tr>
-	      <td>活動序號：<br>&nbsp;</td>
+	 	<tr style="text-align:center">
+	      <td>活動序號</td>
 	   	  <td><form:hidden path='activityId' value='${activity.id}'/>
-	   	  	${activity.id}<br>&nbsp;
+	   	  	${activity.id}
 	   	  </td>
 	   	  
 	   </tr>
     </c:if>	
-    <tr>
-	      <td>活動名稱：<br>&nbsp;</td>
+    <tr style="text-align:center">
+	      <td>活動名稱</td>
 		  <td  width='360'><form:hidden path='activityName' value='${activity.activityTitle}'/>
-		  ${activity.activityTitle}<br>&nbsp;
+		  ${activity.activityTitle}
 		  </td>
 	   </tr>
-	   <tr>
-	      <td>參加人員：<br>&nbsp;</td>
+	   <tr style="text-align:center">
+	      <td>參加人員</td>
 		  <td  width='360'><form:hidden path='joinMemberId' value='${memberBean.memberId}' />	
-		  ${memberBean.memberId} ${memberBean.memberName}<br>&nbsp;
+		  ${memberBean.memberId} ${memberBean.memberName}
 		  </td>
 	   </tr>
 	   	   <tr>
-	    <td colspan='4' align='center'><br>&nbsp;
+	    <td colspan='4' align='center'>
 	      <input type='submit'>
         </td>
 	   </tr>
@@ -59,6 +62,7 @@
 	</form:form>
 	
 </fieldset>
+<hr>
 <br>
 <a href="<c:url value='/activity/showAllActivities'/> " >回前頁</a>
 </body>
