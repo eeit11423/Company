@@ -42,19 +42,20 @@ public class PunchController {
 	@Autowired
 	ServletContext context;
 	
-	//搜尋登入員工的punch資料
-	@RequestMapping("punch")
-	public String punch( Model model) {
-		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
-		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
-		}else {
-			System.out.println(memberBean.getMemberName());
-			List<Punch> list = service.getPunchTime(memberBean.getMemberName());
-			model.addAttribute("punch",list);
-			return "attendance/punch/punch";
-		}
-	}
+//	//搜尋登入員工的punch資料
+//	已停用
+//	@RequestMapping("punch")
+//	public String punch( Model model) {
+//		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+//		if (memberBean == null) {
+//			return "redirect: " + context.getContextPath() + "/";
+//		}else {
+//			System.out.println(memberBean.getMemberName());
+//			List<Punch> list = service.getPunchTime(memberBean.getMemberName());
+//			model.addAttribute("punch",list);
+//			return "attendance/punch/punch";
+//		}
+//	}
 	
 //	//搜尋所有人punch資料
 //	@RequestMapping("punch")
@@ -124,9 +125,10 @@ public class PunchController {
 		if (memberBean == null) {
 			return "redirect: " + context.getContextPath() + "/";
 		}else {
-			System.out.println(memberBean.getMemberName());
+			System.out.println(memberBean.getMemberName().length());
 			List<Punch> list = service.getPunchTime(memberBean.getMemberName());
 			model.addAttribute("memberpunch",list);
+			
 		return "attendance/punch/memberPunch" ;
 		}
 	}
@@ -146,25 +148,32 @@ public class PunchController {
 	
 	@GetMapping("/queryPunchTimeData")
 	public ResponseEntity<Map<String, Object>> queryPunchTime(
-			@RequestParam(value="memberNumber", defaultValue = "0") String memberNumber,
-			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate ){ 
-		List<Punch> listTarget = service.queryPunchTime(memberNumber, selectdate);
-		Map<String, Object> map =  new HashMap<>();
-		map.put("punchtimes", listTarget);
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate, Model model){ 
+//		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+//		System.out.println(memberBean.getMemberAdmin());
+//		if (memberBean.getMemberAdmin().equals("s")) {
+			List<Punch> listTarget = service.queryPunchTime(memberNumber, selectdate);
+			Map<String, Object> map =  new HashMap<>();
+			map.put("punchtimes", listTarget);
 		
-		ResponseEntity<Map<String, Object>> re = new ResponseEntity<>(map, HttpStatus.OK);
-		return re;
+			ResponseEntity<Map<String, Object>> re = new ResponseEntity<>(map, HttpStatus.OK);
+			return re;
+//		}else {
+//			System.out.println("此身分無法使用管理功能");
+//			return "redirect:/attendance/punch/memberPunch";
+//		}
 	}
 	
 
 	@GetMapping(value="/punchTimeEdit/{punchId}", produces= {"text/html"})
 	public String editPunchtimeFromPunchId(@PathVariable Integer punchId, Model model) {
-		Punch punch = service.editPunchtimeFromPunchId(punchId);
-		model.addAttribute(punch);
-		return "attendance/punch/updatePunchTime";
+			Punch punch = service.editPunchtimeFromPunchId(punchId);
+			model.addAttribute(punch);
+			return "attendance/punch/updatePunchTime";
 	}
 	
-	@PutMapping("/punchTime/update/{key}")   
+	@PostMapping("/punchTime/update/{key}")   
 	public String updatePunchTime(
 			@PathVariable Integer key, Punch punch) {
 		service.updatePunchTime(punch);
@@ -172,7 +181,7 @@ public class PunchController {
 		return "redirect:/attendance/punch/queryPunchTime";
 	}
 
-	@DeleteMapping("/punchTime/update/{key}")  
+	@GetMapping("/deletePunchTime/{key}")  
 	public String deletePunchTime(@PathVariable Integer key, Model model, HttpServletRequest req) {
 		service.deletePunchTimeByPunchId(key);
 		return "redirect:/attendance/punch/queryPunchTime";

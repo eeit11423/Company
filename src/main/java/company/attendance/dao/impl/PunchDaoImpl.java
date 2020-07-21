@@ -205,24 +205,45 @@ public class PunchDaoImpl implements PunchDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Punch> queryPunchTime(String memberNumber, String selectdate) {
-		System.out.println(selectdate);
+		Session session = factory.getCurrentSession();
 		String timesplit[] = selectdate.split("-");
-		if (timesplit.length == 1) {
-			String hql = "FROM Punch WHERE memberNumber = :number Order By punchDate";
-			Session session = factory.getCurrentSession();
-			List<Punch> listTarget = session.createQuery(hql)
-											.setParameter("number", memberNumber)
-											.getResultList();
-			return listTarget;
-		} else {
-			String hql = "FROM Punch WHERE memberNumber = :number and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
-			Session session = factory.getCurrentSession();
-			List<Punch> listTarget = session.createQuery(hql)
-											.setParameter("number", memberNumber)
-											.setParameter("yyyy", timesplit[0])
-											.setParameter("mm", timesplit[1])
-											.getResultList();
-			return listTarget;
+		System.out.println(memberNumber);
+		System.out.println(selectdate);
+		
+		if (timesplit.length == 1) {                     //所有時間
+			if(memberNumber.equals("all")) {				//所有員工
+				System.out.println("所有員工-所有時間");
+				String hql = "FROM Punch Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.getResultList();
+				return listTarget;
+			}else {
+				System.out.println("指定員工-所有時間");	//指定員工
+				String hql = "FROM Punch WHERE memberNumber = :number";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.getResultList();
+				return listTarget;
+			}
+		}else {											 //指定時間
+			if(memberNumber.equals("all")){					//所有員工
+				System.out.println("所有員工-指定時間");
+				String hql = "FROM Punch WHERE DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.getResultList();
+				return listTarget;
+			}else{											//指定員工
+				System.out.println("指定員工-指定時間");
+				String hql = "FROM Punch WHERE memberNumber = :number and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.getResultList();
+				return listTarget;
+				}
 		}
 	}
 

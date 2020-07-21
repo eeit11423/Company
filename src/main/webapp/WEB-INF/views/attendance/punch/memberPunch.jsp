@@ -18,24 +18,31 @@
 			出勤系統
 			<hr>
 		</h1>
-		<h2>${memberpunch[0].memberName}
-		</h2>
+		<h4>使用者：${memberpunch[0].memberName}</h4>
+		<a href='<c:url value='/'/>'>返回首頁</a>
 	</div>
 	<div align='center'>
-		<div class="container" style="text-align: center">
+		<div class="container" align='center' style="text-align: center">
 			<button onclick="location.href='punchWorkOn'">上班打卡</button>
 			<button onclick="location.href='punchWorkOff'">下班打卡</button>
 			<button onclick="location.href='insertPunchTime'">新增出勤紀錄</button>
-			<button onclick="location.href='queryPunchTime'">出勤管理</button>
 		</div>
+			<button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button>
 		選擇年月份：<select id='dateselect'></select>
-		<hr>
-		<a href='bakcPunchTime'>回前頁</a>
-		<hr>
 		<!-- 顯示書籍資料的區域 -->
+			<hr>
 		<div align='center' id='tablearea' style='height: 150px;'
 			class='center'></div>
 		<script>
+			var btn = document.getElementById("manage"); 
+			function checkAdmin(){
+			    if(${memberBean.memberAdmin == "s"}) {
+			        btn.style.display = "block";
+			    } else {
+			        btn.style.display = "none";
+			    } 
+			}
+			checkAdmin();
 			var selectElement = document.getElementById('dateselect'); // 取出select標籤
 			var tablearea = document.getElementById('tablearea'); // 取出書籍資料的div標籤
 			var detail = document.getElementById('detail'); // 取出書籍資料的div標籤
@@ -56,8 +63,7 @@
 						displayPagePunchTime(xhr.responseText);
 					}
 				}
-				xhr2.open("GET",
-						"<c:url value='memberPunch'/>", true);
+				xhr2.open("GET","<c:url value='memberPunch'/>", true);
 				// 			// 送出請求						
 				xhr2.send();
 			}
@@ -72,8 +78,7 @@
 				// 			// 定義open方法
 				xhr2.open("GET",
 						"<c:url value='queryPunchTimeData' />?memberNumber="+ ${memberpunch[0].memberNumber} 
-						+ "&selectdate=" + selectdate,
-						true);
+						+ "&selectdate=" + selectdate, true);
 				// 			// 送出請求						
 				xhr2.send();
 			}
@@ -86,13 +91,13 @@
 				var content = "<table align='center' border='1'  bgcolor='#fbdb98'>";
 
 				content += "<tr align='center'>"
-						+ "<th align='center' width='60'><a href='insertPunchTime'>新增</a></th>"
-						+ "<th align='center' width='100'>姓名</th>"
-						+ "<th align='center' width='200'>日期</th>"
-						+ "<th align='center' width='200'>上班時間</th>"
-						+ "<th align='center' width='60'>遲到</th>"
-						+ "<th align='center' width='200'>下班時間</th>"
-						+ "<th align='center' width='60'>早退</th></tr>";
+						+ "<th align='center' width='40'><a href='insertPunchTime'>新增</a></th>"
+						+ "<th align='center' width='70'>姓名</th>"
+						+ "<th align='center' width='140'>日期</th>"
+						+ "<th align='center' width='140'>上班時間</th>"
+						+ "<th align='center' width='70'>遲到</th>"
+						+ "<th align='center' width='140'>下班時間</th>"
+						+ "<th align='center' width='70'>早退</th></tr>";
 				for (var i = 0; i < punchtimes.length; i++) {
 					var punchday = punchtimes[i].punchDate; //or time=1439018115000; 结果一样
 					console.log(timeStampToDate(punchday));
@@ -102,8 +107,7 @@
 					console.log(timeStampToTime(workOff));
 					console.log('-------------------------------------');
 
-					content += "<tr><td width='70'><a href='punchTimeEdit/" + punchtimes[i].punchId + "'>"
-							+ punchtimes[i].punchId	+ "</a></td>"
+					content += "<tr ><td align='center'>" + punchtimes[i].punchId + "</a></td>"
 							+ "<td align='center'>"	+ punchtimes[i].memberName	+ "</td>"
 							+ "<td align='center'>"	+ timeStampToDate(punchday)	+ "</td>"
 							+ "<td align='center'>"	+ timeStampToTime(workOn) + "</td>"

@@ -11,18 +11,18 @@
 <meta charset="UTF-8">
 <title>>修改出勤紀錄</title>
 <script type="text/javascript">
-	function confirmDelete(userId) {
-		var result = confirm("確定刪除此筆記錄(帳號:" + userId.trim() + ")?");
-		if (result) {
-			document.forms[0].putOrDelete.value = "DELETE";
-			return true;
-		}
-		return false;
-	}
+// 	function confirmDelete(userId) {
+// 		var result = confirm("確定刪除此筆記錄(帳號:" + userId.trim() + ")?");
+// 		if (result) {
+// 			document.forms[0].putOrDelete.value = "DELETE";
+// 			return true;
+// 		}
+// 		return false;
+// 	}
 	function confirmUpdate(userId) {
 		var result = confirm("確定送出此筆記錄(帳號:" + userId.trim() + ")?");
 		if (result) {
-			document.forms[0].putOrDelete.value = "PUT";
+// 			document.forms[0].putOrDelete.value = "PUT";
 			return true;
 		}
 		return false;
@@ -41,7 +41,7 @@
 		<p>
 			<form:form class='center' action="../punchTime/update/${punch.punchId}" modelAttribute="punch"
 				method="POST">
-				<input type="hidden" name="_method" id='putOrDelete' value="">
+<!-- 				<input type="hidden" name="_method" id='putOrDelete' value=""> -->
 				<input type="hidden" name="punchId" value="${punch.punchId}">
 				<input type="hidden" name="memberName" value="${punch.memberName}">
 				<input type="hidden" name="finalDecision" value="">
@@ -67,11 +67,11 @@
 					</TR>
 
 					<TR>
-						<TD colspan="2" align="center"><input type="submit"
-							value="更新" name='updateBtn'
-							onclick="return confirmUpdate('${punch.memberName}');"> <input
-							type="submit" value="刪除" name='deleteBtn'
-							onclick="return confirmDelete('${punch.memberName}');"></TD>
+						<TD colspan="2" align="center">
+<%-- 							<input type="submit" value="更新" name='updateBtn' onclick="return confirmUpdate('${punch.memberName}');">  --%>
+<%-- 							<input type="submit" value="刪除" name='deleteBtn' onclick="return confirmDelete('${punch.memberName}');"> --%>
+							<input type='submit' value='提交'>
+							<input type='reset' value='還原'>
 					</TR>
 				</Table>
 				<c:if test="${not empty requestScope.modify}">
