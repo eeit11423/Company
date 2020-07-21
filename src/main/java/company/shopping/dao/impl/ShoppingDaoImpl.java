@@ -106,5 +106,16 @@ public class ShoppingDaoImpl implements ShoppingDao {
 								.getResultList();		
 		return list;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShoppingBean> getSearchShoppingNameProductrelatio(String searchWord) {
+		String hql="FROM ShoppingBean s  where s.shoppingname like :searchWord ";//or productrelatio like :searchWord1
+		Session session=factory.getCurrentSession();
+		List<ShoppingBean> list=session.createQuery(hql)
+				                       .setParameter("searchWord", "%"+searchWord+"%")
+//		                               .setParameter("searchWord1", "%"+searchWord+"%")
+				                       .getResultList();
+		  return list;
+      }
 
 }

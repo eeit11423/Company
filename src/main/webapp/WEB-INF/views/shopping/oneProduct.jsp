@@ -55,7 +55,7 @@ function modify() {
             <div class="row">
                 <!-- 產品說明/start -->
                 <div class="col-12 col-md-9">
-                    <div class="row">
+                    <div class="row" id='showAllProducts'>
                         <!-- 商品照片/start -->
                         <div class="col-12 col-md-6">
                             <img class="card-img-top" src='picture/${shoppingBean.shoppingId}' alt="${product.shoppingId}" class="img-fluid w-100">
@@ -174,6 +174,45 @@ function modify() {
         $(function () {
             $('[data-toggle="tooltip"]').tooltip({trigger: "click"});
         })
+          function handleSelect(elm)
+   {
+   window.location = elm.value;
+   }
+        
+        function memberChange(){
+		var Publish_member = document.getElementById("Publish_shoppingType").value;
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET","<c:url value='/shopping/"+ Publish_member+"' />",true);
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4 && xhr.status ==200){
+				var content ='<div class="col-12 mt-3 mb-3"> <p class="d-inline-block">顯示 21 筆結果中的 1–9 筆</p><form action="" class="d-inline-block float-right"> <select id="ProductSelect" class="form-control" onchange="javascript:handleSelect(this)">'+
+	                          '<option value="allProducts">請選擇排序</option><option value="allProducts">依上架時間舊到新</option>'+
+	                        '<option value="AllProductsNewtoOld">依上架時間新到舊</option><option value="AllProductsPriceLowtoHigh">依價格排序:低至高</option>'+
+	                       '<option value="AllProductsPriceHightoLow">依價格排序:高至低</option>  </select>	</form> </div>'
+	             var member = JSON.parse(xhr.responseText);
+	       	    var xhr_img = new XMLHttpRequest();
+				for (var i= 0 ; i<member.length ; i++){
+					content +='<div class="col-12 col-sm-6 col-md-4 mb-3 "><div class="card">'+
+					'<img class="card-img-top" src="picture/'+member[i].shoppingId+'" alt="${product.shoppingId}">'+
+					'<div class="card-body card">'+'<h5 class="card-img-top">'+member[i].shoppingname+'</h5>'+
+					'<h5 class="card-text ">'+'<small class="mr-1"> <del>$&nbsp;'+member[i].shoppingProductPrice+'</del>'+
+					'</small> <span class="card-text text-danger">$'+
+					Math.ceil(member[i].shoppingProductPrice * member[i].shoppingProductDiscount)+'</span></h5>'+
+					'<a href="oneProduct?id='+member[i].shoppingId+'" class="btn btn-outline-secondary btn-block">查看商品</a>'+
+					'<form action="addToCart" method="POST"><input type="hidden" name="shoppingId"'+
+					'value="'+member[i].shoppingId+'"> <input type="hidden" name="orderItemsNumber" value="1">'+
+					'<input class="btn btn-outline-primary btn-block" type="submit" value="加入購物車">		</form>'
+			            
+					+'</div></div></div>'
+												
+				}
+				content += "";
+				var div = document.getElementById("showAllProducts");
+				div.innerHTML = content;
+			}
+		}
+	}
     </script>
 </body>
 </html>

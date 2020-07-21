@@ -15,5 +15,6 @@ public interface ShoppingService {
 	public List<ShoppingBean> getALLShoppingType();//不同的分類全部顯示
 	List<ShoppingBean> getAllProductsNewtoOld();    //全部商品由新到舊
 	List<ShoppingBean> getAllProductsPriceHightoLow();    //全部商品價格由高到低
-	List<ShoppingBean> getAllProductsPriceLowtoHigh(); 
+	List<ShoppingBean> getAllProductsPriceLowtoHigh();  //全部商品價格由低到高
+	public List<ShoppingBean> getSearchShoppingNameProductrelatio(String searchWord); //模糊搜尋商品名稱和敘述
 }

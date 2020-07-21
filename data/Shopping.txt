@@ -1,20 +1,20 @@
-1001|鍵盤|G913 無線RGB機械式短軸遊戲鍵盤 |7490|0.5|多媒體控制快捷鍵設計 支援程式軟體編輯自由選擇色調  青軸|data/images/shopping/product1.jpg|50
-1001|鍵盤|G413 機械式背光遊戲鍵盤|1990|0.5|FN搭配多媒體熱鍵 RGB支援紅色/白色切換  白軸|data/images/shopping/product2.jpg|50
-1001|鍵盤|Ducky One 2 Mini RGB 機械式鍵盤|2890|0.5|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 紅軸|data/images/shopping/product3.jpg|50
-1001|鍵盤|Ducky One 2 Mini RGB 機械式鍵盤|2690|0.5|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 茶軸|data/images/shopping/product4.jpg|50
-1001|鍵盤|Craft 創意輸入轉鈕無線鍵盤|5990|0.5|多媒體控制快捷鍵設計 智慧背光照明系統 靜音無噪按鍵|data/images/shopping/product5.jpg|50
-1001|鍵盤|羅技 G512機械式電競鍵盤 - GX線性軸|2990|0.5|羅技G HUB自訂功能鍵 1680萬色 LIGHTSYNC RGB 可自訂燈效 青-紅-茶軸|data/images/shopping/product6.jpg|50
-1001|鍵盤|羅技 G910 電競鍵盤|5990|0.5|9 個可自訂按鈕專用媒體控制鍵 智慧型 RGB 照明-可自訂超過 1680 萬種顏色 獨家 ROMER-G 機械軸|data/images/shopping/product7.jpg|50
-1001|鍵盤|華碩 ASUS機械式電競鍵盤 |4690|0.5|完全可編程按鍵|data/images/shopping/product8.jpg|50
-1001|螢幕|DELL 24吋IPS寬螢幕|4888|0.5|尺寸:24吋 亮度:300cd/m2 8MS反應時間|data/images/shopping/product10.jpg|50
-1001|螢幕|BENQ PD3220U 32型IPS 4K|42900|0.5|尺寸:31.5吋 亮度:300/m2  5mS反應時間|data/images/shopping/product11.jpg|50
-1001|螢幕|SAMSUNG 32型2K曲面電競螢幕|12900|0.5|尺寸:31.5吋 亮度:300cd/m2 4mS反應時間|data/images/shopping/product12.jpg|50
-1001|螢幕|AOC 32型4K曲面大理石紋美型機螢幕|10988|0.5|尺寸:31.5吋 亮度:250cd/m2 4mS反應時間|data/images/shopping/product13.jpg|50
-1001|螢幕|SAMSUNG 27吋240Hz曲面電競螢幕|10990|0.5|尺寸:27吋 亮度:300cd/m2 4mS反應時間|data/images/shopping/product14.jpg|50
-1001|螢幕|ASUS Strix XG258Q 25型電競螢幕|11888|0.5|尺寸:24.5吋 亮度:400cd/m2 1mS反應時間|data/images/shopping/product15.jpg|50
-1001|螢幕|AOC 24型IPS HDR電競螢幕|3588|0.5|尺寸:24吋 亮度:300 cd/m² 1mS反應時間|data/images/shopping/product16.jpg|50
-1001|螢幕|ZOWIE by BenQ XL2546|14900|0.5|尺寸:24.5吋 亮度:320 cd/m² 1mS反應時間|data/images/shopping/product17.jpg|50
-1001|螢幕|LG 34吋21:9 AH-IPS曲面電競螢幕|14888|0.5|尺寸:34吋 亮度:300cd/m2 1mS反應時間|data/images/shopping/product18.jpg|50
+1001|鍵盤|G913 無線RGB機械式短軸遊戲鍵盤 |7490|0.9|多媒體控制快捷鍵設計 支援程式軟體編輯自由選擇色調  青軸|data/images/shopping/product1.jpg|50
+1001|鍵盤|G413 機械式背光遊戲鍵盤|1990|0.9|FN搭配多媒體熱鍵 RGB支援紅色/白色切換  白軸|data/images/shopping/product2.jpg|50
+1001|鍵盤|Ducky One 2 Mini RGB 機械式紅軸|2890|0.9|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 紅軸|data/images/shopping/product3.jpg|50
+1001|鍵盤|Ducky One 2 Mini RGB 機械式茶軸|2690|0.9|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 茶軸|data/images/shopping/product4.jpg|50
+1001|鍵盤|Craft 創意輸入轉鈕無線鍵盤|5990|0.9|多媒體控制快捷鍵設計 智慧背光照明系統 靜音無噪按鍵|data/images/shopping/product5.jpg|50
+1001|鍵盤|羅技 G512機械式電競鍵盤 - GX線性軸|2990|0.9|羅技G HUB自訂功能鍵 1680萬色 LIGHTSYNC RGB 可自訂燈效 青-紅-茶軸|data/images/shopping/product6.jpg|50
+1001|鍵盤|羅技 G910 電競鍵盤|5990|0.9|9 個可自訂按鈕專用媒體控制鍵 智慧型 RGB 照明-可自訂超過 1680 萬種顏色 獨家 ROMER-G 機械軸|data/images/shopping/product7.jpg|50
+1001|鍵盤|華碩 ASUS機械式電競鍵盤 |4690|0.9|完全可編程按鍵|data/images/shopping/product8.jpg|50
+1001|螢幕|DELL 24吋IPS寬螢幕|4888|0.9|尺寸:24吋 亮度:300cd/m2 8MS反應時間|data/images/shopping/product10.jpg|50
+1001|螢幕|BENQ PD3220U 32型IPS 4K|42900|0.9|尺寸:31.5吋 亮度:300/m2  5mS反應時間|data/images/shopping/product11.jpg|50
+1001|螢幕|SAMSUNG 32型2K曲面電競螢幕|12900|0.9|尺寸:31.5吋 亮度:300cd/m2 4mS反應時間|data/images/shopping/product12.jpg|50
+1001|螢幕|AOC 32型4K曲面大理石紋美型機螢幕|10988|0.9|尺寸:31.5吋 亮度:250cd/m2 4mS反應時間|data/images/shopping/product13.jpg|50
+1001|螢幕|SAMSUNG 27吋240Hz曲面電競螢幕|10990|0.9|尺寸:27吋 亮度:300cd/m2 4mS反應時間|data/images/shopping/product14.jpg|50
+1001|螢幕|ASUS Strix XG258Q 25型電競螢幕|11888|0.9|尺寸:24.5吋 亮度:400cd/m2 1mS反應時間|data/images/shopping/product15.jpg|50
+1001|螢幕|AOC 24型IPS HDR電競螢幕|3588|0.9|尺寸:24吋 亮度:300 cd/m² 1mS反應時間|data/images/shopping/product16.jpg|50
+1001|螢幕|ZOWIE by BenQ XL2546|14900|0.9|尺寸:24.5吋 亮度:320 cd/m² 1mS反應時間|data/images/shopping/product17.jpg|50
+1001|螢幕|LG 34吋21:9 AH-IPS曲面電競螢幕|14888|0.9|尺寸:34吋 亮度:300cd/m2 1mS反應時間|data/images/shopping/product18.jpg|50
 1001|滑鼠|LEXMAM900R無線靜音滑鼠|499|0.9|無線/6顆可編成按鍵/800-2400dpi|data/images/shopping/Mouse1.jpg|25
 1001|滑鼠|微軟精準滑鼠|2490|0.9|無線/有線皆可3個可客製功能的按鍵/400-3200dpi|data/images/shopping/Mouse2.jpg|25
 1001|滑鼠|羅技MXMaster3無線滑鼠|3990|0.9|無線/3個可客製功能的按鍵/200-400dpi|data/images/shopping/Mouse3.jpg|25

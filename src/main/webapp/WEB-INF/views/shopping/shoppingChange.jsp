@@ -19,7 +19,13 @@
 			</div>
 			
 		<hr>
-
+	<div class="col-12 mb-5">
+		<form action="">
+			<input type="test" class="form-control" id="PorductSearch"
+				placeholder="搜尋...">
+           <a href='shopping/SearchShoppingName/${"a"}'>測試模糊搜尋</a>
+		</form>
+	</div>
 	
 	<div id='showsmember' align='center'><h1></h1>
 	</div>

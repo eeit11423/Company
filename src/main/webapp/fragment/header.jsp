@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/images/logo2.png" />
 <!-- CSS文件載入 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
@@ -12,6 +13,7 @@
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 	crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+
 
 
 <header class="container-fluid">
@@ -73,13 +75,17 @@
 							
 						</div></li>
 		
-					<li class="nav-item"><a class="nav-link" href="contact.html">連絡我們</a>
+					<li class="nav-item"><a class="nav-link">連絡我們</a>
 					<li class="nav-item"><a class="nav-link" href="rearendd">後端</a>
+				
 					</li>
-	
+					
+					<li></li>
+		<li></li>
 
 				</ul>
 				<div class="ml-auto">
+				
 				<span><c:if
 							test="${memberBean.memberId != null}">
 							<img height='40' width='25'
@@ -91,6 +97,9 @@
 						class="btn btn-outline-secondary text-secondary my-2 my-sm-0">登出</a> <a
 						href="<c:url value='/register/add' />"
 						class="btn btn-outline-secondary text-secondary my-2 my-sm-0">註冊</a>
+						
+				<a class="" href="<c:url value='/shoppingCart' />">		<i class="  btn-outline-secondary my-2 my-sm-0 fa fa-shopping-cart  fa-lg" style='padding:11px' aria-hidden="true"></i></a>
+						
 				</div>
 			</div>
 		</nav>

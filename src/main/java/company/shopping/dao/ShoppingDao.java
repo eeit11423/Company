@@ -23,7 +23,7 @@ public interface ShoppingDao {
 	void delete(Integer shoppingId);//刪除商品資料
 	public List<ShoppingBean> getshoppingType(String shoppingType); //取出單項商品產品種類
 	public List<ShoppingBean> getALLShoppingType(); //取出全部商品商品種類
-	
+	public List<ShoppingBean> getSearchShoppingNameProductrelatio(String searchWord); //模糊搜尋商品名稱和敘述
 	
 	
 	
