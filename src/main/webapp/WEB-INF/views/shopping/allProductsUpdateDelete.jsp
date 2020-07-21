@@ -15,13 +15,12 @@
 	href='${pageContext.request.contextPath}/css/style.css' type="text/css" />
 </head>
 <body>
-<jsp:include page="/fragment/header.jsp" />
-<div align='center'>
-		<h3>商品後台維護清單</h3>
-		</div>
-		
+
+<jsp:include page="/fragment/headerRearend.jsp" />
+
 			
-			
+			<div>
+			</div>
 		<hr>
 		<form method='POST'>
 			<input type='hidden' name='_method' value='DELETE'>
@@ -32,8 +31,15 @@
 	    沒有任何商品資料<br>
 			</c:when>
 			<c:otherwise>
+			<div class="row">
+            <div class="col-md-10 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title mb-0">Top Products</p>
+                  <div class="table-responsive">
+                  
 			<div class="container-fluid">
-				<table class="table table-hover bg-white table-bordered">
+				<table class="table table-hover">
 					<tr class="text-white text-left" style='background: #646D73'>
 						<th width='50'>ID</th>
 						<th width='180'>商品名稱</th>
@@ -69,7 +75,7 @@
 						</tr>
 					</c:forEach>
 				</table>
-				</div>
+				</div></div></div></div></div></div>
 			</c:otherwise>
 		</c:choose>
 		<div class='container' align="center">
