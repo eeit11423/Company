@@ -139,8 +139,8 @@
 					<!-- 搜尋/start -->
 					<div class="col-12 mb-5">
 						<form action="">
-							<input type="test" class="form-control" id="PorductSearch" onkeyup="keyup()"
-								placeholder="搜尋...">
+							<input type="test" class="form-control" id="PorductSearch"
+				placeholder="搜尋..." onkeyup='keyup()'>
 						</form>
 					</div>
 					<!-- 搜尋/end -->
@@ -261,22 +261,36 @@
 	}
 	
 	
-	function keyup(){
-		var keyup = document.getElementById("PorductSearch").value;
+	function keyup() {
+		var x = $("#PorductSearch").val();
+		console.log($("#PorductSearch").val())
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET","<c:url value='/shopping/search/"+ keyup"' />",true);
+		xhr.open("GET", "<c:url value='/shopping/search/"+x+"' />", true);
 		xhr.send();
-		xhr.onreadystatechange = function(){
-			if (xhr.readyState == 4 && xhr.status ==200){
-				var content ='<div class="col-12 mt-3 mb-3"> <p class="d-inline-block">顯示 21 筆結果中的 1–9 筆</p><form action="" class="d-inline-block float-right"> <select id="ProductSelect" class="form-control" onchange="javascript:handleSelect(this)">'+
+		xhr.onreadystatechange = function() {
+						if (xhr.readyState == 4 && xhr.status ==200){
+							var content ='<div class="col-12 mt-3 mb-3"> <p class="d-inline-block">顯示 21 筆結果中的 1–9 筆</p><form action="" class="d-inline-block float-right"> <select id="ProductSelect" class="form-control" onchange="javascript:handleSelect(this)">'+
 	                          '<option value="allProducts">請選擇排序</option><option value="allProducts">依上架時間舊到新</option>'+
-	                        '<option value="AllProductsNewtoOld">依上架時間新到舊</option><option value="AllProductsPriceLowtoHigh">依價格排序:低至高</option>'+
-	                       '<option value="AllProductsPriceHightoLow">依價格排序:高至低</option>  </select>	</form> </div>'
-	             var member = JSON.parse(xhr.responseText);
-	       	    var xhr_img = new XMLHttpRequest();
-				for (var i= 0 ; i<member.length ; i++){
-					
-				}
+		                        '<option value="AllProductsNewtoOld">依上架時間新到舊</option><option value="AllProductsPriceLowtoHigh">依價格排序:低至高</option>'+
+		                       '<option value="AllProductsPriceHightoLow">依價格排序:高至低</option>  </select>	</form> </div>';
+		             var member = JSON.parse(xhr.responseText);
+		             console.log(member)
+		       	  //  var xhr_img = new XMLHttpRequest();
+		             for (var i= 0 ; i<member.length ; i++){
+							content +='<div class="col-12 col-sm-6 col-md-4 mb-3 "><div class="card">'+
+							'<img class="card-img-top" src="picture/'+member[i].shoppingId+'" alt="${product.shoppingId}">'+
+							'<div class="card-body card">'+'<h5 class="card-img-top">'+member[i].shoppingname+'</h5>'+
+							'<h5 class="card-text ">'+'<small class="mr-1"> <del>$&nbsp;'+member[i].shoppingProductPrice+'</del>'+
+							'</small> <span class="card-text text-danger">$'+
+							Math.ceil(member[i].shoppingProductPrice * member[i].shoppingProductDiscount)+'</span></h5>'+
+							'<a href="oneProduct?id='+member[i].shoppingId+'" class="btn btn-outline-secondary btn-block">查看商品</a>'+
+							'<form action="addToCart" method="POST"><input type="hidden" name="shoppingId"'+
+							'value="'+member[i].shoppingId+'"> <input type="hidden" name="orderItemsNumber" value="1">'+
+							'<input class="btn btn-outline-primary btn-block" type="submit" value="加入購物車">		</form>'
+					            
+							+'</div></div></div>'
+														
+						}
 				content += "";
 				var div = document.getElementById("showAllProducts");
 				div.innerHTML = content;
