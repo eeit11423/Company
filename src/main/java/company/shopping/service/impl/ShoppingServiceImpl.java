@@ -73,5 +73,11 @@ public class ShoppingServiceImpl implements ShoppingService {
 		
 		return shoppingDao.getAllProductsPriceLowtoHigh();
 	}
+	@Transactional
+	@Override
+	public List<ShoppingBean> getSearchShoppingNameProductrelatio(String searchWord) {
+
+		return shoppingDao.getSearchShoppingNameProductrelatio(searchWord);
+	}
 
 }

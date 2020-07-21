@@ -206,4 +206,21 @@ public class ShoppingBean {
 		return serialVersionUID;
 	}
 
+
+
+
+
+	@Override
+	public String toString() {
+		return "ShoppingBean [shoppingId=" + shoppingId + ", shoppingItemId=" + shoppingItemId + ", memberNumber="
+				+ memberNumber + ", shoppingType=" + shoppingType + ", shoppingname=" + shoppingname
+				+ ", shoppingProductTotal=" + shoppingProductTotal + ", shoppingProductPrice=" + shoppingProductPrice
+				+ ", shoppingProductDiscount=" + shoppingProductDiscount + ", shoppingProductImage="
+				+ shoppingProductImage + ", shoppingfileName=" + shoppingfileName + ", productrelation="
+				+ productrelation + ", shoppingDate=" + shoppingDate + ", productImage=" + productImage
+				+ ", DiscountStr=" + DiscountStr + ", keyboardId=" + keyboardId + "]";
+	}
+	
+	
+
 }

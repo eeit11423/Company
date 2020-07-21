@@ -139,7 +139,7 @@
 					<!-- 搜尋/start -->
 					<div class="col-12 mb-5">
 						<form action="">
-							<input type="test" class="form-control" id="PorductSearch"
+							<input type="test" class="form-control" id="PorductSearch" onkeyup="keyup()"
 								placeholder="搜尋...">
 						</form>
 					</div>
@@ -252,6 +252,30 @@
 			            
 					+'</div></div></div>'
 												
+				}
+				content += "";
+				var div = document.getElementById("showAllProducts");
+				div.innerHTML = content;
+			}
+		}
+	}
+	
+	
+	function keyup(){
+		var keyup = document.getElementById("PorductSearch").value;
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET","<c:url value='/shopping/search/"+ keyup"' />",true);
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4 && xhr.status ==200){
+				var content ='<div class="col-12 mt-3 mb-3"> <p class="d-inline-block">顯示 21 筆結果中的 1–9 筆</p><form action="" class="d-inline-block float-right"> <select id="ProductSelect" class="form-control" onchange="javascript:handleSelect(this)">'+
+	                          '<option value="allProducts">請選擇排序</option><option value="allProducts">依上架時間舊到新</option>'+
+	                        '<option value="AllProductsNewtoOld">依上架時間新到舊</option><option value="AllProductsPriceLowtoHigh">依價格排序:低至高</option>'+
+	                       '<option value="AllProductsPriceHightoLow">依價格排序:高至低</option>  </select>	</form> </div>'
+	             var member = JSON.parse(xhr.responseText);
+	       	    var xhr_img = new XMLHttpRequest();
+				for (var i= 0 ; i<member.length ; i++){
+					
 				}
 				content += "";
 				var div = document.getElementById("showAllProducts");
