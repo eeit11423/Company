@@ -181,8 +181,9 @@
                 </div>
               </div>
             </div>
-             <c:forEach var='TP' items="${Type}" >
-               <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">${TP.value.shoppingId},${TP.value.shoppingname},${TP.value.shoppingType}</h3>
+             <c:forEach var='TPp' items="${ss}" >
+               <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">${TPp.value.shoppingProductName}</h3>
+           ${TPp.value.countTest}
                </c:forEach>
           </div>
         	

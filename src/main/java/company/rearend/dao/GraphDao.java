@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import company.member.model.MemberBean;
+import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 
@@ -19,6 +20,6 @@ public interface GraphDao {
 	List<OrderItemBean>  getOrderprice(String price);
 	List<MemberBean>  getSalary(String sal);
 	Map<Integer,ShoppingBean> getShoppingType(String Type);
-	List <OrderItemBean> getshopping(String sho );
+	Map<Integer, OrderCount> getshopping(String sho );
 	//List<Map<ShoppingBean,MemberBean>>  getShoppingNumbera(String Number);
 }

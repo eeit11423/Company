@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import company.member.model.MemberBean;
 import company.rearend.service.GraphService;
+import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 @Controller
@@ -66,14 +67,14 @@ public class GraphController {
 		List<ShoppingBean> beans2 =graphservice.getShoppingNumber(null);
 		List<MemberBean> beans3 =graphservice.getSalary(null);
 		Map<Integer,ShoppingBean> beans4 =graphservice.getShoppingType(null);
-		List<OrderItemBean> beans5 =graphservice.getshopping(null);
+		Map<Integer, OrderCount> beans5 =graphservice.getshopping(null);
 		
 		model.addAttribute("peopleNumber", bean1);
 		model.addAttribute("priceNumber", beans2);
 		model.addAttribute("price", beans);
 		model.addAttribute("salary", beans3);
 		model.addAttribute("Type", beans4);
-		model.addAttribute("ss", beans5.toString());
+		model.addAttribute("ss", beans5);
 		
 		
 		return "rearend/rearEnd";

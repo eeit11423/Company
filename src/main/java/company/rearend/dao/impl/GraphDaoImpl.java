@@ -1,5 +1,6 @@
 package company.rearend.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import company.member.model.MemberBean;
 import company.rearend.dao.GraphDao;
+import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 
@@ -132,13 +134,28 @@ public class GraphDaoImpl implements GraphDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderItemBean> getshopping(String sho) {
+	public Map<Integer, OrderCount> getshopping(String sho) {
 		
-		String hql = "SELECT shoppingProductName ,COUNT(*) as to FROM OrderItemBean GROUP BY shoppingProductName ";
+		String hql = "SELECT shoppingProductName ,count(*) as countTest FROM OrderItemBean  GROUP BY shoppingProductName,countTest ORDER BY countTest DESC LIMIT 5";
 		Session session = factory.getCurrentSession();
-		List<OrderItemBean> list = session.createQuery(hql).getResultList();
 		
-		return list;
+		List<Object[]> listO = session.createQuery(hql).getResultList();
+		
+		Map<Integer, OrderCount> map = new HashMap();
+//		for (Map<Object, Object> map : listp) {
+//			//System.out.println(map);
+//		}
+		int n = 0;
+		for (Object[] object : listO) {
+			n++;
+			OrderCount order = new OrderCount();
+			order.setShoppingProductName(object[0].toString());
+			order.setCountTest(object[1].toString());
+			System.out.println(object[1].toString());
+			map.put(n, order);
+			
+		}
+		return map;
 	}
 
 }

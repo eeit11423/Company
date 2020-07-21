@@ -33,7 +33,8 @@ public class OrderItemBean {
 	@ManyToOne
 	@JoinColumn(name = "FK_OrderBean_orderNo")
 	OrderBean orderBean;
-
+	@Transient
+	Integer a;
 
 	public OrderItemBean() {
 		super();
@@ -196,6 +197,22 @@ public class OrderItemBean {
 				+ shoppingProductName + ", productrelatio=" + productrelatio + ", shoppingProductPrice="
 				+ shoppingProductPrice + ", shoppingProductDiscount=" + shoppingProductDiscount + ", shoppingBean="
 				+ shoppingBean + ", orderBean=" + orderBean + "]";
+	}
+
+
+
+
+
+	public Integer getA() {
+		return a;
+	}
+
+
+
+
+
+	public void setA(Integer a) {
+		this.a = a;
 	}
 	
 	
