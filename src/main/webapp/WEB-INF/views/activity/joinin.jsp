@@ -17,10 +17,13 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+
+<div align="center">
 <hr>
+		<h1 class="bg-secondary text-light">活動報名</h1>
+<hr>
+
 <fieldset>
-	<legend >您已報名此活動</legend> 
-	
 	<Table align="center">
 	<c:if test='${activity.id == null}'>
 		<br>
@@ -86,6 +89,9 @@
 			});
 		})
 	</script>
-
+</div>
+<footer class="bg-secondary text-white" align='center' style="font-size:20px">
+© Copyright 2020
+</footer>
 </body>
 </html>

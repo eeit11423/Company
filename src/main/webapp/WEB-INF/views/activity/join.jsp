@@ -54,7 +54,8 @@
 	   </tr>
 	   	   <tr>
 	    <td colspan='4' align='center'>
-	      <input type='submit'>
+	      <span><input type='submit' class="btn btn-info" id="joinact"></span>
+	     <span><a type="button" class="btn btn-info" href="<c:url value='/activity/showAllActivities'/> " >取消</a></span>
         </td>
 	   </tr>
 	</Table>
@@ -63,7 +64,17 @@
 	
 </fieldset>
 <hr>
-<br>
-<a href="<c:url value='/activity/showAllActivities'/> " >回前頁</a>
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			$('#joinact').click(function() {
+				alert("已報名活動")
+	        	
+			});
+		})
+	</script>
+	
+<footer class="bg-secondary text-white" align='center' style="font-size:20px">
+© Copyright 2020
+</footer>
 </body>
 </html>
