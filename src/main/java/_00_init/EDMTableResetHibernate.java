@@ -7,6 +7,7 @@ package _00_init;
  
 */
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,6 +26,8 @@ import company.attendance.model.Leave;
 import company.attendance.model.Punch;
 import company.member.model.MemberBean;
 import company.shopping.model.ShoppingBean;
+import company.train.model.CompanyBean;
+import company.train.model.TrainingBean;
 
 public class EDMTableResetHibernate {
 	public static final String UTF8_BOM = "\uFEFF"; // 定義 UTF-8的BOM字元
@@ -60,6 +63,76 @@ public class EDMTableResetHibernate {
 					bean.setShoppingfileName(imageFileName);
 					session.save(bean);
 					count++;}}
+			
+			// 1. 由"data/trainCompany.dat"逐筆讀入trainCompany表格內的初始資料，
+			// 然後依序新增到trainCompany表格中
+			try (
+				FileReader fr = new FileReader("data/trainCompany.dat"); 
+				BufferedReader br = new BufferedReader(fr);
+			) {
+				while ((line = br.readLine()) != null) {
+					if (line.startsWith(UTF8_BOM)) {
+						line = line.substring(1);
+					}
+					String[] token = line.split("\\|");
+					String name = token[0];
+					String address = token[1];
+					String url = token[2];
+					CompanyBean cb = new CompanyBean(null, name, address, url);
+					session.save(cb);
+				}
+			} catch (IOException e) {
+				System.err.println("新建TrainCompany表格時發生IO例外: " + e.getMessage());
+			}
+			session.flush();
+			System.out.println("TrainCompany 資料新增成功");
+
+			File file = new File("data/train.dat");
+			// 2. 由"data/train.dat"逐筆讀入train表格內的初始資料，然後依序新增
+			// 到train表格中
+			try (
+				FileInputStream fis = new FileInputStream(file);
+				InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+				BufferedReader br = new BufferedReader(isr);
+			) {
+				while ((line = br.readLine()) != null) {
+					System.out.println("line=" + line);
+					// 去除 UTF8_BOM: \uFEFF
+					if (line.startsWith(UTF8_BOM)) {
+						line = line.substring(1);
+					}
+					String[] token = line.split("\\|");
+					TrainingBean train = new TrainingBean();
+					train.setTrainingCourse(token[0]);
+					train.setTrainingCredit(Integer.parseInt(token[1].trim()));
+					train.setTrainingStartDate(Integer.parseInt(token[2].trim()));
+					train.setTrainingEndDate(Integer.parseInt(token[3].trim()));
+					// book.setCompanyId(Integer.parseInt(token[4].trim()));
+					int companyId = Integer.parseInt(token[4].trim());
+					train.setBrief(token[5]);
+					train.setElaborate(token[6]);
+					train.setCourseNo(token[8].trim());
+					train.setCategory(token[9].trim());
+					train.setURLUpload(token[11].trim());
+					CompanyBean cb = session.get(CompanyBean.class, companyId);
+					train.setCompanyBean(cb);
+					// 讀取圖片檔
+					Blob blob = SystemUtils2018.fileToBlob(token[7].trim());
+					train.setPictureFile(blob);
+//					train.setPictureName(SystemUtils2018.extractFileName(token[7].trim()));					
+//					session.save(train);
+//					String imageFileName = token[7].substring(token[7].lastIndexOf("/") + 2);
+//					train.setPictureName(imageFileName);
+					train.setpictureName(token[10].trim());
+					session.save(train);
+					count++;
+					System.out.println("新增一筆Train紀錄成功");
+				}
+				// 印出資料新增成功的訊息
+				session.flush();
+				System.out.println("Train資料新增成功");
+			}
+			
 			// 3. Member表格
 			// 由"data/Input.txt"逐筆讀入Member表格內的初始資料，
 			// 然後依序新增到Member表格中
@@ -102,7 +175,7 @@ public class EDMTableResetHibernate {
 				ex.printStackTrace();
 			}
 			
-			// 由"data/punch.dat"逐筆讀入punch表格內的初始資料
+//			 由"data/punch.dat"逐筆讀入punch表格內的初始資料
 			try (FileReader fr = new FileReader("data/Punch.txt "); BufferedReader br = new BufferedReader(fr);) {
 				while ((line = br.readLine()) != null) {
 					if (line.startsWith(UTF8_BOM)) {
@@ -116,7 +189,7 @@ public class EDMTableResetHibernate {
 					punch.setMemberNumber(Integer.parseInt(token[3].trim()));
 					punch.setPunchDate(new SimpleDateFormat("yyyy/MM/dd").parse(token[4]));
 					System.out.println(new SimpleDateFormat("yyyy/MM/dd").parse(token[4]));
-//					SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					punch.setPunchWorkOn(Timestamp.valueOf(token[5]));
 					punch.setPunchWorkOff(Timestamp.valueOf(token[6]));
 					session.save(punch);
