@@ -130,4 +130,15 @@ public class GraphDaoImpl implements GraphDao {
 		return mapShop;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderItemBean> getshopping(String sho) {
+		
+		String hql = "SELECT shoppingProductName ,COUNT(*) as to FROM OrderItemBean GROUP BY shoppingProductName ";
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list = session.createQuery(hql).getResultList();
+		
+		return list;
+	}
+
 }

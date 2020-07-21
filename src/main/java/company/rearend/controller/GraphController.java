@@ -66,12 +66,15 @@ public class GraphController {
 		List<ShoppingBean> beans2 =graphservice.getShoppingNumber(null);
 		List<MemberBean> beans3 =graphservice.getSalary(null);
 		Map<Integer,ShoppingBean> beans4 =graphservice.getShoppingType(null);
+		List<OrderItemBean> beans5 =graphservice.getshopping(null);
 		
 		model.addAttribute("peopleNumber", bean1);
 		model.addAttribute("priceNumber", beans2);
 		model.addAttribute("price", beans);
 		model.addAttribute("salary", beans3);
 		model.addAttribute("Type", beans4);
+		model.addAttribute("ss", beans5.toString());
+		
 		
 		return "rearend/rearEnd";
 	}

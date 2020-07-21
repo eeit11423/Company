@@ -66,5 +66,10 @@ public class GraphServiceImpl implements GraphService {
 		return graphDao.getShoppingType(Type);
 
 	}
+
+	@Override
+	public List<OrderItemBean> getshopping(String sho) {
+		return graphDao.getshopping(sho);
+	}
 	
 }

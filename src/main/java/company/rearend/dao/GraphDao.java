@@ -19,5 +19,6 @@ public interface GraphDao {
 	List<OrderItemBean>  getOrderprice(String price);
 	List<MemberBean>  getSalary(String sal);
 	Map<Integer,ShoppingBean> getShoppingType(String Type);
+	List <OrderItemBean> getshopping(String sho );
 	//List<Map<ShoppingBean,MemberBean>>  getShoppingNumbera(String Number);
 }
