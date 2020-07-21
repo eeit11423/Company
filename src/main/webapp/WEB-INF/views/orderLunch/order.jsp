@@ -108,7 +108,7 @@
 										<option>麥當勞</option>
 									</select>
 									</div>
-								<ul class="features">
+								<ul class="features" id="second-feature">
 									<li style="display:flex; align-items: center; width:60%;">
 									 <span style="white-space: nowrap;">餐點：</span>
 									<select>
@@ -194,28 +194,46 @@
 		    
 			function addFirstData(data){
 		    	data.map((item,index)=>
-			      {console.log(index)
-			        var htmlTag =`  <ul class="features" style="margin:10px 0 0 0;justify-content: inherit;">
+			      {
+			        var htmlTag =`<ul class="features first-feature"  style="margin:10px 0 0 0;justify-content: inherit;">
 			        	             	 <li style="display:flex; align-items: center;margin-left: 0.5em;"> 
-			        	              		 <span style="white-space: nowrap;white-space: nowrap;">餐點：</span><input type="text" value=${'${item.sale}'}></span>
+			        	              		 <span style="white-space: nowrap;white-space: nowrap;">餐點：</span><input type="text" id="first-sale-${'${index}'}"  value="${'${item.sale}'}" onkeyup="changeSale(${'${index}'})"></span>
 			        	              	 </li>
 			        	               	<li style="display:flex; align-items: center;"> 
-			        	             	 	 <span style="white-space: nowrap;">價格：</span><input type="text" value=${'${item.sale}'}></span> 
-			        	            		</li>
-			        	             	<li> 
+			        	             	 	 <span style="white-space: nowrap;">價格：</span><input  id="first-price-${'${index}'}"  type="text" value="${'${item.price}'}"  onkeyup="changePrice(${'${index}'})"></span>  	
+			        	             	 	 </li>
+			        	             	<li>
 			        	                	<a id="second-add" class="far fa-plus-square fa-3x second-add" onclick="insertMenu()" ></a>
-			        	                	<a id="second-remove" class="far fa-minus-square fa-3x second-remove" onclick="removeFirstData(item,index)"></a>
+			        	                	<a id="second-remove" class="far fa-minus-square fa-3x second-remove" onclick="removeFirstData(item)"></a>
 			        	            	   </li>
 			        	           </ul>`
 			        $(".first-feature-box").append(htmlTag);
 			      }
 			      )
 		    }
+			function changeSale(index){
+	 			var priceInput = document.getElementById(`first-sale-${'${index}'}`)
+				priceInput.addEventListener("keyup",function(event){
+					firstData[index].sale= event.target.value;
+				})
+				}
+			
+		function changePrice(index){
+ 			var priceInput = document.getElementById(`first-price-${'${index}'}`)
+			priceInput.addEventListener("keyup",function(event){
+				firstData[index].price= event.target.value;
+			})
+			
+
+console.log(firstData)
+// 			console.log('adad',index)
+// 	        firstData[index].price = value;
+// 	        console.log(firstData);
+		}	
 			
 		function	removeFirstData(item,index){
 			 var taskIndex = firstData.indexOf(item);
-			      firstData.splice(taskIndex, 1);
-			      console.log(firstData);
+			     firstData.splice(taskIndex, 1);
 			}
 			
 		      
@@ -226,6 +244,7 @@
 //     				'data' : {'store' : e.id
 //     				}
 //       })   
+console.log('insertMenu',firstData)
     	  fetch('/mvcExercisetest/orderLunch/insertMenu', {
     		    body: JSON.stringify(firstData), // must match 'Content-Type' header
     		    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -240,7 +259,7 @@
     		    referrer: 'no-referrer', // *client, no-referrer
     		  })
     		  .then(response =>{
-    			     $(".features").remove();
+    			     $(".first-feature").remove();
  		        	firstData.push({sale:'',price:''});
  		        	addFirstData(firstData);
     		  }) // 輸出成 json
@@ -264,13 +283,13 @@
     	  } );
        
        
-     $(document).on("click", ".second-add", function () {
-         $(".features-box").append(item);
-       });
+//      $(document).on("click", ".second-add", function () {
+//          $(".features-box").append(item);
+//        });
      
-      $(document).on("click", ".second-remove", function () {
-          $(".features").last().remove();
-        });
+//       $(document).on("click", ".second-remove", function () {
+//           $(".features").last().remove();
+//         });
       
       //
       function getJson(e) {
