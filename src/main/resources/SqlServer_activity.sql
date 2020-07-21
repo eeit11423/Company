@@ -26,9 +26,8 @@ INSERT INTO ActCategory VALUES
 	( 141, '其他', '其他', 141);
 	
 INSERT INTO Department (name) VALUES
-	(  '董事長室'), 
-	(  '公關部'),	
+	(  '董事長'), 
+	(  '管理部'),	
 	(  '資訊部'),
-	(  '秘書室'),	
-	(  '文書部'),	
-	(  '研發部');	
+	(  '工程部'),	
+	(  '財務部');

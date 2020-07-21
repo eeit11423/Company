@@ -24,12 +24,15 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
+
+<div align='center'>
 <hr>
+		<h1 class="bg-secondary text-light">${activity.activityTitle}</h1>
+<hr>
+</div>
+
 	<section class="container">
 		<div>
-			<div class="container" style="text-align: center">
-				<h2>${activity.activityTitle}</h2>
-			</div>
 
 			<div class="row">
 				<div class="col-sm-4">
@@ -38,18 +41,20 @@
 						src="<c:url value='/activity/picture/${activity.id}'/>" />
 				</div>
 
-				<div class="col-sm-8">
-		
-					<p>${activity.activitySubtitle}</p>
+				<div class="col-sm-4">
+		            <div style="text-align:center">
+					<h4><strong>${activity.activitySubtitle}</strong></h4>
+					</div>
 
 					<hr>
-					<p>活動內容: ${activity.content}</p>
-					<p>報名截止日: ${activity.endDate}</p>
-					<p>貼文人員: ${activity.organiserId}</p>
-					<p>貼文單位: ${activity.department.name}</p>
+					<p><strong>報名截止日:</strong> ${activity.endDate}</p>
+					<p><strong>貼文人員:</strong> ${activity.organiserId}</p>
+					<p><strong>貼文單位:</strong> ${activity.department.name}</p>
+					<p><strong>活動內容:</strong> </p>
+					<p>${activity.content}</p>
 					<p>
-						<strong>剩餘名額: </strong> <span class='label label-warning'>
-							${activity.joinNum} </span>
+						<strong>剩餘名額:  <span class='text-danger'>
+							${activity.joinNum} </span></strong>
 					</p>
 					<p>
 						<!-- 				＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃抓取當下的日期，判斷活動是否已截止＃＃＃＃＃＃＃＃＃＃ -->
@@ -62,22 +67,23 @@
 						<c:choose>
 							<c:when
 								test="${activity.joinNum <= 0 || nowDate.time > activity.endDate.time}">
-                                                                                                報名截止
+                                      <p class="text-danger"><strong>活動已報名截止</strong></p> 
                                      </c:when>
 							<c:otherwise>
 								<a
 									href="${pageContext.request.contextPath}/activity/join/${activity.id}"
-									class='btn btn-warning btn-large'> <span
+									class="btn btn-info btn-large"> <span
 									class='glyphicon-shopping-cart glyphicon'></span>按我報名
 								</a>
 							</c:otherwise>
 						</c:choose>
 					</p>
 
-					<button class="btn btn-outline-secondary" data-toggle="collapse"
+				</div>
+				<div class="col-sm-4">
+				<button class="btn btn-outline-secondary" data-toggle="collapse"
 						data-target="#demo">已報名名單</button>
-
-					<div id="demo" class="collapse">
+				<div id="demo" class="collapse">
 						<table border='1' cellpadding="3" cellspacing="1">
 							<tr>
 								<th style="text-align: center">員工編號</th>
@@ -91,18 +97,19 @@
 							</c:forEach>
 						</table>
 					</div>
-
 				</div>
+				
 			</div>
 
 
 		</div>
 	</section>
-	<hr>
-	<div>
-		<a href="<c:url value='/'/> ">回前頁</a>
-	</div>
 
+<footer class="bg-secondary text-white" style="font-size:20px">
+	<div style="text-align:center">
+		<a type="button" class="btn btn-secondary" href="<c:url value='showAllActivities' />">回活動列表</a>
+	</div>
+</footer>
 
 </body>
 </html>
