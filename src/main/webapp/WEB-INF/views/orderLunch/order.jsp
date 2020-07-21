@@ -96,7 +96,10 @@
 								<div  style="display:flex; align-items: center;padding-bottom:5%  ;border-bottom: 1px solid rgb(197, 197, 197);">
 										<span style="white-space: nowrap;">店家：</span>
 									<select id="second-store" style="width:60%">
-										<option>麥當勞</option>
+										<c:forEach var='store' items='${storeList}'>
+											<option name="selectStore" value="${store}" onclick="getJson(${store})" >${store}</option>
+										</c:forEach>
+<!-- 										<option>麥當勞</option> -->
 									</select>
 									</div>
 								<ul class="features">

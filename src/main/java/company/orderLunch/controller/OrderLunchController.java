@@ -38,7 +38,7 @@ public class OrderLunchController extends HttpServlet{
     //sql
     private static final String SELECT_LUNCH_STORE = "SELECT STORE FROM ORDERLUNCH ";
     private static final String SELECT_STORE_LIST = "SELECT * FROM ORDERLUNCH WHERE STORE = ? ";
-    private static final String INSERT_LUNCH_ORDER = "insert into OrderLunch (id,store,product,price,orderTime,userId) values(?,?,?,?,?,?)";
+    private static final String INSERT_LUNCH_ORDER = "insert into OrderLunch (id,store,product,price,orderTime,userName) values(?,?,?,?,?,?)";
     
     
 	//導頁
@@ -68,7 +68,6 @@ public class OrderLunchController extends HttpServlet{
 	public void insertOrder(HttpServletRequest request, HttpServletResponse response) {
 		String sale = request.getParameter("sale");
 		String price = request.getParameter("price");
-		System.out.println("sale"+sale+"price:"+price);
 //		Connection con = null;
 //		PreparedStatement ps = null;
 //		try {
@@ -110,11 +109,10 @@ public class OrderLunchController extends HttpServlet{
 				food.put("product", rs.getString("product"));
 				food.put("price", rs.getString("price"));
 				food.put("orderTime", rs.getString("orderTime"));
-				food.put("userId", rs.getString("userId"));
+				food.put("userName", rs.getString("userName"));
 				foodList.add(food);
 			}
 			foodListJson = JSON.toJSONString(foodList);
-			System.out.println(foodListJson);
 			PrintWriter out =response.getWriter();
 			out.print(foodListJson);
 			out.close();
@@ -123,5 +121,6 @@ public class OrderLunchController extends HttpServlet{
 		}
 		
 	}
+	
 	
 }
