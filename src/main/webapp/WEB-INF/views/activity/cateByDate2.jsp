@@ -19,7 +19,9 @@
 	<div align='center'>
 		<h1 class="bg-secondary text-light">依截止日期查詢活動</h1>
 <hr>		
-		<a class="btn btn-info" href="<c:url value='act' />">新增活動</a> &nbsp;&nbsp;&nbsp;<a class="btn btn-info"
+		<a class="btn btn-info" href="<c:url value='act' />">新增活動</a> &nbsp;&nbsp;&nbsp;
+		<a class="btn btn-info" href="<c:url value='cateByDate' />">重新查詢</a>&nbsp;&nbsp;&nbsp;
+		<a class="btn btn-info"
 			href="<c:url value='/activity/index' />">回活動系統</a>
 
 		<form method='POST'>
