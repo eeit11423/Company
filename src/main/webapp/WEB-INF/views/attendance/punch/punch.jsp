@@ -24,6 +24,7 @@ td, th {
 				<button onclick="location.href='punchWorkOff'">下班打卡</button>
 				<button onclick="location.href='insertPunchTime'">新增</button>
 				<button onclick="location.href='queryPunchTime'">查詢</button>
+				<button onclick="location.href='memberPunch'">個人頁面</button>
 			</div>
 			<div style="text-align: center">
 				<a href='<c:url value='/'/>'>返回首頁</a>

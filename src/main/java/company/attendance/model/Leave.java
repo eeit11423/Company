@@ -16,7 +16,7 @@ public class Leave {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer leaveId;
-	Integer memberNumber;
+	String memberNumber;
 	String memberName;
 	String memberDepartment;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -31,7 +31,7 @@ public class Leave {
 	public Leave() {
 		super();
 	}
-	public Leave(Integer leaveId, Integer memberNumber, String memberName, String memberDepartment, Date leaveDate,
+	public Leave(Integer leaveId, String memberNumber, String memberName, String memberDepartment, Date leaveDate,
 			String leaveCategory,Timestamp leaveStart, Timestamp leaveEnd) {
 		super();
 		this.leaveId = leaveId;
@@ -49,10 +49,10 @@ public class Leave {
 	public void setLeaveId(Integer leaveId) {
 		this.leaveId = leaveId;
 	}
-	public Integer getMemberNumber() {
+	public String getMemberNumber() {
 		return memberNumber;
 	}
-	public void setMemberNumber(Integer memberNumber) {
+	public void setMemberNumber(String memberNumber) {
 		this.memberNumber = memberNumber;
 	}
 	public String getMemberName() {

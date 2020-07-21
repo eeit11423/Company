@@ -10,16 +10,17 @@ public interface PunchService {
 
 	List<Punch> getPunchTime();
 	
-	void punchWorkOn();
+	List<Punch> getPunchTime(String memberName);
 	
-	void punchWorkOff(Timestamp punchWorkOn);
+	void punchWorkOn(Integer memberId);
+	
+	void punchWorkOff(MemberBean memberBean, Timestamp punchWorkOn);
 
 	Timestamp getWorkOnTime();
 	
-	List<Punch> queryPunchTime(int memberNumber, String selectdate) ;
+	List<Punch> queryPunchTime(String memberNumber, String selectdate) ;
 
 	List<MemberBean> getAllMember();
-
 
 	Punch editPunchtimeFromPunchId(int punchId);
 

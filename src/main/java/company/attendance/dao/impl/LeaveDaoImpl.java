@@ -82,7 +82,7 @@ public class LeaveDaoImpl implements LeaveDao {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Leave> queryLeave(int memberNumber, String selectdate) {
+	public List<Leave> queryLeave(String memberNumber, String selectdate) {
 		System.out.println(selectdate);
 		String timesplit[] = selectdate.split("-");
 		Session session = factory.getCurrentSession();

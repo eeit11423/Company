@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,10 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
-import com.mysql.cj.Session;
 
 import company.member.model.MemberBean;
 import company.attendance.model.Punch;
@@ -42,41 +39,55 @@ public class PunchController {
 	@Autowired
 	PunchService service;
 	
+	@Autowired
+	ServletContext context;
+	
+	//搜尋登入員工的punch資料
 	@RequestMapping("punch")
-	public String punch( Model model, HttpSession session) {
-//		if (condition) {
-//			List<Punch> list = service.getPunchTime();
-//			session.getAttribute(memberBean);
-//			return "attendance/punch/punch";
-//		}else {
-			List<Punch> list = service.getPunchTime();
+	public String punch( Model model) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/";
+		}else {
+			System.out.println(memberBean.getMemberName());
+			List<Punch> list = service.getPunchTime(memberBean.getMemberName());
 			model.addAttribute("punch",list);
 			return "attendance/punch/punch";
-//		}
+		}
 	}
 	
+//	//搜尋所有人punch資料
+//	@RequestMapping("punch")
+//	public String punch( Model model) {
+//			List<Punch> list = service.getPunchTime();
+//			model.addAttribute("punch",list);
+//			return "attendance/punch/punch";
+//	}
 	
 	@GetMapping("/punchWorkOn")
 	public String punchWorkOn(Model model) {
-		service.punchWorkOn();
-		return "redirect:/attendance/punch/punch";
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		service.punchWorkOn(memberBean.getMemberId());
+		return "redirect:/attendance/punch/memberPunch";
 	}
+	
 	
 	@GetMapping("/punchWorkOff")
 	public String punchWorkOff(Model model) {
-		Timestamp punchWorkOn = service.getWorkOnTime();
-		if(punchWorkOn != null){
-			service.punchWorkOff(punchWorkOn);
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		Timestamp workWorkOn = service.getWorkOnTime();
+		if(workWorkOn != null){
+			service.punchWorkOff(memberBean, workWorkOn);
 		}
-		return "redirect:/attendance/punch/punch";
+		return "redirect:/attendance/punch/memberPunch";
 	}
 	
-	@GetMapping("/workOnTime")
-	public String WorkOnTime(Model model) {
-		Timestamp workOnTime = service.getWorkOnTime();
-		model.addAttribute("time", workOnTime);
-		return "attendance/punch/punch";
-	}
+//	@GetMapping("/workOnTime")
+//	public String WorkOnTime(Model model) {
+//		Timestamp workOnTime = service.getWorkOnTime();
+//		model.addAttribute("time", workOnTime);
+//		return "attendance/punch/punch";
+//	}
 	
 	@GetMapping(value="/insertPunchTime", produces= {"text/html"})
 	public String insertPunchTime(Model model) {
@@ -107,6 +118,20 @@ public class PunchController {
 		return "attendance/punch/queryPunchTime";
 	}
 	
+	@GetMapping("/memberPunch")
+	public String  getMemberPunch(Model model)  {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/";
+		}else {
+			System.out.println(memberBean.getMemberName());
+			List<Punch> list = service.getPunchTime(memberBean.getMemberName());
+			model.addAttribute("memberpunch",list);
+		return "attendance/punch/memberPunch" ;
+		}
+	}
+	
+	
 	@GetMapping("/bakcPunchTime")
 	public String  backPunchTime()  {
 		return "redirect:/attendance/punch/punch";
@@ -121,7 +146,7 @@ public class PunchController {
 	
 	@GetMapping("/queryPunchTimeData")
 	public ResponseEntity<Map<String, Object>> queryPunchTime(
-			@RequestParam(value="memberNumber", defaultValue = "0") int memberNumber,
+			@RequestParam(value="memberNumber", defaultValue = "0") String memberNumber,
 			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate ){ 
 		List<Punch> listTarget = service.queryPunchTime(memberNumber, selectdate);
 		Map<String, Object> map =  new HashMap<>();

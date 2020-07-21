@@ -1,5 +1,6 @@
 package _00_init;
 
+
 /*  
     程式說明：建立表格與設定初始測試資料。
     表格包括：Book, BookCompany, Member, Orders, OrderItems
@@ -24,8 +25,6 @@ import _00_init.util.SystemUtils2018;
 import company.attendance.model.Leave;
 import company.attendance.model.Punch;
 import company.member.model.MemberBean;
-import company.shopping.model.OrderBean;
-import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 import company.train.model.CompanyBean;
 import company.train.model.TrainingBean;
@@ -63,64 +62,14 @@ public class EDMTableResetHibernate {
 					String imageFileName = sa[6].substring(sa[6].lastIndexOf("/") + 1);
 					bean.setShoppingfileName(imageFileName);
 					session.save(bean);
-					count++;
-				}
-			}
+					count++;}}
 			
-			
-			
-			// 1. 由"data/orderbean.dat"逐筆讀入orderbeanCompany表格內的初始資料，
-			// 然後依序新增到trainCompany表格中
-			try (FileReader fr = new FileReader("data/orderbean.txt"); BufferedReader br = new BufferedReader(fr);) {
-				while ((line = br.readLine()) != null) {
-					if (line.startsWith(UTF8_BOM)) {
-						line = line.substring(1);
-					}
-					String[] token = line.split("\\|");
-					OrderBean ob = new OrderBean();
-					ob.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis()));
-					ob.setMemberNumber(token[0]);
-					ob.setOrderAddress(token[1]);
-					ob.setOrderTotalPrice(Double.parseDouble(token[2].trim()));
-
-					session.save(ob);
-				}
-			} catch (IOException e) {
-				System.err.println("新建orderbean表格時發生IO例外: " + e.getMessage());
-			}
-			session.flush();
-			System.out.println("orderbean 資料新增成功");
-			
-			// 1. 由"data/orderItemBean.dat"逐筆讀入orderbeanCompany表格內的初始資料，
-			// 然後依序新增到trainCompany表格中
-			try (FileReader fr = new FileReader("data/orderItemBean.txt"); BufferedReader br = new BufferedReader(fr);) {
-				while ((line = br.readLine()) != null) {
-					if (line.startsWith(UTF8_BOM)) {
-						line = line.substring(1);
-					}
-					String[] token = line.split("\\|");
-					OrderItemBean oib = new OrderItemBean();
-					oib.setOrderItemsNumber(Integer.parseInt(token[0].trim()));
-					oib.setShoppingId(Integer.parseInt(token[1].trim()));
-					oib.setShoppingProductName(token[2]);
-					oib.setProductrelatio(token[3]);
-					oib.setShoppingProductPrice(Double.parseDouble(token[4].trim()));
-					oib.setShoppingProductDiscount(Double.parseDouble(token[5].trim()));
-					
-					
-					session.save(oib);
-				}
-			} catch (IOException e) {
-				System.err.println("新建orderItemBean表格時發生IO例外: " + e.getMessage());
-			}
-			session.flush();
-			System.out.println("orderItemBean 資料新增成功");
-			
-			
-
 			// 1. 由"data/trainCompany.dat"逐筆讀入trainCompany表格內的初始資料，
 			// 然後依序新增到trainCompany表格中
-			try (FileReader fr = new FileReader("data/trainCompany.dat"); BufferedReader br = new BufferedReader(fr);) {
+			try (
+				FileReader fr = new FileReader("data/trainCompany.dat"); 
+				BufferedReader br = new BufferedReader(fr);
+			) {
 				while ((line = br.readLine()) != null) {
 					if (line.startsWith(UTF8_BOM)) {
 						line = line.substring(1);
@@ -141,9 +90,11 @@ public class EDMTableResetHibernate {
 			File file = new File("data/train.dat");
 			// 2. 由"data/train.dat"逐筆讀入train表格內的初始資料，然後依序新增
 			// 到train表格中
-			try (FileInputStream fis = new FileInputStream(file);
-					InputStreamReader isr = new InputStreamReader(fis, "UTF8");
-					BufferedReader br = new BufferedReader(isr);) {
+			try (
+				FileInputStream fis = new FileInputStream(file);
+				InputStreamReader isr = new InputStreamReader(fis, "UTF8");
+				BufferedReader br = new BufferedReader(isr);
+			) {
 				while ((line = br.readLine()) != null) {
 					System.out.println("line=" + line);
 					// 去除 UTF8_BOM: \uFEFF
@@ -181,15 +132,17 @@ public class EDMTableResetHibernate {
 				session.flush();
 				System.out.println("Train資料新增成功");
 			}
-
+			
 			// 3. Member表格
 			// 由"data/Input.txt"逐筆讀入Member表格內的初始資料，
 			// 然後依序新增到Member表格中
-			try (FileInputStream fis = new FileInputStream("data/Input.txt");
-					InputStreamReader isr0 = new InputStreamReader(fis, "UTF-8");
-					BufferedReader br = new BufferedReader(isr0);) {
+			try (
+				FileInputStream fis = new FileInputStream("data/Input.txt");
+				InputStreamReader isr0 = new InputStreamReader(fis, "UTF-8");
+				BufferedReader br = new BufferedReader(isr0);
+			) {
 				while ((line = br.readLine()) != null) {
-
+					
 					String[] sa = line.split("\\|");
 					MemberBean bean = new MemberBean();
 					bean.setMemberNumber(sa[0]);
@@ -221,7 +174,7 @@ public class EDMTableResetHibernate {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-
+			
 //			 由"data/punch.dat"逐筆讀入punch表格內的初始資料
 			try (FileReader fr = new FileReader("data/Punch.txt "); BufferedReader br = new BufferedReader(fr);) {
 				while ((line = br.readLine()) != null) {
@@ -233,7 +186,7 @@ public class EDMTableResetHibernate {
 					punch.setPunchId(Integer.parseInt(token[0].trim()));
 					punch.setMemberDepartment(token[1]);
 					punch.setMemberName(token[2]);
-					punch.setMemberNumber(Integer.parseInt(token[3].trim()));
+					punch.setMemberNumber((token[3]));
 					punch.setPunchDate(new SimpleDateFormat("yyyy/MM/dd").parse(token[4]));
 					System.out.println(new SimpleDateFormat("yyyy/MM/dd").parse(token[4]));
 					SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -258,7 +211,7 @@ public class EDMTableResetHibernate {
 					leave.setLeaveId(Integer.parseInt(token[0].trim()));
 					leave.setMemberDepartment(token[1]);
 					leave.setMemberName(token[2]);
-					leave.setMemberNumber(Integer.parseInt(token[3].trim()));
+					leave.setMemberNumber(token[3]);
 					leave.setLeaveDate(new SimpleDateFormat("yyyy/MM/dd").parse(token[4]));
 					System.out.println(new SimpleDateFormat("yyyy/MM/dd").parse(token[4]));
 					leave.setLeaveStart(Timestamp.valueOf(token[5]));
@@ -273,14 +226,14 @@ public class EDMTableResetHibernate {
 			} catch (IOException e) {
 				System.err.println("新建leave表格時發生IO例外: " + e.getMessage());
 			}
-
-			tx.commit();
+			
+            tx.commit();
 		} catch (Exception e) {
 			System.err.println("新建表格時發生例外: " + e.getMessage());
 			e.printStackTrace();
 			tx.rollback();
+		} 
+        factory.close();
+	
 		}
-		factory.close();
-
-	}
 }

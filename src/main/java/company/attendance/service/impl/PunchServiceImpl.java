@@ -24,15 +24,20 @@ public class PunchServiceImpl implements PunchService {
 	public List<Punch> getPunchTime() {
 		return dao.getPunchTime();
 	}
+	
+	@Override
+	public List<Punch> getPunchTime(String memberName) {
+		return dao.getPunchTime(memberName);
+	}
  
 	@Override
-	public void punchWorkOn() {
-    	dao.punchWorkOn();
+	public void punchWorkOn(Integer memberId) {
+    	dao.punchWorkOn(memberId);
 	}
 
 	@Override
-	public void punchWorkOff(Timestamp punchWorkOn) {
-    	dao.punchWorkOff(punchWorkOn);
+	public void punchWorkOff(MemberBean memberBean, Timestamp punchWorkOn) {
+    	dao.punchWorkOff(memberBean, punchWorkOn);
     }
 
 	@Override
@@ -41,7 +46,7 @@ public class PunchServiceImpl implements PunchService {
     }
 
 	@Override
-	public List<Punch> queryPunchTime(int memberNumber, String selectdate) {
+	public List<Punch> queryPunchTime(String memberNumber, String selectdate) {
 		return dao.queryPunchTime(memberNumber, selectdate);
 	}
 	
