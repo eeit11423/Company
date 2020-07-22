@@ -57,7 +57,6 @@
         <div class="btn-group">
   
   <a type="button" class="btn btn-outline-secondary" href="<c:url value='showAllActivities' />">全部活動</a>
-  <a type="button" class="btn btn-outline-secondary" href="<c:url value='act' />">發起活動</a>
   <div class="btn-group">
     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
        活動分類
@@ -67,9 +66,23 @@
       <a class="dropdown-item" href="<c:url value='queryByActCategory' />">依活動種類</a>
       <a class="dropdown-item" href="<c:url value='cateByDate' />">依截止日期</a>
     </div>
-<%--     <a type="button" class="btn btn-outline-secondary" href="<c:url value='queryByActMemberId' />">個人專區</a> --%>
   </div>
+  <a type="button" class="btn btn-outline-secondary" href="<c:url value='act' />">發起活動</a>
   
+<!--   功能完整後再開放這段 -->
+<!--   <div class="btn-group"> -->
+<!--     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"> -->
+<!--        個人專區 -->
+<!--     </button> -->
+    
+<!--     <div class="dropdown-menu"> -->
+<%--       <a class="dropdown-item" href="<c:url value='queryByActMemberId' />">我發起的活動</a> --%>
+<%--       <a class="dropdown-item" href="<c:url value='' />">我參加的活動</a> --%>
+<!--     </div> -->
+<!--   </div> -->
+  
+  
+  <%--     <a type="button" class="btn btn-outline-secondary" href="<c:url value='queryByActMemberId' />">個人專區</a> --%>
 </div>
 
 
