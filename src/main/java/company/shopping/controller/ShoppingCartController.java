@@ -108,6 +108,8 @@ public class ShoppingCartController {
 		oib.setProductrelatio(bean.getProductrelation());
 		oib.setShoppingProductPrice(bean.getShoppingProductPrice());
 		oib.setShoppingProductDiscount(bean.getShoppingProductDiscount());
+		oib.setShoppingType(bean.getShoppingType());
+		oib.setShoppingAmount(bean.getShoppingProductDiscount()*bean.getShoppingProductPrice()*(orderItemsNumber));
 		
 		System.out.println(oib.toString());
 		
@@ -171,6 +173,8 @@ public class ShoppingCartController {
 		oib.setProductrelatio(bean.getProductrelation());
 		oib.setShoppingProductPrice(bean.getShoppingProductPrice());
 		oib.setShoppingProductDiscount(bean.getShoppingProductDiscount());
+		oib.setShoppingType(bean.getShoppingType());
+		oib.setShoppingAmount(bean.getShoppingProductDiscount()*bean.getShoppingProductPrice()*orderItemsNumber);
 		
 		System.out.println(oib.toString());
 		

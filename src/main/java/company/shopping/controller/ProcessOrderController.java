@@ -73,7 +73,9 @@ public class ProcessOrderController {
 			OrderItemBean oib = content.get(i);
 			oib.setOrderBean(ob);
 			oib.setOrderDate(today);
+			oib.setShoppingAmount(oib.getShoppingAmount()*oib.getOrderItemsNumber());
 			items.add(oib);
+			System.out.println("====================================="+oib.toString());
 		}
 		
 		// 執行到此，購物車內所有購買的商品已經全部轉換為為OrderItemBean物件，並放在Items內

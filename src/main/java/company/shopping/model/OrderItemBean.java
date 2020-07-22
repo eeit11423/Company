@@ -26,6 +26,8 @@ public class OrderItemBean {
 	String productrelatio; //商品敘述
 	Double shoppingProductPrice;	//商品價格
 	Double shoppingProductDiscount;	//商品折扣
+	String shoppingType;// 商品類型
+	Double shoppingAmount;//商品總金額
     @Transient
 	ShoppingBean shoppingBean; 
 //    @Transient
@@ -44,9 +46,21 @@ public class OrderItemBean {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 	public OrderItemBean(Integer orderItemsId, Integer orderItemsNumber, Integer orderId, Date orderDate,
 			Integer shoppingId, String shoppingProductName, String productrelatio, Double shoppingProductPrice,
-			Double shoppingProductDiscount) {
+			Double shoppingProductDiscount, String shoppingType, Double shoppingAmount, ShoppingBean shoppingBean,
+			OrderBean orderBean, Integer a) {
 		super();
 		this.orderItemsId = orderItemsId;
 		this.orderItemsNumber = orderItemsNumber;
@@ -57,7 +71,23 @@ public class OrderItemBean {
 		this.productrelatio = productrelatio;
 		this.shoppingProductPrice = shoppingProductPrice;
 		this.shoppingProductDiscount = shoppingProductDiscount;
+		this.shoppingType = shoppingType;
+		this.shoppingAmount = shoppingAmount;
+		this.shoppingBean = shoppingBean;
+		this.orderBean = orderBean;
+		this.a = a;
 	}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -190,14 +220,73 @@ public class OrderItemBean {
 
 
 
+
+
+
+
+
+
+	public String getShoppingType() {
+		return shoppingType;
+	}
+
+
+
+
+
+
+
+
+	public void setShoppingType(String shoppingType) {
+		this.shoppingType = shoppingType;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public Double getShoppingAmount() {
+		return shoppingAmount;
+	}
+
+
+
+
+
+
+
+
+	public void setShoppingAmount(Double shoppingAmount) {
+		this.shoppingAmount = shoppingAmount;
+	}
+
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "OrderItemBean [orderItemsId=" + orderItemsId + ", orderItemsNumber=" + orderItemsNumber + ", orderId="
 				+ orderId + ", orderDate=" + orderDate + ", shoppingId=" + shoppingId + ", shoppingProductName="
 				+ shoppingProductName + ", productrelatio=" + productrelatio + ", shoppingProductPrice="
-				+ shoppingProductPrice + ", shoppingProductDiscount=" + shoppingProductDiscount + ", shoppingBean="
-				+ shoppingBean + ", orderBean=" + orderBean + "]";
+				+ shoppingProductPrice + ", shoppingProductDiscount=" + shoppingProductDiscount + ", shoppingType="
+				+ shoppingType + ", shoppingAmount=" + shoppingAmount + ", shoppingBean=" + shoppingBean
+				+ ", orderBean=" + orderBean + ", a=" + a + "]";
 	}
+
+
+
 
 
 
