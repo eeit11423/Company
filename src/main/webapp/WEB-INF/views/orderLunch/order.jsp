@@ -307,13 +307,11 @@
 					  <a id="second-remove" class="far fa-minus-square fa-3x second-remove" onclick="removeSecondBox(${'${index}'})"></a>
 				</li>
 			</ul>`
-// 			console.log(item.product)
-// 			 var elem = document.getElementById(`second-sale-${'${index}'}`);
-// // 			        elem.value = "";
 	        	 $(".second-features-box").append(htmlTag);
 	      }
 	      )
    }
+
    addSecondData(secData);
    
    function getOptionPrice(index){
@@ -335,7 +333,6 @@
 	     addSecondData(secData);
 	  
   }
-    
     </script>
 	</body>
 </html>
