@@ -181,12 +181,7 @@
                 </div>
               </div>
             </div>
-             <c:forEach var='TPp' items="${ss}" >
-               <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">${TPp.value.countTest * TPp.value.price} FUCK</h3>
-         
-<%--           // ${TPp.value.shoppingProductPrice} --%>
-<%-- ${TPp.value.shoppingProductName} --%>
-               </c:forEach>
+      
           </div>
         	
           </div>
@@ -194,7 +189,7 @@
             <div class="col-md-7 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title mb-0">Top Products</p>
+                  <h2 class="card-title mb-0">熱門產品</h2>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
@@ -207,15 +202,12 @@
                         
                       </thead>
                       <tbody>
-                      <c:forEach var='TP' items="${Type}" >
+                   <c:forEach var='TPp' items="${ss}" >
                         <tr>
                       
-                          <td>${TP.value.shoppingType}</td>
-                          </c:forEach>
-                          
-                          <c:forEach var='TPp' items="${ss}" >
+                          <td>${TPp.value.shoppingType}</td>                             
                           <td>${TPp.value.shoppingProductName}</td>
-                          <td class="text-danger"> ${TPp.value.countTest} <i class="ti-arrow-down"></i></td>
+                          <td class="text-success"> ${TPp.value.countTest} <i class="ti-arrow-up"></i></td>
                           <td><label class="badge badge-danger">${TPp.value.countTest * TPp.value.price}</label></td>
                       </tr>
                       
