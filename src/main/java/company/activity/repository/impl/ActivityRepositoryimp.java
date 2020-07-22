@@ -94,6 +94,16 @@ public class ActivityRepositoryimp implements ActivityRepository {
 		return list;
 		
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Activity> getActivitiesByMemberId(Integer memberId) {
+		String hql = "FROM Activity aai WHERE aai.organiserId = :memberId order by id desc";
+		List<Activity> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).setParameter("memberId",memberId).getResultList();
+		return list;
+	}
 	
 	
 }
