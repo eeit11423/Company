@@ -111,10 +111,10 @@ public class GraphDaoImpl implements GraphDao {
 	@Override
 	public Map<Integer,ShoppingBean> getShoppingType(String Type) {
 		String hql = "FROM ShoppingBean where shoppingId = :shoppingId";
-		String hql2 = "FROM OrderItemBean";
+		String hql2 = "FROM OrderItemBean  ";
 		
 		Session session = factory.getCurrentSession();
-		List<OrderItemBean> list = session.createQuery(hql2).getResultList();
+		List<OrderItemBean> list = session.createQuery(hql2).setMaxResults(5).getResultList();
 		Map<Integer,ShoppingBean> mapShop = new HashMap();
 		List<ShoppingBean> list1=null;
 		for (OrderItemBean shop : list) {
@@ -135,16 +135,14 @@ public class GraphDaoImpl implements GraphDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<Integer, OrderCount> getshopping(String sho) {
-		
-		String hql = "SELECT shoppingProductName ,count(*) as countTest ,SUM(shoppingProductPrice) as price FROM OrderItemBean  GROUP BY shoppingProductName ORDER BY countTest DESC";
+		String hql = "SELECT shoppingProductName ,orderItemsNumber *count(*) as countTest ,SUM(shoppingProductPrice) as price "
+					+ "FROM OrderItemBean  GROUP BY orderItemsNumber,shoppingProductName ORDER BY countTest DESC";
 		Session session = factory.getCurrentSession();
 		
-		List<Object[]> listO = session.createQuery(hql).setMaxResults(3).getResultList();
+		List<Object[]> listO = session.createQuery(hql).setMaxResults(5).getResultList();
 		
 		Map<Integer, OrderCount> map = new HashMap();
-//		for (Map<Object, Object> map : listp) {
-//			//System.out.println(map);
-//		}
+
 		int n = 0;
 		for (Object[] object : listO) {
 			n++;
