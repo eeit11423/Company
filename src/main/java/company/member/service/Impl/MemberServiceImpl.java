@@ -12,6 +12,7 @@ import company.member.model.MemberBean;
 import company.member.service.MemberSerivce;
 
 
+
 @Service
 public class MemberServiceImpl implements MemberSerivce {
 
@@ -70,6 +71,38 @@ public class MemberServiceImpl implements MemberSerivce {
 	public List<String> getAllMembers() {
 		
 		return memberdao.getAllMembers();
+	}
+	
+	@Transactional
+	@Override
+	public List<String> seachMemberaccount() {
+		return memberdao.seachMemberaccount();
+	}
+	@Transactional
+	@Override
+	public void updatePasswd(String email) {
+		memberdao.updatePasswd(email);
+		System.out.println("session 更新密碼");
+		
+	}
+	
+	@Transactional
+	@Override
+	public List<MemberBean> getOneMember(String account) {
+		return memberdao.getOneMember(account);
+	}
+
+	@Transactional
+	@Override
+	public boolean idExists(String id) {
+		return memberdao.idExists(id);
+	}
+	
+	@Transactional
+	@Override
+	public boolean CheckPassword(String oldpwd, String newpwd , Integer id) {
+		
+		return memberdao.CheckPassword(oldpwd, newpwd,id);
 	}
 
 }

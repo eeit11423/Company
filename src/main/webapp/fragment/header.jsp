@@ -37,6 +37,8 @@
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="<c:url value='/register/add' />">會員註冊</a> <a
 								class="dropdown-item" href="<c:url value='/members' />">查詢會員資料</a>
+								<a class="dropdown-item" href="<c:url value='/personal' />">會員專區</a>
+								<a class="dropdown-item" href="<c:url value='/test' />">上傳excel</a>
 						</div></li>
 				
 					<li class="nav-item dropdown"><a
@@ -97,12 +99,15 @@
 							<img height='40' width='25'
 								src="<c:url value='/getPicture/${memberBean.memberId}' />" />
 						</c:if>${memberBean.memberNumber}</span>
-					<a href="<c:url value='/login' />"
-						class="btn btn-outline-secondary text-secondary my-2 my-sm-0">登入</a> <a
+						<c:if test="${memberBean.memberId == null}">
+							<a href="<c:url value='/login' />"
+						class="btn btn-outline-secondary text-secondary my-2 my-sm-0">登入</a> </c:if>
+						<a
 						href="<c:url value='/loginout' />"
-						class="btn btn-outline-secondary text-secondary my-2 my-sm-0">登出</a> <a
-						href="<c:url value='/register/add' />"
-						class="btn btn-outline-secondary text-secondary my-2 my-sm-0">註冊</a>
+					class="btn btn-outline-secondary text-secondary my-2 my-sm-0">登出</a> 
+<!-- <a  -->
+<%-- 						href="<c:url value='/register/add' />" --%>
+<!-- 						class="btn btn-outline-secondary text-secondary my-2 my-sm-0">註冊</a> -->
 						
 				<a class="" href="<c:url value='/shoppingCart' />">		<i class="  btn-outline-secondary my-2 my-sm-0 fa fa-shopping-cart  fa-lg" style='padding:11px' aria-hidden="true"></i></a>
 						

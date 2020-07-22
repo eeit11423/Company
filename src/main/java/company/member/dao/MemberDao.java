@@ -25,4 +25,15 @@ public interface MemberDao {
 	public void updateMember(MemberBean bean);
 	
 	public MemberBean login(String account, String passwd);
+	
+	public List<String> seachMemberaccount();
+	
+	public void updatePasswd(String email);
+	
+	public List<MemberBean> getOneMember(String account);
+	
+	public boolean idExists(String id);
+	
+	public  boolean CheckPassword(String oldpwd, String newpwd, Integer id);
+	
 }
