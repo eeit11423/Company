@@ -86,6 +86,7 @@ public class PunchDaoImpl implements PunchDao {
 					memberBean.getMemberNumber(), today, punchWorkOn, punchLate);
 			session.save(punch);			
 			System.out.println("新增成功");
+			System.out.println(punch.getPunchWorkOff());
 		}else {
 			System.out.println("今日上班已打卡");
 		}
@@ -232,7 +233,7 @@ public class PunchDaoImpl implements PunchDao {
 						.getResultList();
 				return listTarget;
 			}else {
-				System.out.println("指定員工-所有時間");	//指定員工
+				System.out.println("指定員工-所有時間");		//指定員工
 				String hql = "FROM Punch WHERE memberNumber = :number Order By punchDate";
 				List<Punch> listTarget = session.createQuery(hql)
 						.setParameter("number", memberNumber)
@@ -260,7 +261,7 @@ public class PunchDaoImpl implements PunchDao {
 				}
 		}
 	}
-
+	
 	@Override
 	public Punch editPunchtimeFromPunchId(int punchId) {
 		Session session = factory.getCurrentSession();

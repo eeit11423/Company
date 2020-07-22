@@ -35,11 +35,9 @@
 		<h1 align='center'>修改出勤紀錄</h1>
 		<hr>
 		<a href='../queryPunchTime'>回前頁</a>
-		<!-- 				<a href='punchlist'>回前頁</a> -->
 		<p>
 			<form:form class='center' action="../punchTime/update/${punch.punchId}" modelAttribute="punch"
 				method="POST">
-<!-- 				<input type="hidden" name="_method" id='putOrDelete' value=""> -->
 				<input type="hidden" name="punchId" value="${punch.punchId}">
 				<input type="hidden" name="memberName" value="${punch.memberName}">
 				<input type="hidden" name="finalDecision" value="">

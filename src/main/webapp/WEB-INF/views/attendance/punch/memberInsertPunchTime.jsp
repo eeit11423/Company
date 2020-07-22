@@ -18,7 +18,7 @@
 			<a href='memberPunch'>回前頁</a>
 		</div>
 		
-		<form:form modelAttribute="punch" action='saveInsertPunchTime'
+		<form:form modelAttribute="punch" action='memberSaveInsertPunchTime'
 			enctype='application/x-www-form-urlencoded' method='POST'>
 			<input type="hidden" name='memberName' value="${punch.memberName}"/>
 			<input type="hidden" name='memberNumber' value="${punch.memberNumber}"/>

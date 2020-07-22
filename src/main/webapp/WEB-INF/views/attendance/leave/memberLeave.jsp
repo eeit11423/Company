@@ -59,10 +59,10 @@
 						displayPagePunchTime(xhr.responseText);
 					}
 				}
-				xhr2.open("GET","<c:url value='queryLeaveData'/>?memberNumber="+ ${memberleave[0].memberNumber} 
-					+ "&selectdate=" + selectdate, true);
+				xhr.open("GET","<c:url value='queryLeaveData'/>?memberNumber="+ ${memberleave[0].memberNumber}
+					+ "&selectdate=all", true);
 				// 			// 送出請求						
-				xhr2.send();
+				xhr.send();
 			}
 			
 			selectElement.onchange = function() {

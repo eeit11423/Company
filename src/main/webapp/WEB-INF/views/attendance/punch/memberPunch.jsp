@@ -71,9 +71,10 @@
 						displayPagePunchTime(xhr.responseText);
 					}
 				}
-				xhr2.open("GET","<c:url value='memberPunch'/>", true);
+				xhr.open("GET","<c:url value='queryPunchTimeData' />?memberNumber="+ ${memberpunch[0].memberNumber} 
+				+ "&selectdate=all", true);
 				// 			// 送出請求						
-				xhr2.send();
+				xhr.send();
 			}
 			
 			selectElement.onchange = function() {
@@ -112,6 +113,7 @@
 					var workOn = punchtimes[i].punchWorkOn;
 					console.log(timeStampToTime(workOn));
 					var workOff = punchtimes[i].punchWorkOff;
+					console.log(punchtimes[i].punchWorkOff);
 					console.log(timeStampToTime(workOff));
 					console.log('-------------------------------------');
 
@@ -126,7 +128,7 @@
 				content += "</table>";
 				tablearea.innerHTML = content;
 			}
-
+		
 			function timeStampToDate(date) {
 				var datetime = new Date();
 				datetime.setTime(date);
@@ -142,13 +144,17 @@
 			};
 
 			function timeStampToTime(time) {
-				var datetime = new Date();
-				datetime.setTime(time);
-				var hour = datetime.getHours();
-				var minute = datetime.getMinutes();
-				var second = datetime.getSeconds();
-				var time = hour + ":" + minute + ":" + second;
-				return time;
+				if (time != null){					
+					var datetime = new Date();
+					datetime.setTime(time);
+					var hour = datetime.getHours();
+					var minute = datetime.getMinutes();
+					var second = datetime.getSeconds();
+					var time = hour + ":" + minute + ":" + second;
+					return time;
+				}else{
+					return 'null';
+				}
 			}
 		</script>
 	</div>
