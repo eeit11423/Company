@@ -585,6 +585,15 @@ public class ActivityController {
 //				joinService.delete(id);
 //				return "redirect:/activity/showAllActivities";
 //			}
-
+			
+			// ############ 顯示分類活動資料
+			@RequestMapping("/queryByActMemberId")
+			public String getActMemberIdList(Model model,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+				MemberBean mb = (MemberBean) model.getAttribute("memberBean");
+				Integer mbId = mb.getMemberId();
+				List<Activity> list = activityService.getActivitiesByMemberId(mbId);
+				model.addAttribute("actMemberIdList", list);
+				return "activity/personal";
+			}
 	
 }

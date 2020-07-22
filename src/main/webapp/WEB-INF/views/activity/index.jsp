@@ -67,6 +67,7 @@
       <a class="dropdown-item" href="<c:url value='queryByActCategory' />">依活動種類</a>
       <a class="dropdown-item" href="<c:url value='cateByDate' />">依截止日期</a>
     </div>
+<%--     <a type="button" class="btn btn-outline-secondary" href="<c:url value='queryByActMemberId' />">個人專區</a> --%>
   </div>
   
 </div>
