@@ -1,5 +1,5 @@
-1001|鍵盤|G913 無線RGB機械式短軸遊戲鍵盤 |7490|0.9|多媒體控制快捷鍵設計 支援程式軟體編輯青軸|data/images/shopping/product1.jpg|50
-1001|鍵盤|G413 機械式背光遊戲鍵盤|1990|0.9|FN搭配多媒體熱鍵 RGB支援紅色/白軸|data/images/shopping/product2.jpg|50
+1001|鍵盤|G913 無線RGB機械式短軸遊戲鍵盤 |7490|0.9|多媒體控制快捷鍵設計 支援程式軟體編輯青軸|data/images/shopping/product1.jpg|25
+1001|鍵盤|G413 機械式背光遊戲鍵盤|1990|0.9|FN搭配多媒體熱鍵 RGB支援紅色/白軸|data/images/shopping/product2.jpg|25
 1001|鍵盤|Ducky One 2 Mini RGB 機械式紅軸|2890|0.9|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 紅軸|data/images/shopping/product3.jpg|50
 1001|鍵盤|Ducky One 2 Mini RGB 機械式茶軸|2690|0.9|Ducky Marco2.0 硬體巨集設定功能 RGB黑色PBT二色 茶軸|data/images/shopping/product4.jpg|50
 1001|鍵盤|Craft 創意輸入轉鈕無線鍵盤|5990|0.9|多媒體控制快捷鍵設計 智慧背光照明系統 靜音無噪按鍵|data/images/shopping/product5.jpg|50
