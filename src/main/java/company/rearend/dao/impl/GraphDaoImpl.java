@@ -136,10 +136,10 @@ public class GraphDaoImpl implements GraphDao {
 	@Override
 	public Map<Integer, OrderCount> getshopping(String sho) {
 		
-		String hql = "SELECT shoppingProductName ,count(*) as countTest FROM OrderItemBean  GROUP BY shoppingProductName,countTest ORDER BY countTest DESC LIMIT 5";
+		String hql = "SELECT shoppingProductName ,count(*) as countTest ,SUM(shoppingProductPrice) FROM OrderItemBean  GROUP BY shoppingProductName ORDER BY countTest DESC";
 		Session session = factory.getCurrentSession();
 		
-		List<Object[]> listO = session.createQuery(hql).getResultList();
+		List<Object[]> listO = session.createQuery(hql).setMaxResults(3).getResultList();
 		
 		Map<Integer, OrderCount> map = new HashMap();
 //		for (Map<Object, Object> map : listp) {
@@ -151,7 +151,11 @@ public class GraphDaoImpl implements GraphDao {
 			OrderCount order = new OrderCount();
 			order.setShoppingProductName(object[0].toString());
 			order.setCountTest(object[1].toString());
+			order.setCountTest(object[2].toString());
+			
 			System.out.println(object[1].toString());
+			System.out.println(object[2].toString());
+		
 			map.put(n, order);
 			
 		}
