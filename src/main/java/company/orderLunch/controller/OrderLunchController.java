@@ -96,6 +96,7 @@ public class OrderLunchController extends HttpServlet{
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
 		String store = request.getParameter("store");
+		System.out.println("store:"+store);
 		//取得商家資料
 		List<Map<String, String>> storeList = new ArrayList<Map<String,String>>();
 		List<Map<String, String>> foodList = new ArrayList<Map<String,String>>();
@@ -107,13 +108,13 @@ public class OrderLunchController extends HttpServlet{
 			con = DriverManager.getConnection(url, userid, passwd);
 			//取得商家資料
 			ps2=con.prepareStatement(SELECT_LUNCH_STORE_DETAIL);
-			ps.setString(1, store);
+			ps2.setString(1, store);
 			rs2 = ps2.executeQuery();
 			while(rs2.next()) {
 				Map<String, String> storeDetail = new HashMap<String, String>();
-				storeDetail.put("store", rs.getString("store"));
-				storeDetail.put("product", rs.getString("product"));
-				storeDetail.put("price", rs.getString("price"));
+				storeDetail.put("store", rs2.getString("store"));
+				storeDetail.put("product", rs2.getString("product"));
+				storeDetail.put("price", rs2.getString("price"));
 				storeList.add(storeDetail);
 				}
 			ps=con.prepareStatement(SELECT_STORE_LIST);
