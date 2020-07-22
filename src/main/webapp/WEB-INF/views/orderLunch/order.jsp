@@ -51,7 +51,7 @@
 										<ul class="actions">
 											<li>店家名單：
 												<c:forEach var='store' items='${storeList}'>
-													<a id="${store}" onclick="getJson(${store})" style="cursor: pointer;">${store}</a>
+													<a id="${store}" onclick="changeSecStore(${store})" style="cursor: pointer;">${store}</a>
 												</c:forEach>
 											</li>
 										</ul>
@@ -75,10 +75,10 @@
                 "
               >
                 <span style="display: block;"> 店家：</span
-                ><input type="text" style="width: 80%;" />
+                ><input type="text" style="width: 80%;" id="first-box-store" onkeyup="getFirstBoxStore()"/>
               </div>
               <div style="display: flex;width: 50%;margin: 0 10px; align-items: center;">
-                <span style="display: block;white-space: nowrap;" >結束時間：</span><input type="text" style="width: 80%;" id='datepicker' />
+                <span style="display: block;white-space: nowrap;" >結束時間：</span><input type="text" style="width: 80%;" id='datepicker' onchange="getDatepicker()"/>
               </div>
                    <div style="display: flex; width: 50%;margin: 0 10px; align-items: center; " >
               </div>
@@ -95,35 +95,13 @@
 								<div class="features-box">
 								<div  style="display:flex; align-items: center;padding-bottom:5%  ;border-bottom: 1px solid rgb(197, 197, 197);">
 										<span style="white-space: nowrap;">店家：</span>
-									<select id="second-store" style="width:60%">
+									<select id="second-store" style="width:60%" onchange="getJson()">
 										<c:forEach var='store' items='${storeList}'>
-											<option name="selectStore" value="${store}" onclick="getJson(${store})" >${store}</option>
+											<option name="selectStore" value="${store}">${store}</option>
 										</c:forEach>
-<!-- 										<option>麥當勞</option> -->
 									</select>
 									</div>
-								<ul class="features" id="second-feature">
-									<li style="display:flex; align-items: center; width:60%;">
-									 <span style="white-space: nowrap;">餐點：</span>
-									<select>
-										<option>麥脆雞</option>
-									</select>
-									</li>
-									<li style="display:flex; align-items: center;">
-										 <span style="white-space: nowrap;">價格：</span><input type="text" readonly="readonly" value="100">
-									</li>
-									<li style="white-space: nowrap; margin-top:0 ;display:flex; align-items: center;">
-										 <span style="white-space: nowrap;">數量：</span><input type="text" readonly="readonly" value="0">
-									</li>
-									    <li style=" margin-top:0 ;display:flex; align-items: center;width:50%">
-                                           <span style="white-space: nowrap;">點餐者：</span><input type="text" readonly="readonly" value="多多" />
-                                        </li>
-                                        
-									<li style="margin-top:1%">
-										  <a id="second-add" class="far fa-plus-square fa-3x second-add"></a>
-         								  <a id="second-remove" class="far fa-minus-square fa-3x second-remove" ></a>
-									</li>
-								</ul>
+									<div class="second-features-box"></div>
 								</div>
 								<footer class="major">
 									<ul class="actions special">
@@ -180,11 +158,16 @@
 			<script src="${pageContext.request.contextPath}/dist/orderLunchCss/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/dist/orderLunchCss/js/main.js"></script>
 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 			<script>
 		
 		    var firstData = [{sale:'100',price:'100'}]
 		
 		    addFirstData(firstData);
+		    
+		       $( function() {
+		    	    $( "#datepicker" ).datepicker();
+		    	  } );
 		    
 			function addFirstData(data){
 		    	data.map((item,index)=>
@@ -197,19 +180,40 @@
 			        	             	 	 <span style="white-space: nowrap;">價格：</span><input  id="first-price-${'${index}'}"  type="text" value="${'${item.price}'}"  onkeyup="changePrice(${'${index}'})"></span>  	
 			        	             	 	 </li>
 			        	             	<li>
-			        	                	<a id="second-add" class="far fa-plus-square fa-3x second-add" onclick="insertMenu()" ></a>
-			        	                	<a id="second-remove" class="far fa-minus-square fa-3x second-remove" onclick="removeFirstData(item)"></a>
+			        	                	<a id="first-add" class="far fa-plus-square fa-3x first-add" onclick="insertMenu()" ></a>
+			        	                	<a id="first-remove" class="far fa-minus-square fa-3x first-remove" onclick="removeFirstData(${'${index}'})"></a>
 			        	            	   </li>
 			        	           </ul>`
 			                $(".first-feature-box").append(htmlTag);
 			      }
 			      )
 		    }
+			
+			function getDatepicker(){
+				var datepickerInput = document.getElementById("datepicker");
+				var currentDate = $( "#datepicker" ).datepicker( "getDate" );		
+				  var newFirstData =   firstData.map(item=>{
+               	   return {...item, date:currentDate}
+                  })                    
+                  firstData = newFirstData		
+			} 
+			
+			function getFirstBoxStore(){
+				var storeInput = document.getElementById("first-box-store");
+				storeInput.addEventListener("keyup",function(event){
+                     var newFirstData =   firstData.map(item=>{
+                    	   return {...item,store:event.target.value}
+                       })                    
+                       firstData = newFirstData
+				})
+			}
+			
 			function changeSale(index){
 	 			var priceInput = document.getElementById(`first-sale-${'${index}'}`)
 				priceInput.addEventListener("keyup",function(event){
 					firstData[index].sale= event.target.value;
 				})
+				getFirstBoxStore()
 				}
 			
 		function changePrice(index){
@@ -217,26 +221,24 @@
 			priceInput.addEventListener("keyup",function(event){
 				firstData[index].price= event.target.value;
 			})
-			
-
-console.log(firstData)
-// 			console.log('adad',index)
-// 	        firstData[index].price = value;
-// 	        console.log(firstData);
+			getFirstBoxStore();
 		}	
 			
-		function removeFirstData(item,index){
-			console.log(item,index)
-			 var taskIndex = firstData.indexOf(item);
-			     firstData.splice(taskIndex, 1);
+		function removeFirstData(index){
+			 var taskIndex = firstData[index];
+			   $(".first-feature").remove();
+			     firstData.splice(firstData.indexOf(taskIndex), 1);
+			     addFirstData(firstData);
+
 			}
 			
 		      
 		      //  新增菜單選項
       function insertMenu(item1,item2){
+		    	  console.log(firstData)
         	  $.ajax({'url':'/mvcExercisetest/orderLunch/insertMenu',
     				'method' : "POST",
-    				'data' : {'sale':item1,'price':item2}
+    				'data' : {'data':firstData} 
       }).then(response =>{
     			     $(".first-feature").remove();
  		        	firstData.push({sale:'',price:''});
@@ -247,50 +249,92 @@ console.log(firstData)
                
       }
 			
-			</script>
+</script>
+
  <script>
- var item =
-	  '<ul class="features">'+
-		'<li style="display:flex; align-items: center; width:60%;"><span style="white-space: nowrap;">餐點：</span><select><option>麥脆雞</option></select></li>'+
-       '<li style="display:flex; align-items: center;"><span style="white-space: nowrap;">價格：</span><input type="text" readonly="readonly" value="100"></li>'+
-       '<li style="display:flex; align-items: center;"><span style="white-space: nowrap;">數量：</span><input type="text" readonly="readonly" value="0"></li>'+
-       '<li  style=" margin-top:0 ;display:flex; align-items: center;"><span style="white-space: nowrap;">餐點者：</span><input type="text" readonly="readonly" value="0"></li>'+
-       '<li style="margin-top:1%"><a id="second-add" class="far fa-plus-square fa-3x second-add"></a><a id="second-remove" class="far fa-minus-square fa-3x second-remove" ></a></li>'+
-       '</ul>';
-       $( function() {
-    	    $( "#datepicker" ).datepicker();
-    	  } );
-       
-       
-//      $(document).on("click", ".second-add", function () {
-//          $(".features-box").append(item);
-//        });
-     
-//       $(document).on("click", ".second-remove", function () {
-//           $(".features").last().remove();
-//         });
+  var secData = []
+
+      getJson();
       
-      //
-      function getJson(e) {
+      function getJson() {
+    	  var select = document.getElementById("second-store");
+    	  var chooseOption = select.options[select.selectedIndex].value;
     	  $.ajax({'url':'/mvcExercisetest/orderLunch/selectStoreList',
 				'method' : "POST",
-				'data' : {'store' : e.id
+				'data' : {'store' : chooseOption
 				},'success' : function(datas) {
-					var datasJson = JSON.parse(datas);
-					var i;
-					var text ='';
-					  for (var i = 0; i < datasJson.length; i++) {
-					        var a=datasJson[i].store;
-					        $( "#second-store").empty();
-					        $("#second-store").append("<option>"+a+"</option>");
-	              }
-					
+ 					var datasJson = JSON.parse(datas);
+ 					 secData = datasJson;
+ 					  $(".second-feature").remove();
+ 					addSecondData(datasJson);				
 				},'error':function(xhr, ajaxOptions, thrownError){
 					console.log(xhr.responseText);
 				}
      		 });
       };
       
+   function changeSecStore(e){
+    	  var select = document.getElementById("second-store");
+    	  var chooseOption = select.options[select.selectedIndex].value
+           console.log(select.options[select.selectedIndex])
+           $(`#second-store option[value=${'${e.id}'}]`).attr('selected', 'selected');
+      }
+   
+
+   
+   function addSecondData(data){
+   	data.map((item,index)=>
+	      {
+	        var htmlTag =`<ul class="features second-feature" id="second-feature">
+				<li style="display:flex; align-items: center; width:60%;">
+				 <span style="white-space: nowrap;">餐點：</span>
+				<select id="second-sale-${'${index}'}" onchange="getOptionPrice(${'${index}'})">
+				${'${data.map(item=>`<option value=${item.product}>${item.product}</option>`)}'}
+				</select>
+				</li>
+				<li style="display:flex; align-items: center;">
+					 <span style="white-space: nowrap;">價格：</span><input type="text" id="second-price-${'${index}'}" readonly="readonly" id="second-price-${'${index}'}"  value="${'${item.price}'}">
+				</li>
+				<li style="white-space: nowrap; margin-top:0 ;display:flex; align-items: center;">
+					 <span style="white-space: nowrap;">數量：</span><input type="text"  value="">
+				</li>
+				    <li style=" margin-top:0 ;display:flex; align-items: center;width:50%">
+                      <span style="white-space: nowrap;">點餐者：</span><input type="text" readonly="readonly" value="" />
+                   </li>
+                   
+				<li style="margin-top:1%">
+					  <a id="second-add" class="far fa-plus-square fa-3x second-add" onclick="addSecondBox()"></a>
+					  <a id="second-remove" class="far fa-minus-square fa-3x second-remove" onclick="removeSecondBox(${'${index}'})"></a>
+				</li>
+			</ul>`
+// 			console.log(item.product)
+// 			 var elem = document.getElementById(`second-sale-${'${index}'}`);
+// // 			        elem.value = "";
+	        	 $(".second-features-box").append(htmlTag);
+	      }
+	      )
+   }
+   addSecondData(secData);
+   
+   function getOptionPrice(index){
+	  	 var select = document.getElementById(`second-sale-${'${index}'}`);
+	  	 var priceInput = document.getElementById(`second-price-${'${index}'}`);
+    	 var chooseOption = select.options[select.selectedIndex].value;
+    	 var filterPdt = secData.find(item=>item.product ===chooseOption)
+    	 priceInput.value = filterPdt.price; 
+   }
+  function addSecondBox(){
+	    $(".second-feature").remove();
+	    secData.order.push({"product":"卡拉雞腿堡","quantity":"1","price":"100","userName":"大寶"});
+	    addSecondData(secData.order);
+  }
+  function removeSecondBox(index){
+	  var taskIndex =  secData[index];
+	   $(".second-feature").remove();
+	     firstData.splice(secData.indexOf(taskIndex), 1);
+	     addSecondData(secData);
+	  
+  }
     
     </script>
 	</body>
