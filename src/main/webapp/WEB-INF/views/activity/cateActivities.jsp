@@ -17,7 +17,7 @@
 	<div align='center'>
 		<h1 class="bg-secondary text-light">分類查詢結果</h1>
 <hr>
-		<a class="btn btn-info" href="<c:url value='/activity/index' />">返回活動系統</a>
+		<a class="btn btn-info" href="${pageContext.request.contextPath}/activity/queryByActCategory">返回分類查詢</a>
 			
 <form method='POST'>
 	<input type='hidden' name='_method' value='DELETE'>

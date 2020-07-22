@@ -25,6 +25,8 @@ import _00_init.util.SystemUtils2018;
 import company.attendance.model.Leave;
 import company.attendance.model.Punch;
 import company.member.model.MemberBean;
+import company.shopping.model.OrderBean;
+import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 import company.train.model.CompanyBean;
 import company.train.model.TrainingBean;
@@ -200,6 +202,63 @@ public class EDMTableResetHibernate {
 			} catch (IOException e) {
 				System.err.println("新建punch表格時發生IO例外: " + e.getMessage());
 			}
+			
+			
+			 //由"data/orderbean.dat"逐筆讀入punch表格內的初始資料
+				try (FileReader fr = new FileReader("data/orderbean.txt "); BufferedReader br = new BufferedReader(fr);) {
+					while ((line = br.readLine()) != null) {
+						if (line.startsWith(UTF8_BOM)) {
+							line = line.substring(1);
+						}
+						String[] token = line.split("\\|");
+						OrderBean ob = new OrderBean();
+						
+					ob.setMemberNumber(token[0]);
+					ob.setOrderAddress(token[1]);
+					ob.setOrderTotalPrice(Double.parseDouble(token[2].trim()));
+				ob.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis()));
+						
+						SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					
+						session.save(ob);
+						System.out.println("新增一筆punch資料成功");
+					}
+					session.flush();
+					System.out.println("punch 資料新增成功");
+				} catch (IOException e) {
+					System.err.println("新建punch表格時發生IO例外: " + e.getMessage());
+				}
+				
+				//由"data/orderItemBean.dat"逐筆讀入punch表格內的初始資料
+				try (FileReader fr = new FileReader("data/orderItemBean.txt "); BufferedReader br = new BufferedReader(fr);) {
+					while ((line = br.readLine()) != null) {
+						if (line.startsWith(UTF8_BOM)) {
+							line = line.substring(1);
+						}
+						String[] token = line.split("\\|");
+						OrderItemBean oib = new OrderItemBean();
+						
+						oib.setOrderItemsNumber(Integer.parseInt(token[0].trim()));
+					    oib.setShoppingId(Integer.parseInt(token[1].trim()));
+					    oib.setShoppingProductName(token[2]);
+					    oib.setProductrelatio(token[3]);
+					    oib.setShoppingProductPrice(Double.parseDouble(token[4].trim()));
+					    oib.setShoppingProductDiscount(Double.parseDouble(token[5].trim()));
+					    
+					    
+					    
+					    
+					    session.save(oib);
+						System.out.println("新增一筆punch資料成功");
+					}
+					session.flush();
+					System.out.println("punch 資料新增成功");
+				} catch (IOException e) {
+					System.err.println("新建punch表格時發生IO例外: " + e.getMessage());
+				}
+				
+				
+				
 			// 由"data/leave.dat"逐筆讀入punch表格內的初始資料
 			try (FileReader fr = new FileReader("data/Leave.txt"); BufferedReader br = new BufferedReader(fr);) {
 				while ((line = br.readLine()) != null) {

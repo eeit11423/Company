@@ -83,7 +83,7 @@ margin-right: 0; }
 									</div>
 									<div class="form-group row">
 										<label class="col-md-4 col-form-label text-md-right"
-											for="productrelation"> 敘述 </label>
+											for="productrelation">商品敘述 </label>
 										<div class="col-md-6">
 											<form:input id="productrelation" path="productrelation"
 												type='text' class="form-control input-md" />
@@ -110,14 +110,7 @@ margin-right: 0; }
 										</div>
 									</div>
 
-									<div class="form-group row">
-										<label class="col-md-4 col-form-label text-md-right"
-											for="productrelation"> 商品敘述</label>
-										<div class="col-md-6">
-											<form:input id="productrelation" path="productrelation"
-												type='text' class="form-control input-md" />
-										</div>
-									</div>
+							
 									<div class="form-group row">
 										<label class="col-md-4 col-form-label text-md-right"
 											for='productImage'> 照片上傳 </label>
