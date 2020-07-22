@@ -76,10 +76,10 @@
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
 						data-toggle="dropdown"> 數據分析 </a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="<c:url value='rearend/allSalary' />">圖表分析</a>
-							<a class="dropdown-item" href="<c:url value='rearend/Salaryex' />">圖表分析2</a>
-							<a class="dropdown-item" href="<c:url value='rearend/meindex' />">測試</a>
-							<a class="dropdown-item" href="<c:url value='orderprice' />">測試2</a>
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/rearend/allSalary">圖表分析</a>
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/rearend/Salaryex">圖表分析2</a>
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/rearend/meindex">測試</a>
+
 							
 						</div></li>
 		

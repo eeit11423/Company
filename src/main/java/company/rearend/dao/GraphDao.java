@@ -19,7 +19,11 @@ public interface GraphDao {
 	List<MemberBean>  getMemberNumberpeople(String people);
 	List<OrderItemBean>  getOrderprice(String price);
 	List<MemberBean>  getSalary(String sal);
+	//熱門產品
 	Map<Integer,ShoppingBean> getShoppingType(String Type);
 	Map<Integer, OrderCount> getshopping(String sho );
+	
+	//訊息
+	
 	//List<Map<ShoppingBean,MemberBean>>  getShoppingNumbera(String Number);
 }

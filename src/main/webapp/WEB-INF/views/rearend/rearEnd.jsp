@@ -55,7 +55,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="連結">商品1</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<c:url value='/shopping/allProductsUpdateDelete' />">商品1</a></li>
                 <li class="nav-item"> <a class="nav-link" href="連結">商品2</a></li>
               </ul>
             </div>
@@ -251,7 +251,7 @@
             <div class="col-md-5 grid-margin stretch-card">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">代辦事項</h4>
+									<h4 class="card-title">等待新增產品</h4>
 									<div class="list-wrapper pt-2">
 										<ul class="d-flex flex-column-reverse todo-list todo-list-custom">
 											<li>
