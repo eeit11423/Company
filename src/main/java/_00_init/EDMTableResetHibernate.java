@@ -44,27 +44,27 @@ public class EDMTableResetHibernate {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-//			try (FileInputStream fis0 = new FileInputStream("data/Shopping.txt");
-//					InputStreamReader isr0 = new InputStreamReader(fis0, "UTF-8");
-//					BufferedReader br0 = new BufferedReader(isr0);) {
-//				while ((line = br0.readLine()) != null) {
-//					String[] sa = line.split("\\|");
-//					ShoppingBean bean = new ShoppingBean();
-//					bean.setMemberNumber(sa[0]);
-//					bean.setShoppingType(sa[1]);
-//					bean.setShoppingname(sa[2]);
-//					bean.setShoppingProductPrice(Double.parseDouble(sa[3]));
-//					bean.setShoppingProductDiscount(Double.parseDouble(sa[4]));
-//					bean.setShoppingDate(new java.sql.Timestamp(System.currentTimeMillis()));
-//					bean.setShoppingProductTotal(Integer.parseInt(sa[7]));
-//					bean.setProductrelation(sa[5]);
-//					// --------------處理Blob(圖片)欄位----------------
-//					Blob sb = SystemUtils2018.fileToBlob(sa[6]);
-//					bean.setShoppingProductImage(sb);
-//					String imageFileName = sa[6].substring(sa[6].lastIndexOf("/") + 1);
-//					bean.setShoppingfileName(imageFileName);
-//					session.save(bean);
-//					count++;}}
+			try (FileInputStream fis0 = new FileInputStream("data/Shopping.txt");
+					InputStreamReader isr0 = new InputStreamReader(fis0, "UTF-8");
+					BufferedReader br0 = new BufferedReader(isr0);) {
+				while ((line = br0.readLine()) != null) {
+					String[] sa = line.split("\\|");
+					ShoppingBean bean = new ShoppingBean();
+					bean.setMemberNumber(sa[0]);
+					bean.setShoppingType(sa[1]);
+					bean.setShoppingname(sa[2]);
+					bean.setShoppingProductPrice(Double.parseDouble(sa[3]));
+					bean.setShoppingProductDiscount(Double.parseDouble(sa[4]));
+					bean.setShoppingDate(new java.sql.Timestamp(System.currentTimeMillis()));
+					bean.setShoppingProductTotal(Integer.parseInt(sa[7]));
+					bean.setProductrelation(sa[5]);
+					// --------------處理Blob(圖片)欄位----------------
+					Blob sb = SystemUtils2018.fileToBlob(sa[6]);
+					bean.setShoppingProductImage(sb);
+					String imageFileName = sa[6].substring(sa[6].lastIndexOf("/") + 1);
+					bean.setShoppingfileName(imageFileName);
+					session.save(bean);
+					count++;}}
 			
 			// 1. 由"data/trainCompany.dat"逐筆讀入trainCompany表格內的初始資料，
 			// 然後依序新增到trainCompany表格中
