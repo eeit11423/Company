@@ -11,9 +11,9 @@
 <body>
 <jsp:include page="/fragment/header.jsp" />
 	<div align='center'>
-		<div align='center'><h3>新增請假紀錄</h3>
+		<div align='center'><h1>新增請假紀錄</h1>
 		<hr>
-		<a href='queryLeave'>回查詢頁面</a>
+		<a href='queryLeave'>回前頁</a>
 		</div>
 		<hr>
 		<form:form action="saveInsertLeave" modelAttribute="leave" method='POST'>
@@ -27,7 +27,13 @@
 			</tr>	
 			<tr style='height: 40px'>	
 				<td align='center'>編號:</td>
-				<td><form:input path='memberNumber' /></td>
+				<td><form:input path='memberNumber' />
+				<font color='red' size='-2'><form:errors path="memberNumber" /></font>
+			</tr>
+			<tr style='height: 40px'>	
+				<td align='center'>部門:</td>
+				<td><form:input path='memberDepartment' />
+				<font color='red' size='-2'><form:errors path="memberDepartment" /></font>
 			</tr>
 			<tr style='height: 40px'>	
 				<td align='center'>日期:</td>

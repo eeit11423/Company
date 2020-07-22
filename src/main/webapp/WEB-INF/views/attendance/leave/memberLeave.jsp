@@ -6,35 +6,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>出勤系統</title>
-<script language="JavaScript">
-	function ShowTime(){
-		var NowDate=new Date();
-　		var h=NowDate.getHours();
-　		var m=NowDate.getMinutes();
-　		var s=NowDate.getSeconds();　
-　		document.getElementById('showbox').innerHTML = h+'時'+m+'分'+s+'秒';
-　		setTimeout('ShowTime()',1000);
-}
+<title>請假系統</title>
 </script>
 </head>
 <body onload="ShowTime()"	>
 	<jsp:include page="/fragment/header.jsp" />
 	<div class="container" style="text-align: center">
 		<h1>
-			出勤系統
+			請假系統
 			<hr>
 		</h1>
 		<a href='<c:url value='/'/>'>返回首頁</a>
-		<h4>使用者：${memberpunch[0].memberName}</h4><span id="showbox"></span>
-<!-- 		<span><button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button></span> -->
+		<h4>使用者：${memberleave[0].memberName}</h4><div id="showbox"></div>
 	</div>
 	<div align='center'>
-		<button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button>
+		<button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">出勤管理</button>
 		<div class="container" align='center' style="text-align: center">
-			<button onclick="location.href='punchWorkOn'">上班打卡</button>
-			<button onclick="location.href='punchWorkOff'">下班打卡</button>
-			<button onclick="location.href='memberInsertPunchTime'">新增紀錄</button>
+			<button onclick="location.href='memberInsertLeave'">新增紀錄</button>
 		</div>
 		選擇年月份：<select id='dateselect'></select>
 		<!-- 顯示書籍資料的區域 -->
@@ -71,7 +59,8 @@
 						displayPagePunchTime(xhr.responseText);
 					}
 				}
-				xhr2.open("GET","<c:url value='memberPunch'/>", true);
+				xhr2.open("GET","<c:url value='queryLeaveData'/>?memberNumber="+ ${memberleave[0].memberNumber} 
+					+ "&selectdate=" + selectdate, true);
 				// 			// 送出請求						
 				xhr2.send();
 			}
@@ -85,7 +74,7 @@
 				var selectdate = selectElement.options[selectElement.selectedIndex].value;
 				// 			// 定義open方法
 				xhr2.open("GET",
-						"<c:url value='queryPunchTimeData' />?memberNumber="+ ${memberpunch[0].memberNumber} 
+						"<c:url value='queryLeaveData' />?memberNumber="+ ${memberleave[0].memberNumber} 
 						+ "&selectdate=" + selectdate, true);
 				// 			// 送出請求						
 				xhr2.send();
@@ -94,34 +83,32 @@
 
 			
 			function displayPagePunchTime(responseText) {
-				var mapData = JSON.parse(responseText);
-				var punchtimes = mapData.punchtimes;
+				var leave = JSON.parse(responseText);
 				var content = "<table align='center' border='1'  bgcolor='#fbdb98'>";
 
 				content += "<tr align='center'>"
-						+ "<th align='center' width='70'>流水號</th>"
+						+ "<th align='center' width='60'>流水號</th>"
 						+ "<th align='center' width='100'>姓名</th>"
-						+ "<th align='center' width='100'>日期</th>"
-						+ "<th align='center' width='140'>上班時間</th>"
-						+ "<th align='center' width='70'>遲到</th>"
-						+ "<th align='center' width='140'>下班時間</th>"
-						+ "<th align='center' width='70'>早退</th></tr>";
-				for (var i = 0; i < punchtimes.length; i++) {
-					var punchday = punchtimes[i].punchDate; //or time=1439018115000; 结果一样
-					console.log(timeStampToDate(punchday));
-					var workOn = punchtimes[i].punchWorkOn;
-					console.log(timeStampToTime(workOn));
-					var workOff = punchtimes[i].punchWorkOff;
-					console.log(timeStampToTime(workOff));
-					console.log('-------------------------------------');
+						+ "<th align='center' width='200'>日期</th>"
+						+ "<th align='center' width='100'>假別</th>"
+						+ "<th align='center' width='200'>請假開始</th>"
+						+ "<th align='center' width='200'>請假結束</th>"
+						+ "<th align='center' width='200'>原因</th>"
+						+"</tr>";
+				for (var i = 0; i < leave.length; i++) {
+					var leaveDay = leave[i].leaveDate; //or time=1439018115000; 结果一样
+					var leaveStart = leave[i].leaveStart;
+					var leaveEnd = leave[i].leaveEnd;
 
-					content += "<tr ><td align='center'>" + punchtimes[i].punchId + "</a></td>"
-							+ "<td align='center'>"	+ punchtimes[i].memberName	+ "</td>"
-							+ "<td align='center'>"	+ timeStampToDate(punchday)	+ "</td>"
-							+ "<td align='center'>"	+ timeStampToTime(workOn) + "</td>"
-							+ "<td align='center'>"	+ punchtimes[i].punchLate + "</td>"
-							+ "<td align='center'>"	+ timeStampToTime(workOff) + "</td>"
-							+ "<td align='center'>"	+ punchtimes[i].punchEarly + "</td></tr>";
+					content += "<tr>"
+					+ "<td align='center'>" + leave[i].leaveId + "</td>"
+					+ "<td align='center'>" + leave[i].memberName + "</td>" 
+					+ "<td align='center'>"	+ timeStampToDate(leaveDay) + "</td>"
+					+ "<td align='center'>" + leave[i].leaveCategory + "</td>" 
+					+ "<td align='center'>"	+ timeStampToTime(leaveStart) + "</td>"
+					+ "<td align='center'>" + timeStampToTime(leaveEnd)	+ "</td>"
+					+ "<td align='center'>" + leave[i].leaveCause + "</td>" 
+					+ "</tr>";
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;

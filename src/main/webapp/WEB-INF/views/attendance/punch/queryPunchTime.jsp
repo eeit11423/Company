@@ -5,24 +5,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <link rel='stylesheet' href='${pageContext.request.contextPath}/css/styles.css' type="text/css" /> --%>
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <meta charset="UTF-8">
-<title>查詢出勤紀錄</title>
+<title>公司出勤紀錄表</title>
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
 	<div class="container" style="text-align: center">
 		<h1>
-			公司員工出勤紀錄
+			員工出勤紀錄表
 			<hr>
 		</h1>
+		<a href='memberPunch'>回前頁</a>
 	</div>
 	<div align='center'>
 		請挑選姓名: <select id='membername'></select> 選擇年月份：<select id='dateselect'></select>
-		<hr>
-		<a href='memberPunch'>回前頁</a>
 		<hr>
 		<!-- 顯示書籍資料的區域 -->
 		<div align='center' id='tablearea' style='height: 150px;'
@@ -50,7 +46,6 @@
 					}
 					jQuery("#membername").prepend("<option value='all'>all</option>");
 					console.log(selectElement)
-// 					    selectElement.options.unshift(['all', 'all']);
 					var dateselect = [
 							['all'],
 							['2020-1'],['2020-2'], ['2020-3',],
@@ -107,14 +102,15 @@
 				var content = "<table align='center' border='1'  bgcolor='#fbdb98'>";
 
 				content += "<tr align='center'>"
-						+ "<th align='center' width='40'><a href='insertPunchTime'>新增</a></th>"
-						+ "<th align='center' width='70'>姓名</th>"
-						+ "<th align='center' width='140'>日期</th>"
+						+ "<th align='center' width='70'>流水號</th>"
+						+ "<th align='center' width='100'>姓名</th>"
+						+ "<th align='center' width='70'>部門</th>"
+						+ "<th align='center' width='100'>日期</th>"
 						+ "<th align='center' width='140'>上班時間</th>"
 						+ "<th align='center' width='70'>遲到</th>"
-						+ "<th align='center' width='200'>下班時間</th>"
+						+ "<th align='center' width='140'>下班時間</th>"
 						+ "<th align='center' width='70'>早退</th>"
-						+ "<th align='center' width='70'>編輯</th></tr>";
+						+ "<th align='center' width='100'><a href='insertPunchTime'>新增</a></th></tr>";
 				for (var i = 0; i < punchtimes.length; i++) {
 					var punchday = punchtimes[i].punchDate; //or time=1439018115000; 结果一样
 					console.log(timeStampToDate(punchday));
@@ -126,12 +122,14 @@
 
 					content += "<tr><td align='center'>" + punchtimes[i].punchId	+ "</td>"
 							+ "<td align='center'>"	+ punchtimes[i].memberName + "</td>"
+							+ "<td align='center'>"	+ punchtimes[i].memberDepartment + "</td>"
 							+ "<td align='center'>"	+ timeStampToDate(punchday)	+ "</td>"
 							+ "<td align='center'>"	+ timeStampToTime(workOn) + "</td>"
 							+ "<td align='center'>"	+ punchtimes[i].punchLate + "</td>"
 							+ "<td align='center'>" + timeStampToTime(workOff) + "</td>"
 							+ "<td align='center'>"	+ punchtimes[i].punchEarly + "</td>"
-							+ "<td align='center'><a href='punchTimeEdit/" + punchtimes[i].punchId + "'>更改</a>/<a href='deletePunchTime/" + punchtimes[i].punchId  + "'>刪除</a></td></tr>";
+							+ "<td align='center'><a href='punchTimeEdit/" + punchtimes[i].punchId + "'>更改</a>/<a href='deletePunchTime/" 
+							+ punchtimes[i].punchId  + "' onclick='confirmDelete()'>刪除</a></td></tr>";
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;
@@ -160,6 +158,13 @@
 				var time = hour + ":" + minute + ":" + second;
 				return time;
 			}
+		 	function confirmDelete() {
+	 			var result = confirm("確定刪除此筆記錄?");
+	 			if (result) {
+	 			return true;
+	 			}
+	 		return false;
+	 		}
 		</script>
 	</div>
 </body>

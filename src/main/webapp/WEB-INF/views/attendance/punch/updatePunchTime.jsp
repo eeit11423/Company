@@ -31,12 +31,10 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<p>
-	<hr>
 	<div align='center'>
-		<h2 align='center'>修改出勤紀錄</h2>
+		<h1 align='center'>修改出勤紀錄</h1>
 		<hr>
-		<a href='../queryPunchTime'>回查詢頁面</a>
+		<a href='../queryPunchTime'>回前頁</a>
 		<!-- 				<a href='punchlist'>回前頁</a> -->
 		<p>
 			<form:form class='center' action="../punchTime/update/${punch.punchId}" modelAttribute="punch"
