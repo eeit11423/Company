@@ -11,18 +11,17 @@
 <meta charset="UTF-8">
 <title>修改請假紀錄</title>
 <script type="text/javascript">
-	function confirmDelete(userId) {
-		var result = confirm("確定刪除此筆記錄(帳號:" + userId.trim() + ")?");
-		if (result) {
-			document.forms[0].putOrDelete.value = "DELETE";
-			return true;
-		}
-		return false;
-	}
+// 	function confirmDelete(userId) {
+// 		var result = confirm("確定刪除此筆記錄(帳號:" + userId.trim() + ")?");
+// 		if (result) {
+// 			document.forms[0].putOrDelete.value = "DELETE";
+// 			return true;
+// 		}
+// 		return false;
+// 	}
 	function confirmUpdate(userId) {
 		var result = confirm("確定送出此筆記錄(帳號:" + userId.trim() + ")?");
 		if (result) {
-			document.forms[0].putOrDelete.value = "PUT";
 			return true;
 		}
 		return false;
@@ -31,17 +30,13 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<p>
-	<hr>
 	<div align='center'>
-		<h2 align='center'>查詢請假紀錄</h2>
+		<h1 align='center'>查詢請假紀錄</h1>
 		<hr>
-		<a href='../queryLeave'>回查詢頁面</a>
-		<!-- 				<a href='punchlist'>回前頁</a> -->
+		<a href='../queryLeave'>回前頁</a>
 		<p>
 			<form:form class='center' action="../leave/update/${leave.leaveId}"
 				modelAttribute="leave" method="POST">
-				<input type="hidden" name="_method" id='putOrDelete' value="">
 				<input type="hidden" name="leaveId" value="${leave.leaveId}">
 				<input type="hidden" name="memberName" value="${leave.memberName}">
 				<input type="hidden" name="finalDecision" value="">
@@ -67,11 +62,14 @@
 					</TR>
 
 					<TR>
-						<TD colspan="2" align="center"><input type="submit"
-							value="更新" name='updateBtn'
-							onclick="return confirmUpdate('${leave.memberName}');"> <input
-							type="submit" value="刪除" name='deleteBtn'
-							onclick="return confirmDelete('${leave.memberName}');"></TD>
+						<TD colspan="2" align="center">
+<!-- 							<input type="submit" value="更新" name='updateBtn' -->
+<%-- 							onclick="return confirmUpdate('${leave.memberName}');">  --%>
+<%-- 							<input type="submit" value="刪除" name='deleteBtn' onclick="return confirmDelete('${leave.memberName}');"> --%>
+							<input type='submit' value='提交'>
+							<input type='reset' value='還原'>
+						</TD>
+							
 					</TR>
 				</Table>
 				<c:if test="${not empty requestScope.modify}">

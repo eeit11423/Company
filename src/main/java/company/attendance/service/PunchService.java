@@ -16,7 +16,7 @@ public interface PunchService {
 	
 	void punchWorkOff(MemberBean memberBean, Timestamp punchWorkOn);
 
-	Timestamp getWorkOnTime();
+	Timestamp getWorkOnTime(Integer memberId);
 	
 	List<Punch> queryPunchTime(String memberNumber, String selectdate) ;
 

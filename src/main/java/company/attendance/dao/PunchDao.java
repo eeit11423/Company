@@ -14,7 +14,7 @@ public interface PunchDao {
 
 	void punchWorkOn(Integer memberId);
 
-	Timestamp getWorkOnTime();
+	Timestamp getWorkOnTime(Integer memberId);
 
 	void punchWorkOff(MemberBean memberBean, Timestamp punchWorkOn);
 	

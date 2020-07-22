@@ -5,29 +5,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <link rel='stylesheet' href='${pageContext.request.contextPath}/css/styles.css' type="text/css" /> --%>
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <meta charset="UTF-8">
 <title>出勤系統</title>
+<script language="JavaScript">
+	function ShowTime(){
+		var NowDate=new Date();
+　		var h=NowDate.getHours();
+　		var m=NowDate.getMinutes();
+　		var s=NowDate.getSeconds();　
+　		document.getElementById('showbox').innerHTML = h+'時'+m+'分'+s+'秒';
+　		setTimeout('ShowTime()',1000);
+}
+</script>
 </head>
-<body>
+<body onload="ShowTime()"	>
 	<jsp:include page="/fragment/header.jsp" />
 	<div class="container" style="text-align: center">
 		<h1>
 			出勤系統
 			<hr>
 		</h1>
-		<h4>使用者：${memberpunch[0].memberName}</h4>
 		<a href='<c:url value='/'/>'>返回首頁</a>
+		<h4>使用者：${memberpunch[0].memberName}</h4><span id="showbox"></span>
+<!-- 		<span><button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button></span> -->
 	</div>
 	<div align='center'>
+		<button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button>
 		<div class="container" align='center' style="text-align: center">
 			<button onclick="location.href='punchWorkOn'">上班打卡</button>
 			<button onclick="location.href='punchWorkOff'">下班打卡</button>
-			<button onclick="location.href='insertPunchTime'">新增出勤紀錄</button>
+			<button onclick="location.href='memberInsertPunchTime'">新增紀錄</button>
 		</div>
-			<button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button>
 		選擇年月份：<select id='dateselect'></select>
 		<!-- 顯示書籍資料的區域 -->
 			<hr>
@@ -91,9 +99,9 @@
 				var content = "<table align='center' border='1'  bgcolor='#fbdb98'>";
 
 				content += "<tr align='center'>"
-						+ "<th align='center' width='40'><a href='insertPunchTime'>新增</a></th>"
-						+ "<th align='center' width='70'>姓名</th>"
-						+ "<th align='center' width='140'>日期</th>"
+						+ "<th align='center' width='70'>流水號</th>"
+						+ "<th align='center' width='100'>姓名</th>"
+						+ "<th align='center' width='100'>日期</th>"
 						+ "<th align='center' width='140'>上班時間</th>"
 						+ "<th align='center' width='70'>遲到</th>"
 						+ "<th align='center' width='140'>下班時間</th>"

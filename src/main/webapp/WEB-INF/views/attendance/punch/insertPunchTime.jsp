@@ -6,7 +6,6 @@
 
 <head>
 <meta charset="UTF-8">
-<link rel='stylesheet' href='${pageContext.request.contextPath}/css/style.css'  type="text/css" />
 
 <title>新增打卡紀錄</title>
 </head>
@@ -14,18 +13,19 @@
 	<jsp:include page="/fragment/header.jsp" />
 	<div align='center'>
 		<div align='center'>
-			<h3>新增打卡紀錄</h3>
+			<h1>新增打卡紀錄</h1>
 			<hr>
-			<a href='queryPunchTime'>回查詢頁面</a>
+			<a href='queryPunchTime'>回前頁</a>
 		</div>
-
+		
 		<form:form modelAttribute="punch" action='saveInsertPunchTime'
 			enctype='application/x-www-form-urlencoded' method='POST'>
 			<table border='1'>
 				<tr style='height: 40px'>
 					<td align='center'>姓名:</td>
-					<td><form:input path='memberName' />
-					 <form:errors path='memberName' cssClass="error"/>				</tr>
+					<td><form:input path='memberName'/>
+					 <form:errors path='memberName' cssClass="error"/>				
+				</tr>
 				<tr style='height: 40px'>
 					<td align='center'>編號:</td>
 					<td><form:input path='memberNumber' />

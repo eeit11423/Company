@@ -41,8 +41,8 @@ public class PunchServiceImpl implements PunchService {
     }
 
 	@Override
-	public Timestamp getWorkOnTime() {
-    	return dao.getWorkOnTime();
+	public Timestamp getWorkOnTime(Integer memberId) {
+    	return dao.getWorkOnTime(memberId);
     }
 
 	@Override

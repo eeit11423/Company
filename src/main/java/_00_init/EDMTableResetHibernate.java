@@ -44,27 +44,27 @@ public class EDMTableResetHibernate {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			try (FileInputStream fis0 = new FileInputStream("data/Shopping.txt");
-					InputStreamReader isr0 = new InputStreamReader(fis0, "UTF-8");
-					BufferedReader br0 = new BufferedReader(isr0);) {
-				while ((line = br0.readLine()) != null) {
-					String[] sa = line.split("\\|");
-					ShoppingBean bean = new ShoppingBean();
-					bean.setMemberNumber(sa[0]);
-					bean.setShoppingType(sa[1]);
-					bean.setShoppingname(sa[2]);
-					bean.setShoppingProductPrice(Double.parseDouble(sa[3]));
-					bean.setShoppingProductDiscount(Double.parseDouble(sa[4]));
-					bean.setShoppingDate(new java.sql.Timestamp(System.currentTimeMillis()));
-					bean.setShoppingProductTotal(Integer.parseInt(sa[7]));
-					bean.setProductrelation(sa[5]);
-					// --------------處理Blob(圖片)欄位----------------
-					Blob sb = SystemUtils2018.fileToBlob(sa[6]);
-					bean.setShoppingProductImage(sb);
-					String imageFileName = sa[6].substring(sa[6].lastIndexOf("/") + 1);
-					bean.setShoppingfileName(imageFileName);
-					session.save(bean);
-					count++;}}
+//			try (FileInputStream fis0 = new FileInputStream("data/Shopping.txt");
+//					InputStreamReader isr0 = new InputStreamReader(fis0, "UTF-8");
+//					BufferedReader br0 = new BufferedReader(isr0);) {
+//				while ((line = br0.readLine()) != null) {
+//					String[] sa = line.split("\\|");
+//					ShoppingBean bean = new ShoppingBean();
+//					bean.setMemberNumber(sa[0]);
+//					bean.setShoppingType(sa[1]);
+//					bean.setShoppingname(sa[2]);
+//					bean.setShoppingProductPrice(Double.parseDouble(sa[3]));
+//					bean.setShoppingProductDiscount(Double.parseDouble(sa[4]));
+//					bean.setShoppingDate(new java.sql.Timestamp(System.currentTimeMillis()));
+//					bean.setShoppingProductTotal(Integer.parseInt(sa[7]));
+//					bean.setProductrelation(sa[5]);
+//					// --------------處理Blob(圖片)欄位----------------
+//					Blob sb = SystemUtils2018.fileToBlob(sa[6]);
+//					bean.setShoppingProductImage(sb);
+//					String imageFileName = sa[6].substring(sa[6].lastIndexOf("/") + 1);
+//					bean.setShoppingfileName(imageFileName);
+//					session.save(bean);
+//					count++;}}
 			
 			// 1. 由"data/trainCompany.dat"逐筆讀入trainCompany表格內的初始資料，
 			// 然後依序新增到trainCompany表格中
@@ -204,58 +204,58 @@ public class EDMTableResetHibernate {
 			}
 			
 			
-			 //由"data/orderbean.dat"逐筆讀入punch表格內的初始資料
-				try (FileReader fr = new FileReader("data/orderbean.txt "); BufferedReader br = new BufferedReader(fr);) {
-					while ((line = br.readLine()) != null) {
-						if (line.startsWith(UTF8_BOM)) {
-							line = line.substring(1);
-						}
-						String[] token = line.split("\\|");
-						OrderBean ob = new OrderBean();
-						
-					ob.setMemberNumber(token[0]);
-					ob.setOrderAddress(token[1]);
-					ob.setOrderTotalPrice(Double.parseDouble(token[2].trim()));
-				ob.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis()));
-						
-						SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-					
-						session.save(ob);
-						System.out.println("新增一筆punch資料成功");
-					}
-					session.flush();
-					System.out.println("punch 資料新增成功");
-				} catch (IOException e) {
-					System.err.println("新建punch表格時發生IO例外: " + e.getMessage());
-				}
-				
-				//由"data/orderItemBean.dat"逐筆讀入punch表格內的初始資料
-				try (FileReader fr = new FileReader("data/orderItemBean.txt "); BufferedReader br = new BufferedReader(fr);) {
-					while ((line = br.readLine()) != null) {
-						if (line.startsWith(UTF8_BOM)) {
-							line = line.substring(1);
-						}
-						String[] token = line.split("\\|");
-						OrderItemBean oib = new OrderItemBean();
-						
-						oib.setOrderItemsNumber(Integer.parseInt(token[0].trim()));
-					    oib.setShoppingId(Integer.parseInt(token[1].trim()));
-					    oib.setShoppingProductName(token[2]);
-					    oib.setProductrelatio(token[3]);
-					    oib.setShoppingProductPrice(Double.parseDouble(token[4].trim()));
-					    oib.setShoppingProductDiscount(Double.parseDouble(token[5].trim()));
-					    
-					    
-					    
-					    
-					    session.save(oib);
-						System.out.println("新增一筆punch資料成功");
-					}
-					session.flush();
-					System.out.println("punch 資料新增成功");
-				} catch (IOException e) {
-					System.err.println("新建punch表格時發生IO例外: " + e.getMessage());
-				}
+//			 //由"data/orderbean.dat"逐筆讀入punch表格內的初始資料
+//				try (FileReader fr = new FileReader("data/orderbean.txt "); BufferedReader br = new BufferedReader(fr);) {
+//					while ((line = br.readLine()) != null) {
+//						if (line.startsWith(UTF8_BOM)) {
+//							line = line.substring(1);
+//						}
+//						String[] token = line.split("\\|");
+//						OrderBean ob = new OrderBean();
+//						
+//					ob.setMemberNumber(token[0]);
+//					ob.setOrderAddress(token[1]);
+//					ob.setOrderTotalPrice(Double.parseDouble(token[2].trim()));
+//				ob.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis()));
+//						
+//						SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//					
+//						session.save(ob);
+//						System.out.println("新增一筆punch資料成功");
+//					}
+//					session.flush();
+//					System.out.println("punch 資料新增成功");
+//				} catch (IOException e) {
+//					System.err.println("新建punch表格時發生IO例外: " + e.getMessage());
+//				}
+//				
+//				//由"data/orderItemBean.dat"逐筆讀入punch表格內的初始資料
+//				try (FileReader fr = new FileReader("data/orderItemBean.txt "); BufferedReader br = new BufferedReader(fr);) {
+//					while ((line = br.readLine()) != null) {
+//						if (line.startsWith(UTF8_BOM)) {
+//							line = line.substring(1);
+//						}
+//						String[] token = line.split("\\|");
+//						OrderItemBean oib = new OrderItemBean();
+//						
+//						oib.setOrderItemsNumber(Integer.parseInt(token[0].trim()));
+//					    oib.setShoppingId(Integer.parseInt(token[1].trim()));
+//					    oib.setShoppingProductName(token[2]);
+//					    oib.setProductrelatio(token[3]);
+//					    oib.setShoppingProductPrice(Double.parseDouble(token[4].trim()));
+//					    oib.setShoppingProductDiscount(Double.parseDouble(token[5].trim()));
+//					    
+//					    
+//					    
+//					    
+//					    session.save(oib);
+//						System.out.println("新增一筆punch資料成功");
+//					}
+//					session.flush();
+//					System.out.println("punch 資料新增成功");
+//				} catch (IOException e) {
+//					System.err.println("新建punch表格時發生IO例外: " + e.getMessage());
+//				}
 				
 				
 				

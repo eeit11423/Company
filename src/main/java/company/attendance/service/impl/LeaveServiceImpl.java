@@ -21,8 +21,8 @@ public class LeaveServiceImpl implements LeaveService {
     LeaveDao dao;
 	
 	@Override
-	public List<Leave> getLeave() {
-		return dao.getLeave();
+	public List<Leave> getLeave(String memberNamer) {
+		return dao.getLeave(memberNamer);
 	}
 
 	@Override

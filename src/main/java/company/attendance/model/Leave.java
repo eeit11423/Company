@@ -43,6 +43,13 @@ public class Leave {
 		this.leaveStart = leaveStart;
 		this.leaveEnd = leaveEnd;
 	}
+	public Leave(Integer leaveId, String memberNumber, String memberName, String memberDepartment) {
+		super();
+		this.leaveId = leaveId;
+		this.memberNumber = memberNumber;
+		this.memberName = memberName;
+		this.memberDepartment = memberDepartment;
+	}
 	public Integer getLeaveId() {
 		return leaveId;
 	}

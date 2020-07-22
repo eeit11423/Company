@@ -15,12 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.DeleteMapping;
+//import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+//import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -42,6 +42,20 @@ public class PunchController {
 	@Autowired
 	ServletContext context;
 	
+	@GetMapping("/memberPunch")
+	public String  getMemberPunch(Model model)  {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/";
+//		}
+		}else {
+			System.out.println(memberBean.getMemberName().length());
+			List<Punch> list = service.getPunchTime(memberBean.getMemberName());
+			model.addAttribute("memberpunch",list);
+			
+		return "attendance/punch/memberPunch" ;
+		}
+	}
 //	//搜尋登入員工的punch資料
 //	已停用
 //	@RequestMapping("punch")
@@ -76,7 +90,7 @@ public class PunchController {
 	@GetMapping("/punchWorkOff")
 	public String punchWorkOff(Model model) {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
-		Timestamp workWorkOn = service.getWorkOnTime();
+		Timestamp workWorkOn = service.getWorkOnTime(memberBean.getMemberId());
 		if(workWorkOn != null){
 			service.punchWorkOff(memberBean, workWorkOn);
 		}
@@ -90,11 +104,20 @@ public class PunchController {
 //		return "attendance/punch/punch";
 //	}
 	
+	//管理者新增
 	@GetMapping(value="/insertPunchTime", produces= {"text/html"})
 	public String insertPunchTime(Model model) {
 		model.addAttribute("punch", new Punch());
 		return "attendance/punch/insertPunchTime";
 	}
+	//員工新增
+	@GetMapping(value="/memberInsertPunchTime", produces= {"text/html"})
+	public String memberInsertPunchTime(Model model) {
+		System.out.println("=========進入新增頁面=========");
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		model.addAttribute("punch", new Punch(null,memberBean.getMemberNumber(), memberBean.getMemberName(),memberBean.getMemberDepartment()));
+		return "attendance/punch/memberInsertPunchTime";
+	}	
 	
 	@PostMapping(value = "/saveInsertPunchTime", consumes = "application/x-www-form-urlencoded")   
 	public String saveInsertPunchTime(@ModelAttribute("punch") Punch punch, BindingResult bindingResult, Model model,
@@ -102,7 +125,7 @@ public class PunchController {
 		AttendancePunchValidator validator = new AttendancePunchValidator();
 		validator.validate(punch, bindingResult);
 		if (bindingResult.hasErrors()) {
-			return "attendance/punch/insertPunchTime";
+			return "redirect:/attendance/punch/insertPunchTime";
 		}
 		int n = service.savePunchTime(punch);
 		if (n==1) {
@@ -114,31 +137,29 @@ public class PunchController {
 		}
 	}
 	
+	@PostMapping(value = "/memberSaveInsertPunchTime", consumes = "application/x-www-form-urlencoded")   
+	public String memberSaveInsertPunchTime(@ModelAttribute("punch") Punch punch, BindingResult bindingResult, Model model,
+			HttpServletRequest request) {
+		AttendancePunchValidator validator = new AttendancePunchValidator();
+		validator.validate(punch, bindingResult);
+		if (bindingResult.hasErrors()) {
+			return "redirect:/attendance/punch/memberInsertPunchTime";
+		}
+		int n = service.savePunchTime(punch);
+		if (n==1) {
+			return "redirect:/attendance/punch/memberPunch";
+		} else {
+			FieldError error = new FieldError("punch", "punchDate",punch.getPunchDate(), false, null, null,  (n==-1 ? "日期重複" : "資料庫錯誤"));
+			bindingResult.addError(error);
+			return "attendance/punch/insertPunchTime";
+		}
+	}
+	
 	@GetMapping("/queryPunchTime")
 	public String  getQueryPunchTime()  {
 		return "attendance/punch/queryPunchTime";
 	}
-	
-	@GetMapping("/memberPunch")
-	public String  getMemberPunch(Model model)  {
-		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
-		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
-		}else {
-			System.out.println(memberBean.getMemberName().length());
-			List<Punch> list = service.getPunchTime(memberBean.getMemberName());
-			model.addAttribute("memberpunch",list);
-			
-		return "attendance/punch/memberPunch" ;
-		}
-	}
-	
-	
-	@GetMapping("/bakcPunchTime")
-	public String  backPunchTime()  {
-		return "redirect:/attendance/punch/punch";
-	}
-	
+
 	@GetMapping("/getAllMember")
 	public ResponseEntity<List<MemberBean>>  getAllMember(){
 		List<MemberBean> list = service.getAllMember();
@@ -165,7 +186,6 @@ public class PunchController {
 //		}
 	}
 	
-
 	@GetMapping(value="/punchTimeEdit/{punchId}", produces= {"text/html"})
 	public String editPunchtimeFromPunchId(@PathVariable Integer punchId, Model model) {
 			Punch punch = service.editPunchtimeFromPunchId(punchId);
@@ -176,6 +196,7 @@ public class PunchController {
 	@PostMapping("/punchTime/update/{key}")   
 	public String updatePunchTime(
 			@PathVariable Integer key, Punch punch) {
+		
 		service.updatePunchTime(punch);
 		System.out.println("hi");
 		return "redirect:/attendance/punch/queryPunchTime";
@@ -193,9 +214,9 @@ public class PunchController {
 		return punch;
 	}
 	
-	@ModelAttribute("memberBean")
-	public MemberBean modelAttribute(HttpServletRequest req, Model model) {
-		MemberBean memberbean = new MemberBean();
-		return memberbean;
-	}
+//	@ModelAttribute("memberBean")
+//	public MemberBean modelAttribute(HttpServletRequest req, Model model) {
+//		MemberBean memberbean = new MemberBean();
+//		return memberbean;
+//	}
 }

@@ -15,11 +15,11 @@
 			查詢請假紀錄
 			<hr>
 		</h1>
+		<a href='memberLeave'>回前頁</a>
 	</div>
 	<div align='center'>
 		請挑選姓名: <select id='membername'></select> 選擇年月份：<select id='dateselect'></select>
 		<hr>
-		<a href='backLeave'>回前頁</a>
 		<hr>
 		<!-- 顯示書籍資料的區域 -->
 		<div align='center' id='tablearea' style='height: 150px;'
@@ -45,6 +45,8 @@
 								+ memberData[i][1]);
 						selectElement.options[selectElement.options.length] = option;
 					}
+					jQuery("#membername").prepend("<option value='all'>all</option>");
+
 
 				}
 			}
@@ -98,26 +100,34 @@
 				var content = "<table align='center' border='1'  bgcolor='#fbdb98'>";
 
 				content += "<tr align='center'>"
-						+ "<th align='center' width='60'><a href='insertLeave'>新增</a></th>"
+						+ "<th align='center' width='60'>流水號</th>"
 						+ "<th align='center' width='100'>姓名</th>"
+						+ "<th align='center' width='100'>部門</th>"
 						+ "<th align='center' width='200'>日期</th>"
-						+ "<th align='center' width='200'>上班時間</th>"
-						+ "<th align='center' width='200'>下班時間</th></tr>";
+						+ "<th align='center' width='100'>假別</th>"
+						+ "<th align='center' width='200'>請假開始</th>"
+						+ "<th align='center' width='200'>請假結束</th>"
+						+ "<th align='center' width='200'>原因</th>"
+						+ "<th align='center' width='100'><a href='insertLeave'>新增</a></th>"
+						+"</tr>";
 				for (var i = 0; i < leave.length; i++) {
 					var leaveDay = leave[i].leaveDate; //or time=1439018115000; 结果一样
 					var leaveStart = leave[i].leaveStart;
 					var leaveEnd = leave[i].leaveEnd;
 
 					content += "<tr>"
-							+ "<td width='70'><a href='leaveEdit/" + leave[i].leaveId + "'>"
-							+ leave[i].leaveId + "</a></td>"
-							+ "<td align='center'>" + leave[i].memberName
-							+ "</td>" + "<td align='center'>"
-							+ timeStampToDate(leaveDay) + "</td>"
-							+ "<td align='center'>"
-							+ timeStampToTime(leaveStart) + "</td>"
-							+ "<td align='center'>" + timeStampToTime(leaveEnd)
-							+ "</td></tr>";
+							+ "<td align='center'>" + leave[i].leaveId + "</td>"
+							+ "<td align='center'>" + leave[i].memberName + "</td>" 
+							+ "<td align='center'>" + leave[i].memberDepartment + "</td>" 
+							+ "<td align='center'>"	+ timeStampToDate(leaveDay) + "</td>"
+							+ "<td align='center'>" + leave[i].leaveCategory + "</td>" 
+							+ "<td align='center'>"	+ timeStampToTime(leaveStart) + "</td>"
+							+ "<td align='center'>" + timeStampToTime(leaveEnd)	+ "</td>"
+							+ "<td align='center'>" + leave[i].leaveCause + "</td>" 
+							+ "<td align='center'><a href='leaveEdit/" + leave[i].leaveId 
+							+ "'>更改</a>/<a href='deleteLeave/" + leave[i].leaveId  
+							+ "' onclick='confirmDelete()';>刪除</a></td>";
+							+"</tr>";
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;
@@ -145,7 +155,16 @@
 				var second = datetime.getSeconds();
 				var time = hour + ":" + minute + ":" + second;
 				return time;
+				
+				
 			}
+		 	function confirmDelete() {
+	 			var result = confirm("確定刪除此筆記錄?");
+	 			if (result) {
+	 			return true;
+	 			}
+	 		return false;
+	 		}
 		</script>
 	</div>
 </body>
