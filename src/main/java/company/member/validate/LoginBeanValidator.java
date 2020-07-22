@@ -16,7 +16,6 @@ public class LoginBeanValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 //		MemberBean member  = (MemberBean) target;
-		System.out.println("4AAAAAAAAAAAAAAAAAAAAAA");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userId", "", "*帳號欄位不能為空白");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "", "*密碼欄位不能為空白");
 

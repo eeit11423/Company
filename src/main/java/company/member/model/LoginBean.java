@@ -3,6 +3,7 @@ package company.member.model;
 public class LoginBean {
 	String userId;
 	String password;
+	String invalidCredentials;
 	boolean rememberMe;
 	
 	public LoginBean() {
@@ -38,6 +39,14 @@ public class LoginBean {
 
 	public void setRememberMe(boolean rememberMe) {
 		this.rememberMe = rememberMe;
+	}
+
+	public String getInvalidCredentials() {
+		return invalidCredentials;
+	}
+
+	public void setInvalidCredentials(String invalidCredentials) {
+		this.invalidCredentials = invalidCredentials;
 	}
 	
 	

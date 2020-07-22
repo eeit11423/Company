@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 import company.member.dao.MemberDao;
 import company.member.model.MemberBean;
 
-
-
 @Repository
 public class MemberDaoImpl implements MemberDao {
 	@Autowired
@@ -58,6 +56,7 @@ public class MemberDaoImpl implements MemberDao {
 	public void updateMember(MemberBean bean) {
 		if (bean != null && bean.getMemberNumber() != null) {
 			Session session = factory.getCurrentSession();
+			bean.setMemberRegisterDate(new java.sql.Timestamp(System.currentTimeMillis()));
 			session.saveOrUpdate(bean);
 		}
 		
@@ -101,6 +100,87 @@ public class MemberDaoImpl implements MemberDao {
 						.getResultList();
 		return list;
 	}
+
+	@Override
+	public List<String> seachMemberaccount() {
+		String hql = "SELECT DISTINCT m.memberEmail From MemberBean m ";
+		List<String> list = new ArrayList<String>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql)
+					  .getResultList();
+		System.out.println("da05"+list);
+		return list;
+	}
+
+	@Override
+	public void updatePasswd(String email) {
+		String passwd = "@875MK";
+		String hql = "UPDATE MemberBean mb SET mb.memberPassword = :mpwd " +
+					"Where mb.memberEmail = :memail";
+		Session session = factory.getCurrentSession();
+		System.out.println("密碼更新中0000000000000");
+		session.createQuery(hql)
+				.setParameter("mpwd", passwd)
+				.setParameter("memail", email)
+				.executeUpdate();
+		System.out.println("密碼已更新");
+		
+	}
+
+	@Override
+	public List<MemberBean> getOneMember(String account) {
+		String hql = "From MemberBean m Where m.memberNumber = :number";
+		Session session = factory.getCurrentSession();
+		List<MemberBean> list = new ArrayList<MemberBean>();
+		list = session.createQuery(hql)
+					.setParameter("number", account)
+					.getResultList();
+		return list;
+	}
+
+	@Override
+	public boolean idExists(String id) {
+		boolean exist = false;
+		String hql = "FROM MemberBean m WHERE m.memberNumber = :maccount" ; 
+		Session session = factory.getCurrentSession();
+		List<MemberBean> beans = session.createQuery(hql)
+										.setParameter("maccount",id)
+										.getResultList();
+		if (beans.size() > 0) {
+			exist = true;
+		}
+		return exist;
+	}
+
+	@Override
+	public boolean CheckPassword(String oldpwd, String newpwd,Integer  id) {
+		boolean check = false;
+		System.out.println(" DAO check1      "+ check);
+		String hql = "FROM MemberBean m WHERE m.memberPassword = :mold";
+		String hql2 = "UPDATE MemberBean mb SET mb.memberPassword = :mpwd " 
+		+ "Where mb.memberPassword = :mold and mb.memberId = :mid"; 
+		Session session = factory.getCurrentSession();
+		List<MemberBean> beans = session.createQuery(hql)
+										.setParameter("mold", oldpwd)
+										.getResultList();
+		System.out.println(beans);
+		if (beans.size() == 0) {
+			check = false;
+			System.out.println(" DAO check2      "+ check);
+			return check;
+		}else {
+			session.createQuery(hql2)
+					.setParameter("mpwd", newpwd)
+					.setParameter("mold", oldpwd)
+					.setParameter("mid", id)
+					.executeUpdate();
+			check = true;
+			System.out.println(" DAO check3      "+ check);
+			return check;
+		}
+	}
+
+
 	
 	
 

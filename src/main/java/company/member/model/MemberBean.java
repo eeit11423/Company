@@ -4,6 +4,7 @@ package company.member.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -27,12 +28,8 @@ public class MemberBean implements Serializable{
 	Integer memberId;//id
 	String memberNumber;	//員工編號
 	String memberPassword;	//密碼
-//	String name ; // 員工姓名
-//	String email ; //員工信箱
-//	String address ; // 員工地址
-//	String gender ; // 員工性別
-//	Blob coverImage ;// 員工圖片
-//	String filename; //檔名
+	String memberNewPassword;	//新密碼
+
 	String memberName;	//員工姓名
 	String memberAddress;	//地址
 	String memberGender;	//性別
@@ -44,7 +41,7 @@ public class MemberBean implements Serializable{
 	String memberPhone;	//電話
 
 	String memberBirthdaay;	//生日
-	Date memberRegisterDate;	//註冊日期
+	Timestamp memberRegisterDate;	//註冊日期
 	String memberPerformance;	//績效
 	Integer memberSalary;	//薪資
 
@@ -52,48 +49,19 @@ public class MemberBean implements Serializable{
 	@JsonIgnore
 	@Transient
 	private MultipartFile productImage ;
-	@JsonIgnore
-	@Transient
-	private Integer boy ;
-	@JsonIgnore
-	@Transient
-	private Integer girl ;
 	
-	@JsonIgnore
-	@Transient
-	private Integer peopleNumber  ;
-
 	
-	public Integer getPeopleNumber() {
-		return peopleNumber;
-	}
-
-	public void setPeopleNumber(Integer peopleNumber) {
-		this.peopleNumber = peopleNumber;
-	}
-
-	public Integer getBoy() {
-		return boy;
-	}
-
-	public void setBoy(Integer boy) {
-		this.boy = boy;
+	
+	public String getMemberNewPassword() {
+		return memberNewPassword;
 	}
 
 
 
 
 
-	public Integer getGirl() {
-		return girl;
-	}
-
-
-
-
-
-	public void setGirl(Integer girl) {
-		this.girl = girl;
+	public void setMemberNewPassword(String memberNewPassword) {
+		this.memberNewPassword = memberNewPassword;
 	}
 
 
@@ -123,9 +91,15 @@ public class MemberBean implements Serializable{
 
 
 
+
+
+
+
+
+
 	public MemberBean(Integer memberId, String memberNumber, String memberPassword, String memberName,
 			String memberAddress, String memberGender, String memberEmail, Blob memberPicture1, String memberfilename,
-			String memberDepartment, String memberPhone, String memberBirthdaay, Date memberRegisterDate,
+			String memberDepartment, String memberPhone, String memberBirthdaay, Timestamp memberRegisterDate,
 			String memberPerformance, Integer memberSalary, String memberAdmin) {
 		super();
 		this.memberId = memberId;
@@ -144,6 +118,14 @@ public class MemberBean implements Serializable{
 		this.memberPerformance = memberPerformance;
 		this.memberSalary = memberSalary;
 		this.memberAdmin = memberAdmin;
+	}
+
+
+
+
+
+	public void setMemberRegisterDate(Timestamp memberRegisterDate) {
+		this.memberRegisterDate = memberRegisterDate;
 	}
 
 
@@ -332,9 +314,7 @@ public class MemberBean implements Serializable{
 		return memberRegisterDate;
 	}
 
-	public void setMemberRegisterDate(Date memberRegisterDate) {
-		this.memberRegisterDate = memberRegisterDate;
-	}
+
 
 	public String getMemberPerformance() {
 		return memberPerformance;

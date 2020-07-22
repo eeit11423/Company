@@ -1,11 +1,16 @@
 package company.member.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -23,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.xml.transform.Source;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -39,20 +45,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.sun.mail.handlers.image_gif;
+
+import company.member.model.ForgetBean;
 import company.member.model.LoginBean;
 import company.member.model.MemberBean;
 import company.member.service.MemberSerivce;
+import company.member.validate.ChangePasswdValidator;
+import company.member.validate.CheckaddVaildator;
+import company.member.validate.ForgetPasswd;
 import company.member.validate.LoginBeanValidator;
-
-
 
 @Controller
 @SessionAttributes("memberBean")
 public class ProductController {
+	private static final String ChangePasswd = null;
 	@Autowired
 	MemberSerivce service;
 	@Autowired
@@ -70,70 +84,86 @@ public class ProductController {
 			System.out.println(mb.getMemberNumber());
 			List<MemberBean> list = service.getAllMember();
 			model.addAttribute("members", list);
-			return "select";
+			return "member/select";
 		} catch (Exception e) {
 			System.out.println("錯誤");
 			return "redirect:/login";
 		}
 
 	}
-//	@RequestMapping("/members")
-//	public String list(Model model, HttpSession session) {
-//			List<MemberBean> list = service.getAllMember();
-//			model.addAttribute("members", list);
-//			return "select";
-//
-//	}
-//	@RequestMapping("/test2")
-//	public String getmemberList(Model model) {
-//		List<String> list = service.getAllMembers();
-//		System.out.println("------**************");
-//		System.out.println(list);
-//		model.addAttribute("memberList",list);
-//		return "types/category";
-//	}
-	
-	@RequestMapping("/members/{category}")
-	public String getmemberByDepart(@PathVariable("category") String category,Model model) {	
-		List<MemberBean> department = service.getMember(category);
-		model.addAttribute("members",department);
-		return "select";
+
+	@RequestMapping("/test2")
+	public String getmemberList(Model model) {
+		List<String> list = service.getAllMembers();
+		System.out.println("------**************");
+		System.out.println(list);
+		model.addAttribute("memberList", list);
+		return "member/department";
 	}
 
-//	@RequestMapping(value = "/members")
-//	public ResponseEntity<List<MemberBean>> queryAllmemberforJson(Model model) {
-//		List<MemberBean> mBeans = service.getAllMember();
-//		ResponseEntity<List<MemberBean>> re = new ResponseEntity<>(mBeans, HttpStatus.OK);
-//		return re;
-//	}
+//	部門
+	@RequestMapping("/members/{category}")
+	public String getmemberByDepart(@PathVariable("category") String category, Model model) {
+		List<MemberBean> department = service.getMember(category);
+		model.addAttribute("members", department);
+		System.out.println("部門");
+		return "member/select";
+	}
+
+	// JSON 部門
+	@RequestMapping("/membersdepart/{category}")
+	public ResponseEntity<List<MemberBean>> queryAllmemberdepart(@PathVariable("category") String category,
+			Model model) {
+		List<MemberBean> department = service.getMember(category);
+		ResponseEntity<List<MemberBean>> re = new ResponseEntity<>(department, HttpStatus.OK);
+		model.addAttribute("members", department);
+		System.out.println("JSON 部門");
+		return re;
+	}
 
 	@GetMapping("/register/add")
 	public String addnewProduct(Model model, HttpServletRequest request,
 			@CookieValue(value = "MemberNumber", required = false) String user) {
 		MemberBean mb = new MemberBean();
+
 		model.addAttribute("memberbean", mb);
-		return "register";
+		return "member/addmember2";
 	}
 
 	@PostMapping("/register/add")
-	public String addnewproductform(@ModelAttribute("memberbean") MemberBean mb, Model model) {
+	public String addnewproductform(@ModelAttribute("memberbean") MemberBean mb, Model model, BindingResult result) {
 		MultipartFile productImage = mb.getProductImage();
-		String originalFilename = productImage.getOriginalFilename();
-		mb.setMemberfilename(originalFilename);
-		if (productImage != null && !productImage.isEmpty()) {
-			try {
-				byte[] b = productImage.getBytes();
-				Blob blob = new SerialBlob(b);
-				mb.setMemberPicture1(blob);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常");
-			}
-		}
-		service.saveMember(mb);
-		return "redirect:/members";
-	}
 
+		CheckaddVaildator validator = new CheckaddVaildator();
+		validator.validate(mb, result);
+		if (service.idExists(mb.getMemberNumber())) {
+			result.rejectValue("memberNumber","","帳號已存在，請重新輸入");
+			return "member/addmember2";
+		}
+
+		if (result.hasErrors()) {
+			return "member/addmember2";
+		} else {
+
+			String originalFilename = productImage.getOriginalFilename();
+			mb.setMemberfilename(originalFilename);
+			if (productImage != null && !productImage.isEmpty()) {
+				try {
+					byte[] b = productImage.getBytes();
+					Blob blob = new SerialBlob(b);
+					mb.setMemberPicture1(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常");
+				}
+			}
+			mb.setMemberRegisterDate(new Timestamp(System.currentTimeMillis()));
+			service.saveMember(mb);
+			return "redirect:/members";
+		}
+	}
+	
+	
 	@GetMapping("/getPicture/{id}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer id) {
 		String filePath = "\\resources\\images\\noimg01.png";
@@ -142,7 +172,6 @@ public class ProductController {
 		String filename = "";
 		int len = 0;
 		MemberBean bean = service.getProductById(id);
-		System.out.println("========="+service.getProductById(id));
 		if (bean != null) {
 			Blob blob = bean.getMemberPicture1();
 			filename = bean.getMemberfilename();
@@ -203,13 +232,13 @@ public class ProductController {
 		MemberBean memberbean = service.getProductById(id);
 
 		model.addAttribute("member", memberbean);
-		return "update";
+		return "member/update";
 	}
 
 	@PostMapping("/update/{id}")
-	public String updatememberform(@ModelAttribute("member") MemberBean mb, Model model, @PathVariable Integer id,
+	public String updatememberform(@ModelAttribute("member") MemberBean mb, Model model,@PathVariable("id") Integer id,
 			HttpServletRequest request) {
-		mb.setMemberId(id);
+		mb.setMemberId(mb.getMemberId());
 
 		MultipartFile productImage = mb.getProductImage();
 
@@ -233,10 +262,10 @@ public class ProductController {
 			}
 		}
 		service.updateMember(mb);
-		return "redirect:/members";
+		return "redirect:/personal/{id}";
 	}
 
-	@GetMapping("login")
+	@GetMapping("/login")
 	public String LoginContext(HttpServletRequest request, Model model,
 			@CookieValue(value = "user", required = false) String user,
 			@CookieValue(value = "password", required = false) String password,
@@ -251,34 +280,38 @@ public class ProductController {
 		} else {
 			rm = false;
 		}
-		LoginBean mb = new LoginBean(user, password, rm);
-		model.addAttribute("memberBeans", mb);
+		LoginBean lb = new LoginBean(user, password, rm);
+		model.addAttribute("loginBean", lb);
 
-		return "login";
+		return "member/login";
 	}
 
-	@PostMapping("login")
-	public String LoginContextCheck(@ModelAttribute("memberBeans") LoginBean mb, Model model,
-			BindingResult result, HttpServletRequest request, HttpServletResponse response) {
-		
-		MemberBean mmm = service.login(mb.getUserId(), mb.getPassword());
-		
-		LoginBeanValidator validator = new LoginBeanValidator();	
-		validator.validate(mmm, result);
+	@PostMapping("/login")
+	public String LoginContextCheck(@ModelAttribute("loginBean") LoginBean lb, Model model, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		MemberBean mmm = service.login(lb.getUserId(), lb.getPassword());
+
+		LoginBeanValidator validator = new LoginBeanValidator();
+		validator.validate(lb, result);
 		if (result.hasErrors()) {
 
-			return "login";
-		}
-		if (mmm == null) {
-			return "redirect:/login";
+			return "member/login";
+		} else if (mmm == null) {
+			result.rejectValue("invalidCredentials", "", "*該帳號不存在或密碼錯誤");
+			return "member/login";
 		} else {
 			model.addAttribute("memberBean", mmm);
 			mmm = (MemberBean) model.getAttribute("memberBean");
-//			if (mmm.getMemberPassword().equals("1234")) {
-//				return "firstlogin";
-//			}
-			processCookies(mb, request, response);
-			return "index";
+			if (mmm.getMemberPassword().equals("1234")) {
+				return "redirect:/updatee/"+mmm.getMemberId()+"";
+			}else if(mmm.getMemberPassword().equals("@875MK")) {
+				return "redirect:/updatepasswd/"+mmm.getMemberId()+"";
+			}
+			else {
+				processCookies(lb, request, response);
+			return "redirect:/";
+			}			
 		}
 	}
 
@@ -322,9 +355,9 @@ public class ProductController {
 
 	}
 
-	@RequestMapping("test")
-	public String Gmailsend() {
+	public void Gmailsend(String email) {
 		System.out.println("email");
+		System.out.println(email);
 		String host = "smtp.gmail.com";
 		int port = 587;
 		String username = "lintest546@gmail.com";
@@ -343,9 +376,9 @@ public class ProductController {
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("lintest546@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("k0928103546@gmail.com"));
-			message.setSubject("測試寄信.");
-			message.setText("妹妹哈搂, \n\n 測試 測試 測試 測試 測試 測試 email !");
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+			message.setSubject("忘記密碼.");
+			message.setText("忘記密碼, 您的密碼已預設成，@875MK，請登入後修改密碼");
 
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, username, password);
@@ -355,7 +388,7 @@ public class ProductController {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		return "redirect:/";
+//		return "redirect:/";
 	}
 
 	// 更新方法
@@ -367,9 +400,10 @@ public class ProductController {
 			model.addAttribute("member", member);
 		}
 	}
-	//分類查詢
+
+	// 分類部門查詢
 	@ModelAttribute("memberList")
-	public List<String> getCatrgoryList(){
+	public List<String> getCatrgoryList() {
 		return service.getAllMembers();
 	}
 
@@ -380,5 +414,275 @@ public class ProductController {
 		status.setComplete();
 		return "redirect:/";
 	}
+
+	@GetMapping("/forgetpwd")
+	public String forgetpwd(Model model, HttpServletRequest request) {
+		ForgetBean mb1 = new ForgetBean();
+		model.addAttribute("forgot", mb1);
+		return "member/forget";
+	}
+
+	@PostMapping("/forgetpwd")
+	public String forgotpwds(@ModelAttribute("forgot") ForgetBean mb, Model model, BindingResult result,
+			HttpServletRequest request, HttpServletResponse response) {
+		List<String> list = service.seachMemberaccount();
+		ForgetPasswd validator = new ForgetPasswd();
+		validator.validate(mb, result);
+
+		if (list.contains(mb.getMemberEmail())) {
+			System.out.println("有");
+			Gmailsend(mb.getMemberEmail());
+			service.updatePasswd(mb.getMemberEmail());
+			return "redirect:/login";
+		} else {
+			result.rejectValue("invalidCredentials", "", "該帳號不存在");
+			return "member/forget";
+		}
+//		return "index";
+	}
+// 第一次登入修改	
+	@GetMapping("/updatee/{id}")
+	public String showDataForm2(@PathVariable("id") Integer id, Model model) {
+		MemberBean memberbean = service.getProductById(id);
+
+		model.addAttribute("member", memberbean);
+		return "member/firstlogin";
+	}
+
+	@PostMapping("/updatee/{id}")
+	public String updatememberform2(@ModelAttribute("member") MemberBean mb, Model model, @PathVariable Integer id,
+			HttpServletRequest request) {
+		mb.setMemberId(id);
+
+		MultipartFile productImage = mb.getProductImage();
+
+		if (productImage.getSize() == 0) {
+
+		} else {
+			String originalFilename = productImage.getOriginalFilename();
+			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
+				mb.setMemberfilename(originalFilename);
+			}
+
+			if (productImage != null && !productImage.isEmpty()) {
+				try {
+					byte[] b = productImage.getBytes();
+					Blob blob = new SerialBlob(b);
+					mb.setMemberPicture1(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常");
+				}
+			}
+		}
+		service.updateMember(mb);
+		return "redirect:/";
+	}
+	
+//更改密碼
+	
+	@GetMapping("/updatepasswd/{id}")
+	public String ChangePasswd(@PathVariable("id") Integer id,Model model) {
+		System.out.println("=============");
+		System.out.println(id);
+		MemberBean mb = new MemberBean();
+		model.addAttribute("changepwd",mb);
+		return "member/ChangePasswd" ;
+	}
+	@PostMapping("/updatepasswd/{id}")
+	public String ChangePasswdShow(@ModelAttribute("changepwd") MemberBean mb, Model model,BindingResult result,@PathVariable("id") Integer id) {
+		System.out.println("================3456767");
+		System.out.println(id);
+		ChangePasswdValidator validator = new ChangePasswdValidator();
+		validator.validate(mb, result);
+		if (result.hasErrors()) {
+			return "member/ChangePasswd";
+		}
+		boolean check;
+		check = service.CheckPassword(mb.getMemberPassword(),mb.getMemberNewPassword(), id);
+		if (check == true) {
+			return "redirect:/personal";
+		}
+		else {
+			result.rejectValue("memberPassword", "", "*該舊密碼不存在或密碼錯誤");
+			return "member/ChangePasswd";
+		}
+	}
+	
+	
+//會員資料修改
+	@GetMapping("/personalUpdate/{id}")
+	public String showDataPersonal(@PathVariable("id") Integer id, Model model) {
+		MemberBean memberbean = service.getProductById(id);
+
+		model.addAttribute("member", memberbean);
+		return "member/updateyouself";
+	}
+
+	@PostMapping("/personalUpdate/{id}")
+	public String updatememberPersonal(@ModelAttribute("member") MemberBean mb, Model model, @PathVariable Integer id,
+			HttpServletRequest request) {
+		mb.setMemberId(id);
+
+		MultipartFile productImage = mb.getProductImage();
+
+		if (productImage.getSize() == 0) {
+
+		} else {
+			String originalFilename = productImage.getOriginalFilename();
+			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
+				mb.setMemberfilename(originalFilename);
+			}
+
+			if (productImage != null && !productImage.isEmpty()) {
+				try {
+					byte[] b = productImage.getBytes();
+					Blob blob = new SerialBlob(b);
+					mb.setMemberPicture1(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常");
+				}
+			}
+		}
+		service.updateMember(mb);
+		return "redirect:/personal";
+	}
+	
+	@RequestMapping("/personal")
+	public String show(Model model ,HttpSession session) {
+		try {
+			MemberBean mb = (MemberBean) session.getAttribute("memberBean");
+			System.out.println(mb.getMemberNumber());
+			List<MemberBean> list = service.getOneMember(mb.getMemberNumber());
+			model.addAttribute("onemember", list);
+			System.out.println(list);
+			MemberBean memberbean = service.getProductById(mb.getMemberId());
+
+			model.addAttribute("member", memberbean);
+			return "member/personal";
+		} catch (Exception e) {
+			System.out.println("錯誤");
+			return "redirect:/login";
+		}
+	}	
+	
+	@RequestMapping("/personal/{id}")
+	public String showallpersonal(@PathVariable Integer id,Model model ,HttpSession session) {
+		MemberBean mb = service.getProductById(id);
+		List<MemberBean> list = service.getOneMember(mb.getMemberNumber());
+		model.addAttribute("onemember", list);
+		return "member/personal2";
+	
+	}	
+//	@PostMapping("/personal")
+//	public String updatememberform(@ModelAttribute("member") MemberBean mb, Model model,
+//			HttpServletRequest request) {
+//		mb.setMemberId(mb.getMemberId());
+//
+//		MultipartFile productImage = mb.getProductImage();
+//
+//		if (productImage.getSize() == 0) {
+//
+//		} else {
+//			String originalFilename = productImage.getOriginalFilename();
+//			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
+//				mb.setMemberfilename(originalFilename);
+//			}
+//
+//			if (productImage != null && !productImage.isEmpty()) {
+//				try {
+//					byte[] b = productImage.getBytes();
+//					Blob blob = new SerialBlob(b);
+//					mb.setMemberPicture1(blob);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					throw new RuntimeException("檔案上傳發生異常");
+//				}
+//			}
+//		}
+//		service.updateMember(mb);
+//		return "redirect:/personal";
+//	}
+	@RequestMapping(value="test",method =RequestMethod.GET)
+	public String getaaaa1() {
+		return "member/test";
+	}
+	
+	@RequestMapping(value="test",method = RequestMethod.POST)
+	public String getaaaa(@RequestParam("uploadFile")MultipartFile tfile,HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		    request.setCharacterEncoding("UTF-8");
+	        response.setCharacterEncoding("UTF-8");
+	        //判斷文件是否爲空
+	        if(tfile==null) {
+	        	System.out.println("NULL+");
+	        }else {
+	        	System.out.println("file="+tfile);
+			} //把spring文件上傳的MultipartFile轉換成CommonsMultipartFile類型
+	        
+	        CommonsMultipartFile cf= (CommonsMultipartFile)tfile; //獲取本地存儲路徑
+	        File file = new  File("C:\\fileupload");
+	        //創建一個目錄 （它的路徑名由當前 File 對象指定，包括任一必須的父路徑。）
+	        if (!file.exists()) file.mkdirs();
+	        //新建一個文件
+	       
+	        File file1 = new File("C:\\fileupload\\" +"test" + ".csv");
+	        //將上傳的文件寫入新建的文件中
+	        try {
+	            cf.getFileItem().write(file1);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        MemberBean bean = new MemberBean();
+	    	try (InputStreamReader isr = new InputStreamReader(new FileInputStream("C://fileupload/test.csv"));
+					BufferedReader reader = new BufferedReader(isr)) {
+				ArrayList<String> list1 = new ArrayList<String>();
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					String item[] = line.split(",");
+					for (int i = 0; i < item.length; i++) {
+						list1.add(item[i].trim());
+					}
+					MemberBean mb = new MemberBean();
+					mb.setMemberNumber(list1.get(1));
+					mb.setMemberPassword(list1.get(2));
+					mb.setMemberName(list1.get(3));
+					mb.setMemberDepartment(list1.get(4));
+					mb.setMemberPerformance(list1.get(5));
+					mb.setMemberAdmin(list1.get(6));
+					mb.setMemberSalary(Integer.valueOf(list1.get(7)));
+					service.updateMember(mb);
+					System.out.println("HIHIHI+++++++++++++++");
+//					service.updateCsv(list1.get(0), list1.get(1), list1.get(2), list1.get(3));
+					list1.clear();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("error");
+			}
+
+		return "redirect:/";
+	}
+	// JSON 全部
+//	@RequestMapping("/memberjson")
+//	public ResponseEntity<List<MemberBean>>alllist() {
+//			List<MemberBean> list = service.getAllMember();
+//			ResponseEntity<List<MemberBean>> re = new ResponseEntity<>(list,HttpStatus.OK);
+//			System.out.println("JSON 全部");
+//			return re;
+//
+//	}
+//	@GetMapping("test3")
+//	public String getaaaa() {
+//		return "department";
+//	}
+
+//	@RequestMapping(value = "/members")
+//	public ResponseEntity<List<MemberBean>> queryAllmemberforJson(Model model) {
+//		List<MemberBean> mBeans = service.getAllMember();
+//		ResponseEntity<List<MemberBean>> re = new ResponseEntity<>(mBeans, HttpStatus.OK);
+//		return re;
+//	}
 
 }
