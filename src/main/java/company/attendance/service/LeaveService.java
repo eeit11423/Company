@@ -9,7 +9,7 @@ public interface LeaveService {
 	
 	List<Leave> getLeave();
 	
-	List<Leave> queryLeave(int memberNumber, String selectdate) ;
+	List<Leave> queryLeave(String memberNumber, String selectdate) ;
 
 	List<MemberBean> getAllMember();
 

@@ -26,7 +26,7 @@ public class LeaveServiceImpl implements LeaveService {
 	}
 
 	@Override
-	public List<Leave> queryLeave(int memberNumber, String selectdate) {
+	public List<Leave> queryLeave(String memberNumber, String selectdate) {
 		return dao.queryLeave(memberNumber, selectdate);
 	}
 	

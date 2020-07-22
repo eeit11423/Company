@@ -10,17 +10,19 @@ public interface PunchDao {
 
 	List<Punch> getPunchTime();
 	
-	void punchWorkOn();
+	List<Punch> getPunchTime(String memberName);
+
+	void punchWorkOn(Integer memberId);
 
 	Timestamp getWorkOnTime();
 
-	void punchWorkOff(Timestamp punchWorkOn);
+	void punchWorkOff(MemberBean memberBean, Timestamp punchWorkOn);
 	
 	int savePunchTime(Punch punch);
 	
 	boolean isMemberAndPunchDateExist(Punch punch);
 	
-	List<Punch> queryPunchTime(int memberNumber, String selectdate);
+	List<Punch> queryPunchTime(String memberNumber, String selectdate);
 
 	List<MemberBean> getAllMember();
 

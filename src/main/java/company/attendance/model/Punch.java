@@ -17,7 +17,7 @@ public class Punch {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer punchId;
-	Integer memberNumber;
+	String memberNumber;
 	String memberName;
 	String memberDepartment;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -35,7 +35,7 @@ public class Punch {
 		super();
 	}
 	
-	public Punch(Integer punchId, String memberName, String memberDepartment,Integer memberNumber,Date punchDate, Timestamp punchWorkOn, Timestamp punchWorkOff) {
+	public Punch(Integer punchId, String memberName, String memberDepartment,String memberNumber,Date punchDate, Timestamp punchWorkOn, String punchLate) {
 		super();
 		this.punchId = punchId;
 		this.memberName = memberName;
@@ -43,10 +43,10 @@ public class Punch {
 		this.memberNumber = memberNumber;
 		this.punchDate = punchDate;
 		this.punchWorkOn = punchWorkOn;
-		this.punchWorkOff = punchWorkOff;
+		this.punchLate = punchLate;
 	}
 
-	public Punch(Integer memberNumber, String memberName, String memberDepartment, int punchId, Date punchDate,
+	public Punch(String memberNumber, String memberName, String memberDepartment, int punchId, Date punchDate,
 			Timestamp punchWorkOn, Timestamp punchWorkOff, String punchLate, String punchEarly) {
 		super();
 		this.memberNumber = memberNumber;
@@ -70,11 +70,11 @@ public class Punch {
 		this.punchId = punchId;
 	}
 
-	public Integer getMemberNumber() {
+	public String getMemberNumber() {
 		return memberNumber;
 	}
 
-	public void setMemberNumber(Integer memberNumber) {
+	public void setMemberNumber(String memberNumber) {
 		this.memberNumber = memberNumber;
 	}
 

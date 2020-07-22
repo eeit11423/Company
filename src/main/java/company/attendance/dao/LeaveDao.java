@@ -13,7 +13,7 @@ public interface LeaveDao {
 	
 	boolean isMemberAndLeaveDateExist(Leave leave);
 	
-	List<Leave> queryLeave(int memberNumber, String selectdate);
+	List<Leave> queryLeave(String memberNumber, String selectdate);
 
 	List<MemberBean> getAllMember();
 

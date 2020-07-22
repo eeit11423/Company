@@ -65,6 +65,11 @@ public class ActivityServiceimpl implements ActivityService {
 		return activityDao.getActivitiesByDate(begin, end);
 	}
 
+	@Override
+	public List<Activity> getActivitiesByMemberId(Integer memberId) {
+		return activityDao.getActivitiesByMemberId(memberId);
+	}
+
 
 
 }

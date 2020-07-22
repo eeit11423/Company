@@ -1,8 +1,10 @@
 package company.attendance.dao.impl;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -21,6 +23,7 @@ public class PunchDaoImpl implements PunchDao {
 	@Autowired
 	SessionFactory factory;
 
+	//抓取所有員工punch資料
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Punch> getPunchTime() {
@@ -31,26 +34,123 @@ public class PunchDaoImpl implements PunchDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-
-	@SuppressWarnings("unused")
+	
+	//抓取'登入的員工'punch資料
+	@SuppressWarnings("unchecked")
 	@Override
-	public void punchWorkOff(Timestamp punchWorkOn) {
-		String hql = "UPDATE Punch p SET p.punchWorkOff = :punchWorkOff WHERE punchWorkOn = :punchWorkOn";
+	public List<Punch> getPunchTime(String memberName) {
+		String hql = "FROM Punch WHERE memberName = :name";
+		Session session = null;
+		List<Punch> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql)
+					  .setParameter("name", memberName)
+					  .getResultList();
+		return list;
+	}
+	
+	@Override
+	@SuppressWarnings({ "unused", "unchecked", "deprecation" })
+	public void punchWorkOn(Integer memberId) {
 		Session session = factory.getCurrentSession();
-		Timestamp ctime = new Timestamp(System.currentTimeMillis());
-		int n = session.createQuery(hql).setParameter("punchWorkOff", ctime).setParameter("punchWorkOn", punchWorkOn)
-				.executeUpdate();
+		//取的登入者資料
+		MemberBean memberBean = session.get(MemberBean.class, memberId);
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		//今日日期
+		Date today = new Date();
+		Date dateStart = new Date();
+		dateStart.setHours(0);dateStart.setMinutes(0);dateStart.setSeconds(0);
+		Date dateEnd = new Date();
+		dateEnd.setHours(23);dateEnd.setMinutes(59);dateEnd.setSeconds(59);
+		//上班時間
+		Time timeToWork = new Time(9, 0, 0);
+		//打卡時間
+		Timestamp punchWorkOn = new Timestamp(System.currentTimeMillis());
+		//判斷打卡時間是否遲到
+		String punchLate = null;
+		System.out.println("今天日期："+ today +"打卡時間："+ punchWorkOn + "，上班時間為：" + timeToWork);
+		if (punchWorkOn.after(timeToWork)) {
+			punchLate = "遲到";
+			System.out.println("遲到");
+		}
+		System.out.println(memberBean.getMemberName());
+		//判斷今日是否已打卡
+		String hql = "FROM Punch Where memberName = :name and punchDate between :dateStart and :dateEnd";
+		List<Punch> list = session.createQuery(hql)
+								  .setParameter("name", memberBean.getMemberName())
+								  .setParameter("dateStart", dateStart)
+								  .setParameter("dateEnd", dateEnd)
+								  .getResultList();
+		System.out.println("取得的list:" + list);
+		if (list.isEmpty()) {
+			Punch punch = new Punch(null, memberBean.getMemberName(), memberBean.getMemberDepartment(), 
+					memberBean.getMemberNumber(), today, punchWorkOn, punchLate);
+			session.save(punch);			
+			System.out.println("新增成功");
+		}else {
+			System.out.println("今日上班已打卡");
+		}
+		System.out.println("上班打卡結束");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Timestamp getWorkOnTime() {
-//		String hql = "Select top 1 punchWorkOn From Punch order by punchWorkOn desc";
-		String hql = "Select max(punchWorkOn) From Punch";
-		Session session = null;
-		Timestamp ts = null;
-		session = factory.getCurrentSession();
-		ts = (Timestamp) session.createQuery(hql).getSingleResult();
-		return ts;
+		//今日日期
+		Date dateStart = new Date();
+		dateStart.setHours(0);dateStart.setMinutes(0);dateStart.setSeconds(0);
+		Date dateEnd = new Date();
+		dateEnd.setHours(23);dateEnd.setMinutes(59);dateEnd.setSeconds(59);
+		Session session = factory.getCurrentSession();
+		String hql = "Select punchWorkOn From Punch WHERE punchDate Between :dateStart and :dateEnd";
+		Timestamp timeWorkOn = (Timestamp) session.createQuery(hql)
+												  .setParameter("dateStart", dateStart)
+												  .setParameter("dateEnd", dateEnd)												  
+												  .getSingleResult();
+		return timeWorkOn;
+	}
+	
+	@SuppressWarnings({ "unused", "deprecation", "unchecked"})
+	@Override
+	public void punchWorkOff(MemberBean memberBean, Timestamp punchWorkOn) {
+		//今日日期
+		Date today = new Date();
+		Date dateStart = new Date();
+		dateStart.setHours(0);dateStart.setMinutes(0);dateStart.setSeconds(0);
+		Date dateEnd = new Date();
+		dateEnd.setHours(23);dateEnd.setMinutes(59);dateEnd.setSeconds(59);
+		//下班時間
+		Time timeToWorkOff = new Time(19, 0, 0);
+		//打卡時間
+		Timestamp punchWorkOff = new Timestamp(System.currentTimeMillis());
+		//判斷打卡時間是否遲到
+		String punchEarly = null;
+		System.out.println("今天日期："+ today +"punchWorkOff時間："+ punchWorkOff + "，timeToWorkOff為：" + timeToWorkOff);
+		if (punchWorkOff.getHours() < 19 ) {
+			punchEarly = "早退";
+			System.out.println("早退");
+		}
+
+		Session session = factory.getCurrentSession();
+		System.out.println("------下班打卡開始------");
+		String hql1 = "SELECT punchWorkOff FROM Punch Where memberName = :name and punchDate between :dateStart and :dateEnd";
+		List<Punch> list = session.createQuery(hql1)
+								  .setParameter("name", memberBean.getMemberName())
+								  .setParameter("dateStart", dateStart)
+								  .setParameter("dateEnd", dateEnd)
+								  .getResultList();
+		System.out.println("下班打卡list：" + list);
+		if (list.get(0) == null) {
+			String hql2 = "UPDATE Punch SET punchWorkOff = :punchWorkOff, punchEarly = :punchEarly WHERE punchWorkOn = :punchWorkOn";
+			int n = session.createQuery(hql2)
+						   .setParameter("punchWorkOff", punchWorkOff)
+						   .setParameter("punchEarly", punchEarly)
+						   .setParameter("punchWorkOn", punchWorkOn)
+						   .executeUpdate();
+			System.out.println("------新增下班打卡------");
+		}
+		System.out.println("------下班打卡結束------");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -65,26 +165,6 @@ public class PunchDaoImpl implements PunchDao {
 		return list;
 	}
 
-	@Override
-	@SuppressWarnings("unused")
-	public void punchWorkOn() {
-		Session session = factory.getCurrentSession();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Timestamp ctime1 = new Timestamp(System.currentTimeMillis());
-		System.out.println(ctime1);
-		Punch punch = new Punch(null, "鋼鐵人", "資訊部", 1003, ctime1, ctime1, null);
-		session.save(punch);
-	}
-//	@Override
-//	@SuppressWarnings("unused")
-//	public void punchWorkOff() {
-//		Session session = factory.getCurrentSession();
-//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		Timestamp ctime2 = new Timestamp(System.currentTimeMillis());
-//		System.out.println(ctime2);
-//		Punch punch = new Punch(null, "STA", "營業部", 2, null, ctime2);
-//		session.save(punch);
-//	}
 
 	@Override
 	public int savePunchTime(Punch punch) {
@@ -124,25 +204,46 @@ public class PunchDaoImpl implements PunchDao {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Punch> queryPunchTime(int memberNumber, String selectdate) {
-		System.out.println(selectdate);
+	public List<Punch> queryPunchTime(String memberNumber, String selectdate) {
+		Session session = factory.getCurrentSession();
 		String timesplit[] = selectdate.split("-");
-		if (timesplit.length == 1) {
-			String hql = "FROM Punch WHERE memberNumber = :number Order By punchDate";
-			Session session = factory.getCurrentSession();
-			List<Punch> listTarget = session.createQuery(hql)
-											.setParameter("number", memberNumber)
-											.getResultList();
-			return listTarget;
-		} else {
-			String hql = "FROM Punch WHERE memberNumber = :number and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
-			Session session = factory.getCurrentSession();
-			List<Punch> listTarget = session.createQuery(hql)
-											.setParameter("number", memberNumber)
-											.setParameter("yyyy", timesplit[0])
-											.setParameter("mm", timesplit[1])
-											.getResultList();
-			return listTarget;
+		System.out.println(memberNumber);
+		System.out.println(selectdate);
+		
+		if (timesplit.length == 1) {                     //所有時間
+			if(memberNumber.equals("all")) {				//所有員工
+				System.out.println("所有員工-所有時間");
+				String hql = "FROM Punch Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.getResultList();
+				return listTarget;
+			}else {
+				System.out.println("指定員工-所有時間");	//指定員工
+				String hql = "FROM Punch WHERE memberNumber = :number";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.getResultList();
+				return listTarget;
+			}
+		}else {											 //指定時間
+			if(memberNumber.equals("all")){					//所有員工
+				System.out.println("所有員工-指定時間");
+				String hql = "FROM Punch WHERE DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.getResultList();
+				return listTarget;
+			}else{											//指定員工
+				System.out.println("指定員工-指定時間");
+				String hql = "FROM Punch WHERE memberNumber = :number and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.getResultList();
+				return listTarget;
+				}
 		}
 	}
 

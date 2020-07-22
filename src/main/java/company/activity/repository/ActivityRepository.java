@@ -23,4 +23,8 @@ public interface ActivityRepository {
 	
 	List<Activity> getActivitiesByDate(Date begin, Date end);
 	
+	//新增依memberId篩選
+	
+	List<Activity> getActivitiesByMemberId(Integer memberId);
+	
 }

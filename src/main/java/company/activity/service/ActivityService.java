@@ -21,4 +21,7 @@ public interface ActivityService {
 	
 	//新增依日期篩選
 	public List<Activity> getActivitiesByDate(Date begin, Date end);
+	
+	//新增依memberId篩選
+	public List<Activity> getActivitiesByMemberId(Integer memberId);
 }

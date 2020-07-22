@@ -88,7 +88,7 @@ public class LeaveController {
 	
 	@GetMapping("/queryLeaveData")
 	public ResponseEntity<List<Leave>> getLeaveData(
-			@RequestParam(value="memberNumber", defaultValue = "0") int memberNumber,
+			@RequestParam(value="memberNumber", defaultValue = "0") String memberNumber,
 			@RequestParam(value="selectdate", defaultValue = "0") String selectdate ){ 
 		List<Leave> listTarget = service.queryLeave(memberNumber, selectdate);
 		
