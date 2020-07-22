@@ -63,14 +63,12 @@ public class PunchDaoImpl implements PunchDao {
 		dateStart.setHours(0);dateStart.setMinutes(0);dateStart.setSeconds(0);
 		Date dateEnd = new Date();
 		dateEnd.setHours(23);dateEnd.setMinutes(59);dateEnd.setSeconds(59);
-		//上班時間
-		Time timeToWork = new Time(9, 0, 0);
 		//打卡時間
 		Timestamp punchWorkOn = new Timestamp(System.currentTimeMillis());
 		//判斷打卡時間是否遲到
 		String punchLate = null;
-		System.out.println("今天日期："+ today +"打卡時間："+ punchWorkOn + "，上班時間為：" + timeToWork);
-		if (punchWorkOn.after(timeToWork)) {
+		System.out.println("今天日期："+ today +"打卡時間："+ punchWorkOn + "，上班時間為：09:00:00" );
+		if (punchWorkOn.getHours()>9) {
 			punchLate = "遲到";
 			System.out.println("遲到");
 		}
@@ -96,19 +94,24 @@ public class PunchDaoImpl implements PunchDao {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public Timestamp getWorkOnTime() {
+	public Timestamp getWorkOnTime(Integer memberId) {
+		Session session = factory.getCurrentSession();
+		MemberBean memberBean = session.get(MemberBean.class, memberId);
 		//今日日期
 		Date dateStart = new Date();
 		dateStart.setHours(0);dateStart.setMinutes(0);dateStart.setSeconds(0);
 		Date dateEnd = new Date();
 		dateEnd.setHours(23);dateEnd.setMinutes(59);dateEnd.setSeconds(59);
-		Session session = factory.getCurrentSession();
-		String hql = "Select punchWorkOn From Punch WHERE punchDate Between :dateStart and :dateEnd";
+		System.out.println(dateStart);
+		System.out.println(dateEnd);
+		String hql = "Select punchWorkOn From Punch WHERE memberName = :name and punchDate Between :dateStart and :dateEnd";
 		Timestamp timeWorkOn = (Timestamp) session.createQuery(hql)
+												  .setParameter("name", memberBean.getMemberName())
 												  .setParameter("dateStart", dateStart)
 												  .setParameter("dateEnd", dateEnd)												  
 												  .getSingleResult();
-		return timeWorkOn;
+		System.out.println(timeWorkOn);
+		return  timeWorkOn;
 	}
 	
 	@SuppressWarnings({ "unused", "deprecation", "unchecked"})
@@ -166,6 +169,7 @@ public class PunchDaoImpl implements PunchDao {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int savePunchTime(Punch punch) {
 		int n = 0;
@@ -175,6 +179,16 @@ public class PunchDaoImpl implements PunchDao {
 		}
 		Session session = factory.getCurrentSession();
 		try {
+			String punchLate = null;		
+			if (punch.getPunchWorkOn().getHours() > 9 ) {
+				punchLate = "遲到";
+				punch.setPunchLate(punchLate);
+			}
+			String punchEarly = null;
+			if (punch.getPunchWorkOff().getHours() < 18 ) {
+				punchEarly = "早退";
+				punch.setPunchEarly(punchEarly);
+			}
 			session.save(punch);
 			n = 1;
 		} catch (Exception e) {
@@ -219,7 +233,7 @@ public class PunchDaoImpl implements PunchDao {
 				return listTarget;
 			}else {
 				System.out.println("指定員工-所有時間");	//指定員工
-				String hql = "FROM Punch WHERE memberNumber = :number";
+				String hql = "FROM Punch WHERE memberNumber = :number Order By punchDate";
 				List<Punch> listTarget = session.createQuery(hql)
 						.setParameter("number", memberNumber)
 						.getResultList();
@@ -254,11 +268,22 @@ public class PunchDaoImpl implements PunchDao {
 		return punchtime;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void updatePunchTime(Punch punch) {
 		Session session = factory.getCurrentSession();
+		String punchLate = null;		
+		if (punch.getPunchWorkOn().getHours() > 9 ) {
+			punchLate = "遲到";
+			punch.setPunchLate(punchLate);
+		}
+		String punchEarly = null;
+		if (punch.getPunchWorkOff().getHours() < 18 ) {
+			punchEarly = "早退";
+			punch.setPunchEarly(punchEarly);
+		}
+		
 		session.update(punch);
-
 	}
 
 	@Override

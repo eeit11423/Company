@@ -46,7 +46,7 @@
 						data-toggle="dropdown"> 出勤系統 </a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="<c:url value='/attendance/punch/memberPunch' />">打卡</a> 
-							<a class="dropdown-item" href="<c:url value='/attendance/leave/leave' />">請假</a>
+							<a class="dropdown-item" href="<c:url value='/attendance/leave/memberLeave' />">請假</a>
 							<a class="dropdown-item" href="<c:url value='/attendance/overtime' />">加班</a>
 						</div></li>
 

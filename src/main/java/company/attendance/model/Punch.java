@@ -35,6 +35,18 @@ public class Punch {
 		super();
 	}
 	
+	
+	
+	public Punch(Integer punchId, String memberNumber, String memberName, String memberDepartment) {
+		super();
+		this.punchId = punchId;
+		this.memberNumber = memberNumber;
+		this.memberName = memberName;
+		this.memberDepartment = memberDepartment;
+	}
+
+
+
 	public Punch(Integer punchId, String memberName, String memberDepartment,String memberNumber,Date punchDate, Timestamp punchWorkOn, String punchLate) {
 		super();
 		this.punchId = punchId;

@@ -7,7 +7,7 @@ import company.member.model.MemberBean;
 
 public interface LeaveDao {
 
-	List<Leave> getLeave();
+	List<Leave> getLeave(String memberNamer);
 
 	int saveLeave(Leave leave);
 	

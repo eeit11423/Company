@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import company.attendance.dao.LeaveDao;
 import company.attendance.model.Leave;
+import company.attendance.model.Punch;
 import company.member.model.MemberBean;
 
 @Repository
@@ -22,11 +23,13 @@ public class LeaveDaoImpl implements LeaveDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Leave> getLeave() {
-		String hql = "FROM Leave";
+	public List<Leave> getLeave(String memberNamer) {
+		String hql = "FROM Leave WHERE memberName = :name";
 		Session session = factory.getCurrentSession();
 		List<Leave> list = new ArrayList<>();
-		list = session.createQuery(hql).getResultList();
+		list = session.createQuery(hql)
+					  .setParameter("name", memberNamer)
+					  .getResultList();
     return list;
 	}
 	
@@ -83,23 +86,45 @@ public class LeaveDaoImpl implements LeaveDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Leave> queryLeave(String memberNumber, String selectdate) {
-		System.out.println(selectdate);
-		String timesplit[] = selectdate.split("-");
 		Session session = factory.getCurrentSession();
-		if (timesplit.length == 1) {
-			String hql = "FROM Leave WHERE memberNumber = :number";
-			List<Leave> listTarget = session.createQuery(hql)
-											.setParameter("number", memberNumber)
-											.getResultList();
-			return listTarget;
-		} else {
-			String hql = "FROM Leave WHERE memberNumber = :number and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm";
-			List<Leave> listTarget = session.createQuery(hql)
-											.setParameter("number", memberNumber)
-											.setParameter("yyyy", timesplit[0])
-											.setParameter("mm", timesplit[1])
-											.getResultList();
-			return listTarget;
+		String timesplit[] = selectdate.split("-");
+		System.out.println(memberNumber);
+		System.out.println(selectdate);
+		
+		if (timesplit.length == 1) {                     //所有時間
+			if(memberNumber.equals("all")) {				//所有員工
+				System.out.println("所有員工-所有時間");
+				String hql = "FROM Leave Order By leaveDate";
+				List<Leave> listTarget = session.createQuery(hql)
+						.getResultList();
+				return listTarget;
+			}else {
+				System.out.println("指定員工-所有時間");	//指定員工
+				String hql = "FROM Leave WHERE memberNumber = :number Order By leaveDate";
+				List<Leave> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.getResultList();
+				return listTarget;
+			}
+		}else {											 //指定時間
+			if(memberNumber.equals("all")){					//所有員工
+				System.out.println("所有員工-指定時間");
+				String hql = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By leaveDate";
+				List<Leave> listTarget = session.createQuery(hql)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.getResultList();
+				return listTarget;
+			}else{											//指定員工
+				System.out.println("指定員工-指定時間");
+				String hql = "FROM Leave WHERE memberNumber = :number and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By leaveDate";
+				List<Leave> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.getResultList();
+				return listTarget;
+				}
 		}
 	}
 

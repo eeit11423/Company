@@ -7,7 +7,7 @@ import company.member.model.MemberBean;
 
 public interface LeaveService {
 	
-	List<Leave> getLeave();
+	List<Leave> getLeave(String memberNamer);
 	
 	List<Leave> queryLeave(String memberNumber, String selectdate) ;
 
