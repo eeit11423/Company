@@ -10,16 +10,15 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div class="container" style="text-align: center">
+	<div class="container" style="text-align: center;background-color:#dee2e6">
 		<h1>
 			員工出勤紀錄表
 			<hr>
 		</h1>
 		<a href='memberPunch'>回前頁</a>
 		<a href='../leave/queryLeave'>請假查詢</a>
-	</div>
-	<div align='center'>
 		請挑選姓名: <select id='membername'></select> 選擇年月份：<select id='dateselect'></select>
+	</div>
 		<hr>
 		<!-- 顯示書籍資料的區域 -->
 		<div align='center' id='tablearea' style='height: 150px;'

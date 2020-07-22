@@ -11,8 +11,8 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div align='center'>
-		<div align='center'>
+	<div class="container" align='center' >
+		<div align='center' style="text-align: center;background-color:#dee2e6">
 			<h1>新增打卡紀錄</h1>
 			<hr>
 			<a href='queryPunchTime'>回前頁</a>

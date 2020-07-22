@@ -31,17 +31,18 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div align='center'>
+	<div class='container' align='center' style="text-align: center">
+		<div align='center' style="text-align: center;background-color:#dee2e6">
 		<h1 align='center'>修改出勤紀錄</h1>
 		<hr>
 		<a href='../queryPunchTime'>回前頁</a>
-		<p>
+		</div>
 			<form:form class='center' action="../punchTime/update/${punch.punchId}" modelAttribute="punch"
 				method="POST">
 				<input type="hidden" name="punchId" value="${punch.punchId}">
 				<input type="hidden" name="memberName" value="${punch.memberName}">
 				<input type="hidden" name="finalDecision" value="">
-				<Table>
+				<Table align='center'>
 					<TR>
 						<TD align="RIGHT">姓名：</TD>
 						<TD align="LEFT">${punch.memberName}</TD>

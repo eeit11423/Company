@@ -7,38 +7,44 @@
 <head>
 <meta charset="UTF-8">
 <title>出勤系統</title>
-<script language="JavaScript">
-	function ShowTime(){
-		var NowDate=new Date();
-　		var h=NowDate.getHours();
-　		var m=NowDate.getMinutes();
-　		var s=NowDate.getSeconds();　
-　		document.getElementById('showbox').innerHTML = h+'時'+m+'分'+s+'秒';
-　		setTimeout('ShowTime()',1000);
-}
-</script>
 </head>
-<body onload="ShowTime()"	>
+<body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div class="container" style="text-align: center">
+	<div class="container" style="text-align: center;background-color:#dee2e6">
 		<h1>
 			出勤系統
 			<hr>
 		</h1>
-		<a href='<c:url value='/'/>'>返回首頁</a>
-		<h4>使用者：${memberpunch[0].memberName}</h4><span id="showbox"></span>
-<!-- 		<span><button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button></span> -->
-	</div>
-	<div align='center'>
-		<button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button>
+		<div align='center'><a href='<c:url value='/'/>'>返回首頁</a><br></div>
+		<div id="Date"></div>
+		<h4>使用者：${memberpunch[0].memberName}</h4>
+ 
+<script type="text/javascript"> 
+	function setClock(){
+		var date=new Date(); //建立日期
+		var year=date.getFullYear(); //获取当前年份 
+		var mon=date.getMonth()+1; //获取当前月份 
+		var da=date.getDate(); //获取当前日 
+		var day=date.getDay(); //获取当前星期几 
+		var h=date.getHours(); //获取小时 
+		var m=date.getMinutes(); //获取分钟 
+		var s=date.getSeconds(); //获取秒 
+		var d=document.getElementById('Date'); 
+		d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+'星期'+day+' '+h+':'+m+':'+s;	}
+	window.setInterval(setClock,1000);
+	window.setInterval(setClock());
+
+</script>
+<!-- 	<div class="container" align='center' > -->
+		<div align='center'><button id='manage' name='manage' style='display:none' onclick="location.href='queryPunchTime'">出勤管理</button></div>
 		<div class="container" align='center' style="text-align: center">
 			<button onclick="location.href='punchWorkOn'">上班打卡</button>
 			<button onclick="location.href='punchWorkOff'">下班打卡</button>
 			<button onclick="location.href='memberInsertPunchTime'">新增紀錄</button>
 		</div>
 		選擇年月份：<select id='dateselect'></select>
-		<!-- 顯示書籍資料的區域 -->
 			<hr>
+	</div>
 		<div align='center' id='tablearea' style='height: 150px;'
 			class='center'></div>
 		<script>
@@ -51,11 +57,10 @@
 			    } 
 			}
 			checkAdmin();
-			var selectElement = document.getElementById('dateselect'); // 取出select標籤
-			var tablearea = document.getElementById('tablearea'); // 取出書籍資料的div標籤
-			var detail = document.getElementById('detail'); // 取出書籍資料的div標籤
-			var xhr = new XMLHttpRequest(); // 讀取書籍表格內的書籍資料
-			var xhr2 = new XMLHttpRequest(); // 讀取書籍表格內的書籍資料
+			var selectElement = document.getElementById('dateselect'); 
+			var tablearea = document.getElementById('tablearea'); 
+			var xhr = new XMLHttpRequest(); 
+			var xhr2 = new XMLHttpRequest(); 
 
 			var dateselect = [ [ 'all' ], [ '2020-1' ], [ '2020-2' ],
 					[ '2020-3', ], [ '2020-4' ], [ '2020-5' ], [ '2020-6' ],
