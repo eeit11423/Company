@@ -36,9 +36,10 @@ public class OrderLunchController extends HttpServlet{
     String passwd = "sa123456";
     
     //sql
-    private static final String SELECT_LUNCH_STORE = "SELECT STORE FROM ORDERLUNCH ";
-    private static final String SELECT_STORE_LIST = "SELECT * FROM ORDERLUNCH WHERE STORE = ? ";
-    private static final String INSERT_LUNCH_ORDER = "insert into OrderLunch (id,store,product,price,orderTime,userName) values(?,?,?,?,?,?)";
+    private static final String SELECT_LUNCH_STORE = "SELECT STORE FROM LUNCHORDER ";
+    private static final String SELECT_LUNCH_STORE_DETAIL = "SELECT * FROM LUNCHSTORE WHERE STORE=?";
+    private static final String SELECT_STORE_LIST = "SELECT * FROM LUNCHORDER WHERE STORE = ? ";
+    private static final String INSERT_LUNCH_ORDER = "INSERT INTO LUNCHORDER (ID,STORE,PRODUCT,PRICE,ORDERTIME,USERNAME) VALUES(?,?,?,?,?,?)";
     
     
 	//導頁
@@ -92,29 +93,45 @@ public class OrderLunchController extends HttpServlet{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs2 = null;
 		String store = request.getParameter("store");
+		//取得商家資料
+		List<Map<String, String>> storeList = new ArrayList<Map<String,String>>();
 		List<Map<String, String>> foodList = new ArrayList<Map<String,String>>();
-		String foodListJson="";
+		String listJson="";
 		try {
 			response.setContentType("text/html;charset=UTF-8");
 		     request.setCharacterEncoding("UTF-8");
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
+			//取得商家資料
+			ps2=con.prepareStatement(SELECT_LUNCH_STORE_DETAIL);
+			ps.setString(1, store);
+			rs2 = ps2.executeQuery();
+			while(rs2.next()) {
+				Map<String, String> storeDetail = new HashMap<String, String>();
+				storeDetail.put("store", rs.getString("store"));
+				storeDetail.put("product", rs.getString("product"));
+				storeDetail.put("price", rs.getString("price"));
+				storeList.add(storeDetail);
+				}
 			ps=con.prepareStatement(SELECT_STORE_LIST);
 			ps.setString(1, store);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Map<String, String> food = new HashMap<String, String>();
-				food.put("store", rs.getString("store"));
 				food.put("product", rs.getString("product"));
 				food.put("price", rs.getString("price"));
-				food.put("orderTime", rs.getString("orderTime"));
 				food.put("userName", rs.getString("userName"));
 				foodList.add(food);
 			}
-			foodListJson = JSON.toJSONString(foodList);
+			Map<String, List<Map<String, String>>> map = new HashMap<String,  List<Map<String, String>>>();
+			map.put("store", storeList);
+			map.put("order",foodList);
+			listJson = JSON.toJSONString(map);
 			PrintWriter out =response.getWriter();
-			out.print(foodListJson);
+			out.print(listJson);
 			out.close();
 		}catch (Exception e) {
 			e.printStackTrace();
