@@ -182,9 +182,10 @@
               </div>
             </div>
              <c:forEach var='TPp' items="${ss}" >
-               <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">${TPp.value.shoppingProductName}</h3>
-           ${TPp.value.countTest} ,
-<%--            ${TPp.value.shoppingProductPrice} --%>
+               <h3 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0">${TPp.value.countTest * TPp.value.price} FUCK</h3>
+         
+<%--           // ${TPp.value.shoppingProductPrice} --%>
+<%-- ${TPp.value.shoppingProductName} --%>
                </c:forEach>
           </div>
         	
@@ -210,11 +211,14 @@
                         <tr>
                       
                           <td>${TP.value.shoppingType}</td>
-                          <td>${TP.value.shoppingname}</td>
-                          <td class="text-danger"> ${TP.value.shoppingId} <i class="ti-arrow-down"></i></td>
-                          <td><label class="badge badge-danger">Pending</label></td>
-                    
-                        </tr>
+                          </c:forEach>
+                          
+                          <c:forEach var='TPp' items="${ss}" >
+                          <td>${TPp.value.shoppingProductName}</td>
+                          <td class="text-danger"> ${TPp.value.countTest} <i class="ti-arrow-down"></i></td>
+                          <td><label class="badge badge-danger">${TPp.value.countTest * TPp.value.price}</label></td>
+                      </tr>
+                      
                            </c:forEach>
 <!--                         <tr> -->
 <!--                           <td>Messsy</td> -->
