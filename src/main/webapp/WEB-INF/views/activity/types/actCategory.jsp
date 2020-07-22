@@ -31,7 +31,8 @@
 <p class="bg-secondary text-white" style="font-size: 30pt">｜</p>
 </div>
 </footer>
-
+<a class="btn btn-link"
+			href="<c:url value='/activity/index' />">返回前頁</a>
 
 <%-- <c:forEach var='actCategory' items='${actCategoryList}' > --%>
 <%-- 	<a href='activities/${actCategory}'>${actCategory}</a><br> --%>
