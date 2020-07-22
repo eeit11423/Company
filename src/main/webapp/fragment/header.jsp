@@ -82,8 +82,8 @@
 						</div></li>
 		
 					<li class="nav-item"><a class="nav-link">連絡我們</a>
-					<li class="nav-item"><a class="nav-link" href="rearendd">後端</a>
-				
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/orderprice">後端</a>
+				..
 					</li>
 					
 					<li></li>
