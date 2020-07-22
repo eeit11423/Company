@@ -107,13 +107,14 @@ public class OrderLunchController extends HttpServlet{
 			con = DriverManager.getConnection(url, userid, passwd);
 			//取得商家資料
 			ps2=con.prepareStatement(SELECT_LUNCH_STORE_DETAIL);
-			ps.setString(1, store);
+			ps2.setString(1, store);
 			rs2 = ps2.executeQuery();
 			while(rs2.next()) {
 				Map<String, String> storeDetail = new HashMap<String, String>();
-				storeDetail.put("store", rs.getString("store"));
-				storeDetail.put("product", rs.getString("product"));
-				storeDetail.put("price", rs.getString("price"));
+				storeDetail.put("store", rs2.getString("store"));
+				storeDetail.put("product", rs2.getString("product"));
+				storeDetail.put("price", rs2.getString("price"));
+				storeDetail.put("endDate", rs2.getString("enddate"));
 				storeList.add(storeDetail);
 				}
 			ps=con.prepareStatement(SELECT_STORE_LIST);
@@ -126,10 +127,7 @@ public class OrderLunchController extends HttpServlet{
 				food.put("userName", rs.getString("userName"));
 				foodList.add(food);
 			}
-			Map<String, List<Map<String, String>>> map = new HashMap<String,  List<Map<String, String>>>();
-			map.put("store", storeList);
-			map.put("order",foodList);
-			listJson = JSON.toJSONString(map);
+			listJson = JSON.toJSONString(storeList);
 			PrintWriter out =response.getWriter();
 			out.print(listJson);
 			out.close();
