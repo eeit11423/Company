@@ -84,5 +84,16 @@ public class JoinRepositoryimpl implements JoinRepository {
 	}
 
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Join> getJoinsByJoinMemberId(Integer joinMemberId) {
+		String hql = "FROM Join jp WHERE jp.joinMemberId = :joinMemberId order by joinTime desc";
+		List<Join> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).setParameter("joinMemberId",joinMemberId).getResultList();
+		return list;
+	}
+
+
 	
 }

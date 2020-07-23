@@ -69,17 +69,17 @@
   </div>
   <a type="button" class="btn btn-outline-secondary" href="<c:url value='act' />">發起活動</a>
   
-<!--   功能完整後再開放這段 -->
-<!--   <div class="btn-group"> -->
-<!--     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"> -->
-<!--        個人專區 -->
-<!--     </button> -->
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+       個人專區
+    </button>
     
-<!--     <div class="dropdown-menu"> -->
-<%--       <a class="dropdown-item" href="<c:url value='queryByActMemberId' />">我發起的活動</a> --%>
-<%--       <a class="dropdown-item" href="<c:url value='' />">我參加的活動</a> --%>
-<!--     </div> -->
-<!--   </div> -->
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="<c:url value='queryByActMemberId' />">我發起的活動</a>
+      <a class="dropdown-item" href="<c:url value='queryJoinsByActMemberId' />">我參加的活動</a>
+    </div>
+  </div>
   
   
   <%--     <a type="button" class="btn btn-outline-secondary" href="<c:url value='queryByActMemberId' />">個人專區</a> --%>
