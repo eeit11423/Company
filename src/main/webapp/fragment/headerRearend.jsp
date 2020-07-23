@@ -40,12 +40,15 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-<!--           <li class="nav-item"> -->
-<!--             <a class="nav-link" href="index.html"> -->
-<!--               <i class="ti-shield menu-icon"></i> -->
-<!--               <span class="menu-title">曲線圖</span> -->
-<!--             </a> -->
-<!--           </li> -->
+          <li class="nav-item">
+           <i class="menu-arrow"></i>
+            <a class="nav-link" href="${pageContext.request.contextPath}/">
+     <i class="ti-palette menu-icon"></i>
+              <span class="menu-title">回首頁</span>
+              <i class="menu-arrow"></i>        
+            
+            </a>
+          </li>
            
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
