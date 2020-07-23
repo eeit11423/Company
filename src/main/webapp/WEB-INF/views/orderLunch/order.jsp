@@ -101,14 +101,32 @@
 										</c:forEach>
 									</select>
 									</div>
-									<div class="second-features-box"></div>
+									<div class="second-features-box">
+										<ul class="features second-feature" id="second-feature">
+											<li style="display:flex; align-items: center; width:60%;">
+											 <span style="white-space: nowrap;">餐點：</span>
+												<select>
+													<option value="麥脆雞">麥脆雞</option>
+												</select>
+											</li>
+											<li style="display:flex; align-items: center;">
+												 <span style="white-space: nowrap;">價格：</span><input type="text" value="100">
+											</li>
+											<li style="white-space: nowrap; margin-top:0 ;display:flex; align-items: center;">
+												 <span style="white-space: nowrap;">數量：</span><input type="text"  value="">
+											</li>
+										    <li style=" margin-top:0 ;display:flex; align-items: center;width:50%">
+              							        <span style="white-space: nowrap;">點餐者：</span><input type="text" value="" />
+               							    </li>
+											<li style="margin-top:1%">
+											  <a id="second-add" class="far fa-plus-square fa-3x second-add" onclick="addSecondBox()"></a>
+											</li>
+										</ul>
+									</div>
 								</div>
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="generic.html" class="button">送出</a></li>
-									</ul>
-								</footer>
 							</section>
+							
+							
 						<!-- Second Section -->
 							<section id="cta" class="main special">
 								<header class="major">
@@ -265,8 +283,6 @@
 				},'success' : function(datas) {
  					var datasJson = JSON.parse(datas);
  					 secData = datasJson;
- 					  $(".second-feature").remove();
- 					addSecondData(datasJson);				
 				},'error':function(xhr, ajaxOptions, thrownError){
 					console.log(xhr.responseText);
 				}
@@ -282,38 +298,6 @@
    
 
    
-   function addSecondData(data){
-   	data.map((item,index)=>
-	      {
-	        var htmlTag =`<ul class="features second-feature" id="second-feature">
-				<li style="display:flex; align-items: center; width:60%;">
-				 <span style="white-space: nowrap;">餐點：</span>
-				<select id="second-sale-${'${index}'}" onchange="getOptionPrice(${'${index}'})">
-				${'${data.map(item=>`<option value=${item.product}>${item.product}</option>`)}'}
-				</select>
-				</li>
-				<li style="display:flex; align-items: center;">
-					 <span style="white-space: nowrap;">價格：</span><input type="text" id="second-price-${'${index}'}" readonly="readonly" id="second-price-${'${index}'}"  value="${'${item.price}'}">
-				</li>
-				<li style="white-space: nowrap; margin-top:0 ;display:flex; align-items: center;">
-					 <span style="white-space: nowrap;">數量：</span><input type="text"  value="">
-				</li>
-				    <li style=" margin-top:0 ;display:flex; align-items: center;width:50%">
-                      <span style="white-space: nowrap;">點餐者：</span><input type="text" readonly="readonly" value="" />
-                   </li>
-                   
-				<li style="margin-top:1%">
-					  <a id="second-add" class="far fa-plus-square fa-3x second-add" onclick="addSecondBox()"></a>
-					  <a id="second-remove" class="far fa-minus-square fa-3x second-remove" onclick="removeSecondBox(${'${index}'})"></a>
-				</li>
-			</ul>`
-	        	 $(".second-features-box").append(htmlTag);
-	      }
-	      )
-   }
-
-   addSecondData(secData);
-   
    function getOptionPrice(index){
 	  	 var select = document.getElementById(`second-sale-${'${index}'}`);
 	  	 var priceInput = document.getElementById(`second-price-${'${index}'}`);
@@ -324,13 +308,11 @@
   function addSecondBox(){
 	    $(".second-feature").remove();
 	    secData.order.push({"product":"卡拉雞腿堡","quantity":"1","price":"100","userName":"大寶"});
-	    addSecondData(secData.order);
   }
   function removeSecondBox(index){
 	  var taskIndex =  secData[index];
 	   $(".second-feature").remove();
 	     firstData.splice(secData.indexOf(taskIndex), 1);
-	     addSecondData(secData);
 	  
   }
     </script>
