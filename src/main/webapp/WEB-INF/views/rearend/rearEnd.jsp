@@ -128,7 +128,7 @@
                           <td>${TPp.value.shoppingType}</td>                             
                           <td>${TPp.value.shoppingProductName}</td>
                           <td class="text-success"> ${TPp.value.countTest} <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-danger">${TPp.value.countTest * TPp.value.price}</label></td>
+                          <td><label class="badge badge-danger">${Math.round(TPp.value.countTest * TPp.value.price)}</label></td>
                       </tr>
                       
                            </c:forEach>
@@ -232,19 +232,18 @@
 
         </div>
  <script>
- 
+ var xhr = new XMLHttpRequest();
  xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var members = JSON.parse(xhr.responseText);
 			for (var aa in members) {
-				if(members[aa][0]!="董事長"){
-				member_Department.push(members[aa][0]);
-				member_Salary.push(parseInt(members[aa][1]));
-			
-				}
+				
 			}
-			}
-			}
+			console.log(members);
+		
+		
+		}
+		}
  </script>
 
  
