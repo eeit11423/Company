@@ -13,6 +13,7 @@
 <title></title>
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/css/style.css' type="text/css" />
+	
 </head>
 <body>
 
@@ -40,7 +41,7 @@
 <!--                   <p class="card-title mb-0">Top Products</p> -->
                   <div class="table-responsive">
              
-			<div class="container-fluid">
+			<div class="container-fluid " >
 				<table class="table table-hover border border-secondary"   >
 					<tr class="text-white text-left border border-secondary " style='background:#646D73'>
 						<th width='50' class="border border-secondary " >ID</th>

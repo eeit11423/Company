@@ -8,6 +8,8 @@
 
 <meta charset="UTF-8">
 <script>
+
+
 	window.onload = function() {
 		var btn = document.getElementById("clickmeS");
 		btn.onclick = function() {
@@ -28,6 +30,8 @@
 		}
 
 	}
+	
+	
 </script>
 
 
@@ -37,7 +41,7 @@
 </head>
 <body>
 	<jsp:include page="/fragment/headerRearend.jsp" />
-<div class="main-panel">
+<div class="main-panel" >
          <div class="content-wrapper">
 <!-- 			<div class="row"> -->
 	<main class="my-form">
@@ -48,7 +52,7 @@
 						<div class="card-header text-white" style='background: #646D73'>
 							<strong><h3>商品新增</h3></strong>
 						</div>
-						<div class="card-body">
+						<div class="card-body" >
 
 							<!--       三個地方要完全一樣 -->
 							<form:form method='POST' modelAttribute="shoppingBean"
