@@ -12,7 +12,7 @@
 <jsp:include page="/fragment/header.jsp" />
 <hr>
 	<div align='center'>
-		<h1 class="bg-secondary text-light">${memberBean.memberName}的活動資料</h1>
+		<h1 class="bg-secondary text-light">${memberBean.memberName}發起的活動資料</h1>
 <hr>
 		<a class="btn btn-info" href="<c:url value='act' />">新增活動</a> &nbsp;&nbsp;&nbsp;<a class="btn btn-info"
 			href="<c:url value='/activity/index' />">返回前頁</a>

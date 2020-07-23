@@ -8,16 +8,7 @@
 
 <meta charset="UTF-8">
 <script>
-body{ margin: 0; font-size: .9rem; font-weight: 400; line-height: 1.6;
-color: #212529; text-align: left; background-color: #f5f8fa; }
 
-.navbar-laravel { box-shadow: 0 2px 4px rgba(0,0,0,.04); } .navbar-brand
-, .nav-link, .my-form, .login-form { font-family: Raleway, sans-serif; }
-
-.my-form { padding-top: 1.5rem; padding-bottom: 1.5rem; } .my-form .row
-{ margin-left: 0; margin-right: 0; } .login-form { padding-top: 1.5rem;
-padding-bottom: 1.5rem; } .login-form .row { margin-left: 0;
-margin-right: 0; }
 
 </script>
 
@@ -26,13 +17,15 @@ margin-right: 0; }
 <title>Products</title>
 </head>
 <body>
-	<jsp:include page="/fragment/header.jsp" />
-
+	<jsp:include page="/fragment/headerRearend.jsp" />
+<div class="main-panel">
+         <div class="content-wrapper">
+<!-- 			<div class="row"> -->
 	<main class="my-form">
 		<div class="cotainer">
 			<div class="row justify-content-center">
-				<div class="col-md-8">
-					<div class="card">
+				<div class="col-md-10">
+					<div class="card">	
 						<div class="card-header text-white" style='background: #646D73'>
 							<strong><h3>商品新增</h3></strong>
 						</div>
@@ -135,6 +128,8 @@ margin-right: 0; }
 		</div>
 
 	</main>
-
+</div>
+		</div>
+					</div>
 </body>
 </html>

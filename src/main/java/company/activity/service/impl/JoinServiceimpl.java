@@ -61,6 +61,12 @@ public class JoinServiceimpl implements JoinService {
 	public List<Join> getJoinsByActivityIdAndJoinMemberId(Integer activityId, Integer joinMemberId) {
 		return joinDao.getJoinsByActivityIdAndJoinMemberId(activityId, joinMemberId);
 	}
+	
+	@Transactional
+	@Override
+	public List<Join> getJoinsByJoinMemberId(Integer joinMemberId) {
+		return joinDao.getJoinsByJoinMemberId(joinMemberId);
+	}
 
 
 }

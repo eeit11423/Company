@@ -17,4 +17,8 @@ public interface JoinRepository {
 	
 	//新增報名驗證方法
 	List<Join> getJoinsByActivityIdAndJoinMemberId(Integer activityId,Integer joinMemberId);
+	
+	//新增查詢個人參加資訊方法
+	List<Join> getJoinsByJoinMemberId(Integer joinMemberId);
+	
 }

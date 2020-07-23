@@ -6,7 +6,6 @@
 
 <head>
 <meta charset="UTF-8">
-
 <title>新增打卡紀錄</title>
 </head>
 <body>
@@ -36,7 +35,7 @@
 				</tr>
 				<tr style='height: 40px'>
 					<td align='center'>日期:</td>
-					<td><form:input path='punchDate' />
+					<td><form:input type='date' path='punchDate' />
 					<form:errors path='punchDate' cssClass="error"/></td>
 				</tr>
 				<tr style='height: 40px'>
