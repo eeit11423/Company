@@ -116,7 +116,7 @@ public class ShoppingController {
 
 	@GetMapping("/shopping/allProductsUpdateDelete") // 後台show出全部商品
 	public String allProductsUpdateDeletelist(Model model, HttpServletRequest req) {
-		List<ShoppingBean> beans = service.getAllProducts();
+		List<ShoppingBean> beans = service.getAllProductsNewtoOld();
 		model.addAttribute("products", beans);
 		return "shopping/allProductsUpdateDelete";
 	}

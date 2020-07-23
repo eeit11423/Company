@@ -8,9 +8,28 @@
 
 <meta charset="UTF-8">
 <script>
+	window.onload = function() {
+		var btn = document.getElementById("clickmeS");
+		btn.onclick = function() {
+			shoppingname = document.getElementById("shoppingname")
+			shoppingname.value = "Razer Lancehead 銳蝮蛇 無線電競滑鼠"
+				shoppingProductTotal = document.getElementById("shoppingProductTotal")
+			shoppingProductTotal.value = 25
+				shoppingProductPrice = document.getElementById("shoppingProductPrice")
+			shoppingProductPrice.value = 4890
+			shoppingProductPrice = document.getElementById("productrelation")
+			shoppingProductPrice.value = "電競級的無線性能 全世界最精準的雷射感應器 支援 RAZER SYNAPSE 3 (測試版)*軟體"
+			productrelation = document.getElementById("shoppingProductDiscount")
+			productrelation.value = 0.9
+			shoppingProductDiscount = document.getElementById("shoppingType")
+			shoppingProductDiscount.value = "滑鼠"
+	
 
+		}
 
+	}
 </script>
+
 
 
 
@@ -116,7 +135,9 @@
 									<div class='col-lg-offset-2 col-lg-12'>
 										<input id="btnAdd" type='submit'
 											class="btn btn-secondary btn-lg btn-block" value="送出" />
+										<input type='button' class='btn btn-primary float-right'  id='clickmeS' value='一鍵Demo' >
 									</div>
+									
 
 								</fieldset>
 							</form:form>
