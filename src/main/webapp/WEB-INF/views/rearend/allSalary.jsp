@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<jsp:include page="/fragment/header.jsp" />
+>
 <html>
 <head>
 
@@ -28,14 +28,8 @@
 <title>Products</title>
 </head>
 <body>
-
-	<section>
-		<div>
-			<div class="container" style="text-align: center">
-				<h1>員工資料</h1>
-			</div>
-		</div>
-	</section>
+<jsp:include page="/fragment/headerRearend.jsp" />
+	
 	<hr
 		style="height: 1px; border: none; color: #333; background-color: #333;">
 	<section class="container">
@@ -55,7 +49,7 @@
 		<figure class="highcharts-figure">
     <div id="container1"></div>
     <p class="highcharts-description">
-     a
+     
     </p>
 	
     <button id="plain">長條圖</button>
@@ -64,7 +58,7 @@
     <figure class="highcharts-figure">
     <div id="container"></div>
     <p class="highcharts-description">
-     B
+     
     </p>
 </figure>
     <figure class="highcharts-figure">
@@ -227,10 +221,10 @@ xhr2.onreadystatechange = function() {
 	            }
 	        },
 	        title: {
-	            text: 'Contents of Highsoft\'s weekly fruit delivery'
+	            text: '男女人數比例分佈圖'
 	        },
 	        subtitle: {
-	            text: '3D donut in Highcharts'
+	            text: ''
 	        },
 	        plotOptions: {
 	            pie: {
