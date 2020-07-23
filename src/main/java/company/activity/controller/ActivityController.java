@@ -584,16 +584,21 @@ public class ActivityController {
 			public String deleteJoin(@PathVariable("id") Integer id) {
 				
 				Join join = joinService.get(id);
-				Activity activity = activityService.get(join.getActivityId());
-				Integer joinNum = activity.getJoinNum();
-				Integer t = joinNum+1;
+				
 
 				try {
+					
+					Activity activity = activityService.get(join.getActivityId());
+					Integer joinNum = activity.getJoinNum();
+					Integer t = joinNum+1;
 					//********似乎寫在裡面才抓得到資料
 					activity.setJoinNum(t);
 					activityService.update(activity); //要記得一起更新activity!!
 				} catch (Exception ex) {
-					System.out.println("請通知系統人員...");}
+					System.out.println("請通知系統人員...");
+					joinService.delete(id);
+					return "activity/error2";
+				}
 				
 				joinService.delete(id);
 				return "redirect:/activity/queryJoinsByActMemberId";
