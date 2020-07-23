@@ -146,31 +146,39 @@
 				tablearea.innerHTML = content;
 			}
 
+			function checkNull(String){
+				if (String == null){
+					return '';
+				}else{
+					return String;
+				}
+				
+			}
+			
 			function timeStampToDate(date) {
 				var datetime = new Date();
 				datetime.setTime(date);
 				var year = datetime.getFullYear();
 				var month = datetime.getMonth() + 1;
-				var date = datetime.getDate();
-				var hour = datetime.getHours();
-				var minute = datetime.getMinutes();
-				var second = datetime.getSeconds();
-				var mseconds = datetime.getMilliseconds();
+				var date = (datetime.getDate()<10 ? '0' : '') + datetime.getDate();
 				var date = year + "-" + month + "-" + date;
 				return date;
 			};
 
 			function timeStampToTime(time) {
-				var datetime = new Date();
-				datetime.setTime(time);
-				var hour = datetime.getHours();
-				var minute = datetime.getMinutes();
-				var second = datetime.getSeconds();
-				var time = hour + ":" + minute + ":" + second;
-				return time;
-				
-				
+				if (time != null){					
+					var datetime = new Date();
+					datetime.setTime(time);
+					var hour = (datetime.getHours()<10 ? '0' : '') +  datetime.getHours();
+					var minute = (datetime.getMinutes()<10 ? '0' : '') +  datetime.getMinutes();
+					var second = (datetime.getSeconds()<10 ? '0' : '') +  datetime.getSeconds();
+					var time = hour + ":" + minute + ":" + second;
+					return time;
+				}else{
+					return '';
+				}
 			}
+			
 		 	function confirmDelete() {
 	 			var result = confirm("確定刪除此筆記錄?");
 	 			if (result) {

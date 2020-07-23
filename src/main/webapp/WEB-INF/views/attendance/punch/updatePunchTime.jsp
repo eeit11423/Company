@@ -49,7 +49,7 @@
 					</TR>
 					<TR>
 						<TD align="RIGHT">打卡日期：</TD>
-						<TD align="LEFT"><form:input path="punchDate" size="30" /> <font
+						<TD align="LEFT"><form:input type='date' path="punchDate" size="30" /> <font
 							color='red' size='-3'>${error.punchDate}</font></TD>
 					</TR>
 					<TR>
@@ -67,8 +67,8 @@
 						<TD colspan="2" align="center">
 <%-- 							<input type="submit" value="更新" name='updateBtn' onclick="return confirmUpdate('${punch.memberName}');">  --%>
 <%-- 							<input type="submit" value="刪除" name='deleteBtn' onclick="return confirmDelete('${punch.memberName}');"> --%>
-							<input type='submit' value='提交'>
-							<input type='reset' value='還原'>
+							<input type='submit' class="btn btn-info" value='提交'>
+							<input type='reset' class="btn btn-outline-secondary "value='還原'>
 					</TR>
 				</Table>
 				<c:if test="${not empty requestScope.modify}">

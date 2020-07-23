@@ -23,6 +23,10 @@ public interface PunchDao {
 	boolean isMemberAndPunchDateExist(Punch punch);
 	
 	List<Punch> queryPunchTime(String memberNumber, String selectdate);
+				
+	List<Punch> queryPunchTimeByPunchLate(String memberNumber, String selectdate, String punchLate) ;
+	
+	List<Punch> queryPunchTimeByPunchEarly(String memberNumber, String selectdate, String punchEarly) ;
 
 	List<MemberBean> getAllMember();
 

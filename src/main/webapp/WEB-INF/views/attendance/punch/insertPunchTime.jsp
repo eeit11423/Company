@@ -33,7 +33,7 @@
 				</tr>
 				<tr style='height: 40px'>
 					<td align='center'>日期:</td>
-					<td><form:input path='punchDate' />
+					<td><form:input type='date' path='punchDate' />
 					<form:errors path='punchDate' cssClass="error"/></td>
 				</tr>
 				<tr style='height: 40px'>
@@ -47,8 +47,10 @@
 					<form:errors path='punchWorkOff' cssClass="error"/></td>
 				</tr>
 				<tr style='height: 40px'>
-					<td colspan='3' align='center'><input type='submit' value='提交'>
-						<input type='reset' value='還原'></td>
+					<td colspan='3' align='center'>
+						<input type='submit' class="btn btn-info" value='提交'>
+						<input type='reset' class="btn btn-outline-secondary"  value='還原'></td>
+					</td>
 				</tr>
 			</table>
 		</form:form>

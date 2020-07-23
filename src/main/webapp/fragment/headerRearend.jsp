@@ -41,7 +41,7 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-<<<<<<< HEAD
+
         
 <!--           <li class="nav-item"> -->
 <!--             <a class="nav-link" href="index.html"> -->
@@ -49,7 +49,7 @@
 <!--               <span class="menu-title">曲線圖</span> -->
 <!--             </a> -->
 <!--           </li> -->
-=======
+
           <li class="nav-item">
            <i class="menu-arrow"></i>
             <a class="nav-link" href="${pageContext.request.contextPath}/">
@@ -59,7 +59,7 @@
             
             </a>
           </li>
->>>>>>> e1008f63a4e8f69e3efcb006c5c57351c41dad71
+
            
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">

@@ -10,15 +10,18 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div class="container" style="text-align: center;background-color:#dee2e6">
-		<h1>
-			員工出勤紀錄表
-			<hr>
-		</h1>
-		<a href='memberPunch'>回前頁</a>
-		<a href='../leave/queryLeave'>請假查詢</a>
-		請挑選姓名: <select id='membername'></select> 選擇年月份：<select id='dateselect'></select>
-	</div>
+	 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+	<div class= "class="sidebar sidebar-offcanvas">
+		<div class="container"
+			style="text-align: center; background-color: #dee2e6">
+			<h1>
+				員工出勤紀錄表
+				<hr>
+			</h1>
+			<a href='memberPunch'>回前頁</a> <a href='../leave/queryLeave'>請假查詢</a>
+			請挑選姓名: <select id='membername'></select> 選擇年月份：<select
+				id='dateselect'></select>
+		</div>
 		<hr>
 		<!-- 顯示書籍資料的區域 -->
 		<div align='center' id='tablearea' style='height: 150px;'
@@ -45,14 +48,14 @@
 								+ memberData[i][1]);
 						selectElement.options[selectElement.options.length] = option;
 					}
-					jQuery("#membername").prepend("<option value='all'>all</option>");
+					jQuery("#membername").prepend(
+							"<option value='all'>all</option>");
 					console.log(selectElement)
-					var dateselect = [
-							['all'],
-							['2020-1'],['2020-2'], ['2020-3',],
-							['2020-4'], ['2020-5'],['2020-6'], 
-							['2020-7'],['2020-8'], ['2020-9'],
-							['2020-10'], ['2020-11'],[ '2020-12'] ];
+					var dateselect = [ [ 'all' ], [ '2020-1' ], [ '2020-2' ],
+							[ '2020-3', ], [ '2020-4' ], [ '2020-5' ],
+							[ '2020-6' ], [ '2020-7' ], [ '2020-8' ],
+							[ '2020-9' ], [ '2020-10' ], [ '2020-11' ],
+							[ '2020-12' ] ];
 					for (var i = 0; i < dateselect.length; i++) {
 						var option2 = new Option(dateselect[i]);
 						selectElement2.options[selectElement2.options.length] = option2;
@@ -62,18 +65,22 @@
 			}
 			xhr.open("GET", "<c:url value='getAllMember'/>", true);
 			xhr.send();
-			
-			window.onload = function(){
+
+			window.onload = function() {
 				xhr3.onreadystatechange = function() {
 					if (xhr3.readyState == 4 && xhr3.status == 200) {
 						displayPagePunchTime(xhr3.responseText);
 					}
 				}
-				xhr3.open("GET","<c:url value='queryPunchTimeData' />?memberNumber=all&selectdate=all" , true);
+				xhr3
+						.open(
+								"GET",
+								"<c:url value='queryPunchTimeData' />?memberNumber=all&selectdate=all",
+								true);
 				// 			// 送出請求						
 				xhr3.send();
 			}
-			
+
 			selectElement.onchange = function() {
 				xhr2.onreadystatechange = function() {
 					if (xhr2.readyState == 4 && xhr2.status == 200) {
@@ -133,19 +140,45 @@
 					console.log(timeStampToTime(workOff));
 					console.log('-------------------------------------');
 
-					content += "<tr><td align='center'>" + punchtimes[i].punchId	+ "</td>"
-							+ "<td align='center'>"	+ punchtimes[i].memberName + "</td>"
-							+ "<td align='center'>"	+ punchtimes[i].memberDepartment + "</td>"
-							+ "<td align='center'>"	+ timeStampToDate(punchday)	+ "</td>"
-							+ "<td align='center'>"	+ timeStampToTime(workOn) + "</td>"
-							+ "<td align='center'>"	+ punchtimes[i].punchLate + "</td>"
-							+ "<td align='center'>" + timeStampToTime(workOff) + "</td>"
-							+ "<td align='center'>"	+ punchtimes[i].punchEarly + "</td>"
-							+ "<td align='center'><a href='punchTimeEdit/" + punchtimes[i].punchId + "'>更改</a>/<a href='deletePunchTime/" 
-							+ punchtimes[i].punchId  + "' onclick='confirmDelete()'>刪除</a></td></tr>";
+					content += "<tr><td align='center'>"
+							+ punchtimes[i].punchId
+							+ "</td>"
+							+ "<td align='center'>"
+							+ punchtimes[i].memberName
+							+ "</td>"
+							+ "<td align='center'>"
+							+ punchtimes[i].memberDepartment
+							+ "</td>"
+							+ "<td align='center'>"
+							+ timeStampToDate(punchday)
+							+ "</td>"
+							+ "<td align='center'>"
+							+ timeStampToTime(workOn)
+							+ "</td>"
+							+ "<td align='center'>"
+							+ punchtimes[i].punchLate
+							+ "</td>"
+							+ "<td align='center'>"
+							+ timeStampToTime(workOff)
+							+ "</td>"
+							+ "<td align='center'>"
+							+ punchtimes[i].punchEarly
+							+ "</td>"
+							+ "<td align='center'><a href='punchTimeEdit/" + punchtimes[i].punchId + "'>更改</a>/<a href='deletePunchTime/"
+							+ punchtimes[i].punchId
+							+ "' onclick='confirmDelete()'>刪除</a></td></tr>";
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;
+			}
+
+			function checkNull(String) {
+				if (String == null) {
+					return '';
+				} else {
+					return String;
+				}
+
 			}
 
 			function timeStampToDate(date) {
@@ -153,31 +186,35 @@
 				datetime.setTime(date);
 				var year = datetime.getFullYear();
 				var month = datetime.getMonth() + 1;
-				var date = datetime.getDate();
-				var hour = datetime.getHours();
-				var minute = datetime.getMinutes();
-				var second = datetime.getSeconds();
-				var mseconds = datetime.getMilliseconds();
+				var date = (datetime.getDate() < 10 ? '0' : '')
+						+ datetime.getDate();
 				var date = year + "-" + month + "-" + date;
 				return date;
 			};
 
 			function timeStampToTime(time) {
-				var datetime = new Date();
-				datetime.setTime(time);
-				var hour = datetime.getHours();
-				var minute = datetime.getMinutes();
-				var second = datetime.getSeconds();
-				var time = hour + ":" + minute + ":" + second;
-				return time;
+				if (time != null) {
+					var datetime = new Date();
+					datetime.setTime(time);
+					var hour = (datetime.getHours() < 10 ? '0' : '')
+							+ datetime.getHours();
+					var minute = (datetime.getMinutes() < 10 ? '0' : '')
+							+ datetime.getMinutes();
+					var second = (datetime.getSeconds() < 10 ? '0' : '')
+							+ datetime.getSeconds();
+					var time = hour + ":" + minute + ":" + second;
+					return time;
+				} else {
+					return '';
+				}
 			}
-		 	function confirmDelete() {
-	 			var result = confirm("確定刪除此筆記錄?");
-	 			if (result) {
-	 			return true;
-	 			}
-	 		return false;
-	 		}
+			function confirmDelete() {
+				var result = confirm("確定刪除此筆記錄?");
+				if (result) {
+					return true;
+				}
+				return false;
+			}
 		</script>
 	</div>
 </body>
