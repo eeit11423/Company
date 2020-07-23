@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
 <title>Product</title>
 </head>
-<body> 
+<body>
+<jsp:include page="/fragment/header.jsp" /> 
 	<section>
 		<div>
 			<div class="container" style="text-align: center">
@@ -38,7 +39,7 @@
 					</figure>
 				</div>
 				<p>
-					<a href="<spring:url value='/products' />" class="btn btn-default">
+					<a href="<spring:url value='/' />" class="btn btn-default">
 						<span class="glyphicon-hand-left glyphicon"></span>返回
 					</a> 
 					<a href='#' class='btn btn-warning btn-large'> 
