@@ -151,7 +151,7 @@ public class PunchController {
 		} else {
 			FieldError error = new FieldError("punch", "punchDate",punch.getPunchDate(), false, null, null,  (n==-1 ? "日期重複" : "資料庫錯誤"));
 			bindingResult.addError(error);
-			return "attendance/punch/insertPunchTime";
+			return "attendance/punch/memberInsertPunchTime";
 		}
 	}
 	
