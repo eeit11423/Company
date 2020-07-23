@@ -77,7 +77,7 @@ public class ShoppingController {
 
 	@RequestMapping("/shopping/SearchShoppingName/{searchWord}")
 	public String geSearchShoppingName(Model model, @PathVariable("searchWord") String searchWord) {
-		System.out.println("===============================" + searchWord);
+	
 		List<ShoppingBean> st = service.getSearchShoppingNameProductrelatio(searchWord);
 		System.out.println(st.toString());
 		model.addAttribute("SearchShoppingName", st);
@@ -88,11 +88,11 @@ public class ShoppingController {
 	@RequestMapping("/shopping/search/{searchWord}") // 模糊搜尋JSON
 	public ResponseEntity<List<ShoppingBean>> getSearchShoppingNameProductrelatioJson(Model model,
 			@PathVariable("searchWord") String searchWord, HttpServletRequest req) {
-		System.out.println("模糊搜尋JSON================" + searchWord);
+
 		List<ShoppingBean> st = service.getSearchShoppingNameProductrelatio(searchWord);
 		ResponseEntity<List<ShoppingBean>> re = new ResponseEntity<>(st, HttpStatus.OK);
 		model.addAttribute("searchWord", st);
-		System.out.println("模糊搜尋JSON================" + st.toString());
+		
 
 		return re;
 	}
@@ -100,7 +100,7 @@ public class ShoppingController {
 	@RequestMapping("/shopping/{shoppingType1}") // 商品類型分類JSON
 	public ResponseEntity<List<ShoppingBean>> getAllProductsJson(Model model,
 			@PathVariable("shoppingType1") String shoppingType1, HttpServletRequest req) {
-		System.out.println(shoppingType1);
+	
 		List<ShoppingBean> st = service.getshoppingType(shoppingType1);
 		ResponseEntity<List<ShoppingBean>> re = new ResponseEntity<>(st, HttpStatus.OK);
 		model.addAttribute("shoppingType", st);

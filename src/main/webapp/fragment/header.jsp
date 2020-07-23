@@ -54,13 +54,13 @@
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
 						data-toggle="dropdown"> 產品商城 </a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="<c:url value='/shopping/allProducts' />">查詢所有產品資料</a>
-							<a class="dropdown-item" href="<c:url value='/shopping/allProductsUpdateDelete' />">後台修改編輯產品資料</a>
-							<a class="dropdown-item" href="<c:url value='/products/add' />">新增產品資料</a>
+							<a class="dropdown-item" href="<c:url value='/shopping/allProducts' />">所有產品</a>
+<%-- 							<a class="dropdown-item" href="<c:url value='/shopping/allProductsUpdateDelete' />">後台修改編輯產品資料</a> --%>
+<%-- 							<a class="dropdown-item" href="<c:url value='/products/add' />">新增產品資料</a> --%>
 							<a class="dropdown-item" href="<c:url value='/shoppingCart' />">購物車</a>
 							<a class="dropdown-item" href="<c:url value='/orderList/list' />">訂單資訊</a>
-							<a class="dropdown-item" href="<c:url value='/shoppingChange1' />">全部分類</a>
-							<a class="dropdown-item" href="<c:url value='/shoppingChange' />">大項Ajax分類</a>
+<%-- 							<a class="dropdown-item" href="<c:url value='/shoppingChange1' />">全部分類</a> --%>
+<%-- 							<a class="dropdown-item" href="<c:url value='/shoppingChange' />">大項Ajax分類</a> --%>
 						</div></li>
 						<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"

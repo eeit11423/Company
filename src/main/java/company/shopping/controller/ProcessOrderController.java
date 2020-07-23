@@ -43,14 +43,14 @@ public class ProcessOrderController {
 		
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 		
 		ShoppingCart sc = (ShoppingCart) model.getAttribute("ShoppingCart");
 		if (sc == null) {
 			// 處理訂單時如果找不到購物車(通常是Session逾時)，沒有必要往下執行
 			// 導向首頁
-			return "redirect: " + context.getContextPath() + "/_02_login/login";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 		// 如果使用者取消訂單
 
@@ -75,7 +75,7 @@ public class ProcessOrderController {
 			oib.setOrderDate(today);
 			oib.setShoppingAmount(oib.getShoppingAmount()*oib.getOrderItemsNumber());
 			items.add(oib);
-			System.out.println("====================================="+oib.toString());
+		
 		}
 		
 		// 執行到此，購物車內所有購買的商品已經全部轉換為為OrderItemBean物件，並放在Items內

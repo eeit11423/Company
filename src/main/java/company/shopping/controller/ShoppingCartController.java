@@ -48,7 +48,7 @@ public class ShoppingCartController {
 	protected String showCartContent(Model model) {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 		return  "shopping/shoppingCart";
 		
@@ -59,12 +59,12 @@ public class ShoppingCartController {
 		
 
 		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 	
 		HttpSession session = request.getSession(false); 
 		if (session == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 		
 		// 取出存放在session物件內的ShoppingCart物件
@@ -124,12 +124,12 @@ public class ShoppingCartController {
 		
 		System.out.println("x==============="+request.getParameter("x"));
 		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 	
 		HttpSession session = request.getSession(false); 
 		if (session == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 		
 		// 取出存放在session物件內的ShoppingCart物件
