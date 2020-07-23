@@ -304,8 +304,10 @@ public class ProductController {
 			model.addAttribute("memberBean", mmm);
 			mmm = (MemberBean) model.getAttribute("memberBean");
 			if (mmm.getMemberPassword().equals("1234")) {
+				processCookies(lb, request, response);
 				return "redirect:/updatee/"+mmm.getMemberId()+"";
 			}else if(mmm.getMemberPassword().equals("@875MK")) {
+				processCookies(lb, request, response);
 				return "redirect:/updatepasswd/"+mmm.getMemberId()+"";
 			}
 			else {
@@ -476,7 +478,7 @@ public class ProductController {
 			}
 		}
 		service.updateMember(mb);
-		return "redirect:/";
+		return "redirect:/updatepasswd/"+id+"";
 	}
 	
 //更改密碼
