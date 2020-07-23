@@ -31,13 +31,15 @@
 	    沒有任何商品資料<br>
 			</c:when>
 			<c:otherwise>
+			    <div class="main-panel"> 
+			    <div class="content-wrapper">
 			<div class="row">
-            <div class="col-md-10 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title mb-0">Top Products</p>
+<!--             <div class="col-md-10 grid-margin stretch-card"> -->
+<!--               <div class="card"> -->
+<!--                 <div class="card-body"> -->
+<!--                   <p class="card-title mb-0">Top Products</p> -->
                   <div class="table-responsive">
-                  
+             
 			<div class="container-fluid">
 				<table class="table table-hover">
 					<tr class="text-white text-left" style='background: #646D73'>
@@ -75,15 +77,18 @@
 						</tr>
 					</c:forEach>
 				</table>
-				</div></div></div></div></div></div>
+				</div></div></div></div>
+				</div>
+				</div>
+					</div>
+				
 			</c:otherwise>
 		</c:choose>
 <!-- 		<div class='container' align="center"> -->
 <!-- 		<a class="btn btn-secondary btn-lg" -->
 <%-- 					href="<c:url value='/'/> ">回首頁</a> --%>
 	
-<!-- 		</div> -->
-				
+	
 	
 	
 	<script type='text/javascript'>

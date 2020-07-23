@@ -8,16 +8,7 @@
 
 <meta charset="UTF-8">
 <script>
-body{ margin: 0; font-size: .9rem; font-weight: 400; line-height: 1.6;
-color: #212529; text-align: left; background-color: #f5f8fa; }
 
-.navbar-laravel { box-shadow: 0 2px 4px rgba(0,0,0,.04); } .navbar-brand
-, .nav-link, .my-form, .login-form { font-family: Raleway, sans-serif; }
-
-.my-form { padding-top: 1.5rem; padding-bottom: 1.5rem; } .my-form .row
-{ margin-left: 0; margin-right: 0; } .login-form { padding-top: 1.5rem;
-padding-bottom: 1.5rem; } .login-form .row { margin-left: 0;
-margin-right: 0; }
 
 </script>
 
@@ -26,13 +17,15 @@ margin-right: 0; }
 <title>Products</title>
 </head>
 <body>
-	<jsp:include page="/fragment/header.jsp" />
-
+	<jsp:include page="/fragment/headerRearend.jsp" />
+<div class="main-panel">
+         <div class="content-wrapper">
+<!-- 			<div class="row"> -->
 	<main class="my-form">
 		<div class="cotainer">
 			<div class="row justify-content-center">
-				<div class="col-md-8">
-					<div class="card">
+				<div class="col-md-10">
+					<div class="card">	
 						<div class="card-header text-white" style='background: #646D73'>
 							<strong><h3>商品更新</h3></strong>
 						</div>
@@ -46,8 +39,8 @@ margin-right: 0; }
 										<label class="col-md-4 col-form-label text-md-right"
 											for="memberNumber" > 上傳員工編號</label>
 										<div class="col-md-6">
-											<form:hidden id="memberNumber" path="memberNumber" 
-											 class="form-control input-md" /><h4>${memberBean.memberNumber}<h4>
+											<form:input id="memberNumber" path="memberNumber" type='text'
+												value='${memberBean.memberNumber}' class="form-control input-md" />
 										</div>
 									</div>
 								
@@ -83,7 +76,7 @@ margin-right: 0; }
 									</div>
 									<div class="form-group row">
 										<label class="col-md-4 col-form-label text-md-right"
-											for="productrelation"> 商品敘述 </label>
+											for="productrelation">商品敘述 </label>
 										<div class="col-md-6">
 											<form:input id="productrelation" path="productrelation"
 												type='text' class="form-control input-md" />
@@ -110,7 +103,7 @@ margin-right: 0; }
 										</div>
 									</div>
 
-								
+							
 									<div class="form-group row">
 										<label class="col-md-4 col-form-label text-md-right"
 											for='productImage'> 照片上傳 </label>
@@ -135,6 +128,8 @@ margin-right: 0; }
 		</div>
 
 	</main>
-
+</div>
+		</div>
+					</div>
 </body>
 </html>
