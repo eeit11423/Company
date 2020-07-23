@@ -44,53 +44,56 @@ import company.member.model.MemberBean;
 import company.shopping.model.ShoppingBean;
 import company.shopping.service.ShoppingService;
 
-
-
 @Controller
-@SessionAttributes({ "ShoppingCart", "memberBean", "shoppingBean","AllShoppingType" })
+@SessionAttributes({ "ShoppingCart", "memberBean", "shoppingBean", "AllShoppingType" })
 public class ShoppingController {
 	@Autowired
 	ShoppingService service;
 	@Autowired
 	ServletContext context;
 
-	@GetMapping("/shopping/oneProduct") //單項商品
+	@GetMapping("/shopping/oneProduct") // 單項商品
 	public String oneProduct(@RequestParam("id") Integer id, Model model) {
 		ShoppingBean shoppingBean = service.getshoppingId(id);
 		model.addAttribute("shoppingBean", shoppingBean);
 		return "shopping/oneProduct";
 	}
-	
+
 	@RequestMapping("/shoppingChange")
-	public String getmemberByDepart(Model model) {	
+	public String getmemberByDepart(Model model) {
 		List<ShoppingBean> st = service.getALLShoppingType();
-				model.addAttribute("shoppingType", st);
-		
-		return "shopping/shoppingChange";}
+		model.addAttribute("shoppingType", st);
+
+		return "shopping/shoppingChange";
+	}
+
 	@RequestMapping("/shoppingChange1")
-	public String getmemberByDepart1(Model model) {	
+	public String getmemberByDepart1(Model model) {
 		List<ShoppingBean> st = service.getALLShoppingType();
-				model.addAttribute("shoppingType", st);
-		
-		return "shopping/shoppingChange1";}
+		model.addAttribute("shoppingType", st);
+
+		return "shopping/shoppingChange1";
+	}
+
 	@RequestMapping("/shopping/SearchShoppingName/{searchWord}")
-	public String geSearchShoppingName(Model model,@PathVariable("searchWord") String searchWord) {	
-		System.out.println("==============================="+searchWord);
+	public String geSearchShoppingName(Model model, @PathVariable("searchWord") String searchWord) {
+		System.out.println("===============================" + searchWord);
 		List<ShoppingBean> st = service.getSearchShoppingNameProductrelatio(searchWord);
 		System.out.println(st.toString());
-				model.addAttribute("SearchShoppingName", st);
-		
-		return "shopping/shoppingChange1";}
-	
+		model.addAttribute("SearchShoppingName", st);
+
+		return "shopping/shoppingChange1";
+	}
+
 	@RequestMapping("/shopping/search/{searchWord}") // 模糊搜尋JSON
 	public ResponseEntity<List<ShoppingBean>> getSearchShoppingNameProductrelatioJson(Model model,
 			@PathVariable("searchWord") String searchWord, HttpServletRequest req) {
-		System.out.println("模糊搜尋JSON================"+searchWord);
+		System.out.println("模糊搜尋JSON================" + searchWord);
 		List<ShoppingBean> st = service.getSearchShoppingNameProductrelatio(searchWord);
 		ResponseEntity<List<ShoppingBean>> re = new ResponseEntity<>(st, HttpStatus.OK);
 		model.addAttribute("searchWord", st);
-		System.out.println("模糊搜尋JSON================"+st.toString());
-		
+		System.out.println("模糊搜尋JSON================" + st.toString());
+
 		return re;
 	}
 
@@ -110,7 +113,7 @@ public class ShoppingController {
 		model.addAttribute("products", beans);
 		return "shopping/allProducts";
 	}
-	
+
 	@GetMapping("/shopping/allProductsUpdateDelete") // 後台show出全部商品
 	public String allProductsUpdateDeletelist(Model model, HttpServletRequest req) {
 		List<ShoppingBean> beans = service.getAllProducts();
@@ -126,7 +129,7 @@ public class ShoppingController {
 		return "shopping/addProduct";
 	}
 
-	@PostMapping("/products/add") //新增一筆商品
+	@PostMapping("/products/add") // 新增一筆商品
 	public String processAddNewProductForm(@ModelAttribute("shoppingBean") ShoppingBean bb, BindingResult result,
 			Model model) {
 		MultipartFile productImage = bb.getProductImage();
@@ -203,7 +206,7 @@ public class ShoppingController {
 		return b;
 	}
 
-	@GetMapping("/shopping/sh/{id}")   
+	@GetMapping("/shopping/sh/{id}")
 	public String update(@PathVariable("id") Integer id, Model model) {
 		ShoppingBean shoppingBean = service.getshoppingId(id);
 		model.addAttribute(shoppingBean);
@@ -215,16 +218,15 @@ public class ShoppingController {
 			@PathVariable Integer id, HttpServletRequest request) {
 		ss.setShoppingId(id);
 		MultipartFile productImage = ss.getProductImage();
-			if (productImage.getSize() == 0) {
+		if (productImage.getSize() == 0) {
 			ShoppingBean original = service.getshoppingId(id);
 			ss.setShoppingProductImage(original.getShoppingProductImage());
 		} else {
 			String originalFilename = productImage.getOriginalFilename();
-			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) 
+			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1)
 				ss.setShoppingfileName(originalFilename);
-			}
-		
-		
+		}
+
 		if (productImage != null && !productImage.isEmpty()) {
 			try {
 				byte[] b = productImage.getBytes();
@@ -241,9 +243,9 @@ public class ShoppingController {
 	}
 
 	@RequestMapping("/shopping/sh1/{id}")
-	public String delete(@ModelAttribute("shoppingBean") ShoppingBean ss,@PathVariable("id") Integer id) {
+	public String delete(@ModelAttribute("shoppingBean") ShoppingBean ss, @PathVariable("id") Integer id) {
 		ss.setShoppingId(id);
-		System.out.println("刪除ID====================="+id);
+		System.out.println("刪除ID=====================" + id);
 		service.delete(id);
 		return "redirect:/shopping/allProductsUpdateDelete";
 	}
@@ -261,32 +263,29 @@ public class ShoppingController {
 		binder.registerCustomEditor(java.sql.Date.class, ce2);
 
 	}
-	
-	
+
 	@GetMapping("/shopping/AllProductsNewtoOld") // show出全部商品新到舊
 	public String AllProductsNewtoOld(Model model, HttpServletRequest req) {
 		List<ShoppingBean> beans = service.getAllProductsNewtoOld();
 		model.addAttribute("products", beans);
 		return "shopping/allProducts";
 	}
+
 	@GetMapping("/shopping/AllProductsPriceLowtoHigh") // show出全部商品價格低到高
 	public String AllProductsPriceLowtoHigh(Model model, HttpServletRequest req) {
 		List<ShoppingBean> beans = service.getAllProductsPriceLowtoHigh();
 		model.addAttribute("products", beans);
 		return "shopping/allProducts";
 	}
+
 	@GetMapping("/shopping/AllProductsPriceHightoLow") // show出全部商品價格高到低
 	public String AllProductsPriceHightoLow(Model model, HttpServletRequest req) {
 		List<ShoppingBean> beans = service.getAllProductsPriceHightoLow();
 		model.addAttribute("products", beans);
 		return "shopping/allProducts";
 	}
-	
-	
-	
-	
 
-@ModelAttribute("shoppingBean") //先抓取圖檔避免更新會有空值
+	@ModelAttribute("shoppingBean") // 先抓取圖檔避免更新會有空值
 	public void getShoppingId(@PathVariable(value = "id", required = false) Integer id, Model model) {
 		if (id != null) {
 			ShoppingBean shoppingBean = service.getshoppingId(id);
@@ -296,11 +295,10 @@ public class ShoppingController {
 			model.addAttribute("shoppingBean", shoppingBean);
 		}
 	}
-	
+
 	@ModelAttribute("AllShoppingType")
-	public List<ShoppingBean> getALLShoppingType(){
+	public List<ShoppingBean> getALLShoppingType() {
 		return service.getALLShoppingType();
 	}
-
 
 }

@@ -78,11 +78,11 @@
 				</div></div></div></div></div></div>
 			</c:otherwise>
 		</c:choose>
-		<div class='container' align="center">
-		<a class="btn btn-secondary btn-lg"
-					href="<c:url value='/'/> ">回首頁</a>
+<!-- 		<div class='container' align="center"> -->
+<!-- 		<a class="btn btn-secondary btn-lg" -->
+<%-- 					href="<c:url value='/'/> ">回首頁</a> --%>
 	
-		</div>
+<!-- 		</div> -->
 				
 	
 	
