@@ -11,14 +11,14 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div align='center'>
-		<div align='center'>
+	<div class="container" align='center'>
+		<div align='center' style="text-align: center;background-color:#dee2e6">
 			<h1>新增打卡紀錄</h1>
 			<hr>
 			<a href='memberPunch'>回前頁</a>
 		</div>
 		
-		<form:form modelAttribute="punch" action='saveInsertPunchTime'
+		<form:form modelAttribute="punch" action='memberSaveInsertPunchTime'
 			enctype='application/x-www-form-urlencoded' method='POST'>
 			<input type="hidden" name='memberName' value="${punch.memberName}"/>
 			<input type="hidden" name='memberNumber' value="${punch.memberNumber}"/>

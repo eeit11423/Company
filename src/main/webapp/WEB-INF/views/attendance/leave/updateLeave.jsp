@@ -30,17 +30,17 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div align='center'>
-		<h1 align='center'>查詢請假紀錄</h1>
-		<hr>
+	<div class="container" align='center' style="text-align: center">
+		<div align='center' style="text-align: center;background-color:#dee2e6">
+		<h1 align='center'>查詢請假紀錄</h1><hr>
 		<a href='../queryLeave'>回前頁</a>
-		<p>
+		</div>
 			<form:form class='center' action="../leave/update/${leave.leaveId}"
 				modelAttribute="leave" method="POST">
 				<input type="hidden" name="leaveId" value="${leave.leaveId}">
 				<input type="hidden" name="memberName" value="${leave.memberName}">
 				<input type="hidden" name="finalDecision" value="">
-				<Table>
+				<Table align='center'>
 					<TR>
 						<TD align="RIGHT">姓名：</TD>
 						<TD align="LEFT">${leave.memberName}</TD>

@@ -10,6 +10,7 @@
 <title>Products</title>
 </head>
 <body>
+<%-- <jsp:include page="/fragment/header.jsp" /> --%>
 <form method='POST'>
 	<input type='hidden' name='_method' value='DELETE'>
 </form>

@@ -11,22 +11,20 @@
 </head>
 <body onload="ShowTime()"	>
 	<jsp:include page="/fragment/header.jsp" />
-	<div class="container" style="text-align: center">
-		<h1>
-			請假系統
-			<hr>
-		</h1>
+	<div class="container" style="text-align: center;background-color:#dee2e6">
+		<h1>請假系統	</h1><hr>
 		<a href='<c:url value='/'/>'>返回首頁</a>
-		<h4>使用者：${memberleave[0].memberName}</h4><div id="showbox"></div>
-	</div>
-	<div align='center'>
-		<button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">出勤管理</button>
+		<h4>使用者：${memberleave[0].memberName}</h4>
+		
+		<div align='center'><button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">出勤管理</button></div>
 		<div class="container" align='center' style="text-align: center">
-			<button onclick="location.href='memberInsertLeave'">新增紀錄</button>
+		<button onclick="location.href='memberInsertLeave'">新增紀錄</button>
 		</div>
 		選擇年月份：<select id='dateselect'></select>
 		<!-- 顯示書籍資料的區域 -->
 			<hr>
+	</div>
+	<div align='center'>
 		<div align='center' id='tablearea' style='height: 150px;'
 			class='center'></div>
 		<script>
@@ -59,10 +57,10 @@
 						displayPagePunchTime(xhr.responseText);
 					}
 				}
-				xhr2.open("GET","<c:url value='queryLeaveData'/>?memberNumber="+ ${memberleave[0].memberNumber} 
-					+ "&selectdate=" + selectdate, true);
+				xhr.open("GET","<c:url value='queryLeaveData'/>?memberNumber="+ ${memberleave[0].memberNumber}
+					+ "&selectdate=all", true);
 				// 			// 送出請求						
-				xhr2.send();
+				xhr.send();
 			}
 			
 			selectElement.onchange = function() {

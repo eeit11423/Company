@@ -10,17 +10,17 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div class="container" style="text-align: center">
+	<div class="container" style="text-align: center;background-color:#dee2e6">
 		<h1>
 			查詢請假紀錄
 			<hr>
 		</h1>
 		<a href='memberLeave'>回前頁</a>
-	</div>
-	<div align='center'>
+		<a href='../punch/queryPunchTime'>出勤查詢</a>
 		請挑選姓名: <select id='membername'></select> 選擇年月份：<select id='dateselect'></select>
+	</div>
 		<hr>
-		<hr>
+	<div align='center'>
 		<!-- 顯示書籍資料的區域 -->
 		<div align='center' id='tablearea' style='height: 150px;'
 			class='center'></div>
@@ -31,6 +31,7 @@
 			var detail = document.getElementById('detail'); // 取出書籍資料的div標籤
 			var xhr = new XMLHttpRequest(); // 讀取書籍表格內的書籍資料
 			var xhr2 = new XMLHttpRequest(); // 讀取單一書籍的資料
+			var xhr3 = new XMLHttpRequest(); // 讀取單一書籍的資料
 			var memberData = [];
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == 4 && xhr.status == 200) {
@@ -60,6 +61,18 @@
 				var option2 = new Option(dateselect[i]);
 				selectElement2.options[selectElement2.options.length] = option2;
 			}
+			
+			window.onload = function(){
+				xhr3.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr3.status == 200) {
+						displayPagePunchTime(xhr3.responseText);
+					}
+				}
+				xhr3.open("GET","<c:url value='queryLeaveData'/>?memberNumber=all&selectdate=all", true);
+				// 			// 送出請求						
+				xhr3.send();
+			}
+			
 			selectElement.onchange = function() {
 				xhr2.onreadystatechange = function() {
 					if (xhr2.readyState == 4 && xhr2.status == 200) {

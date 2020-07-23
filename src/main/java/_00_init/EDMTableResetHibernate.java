@@ -179,6 +179,7 @@ public class EDMTableResetHibernate {
 			
 //			 由"data/punch.dat"逐筆讀入punch表格內的初始資料
 			try (FileReader fr = new FileReader("data/Punch.txt "); BufferedReader br = new BufferedReader(fr);) {
+				count = 0;
 				while ((line = br.readLine()) != null) {
 					if (line.startsWith(UTF8_BOM)) {
 						line = line.substring(1);
@@ -195,7 +196,8 @@ public class EDMTableResetHibernate {
 					punch.setPunchWorkOn(Timestamp.valueOf(token[5]));
 					punch.setPunchWorkOff(Timestamp.valueOf(token[6]));
 					session.save(punch);
-					System.out.println("新增一筆punch資料成功");
+					count++;
+					System.out.println("新增" + count +"筆punch資料成功");
 				}
 				session.flush();
 				System.out.println("punch 資料新增成功");

@@ -58,7 +58,7 @@ public class Punch {
 		this.punchLate = punchLate;
 	}
 
-	public Punch(String memberNumber, String memberName, String memberDepartment, int punchId, Date punchDate,
+	public Punch(String memberNumber, String memberName, String memberDepartment, Integer punchId, Date punchDate,
 			Timestamp punchWorkOn, Timestamp punchWorkOff, String punchLate, String punchEarly) {
 		super();
 		this.memberNumber = memberNumber;

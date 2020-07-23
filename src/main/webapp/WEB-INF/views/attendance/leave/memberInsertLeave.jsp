@@ -10,9 +10,9 @@
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
-	<div align='center'>
-		<div align='center'><h1>新增請假紀錄</h1>
-		<hr>
+	<div class="container" align='center'>
+		<div align='center' style="text-align: center;background-color:#dee2e6">
+		<h1>新增請假紀錄</h1><hr>
 		<a href='memberLeave'>回前頁</a>
 		</div>
 		<hr>
