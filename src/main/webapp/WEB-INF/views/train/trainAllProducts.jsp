@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <link rel="stylesheet" -->
-<!--     href="//netdna.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+<link rel="stylesheet"
+    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <title>Products</title>
 </head>
 <body>
-<jsp:include page="/fragment/header.jsp" />
+<%-- <jsp:include page="/fragment/header.jsp" /> --%>
 <form method='POST'>
 	<input type='hidden' name='_method' value='DELETE'>
 </form>

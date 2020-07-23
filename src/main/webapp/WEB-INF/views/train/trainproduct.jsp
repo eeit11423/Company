@@ -49,8 +49,8 @@
 				</p>
 				
                     
-                    <a class='deletelink' href="delete/${product.trainingId}">刪除</a>
-                    <a class='updatelink' href="update/${product.trainingId}">修改</a>
+<%--                     <a class='deletelink' href="delete/${product.trainingId}">刪除</a> --%>
+<%--                     <a class='updatelink' href="update/${product.trainingId}">修改</a> --%>
                     
 			</div>
 		</div>
