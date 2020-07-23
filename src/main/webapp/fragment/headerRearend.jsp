@@ -32,12 +32,14 @@
         </button>
         </div>
     </nav>
+    
     </div>
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper" >
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+        
 <!--           <li class="nav-item"> -->
 <!--             <a class="nav-link" href="index.html"> -->
 <!--               <i class="ti-shield menu-icon"></i> -->
@@ -57,7 +59,7 @@
 <!--                 <li class="nav-item"> <a class="nav-link" href="連結"></a></li> -->
               </ul>
             </div>
-          
+             	
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="ti-palette menu-icon"></i>
@@ -70,6 +72,7 @@
                 <li class="nav-item"> <a class="nav-link" href="連結">商品2</a></li>
               </ul>
             </div>
+            
           </li>
           <li class="nav-item">
             <a class="nav-link" href="連結">
@@ -118,7 +121,9 @@
             </a>
           </li>
         </ul>
+     
       </nav>
+
 </body>
 <script src="${pageContext.request.contextPath}/dist/base/vendor.bundle.base.js"></script>
   <script src="${pageContext.request.contextPath}/dist/chart.js/Chart.min.js"></script>

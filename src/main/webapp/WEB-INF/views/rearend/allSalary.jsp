@@ -29,11 +29,11 @@
 </head>
 <body>
 <jsp:include page="/fragment/headerRearend.jsp" />
-	
-	<hr
-		style="height: 1px; border: none; color: #333; background-color: #333;">
-	<section class="container">
-		<div class="row">
+	<div class="main-panel">
+<!--     <div class="content-wrapper"> -->
+<!-- 	<hr style="height: 1px; border: none; color: #333; background-color: #333;"> -->
+<!-- 	<section class="container"> -->
+		<div class="row">	
 <%-- 			<c:forEach var='ga' items='${graph}'> --%>
 
 
@@ -56,7 +56,7 @@
     <button id="inverted">橫條形統計圖</button>
     <button id="polar">圓餅圖</button>
     <figure class="highcharts-figure">
-    <div id="container"></div>
+    <div id="container" style="height:600px"></div>
     <p class="highcharts-description">
      
     </p>
@@ -66,7 +66,8 @@
 
 </figure>
 </figure>
-	</section>
+
+	</div>
 	<script>
 // 	var members = "${graph}";
 // 	var mem = "${graph[0].getMemberName()}";
@@ -178,7 +179,7 @@ xhr.onreadystatechange = function() {
 var member_S = [];
 var member_L = [];
 var member_R = [];
-
+var member_D = [];
 var Lsum=0;
 var Rsum=0;
 var Ssum=0;
@@ -190,6 +191,7 @@ xhr2.onreadystatechange = function() {
 		var members1 = JSON.parse(xhr2.responseText);
 		for (var d in members1) {
 				if(members1[d][0]!="董事長"){
+					 member_D.push(members1[d][0])
 					 member_S.push(parseInt(members1[d][1]));
 					 member_L.push(parseInt(members1[d][2]));
 					 member_R.push(parseInt(members1[d][3]));
@@ -211,38 +213,98 @@ xhr2.onreadystatechange = function() {
 		console.log(Ssum);
 		//console.log(member_S);
 	 // Build the chart
-
-	    Highcharts.chart('container', {
-	        chart: {
-	            type: 'pie',
-	            options3d: {
-	                enabled: true,
-	                alpha: 45
-	            }
-	        },
-	        title: {
-	            text: '男女人數比例分佈圖'
-	        },
-	        subtitle: {
-	            text: ''
-	        },
-	        plotOptions: {
-	            pie: {
-	                innerSize: 100,
-	                depth: 45
-	            }
-	        },
-	        series: [{
-	            name: 'Delivered amount',
-	            colors: [ '#00FF00', '#ACD6FF', '#FFC0CB'],
-	            data: [
-	                ['總人數', Ssum],
-	                ['男生', Lsum],
-	                ['女生', Rsum],
+		
+		Highcharts.chart('container', {
+		    title: {
+		        text: '部門男女人數'
+		    },
+		    xAxis: {
+		        categories: member_D
+		    },
+		    labels: {
+		        items: [{
+		           
+		            style: {
+		                left: '50px',
+		                top: '18px',
+		                color: ( // theme
+		                    Highcharts.defaultOptions.title.style &&
+		                    Highcharts.defaultOptions.title.style.color
+		                ) || 'black'
+		            }
+		        }]
+		    },
+		    series: [ {
+		        type: 'column',
+		        name: '總人數',
+		        data: member_S
+		    },{
+		        type: 'column',
+		        color:'#058DC7',
+		        name: '男生',
+		        data: member_L
+		    },  {
+		        type: 'column',
+		        color:'red',
+		        name: '女生',
+		        data: member_R
+		    },
+		 {
+		        type: 'pie',
+		        name: '',
+		        data: [{
+		            name: '男生總人數',
+		            y: 13,
+		            color: Highcharts.getOptions().colors[0] // Jane's color
+		        }, {
+		            name: '女生總人數',
+		            y: 23,
+		            color: Highcharts.getOptions().colors[1] // John's color
+		        }, {
+		            name: '總人數',
+		            y: 19,
+		            color: Highcharts.getOptions().colors[2] // Joe's color
+		        }],
+		        center: [800,50],
+		        size: 200,
+		        
+		        showInLegend: false,
+		        dataLabels: {
+		            enabled: false
+		        }
+		    }]
+		});
+// 	    Highcharts.chart('container', {
+// 	        chart: {
+// 	            type: 'pie',
+// 	            options3d: {
+// 	                enabled: true,
+// 	                alpha: 45
+// 	            }
+// 	        },
+// 	        title: {
+// 	            text: '男女人數比例分佈圖'
+// 	        },
+// 	        subtitle: {
+// 	            text: ''
+// 	        },
+// 	        plotOptions: {
+// 	            pie: {
+// 	                innerSize: 100,
+// 	                depth: 45
+// 	            }
+// 	        },
+// 	        series: [{
+// 	            name: 'Delivered amount',
+// 	            colors: [ '#00FF00', '#ACD6FF', '#FFC0CB'],
+// 	            data: [
+// 	                ['總人數', Ssum],
+// 	                ['男生', Lsum],
+// 	                ['女生', Rsum],
 	      
-	            ]
-	        }]
-	    });
+// 	            ]
+// 	        }]
+// 	    });
 		
 			
  		}

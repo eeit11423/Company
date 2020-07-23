@@ -3,7 +3,9 @@ package company.rearend.service;
 import java.util.List;
 import java.util.Map;
 
+import company.activity.model.Join;
 import company.member.model.MemberBean;
+import company.rearend.model.JoinEX;
 import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
@@ -18,4 +20,6 @@ public interface GraphService {
 	List<MemberBean>  getSalary(String sal);
 	Map<Integer,ShoppingBean> getShoppingType(String Type);
 	Map<Integer, OrderCount> getshopping(String sho );
+	List<Join> getActity(String Actity);
+
 }

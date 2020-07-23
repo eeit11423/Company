@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import company.activity.model.Join;
 import company.member.model.MemberBean;
 import company.rearend.service.GraphService;
 import company.shopping.model.OrderCount;
@@ -80,7 +81,15 @@ public class GraphController {
 		return "rearend/rearEnd";
 	}
 	
-	
+	@GetMapping("/rearend/allActivity_ajax")
+	public ResponseEntity<List<Join>>  Activity_ajax() {
+		System.out.println("=========================================================b");
+		//List<MemberBean> beans =graphservice.getAllSalary();
+		//model.addAttribute("graph", beans);
+		List<Join> products = graphservice.getActity(null);
+		ResponseEntity<List<Join>> re = new ResponseEntity<>(products, HttpStatus.OK);
+		return re;
+	}//會員資料AJEX
 	
 	
 	@GetMapping("/rearend/Salaryex")

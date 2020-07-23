@@ -10,8 +10,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import company.activity.model.Join;
 import company.member.model.MemberBean;
 import company.rearend.dao.GraphDao;
+import company.rearend.model.JoinEX;
 import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
@@ -160,5 +162,42 @@ public class GraphDaoImpl implements GraphDao {
 		}
 		return map;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Join> getActity(String Actity) {
+		String hql = "SELECT  activityName,count(*) as countTest FROM Join  GROUP BY activityId,activityName ORDER BY countTest DESC";
+		Session session = factory.getCurrentSession();
+		List<Join> list2 = session.createQuery(hql).setMaxResults(5).getResultList();
+	
+		return list2;
+	}
+
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public Map<Integer, JoinEX> getActity(String Actity) {
+//		String hql = "SELECT  activityName,count(*) as countTest FROM Join  GROUP BY activityId,activityName ORDER BY countTest DESC";
+//	Session session = factory.getCurrentSession();
+//	
+//	List<Object[]> listO = session.createQuery(hql).setMaxResults(5).getResultList();
+//	
+//	Map<Integer, JoinEX> map = new HashMap();
+//
+//	int n = 0;
+//	for (Object[] object : listO) {
+//		n++;
+//		JoinEX order = new JoinEX();
+//		order.setActivityName(object[0].toString());
+//		order.setCountTest(object[1].toString());
+//		
+//		
+//		System.out.println(object[0].toString());
+//		System.out.println(object[1].toString());
+//	
+//		map.put(n, order);
+//		
+//	}
+//	return map;
+//	} 普通版 熱門活動
 
 }

@@ -8,9 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import company.activity.model.Join;
 import company.member.model.MemberBean;
 import company.rearend.dao.GraphDao;
+import company.rearend.model.JoinEX;
 import company.rearend.service.GraphService;
 import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
@@ -71,6 +72,11 @@ public class GraphServiceImpl implements GraphService {
 	@Override
 	public Map<Integer, OrderCount> getshopping(String sho) {
 		return graphDao.getshopping(sho);
+	}
+
+	@Override
+	public List<Join> getActity(String Actity) {
+		return graphDao.getActity(Actity);
 	}
 	
 }
