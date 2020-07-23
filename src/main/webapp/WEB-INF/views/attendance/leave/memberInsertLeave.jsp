@@ -13,7 +13,7 @@
 	<div class="container" align='center'>
 		<div align='center' style="text-align: center;background-color:#dee2e6">
 		<h1>新增請假紀錄</h1><hr>
-		<a href='memberLeave'>回前頁</a>
+		<a href='memberLeave'>回前頁</a>  <a href='../punch/memberPunch'>出勤系統</a>
 		</div>
 		<hr>
 		<form:form action="memberSaveInsertLeave" modelAttribute="leave" method='POST'>
@@ -33,7 +33,7 @@
 			</tr>
 			<tr style='height: 40px'>	
 				<td align='center'>日期:</td>
-				<td><form:input path='leaveDate' /></td>
+				<td><form:input type='date' path='leaveDate' /></td>
 			</tr>
 			<tr style='height: 40px'>	
 				<td align='center'>開始時間:</td>
@@ -60,7 +60,7 @@
 			</tr>
 			<tr style='height: 40px'>	
 				<td colspan='3' align='center'>
-					<input type='submit' value='提交'> 
+					<input type='submit' class="btn btn-info" value='提交'> 
 					<input type='reset' value='還原'> 
 				</td>
 			</tr>

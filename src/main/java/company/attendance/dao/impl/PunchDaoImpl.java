@@ -99,7 +99,7 @@ public class PunchDaoImpl implements PunchDao {
 	public Timestamp getWorkOnTime(Integer memberId) {
 		Session session = factory.getCurrentSession();
 		MemberBean memberBean = session.get(MemberBean.class, memberId);
-		String hql = "FROM Punch Where memberName = :name and DATEPART(mm,punchDate) = :month and DATEPART(dd,punchDate) = :day";
+		String hql = "Select punchWorkOn FROM Punch Where memberName = :name and DATEPART(mm,punchDate) = :month and DATEPART(dd,punchDate) = :day";
 		Timestamp timeWorkOn = (Timestamp) session.createQuery(hql)
 												  .setParameter("name", memberBean.getMemberName())
 												  .setParameter("month", todayMonth)
@@ -172,7 +172,7 @@ public class PunchDaoImpl implements PunchDao {
 			}else if (punch.getPunchWorkOn().getHours() ==9 && punch.getPunchWorkOn().getMinutes() > 0 || punch.getPunchWorkOn().getSeconds() >0) {
 				
 			}
-			if (punch.getPunchWorkOff().getHours() <= 18 ) {
+			if (punch.getPunchWorkOff().getHours() < 18 ) {
 				punchEarly = "早退";
 			}
 			punch.setPunchLate(punchLate);
@@ -250,6 +250,107 @@ public class PunchDaoImpl implements PunchDao {
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
+	public List<Punch> queryPunchTimeByPunchLate(String memberNumber, String selectdate, String punchLate) {
+		Session session = factory.getCurrentSession();
+		String timesplit[] = selectdate.split("-");
+		System.out.println(memberNumber);
+		System.out.println(selectdate);
+		System.out.println(punchLate);
+		
+		if (timesplit.length == 1) {                     //所有時間
+			if(memberNumber.equals("all")) {				//所有員工
+				System.out.println("所有員工-所有時間");
+				String hql = "FROM Punch where punchLate = :punchLate Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("punchLate", punchLate)
+						.getResultList();
+				return listTarget;
+			}else {
+				System.out.println("指定員工-所有時間");		//指定員工
+				String hql = "FROM Punch WHERE memberNumber = :number and punchLate = :punchLate Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.setParameter("punchLate", punchLate)
+						.getResultList();
+				return listTarget;
+			}
+		}else {											 //指定時間
+			if(memberNumber.equals("all")){					//所有員工
+				System.out.println("所有員工-指定時間");
+				String hql = "FROM Punch WHERE DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm and punchLate = :punchLate Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.setParameter("punchLate", punchLate)
+						.getResultList();
+				return listTarget;
+			}else{											//指定員工
+				System.out.println("指定員工-指定時間");
+				String hql = "FROM Punch WHERE memberNumber = :number and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm and punchLate = :punchLate Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.setParameter("punchLate", punchLate)
+						.getResultList();
+				return listTarget;
+				}
+		}
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Punch> queryPunchTimeByPunchEarly(String memberNumber, String selectdate, String punchEarly) {
+		Session session = factory.getCurrentSession();
+		String timesplit[] = selectdate.split("-");
+		System.out.println(memberNumber);
+		System.out.println(selectdate);
+		System.out.println(punchEarly);
+		
+		if (timesplit.length == 1) {                     //所有時間
+			if(memberNumber.equals("all")) {				//所有員工
+				System.out.println("所有員工-所有時間");
+				String hql = "FROM Punch where punchEarly = :punchEarly Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("punchEarly", punchEarly)
+						.getResultList();
+				return listTarget;
+			}else {
+				System.out.println("指定員工-所有時間");		//指定員工
+				String hql = "FROM Punch WHERE memberNumber = :number and punchEarly = :punchEarly Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.setParameter("punchEarly", punchEarly)
+						.getResultList();
+				return listTarget;
+			}
+		}else {											 //指定時間
+			if(memberNumber.equals("all")){					//所有員工
+				System.out.println("所有員工-指定時間");
+				String hql = "FROM Punch WHERE DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm and punchEarly = :punchEarly Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.setParameter("punchEarly", punchEarly)
+						.getResultList();
+				return listTarget;
+			}else{											//指定員工
+				System.out.println("指定員工-指定時間");
+				String hql = "FROM Punch WHERE memberNumber = :number and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm and punchEarly = :punchEarly Order By punchDate";
+				List<Punch> listTarget = session.createQuery(hql)
+						.setParameter("number", memberNumber)
+						.setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1])
+						.setParameter("punchEarly", punchEarly)
+						.getResultList();
+				return listTarget;
+			}
+		}
+	}
+	
+	
+	@Override
 	public Punch editPunchtimeFromPunchId(int punchId) {
 		Session session = factory.getCurrentSession();
 		Punch punchtime = session.get(Punch.class, punchId);
@@ -266,7 +367,7 @@ public class PunchDaoImpl implements PunchDao {
 		}else if (punch.getPunchWorkOn().getHours() ==9 && punch.getPunchWorkOn().getMinutes() > 0 || punch.getPunchWorkOn().getSeconds() >0) {
 			
 		}
-		if (punch.getPunchWorkOff().getHours() <= 18 ) {
+		if (punch.getPunchWorkOff().getHours() < 18 ) {
 			punchEarly = "早退";
 		}
 		punch.setPunchLate(punchLate);

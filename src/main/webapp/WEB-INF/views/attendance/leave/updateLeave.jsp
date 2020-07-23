@@ -66,8 +66,8 @@
 <!-- 							<input type="submit" value="更新" name='updateBtn' -->
 <%-- 							onclick="return confirmUpdate('${leave.memberName}');">  --%>
 <%-- 							<input type="submit" value="刪除" name='deleteBtn' onclick="return confirmDelete('${leave.memberName}');"> --%>
-							<input type='submit' value='提交'>
-							<input type='reset' value='還原'>
+														<input type='submit' class="btn btn-info" value='提交'>
+							<input type='reset' class="btn btn-outline-secondary "value='還原'>
 						</TD>
 							
 					</TR>

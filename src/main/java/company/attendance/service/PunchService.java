@@ -19,6 +19,10 @@ public interface PunchService {
 	Timestamp getWorkOnTime(Integer memberId);
 	
 	List<Punch> queryPunchTime(String memberNumber, String selectdate) ;
+	
+	List<Punch> queryPunchTimeByPunchLate(String memberNumber, String selectdate, String punchLate) ;
+	
+	List<Punch> queryPunchTimeByPunchEarly(String memberNumber, String selectdate, String punchEarly) ;
 
 	List<MemberBean> getAllMember();
 

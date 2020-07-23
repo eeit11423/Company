@@ -51,6 +51,16 @@ public class PunchServiceImpl implements PunchService {
 	}
 	
 	@Override
+	public List<Punch> queryPunchTimeByPunchEarly(String memberNumber, String selectdate, String punchEarly) {
+		return dao.queryPunchTimeByPunchEarly(memberNumber, selectdate, punchEarly);
+	}
+	
+	@Override
+	public List<Punch> queryPunchTimeByPunchLate(String memberNumber, String selectdate, String punchLate) {
+		return dao.queryPunchTimeByPunchLate(memberNumber, selectdate, punchLate);
+	}
+	
+	@Override
 	public List<MemberBean> getAllMember(){
 		return dao.getAllMember();
 	}

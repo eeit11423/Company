@@ -6,6 +6,20 @@
 
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui-1.10.4.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui-timepicker-addon.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#mydate').datetimepicker({
+            "dateFormat": "yy-mm-dd",
+            "timeFormat": "HH:mm"
+        });
+        //$('#mydate').timepicker({"timeFormat": "HH:mm"}); //只有 時、分、秒 用 timepicker
+    });
+</script>
 <title>新增打卡紀錄</title>
 </head>
 <body>
@@ -35,7 +49,7 @@
 				</tr>
 				<tr style='height: 40px'>
 					<td align='center'>日期:</td>
-					<td><form:input type="date" path='punchDate' />
+					<td><form:input type="text" id="mydate" path='punchDate' />
 					<form:errors path='punchDate' cssClass="error"/></td>
 				</tr>
 				<tr style='height: 40px'>
@@ -49,9 +63,8 @@
 					<form:errors path='punchWorkOff' cssClass="error"/></td>
 				</tr>
 				<tr style='height: 40px'>
-					<td colspan='3' align='center'>
-						<input type='submit' class="btn btn-info" value='提交'>
-						<input type='reset' class="btn btn-outline-secondary"  value='還原'></td>
+					<td colspan='3' align='center'><input type='submit' value='提交'>
+						<input type='reset' value='還原'></td>
 				</tr>
 			</table>
 		</form:form>

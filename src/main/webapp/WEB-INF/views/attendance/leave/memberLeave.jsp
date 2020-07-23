@@ -13,10 +13,12 @@
 	<jsp:include page="/fragment/header.jsp" />
 	<div class="container" style="text-align: center;background-color:#dee2e6">
 		<h1>請假系統	</h1><hr>
-		<a href='<c:url value='/'/>'>返回首頁</a>
+		<button onclick="location.href='../../'">返回首頁</button>
+		<button onclick="location.href='../punch/memberPunch'">請假系統</button>
+		<button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">後台管理</button>
 		<h4>使用者：${memberleave[0].memberName}</h4>
 		
-		<div align='center'><button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">出勤管理</button></div>
+		<div align='center'><button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">後台管理</button></div>
 		<div class="container" align='center' style="text-align: center">
 		<button onclick="location.href='memberInsertLeave'">新增紀錄</button>
 		</div>
@@ -112,28 +114,37 @@
 				tablearea.innerHTML = content;
 			}
 
+			function checkNull(String){
+				if (String == null){
+					return '';
+				}else{
+					return String;
+				}
+				
+			}
+			
 			function timeStampToDate(date) {
 				var datetime = new Date();
 				datetime.setTime(date);
 				var year = datetime.getFullYear();
 				var month = datetime.getMonth() + 1;
-				var date = datetime.getDate();
-				var hour = datetime.getHours();
-				var minute = datetime.getMinutes();
-				var second = datetime.getSeconds();
-				var mseconds = datetime.getMilliseconds();
+				var date = (datetime.getDate()<10 ? '0' : '') + datetime.getDate();
 				var date = year + "-" + month + "-" + date;
 				return date;
 			};
 
 			function timeStampToTime(time) {
-				var datetime = new Date();
-				datetime.setTime(time);
-				var hour = datetime.getHours();
-				var minute = datetime.getMinutes();
-				var second = datetime.getSeconds();
-				var time = hour + ":" + minute + ":" + second;
-				return time;
+				if (time != null){					
+					var datetime = new Date();
+					datetime.setTime(time);
+					var hour = (datetime.getHours()<10 ? '0' : '') +  datetime.getHours();
+					var minute = (datetime.getMinutes()<10 ? '0' : '') +  datetime.getMinutes();
+					var second = (datetime.getSeconds()<10 ? '0' : '') +  datetime.getSeconds();
+					var time = hour + ":" + minute + ":" + second;
+					return time;
+				}else{
+					return '';
+				}
 			}
 		</script>
 	</div>

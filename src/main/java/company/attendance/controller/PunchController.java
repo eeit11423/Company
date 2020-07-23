@@ -171,19 +171,38 @@ public class PunchController {
 	public ResponseEntity<Map<String, Object>> queryPunchTime(
 			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
 			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate, Model model){ 
-//		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
-//		System.out.println(memberBean.getMemberAdmin());
-//		if (memberBean.getMemberAdmin().equals("s")) {
 			List<Punch> listTarget = service.queryPunchTime(memberNumber, selectdate);
 			Map<String, Object> map =  new HashMap<>();
 			map.put("punchtimes", listTarget);
 		
 			ResponseEntity<Map<String, Object>> re = new ResponseEntity<>(map, HttpStatus.OK);
 			return re;
-//		}else {
-//			System.out.println("此身分無法使用管理功能");
-//			return "redirect:/attendance/punch/memberPunch";
-//		}
+	}
+	
+	@GetMapping("/queryPunchTimeDataByPunchLate")
+	public ResponseEntity<Map<String, Object>> queryPunchTimeByPunchLate(
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate,
+			@RequestParam(value="punchLate", defaultValue = "遲到", required = false) String punchLate, Model model){ 
+		List<Punch> listTarget = service.queryPunchTimeByPunchLate(memberNumber, selectdate, punchLate);
+		Map<String, Object> map =  new HashMap<>();
+		map.put("punchtimes", listTarget);
+		
+		ResponseEntity<Map<String, Object>> re = new ResponseEntity<>(map, HttpStatus.OK);
+		return re;
+	}
+	
+	@GetMapping("/queryPunchTimeDataByPunchEarly")
+	public ResponseEntity<Map<String, Object>> queryPunchTimeByPunchEarly(
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate,
+			@RequestParam(value="punchEarly", defaultValue = "早退", required = false) String punchEarly, Model model){ 
+		List<Punch> listTarget = service.queryPunchTimeByPunchEarly(memberNumber, selectdate, punchEarly);
+		Map<String, Object> map =  new HashMap<>();
+		map.put("punchtimes", listTarget);
+		
+		ResponseEntity<Map<String, Object>> re = new ResponseEntity<>(map, HttpStatus.OK);
+		return re;
 	}
 	
 	@GetMapping(value="/punchTimeEdit/{punchId}", produces= {"text/html"})

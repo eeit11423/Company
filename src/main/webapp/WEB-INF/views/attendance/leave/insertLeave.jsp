@@ -37,7 +37,7 @@
 			</tr>
 			<tr style='height: 40px'>	
 				<td align='center'>日期:</td>
-				<td><form:input path='leaveDate' /></td>
+				<td><form:input type='date' path='leaveDate' /></td>
 			</tr>
 			<tr style='height: 40px'>	
 				<td align='center'>開始時間:</td>
@@ -64,8 +64,8 @@
 			</tr>
 			<tr style='height: 40px'>	
 				<td colspan='3' align='center'>
-					<input type='submit' value='提交'> 
-					<input type='reset' value='還原'> 
+							<input type='submit' class="btn btn-info" value='提交'>
+							<input type='reset' class="btn btn-outline-secondary "value='還原'>
 				</td>
 			</tr>
 			</table>
