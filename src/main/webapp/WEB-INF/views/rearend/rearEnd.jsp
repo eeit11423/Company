@@ -231,9 +231,26 @@
           </div>
 
         </div>
-        <!-- partial -->
+ <script>
+ 
+ xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var members = JSON.parse(xhr.responseText);
+			for (var aa in members) {
+				if(members[aa][0]!="董事長"){
+				member_Department.push(members[aa][0]);
+				member_Salary.push(parseInt(members[aa][1]));
+			
+				}
+			}
+			}
+			}
+ </script>
 
-    <!-- page-body-wrapper ends -->
+ 
+ 
+ 
+ 
   <!-- plugins:js -->
   <script src="${pageContext.request.contextPath}/dist/base/vendor.bundle.base.js"></script>
   <!-- endinject -->

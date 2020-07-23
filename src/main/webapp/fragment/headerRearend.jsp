@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +41,7 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+<<<<<<< HEAD
         
 <!--           <li class="nav-item"> -->
 <!--             <a class="nav-link" href="index.html"> -->
@@ -46,6 +49,17 @@
 <!--               <span class="menu-title">曲線圖</span> -->
 <!--             </a> -->
 <!--           </li> -->
+=======
+          <li class="nav-item">
+           <i class="menu-arrow"></i>
+            <a class="nav-link" href="${pageContext.request.contextPath}/">
+     <i class="ti-palette menu-icon"></i>
+              <span class="menu-title">回首頁</span>
+              <i class="menu-arrow"></i>        
+            
+            </a>
+          </li>
+>>>>>>> e1008f63a4e8f69e3efcb006c5c57351c41dad71
            
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -68,8 +82,8 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="連結">商品1</a></li>
-                <li class="nav-item"> <a class="nav-link" href="連結">商品2</a></li>
+                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/products/add">新增產品資料</a></li>
+                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/shopping/allProductsUpdateDelete">後台修改編輯產品資料</a></li>               
               </ul>
             </div>
             
