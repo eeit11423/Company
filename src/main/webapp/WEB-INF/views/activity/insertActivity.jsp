@@ -29,11 +29,11 @@
 		<br>
 	 	<tr>
 	      <td>活動名稱：<br>&nbsp;</td>
-	   	  <td width='360'><form:input path='activityTitle'/><br>&nbsp;
+	   	  <td width='360'><form:input path='activityTitle' id="actTitle"/><br>&nbsp;
 	   	   <form:errors path="activityTitle" cssClass="error"/>
 	   	  </td>
 	   	  <td>簡介：<br>&nbsp;</td>
-		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	
+		  <td  width='360'><form:input path='activitySubtitle' id="actSubtitle"/><br>&nbsp;	
 		      <form:errors path='activitySubtitle' cssClass="error"/>
 		  </td>
 	   </tr>
@@ -45,7 +45,7 @@
 	   	  	${activity.activityTitle}<br>&nbsp;
 	   	  </td>
 	   	  <td>簡介：<br>&nbsp;</td>
-		  <td  width='360'><form:input path='activitySubtitle' /><br>&nbsp;	
+		  <td  width='360'><form:input path='activitySubtitle' id="actSubtitle"/><br>&nbsp;	
 		      <form:errors path='activitySubtitle' cssClass="error"/>
 		  </td>
 	   </tr>
@@ -58,7 +58,7 @@
 <!-- 		  </td> -->
 		  <td>內容：<br>&nbsp;</td>
 	      <td  colspan="3">
-	      	<form:textarea path="content" cols="90"/><br>&nbsp;	
+	      	<form:textarea path="content" cols="90" id="actContent"/><br>&nbsp;	
 		      <form:errors path='content' cssClass="error"/>
 		  </td>
 	   </tr>
@@ -110,14 +110,15 @@
 	   <tr>
 	   <td>報名人數上限：<br>&nbsp;</td>
 	   	  <td>
-	   	  	 <form:input path="joinNum"/><br>&nbsp;	
+	   	  	 <form:input path="joinNum" id="actJoin"/><br>&nbsp;	
 		      <form:errors path='joinNum' cssClass="error"/>
 	   	  </td>
 	    <td>
 	      <input type='submit' class="btn btn-info" value=" 送出活動資料  " ><br>&nbsp;
         </td>
         <td>
-        <a class="btn btn-outline-secondary" href="<c:url value='/activity/index' />"> 取消並返回活動系統 </a>
+        <a class="btn btn-outline-secondary" id="demobtn"> DEMO </a>
+        <a class="btn btn-outline-secondary" href="<c:url value='/activity/index' />"> 取消 </a>
         <br>&nbsp;</td>
 	   </tr>
 	</Table>
@@ -128,5 +129,19 @@
 <footer class="bg-secondary text-white" align='center' style="font-size:20px">
 © Copyright 2020
 </footer>
+
+<!-- 一鍵的語法 -->
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			$('#demobtn').click(function() {
+				 $("#actTitle").val("咖啡午聚");
+				 $("#actSubtitle").val("星X客有買一送一");
+				 $("#actContent").val("109/8/3 15:00 樓下星X克門口集合");
+				 $("#actJoin").val("5");
+	            
+			});
+		})
+	</script>
+
 </body>
 </html>
