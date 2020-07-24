@@ -5,7 +5,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
-
+<style type="text/css">
+   span.error {
+	color: red;
+	display: inline-block;
+	font-size: 10pt;
+}
+</style>
 <meta charset="UTF-8">
 <script>
 
@@ -31,7 +37,7 @@
 
 	}
 	
-	
+
 </script>
 
 
@@ -39,7 +45,7 @@
 
 <title>Products</title>
 </head>
-<body>
+<body >
 	<jsp:include page="/fragment/headerRearend.jsp" />
 <div class="main-panel" >
          <div class="content-wrapper">
@@ -64,6 +70,7 @@
 										<div class="col-md-6">
 											<form:input id="memberNumber" path="memberNumber" type='text'
 												value='${memberBean.memberNumber}' class="form-control input-md" />
+										     <form:errors path="memberNumber" cssClass="error"/>
 										</div>
 									</div>
 								
@@ -73,6 +80,7 @@
 										<div class="col-md-6">
 											<form:input type="text" id="shoppingname" path="shoppingname"
 												class="form-control input-md" />
+												<form:errors path="shoppingname" cssClass="error"/>
 										</div>
 									</div>
 
@@ -83,6 +91,7 @@
 											<form:input id="shoppingProductTotal"
 												path="shoppingProductTotal" type='text'
 												class="form-control input-md" />
+												<form:errors path="shoppingProductTotal" cssClass="error"/>
 										</div>
 									</div>
 
@@ -95,6 +104,7 @@
 											<form:input id="shoppingProductPrice"
 												path="shoppingProductPrice" type='text'
 												class="form-control input-md" />
+												<form:errors path="shoppingProductPrice" cssClass="error"/>
 										</div>
 									</div>
 									<div class="form-group row">
@@ -103,6 +113,7 @@
 										<div class="col-md-6">
 											<form:input id="productrelation" path="productrelation"
 												type='text' class="form-control input-md" />
+													<form:errors path="productrelation" cssClass="error"/>
 										</div>
 									</div>
 								
@@ -113,6 +124,7 @@
 											<form:input id="shoppingProductDiscount"
 												path="shoppingProductDiscount" type='text'
 												class="form-control input-md" />
+												<form:errors path="shoppingProductDiscount" cssClass="error"/>
 										</div>
 									</div>
 
@@ -123,6 +135,7 @@
 										<div class="col-md-6">
 											<form:input id="shoppingType" path="shoppingType" type='text'
 												class="form-control input-md" />
+													<form:errors path="shoppingType" cssClass="error"/>
 										</div>
 									</div>
 
@@ -132,6 +145,7 @@
 											for='productImage'> 照片上傳 </label>
 										<div class="col-md-6">
 											<form:input path="productImage" type='file' />
+											
 											
 										</div>
 						

@@ -43,6 +43,7 @@ import org.springframework.web.multipart.MultipartFile;
 import company.member.model.MemberBean;
 import company.shopping.model.ShoppingBean;
 import company.shopping.service.ShoppingService;
+import company.shopping.validate.CheckaddProductVaildator;
 
 @Controller
 @SessionAttributes({ "ShoppingCart", "memberBean", "shoppingBean", "AllShoppingType" })
@@ -132,6 +133,12 @@ public class ShoppingController {
 	@PostMapping("/products/add") // 新增一筆商品
 	public String processAddNewProductForm(@ModelAttribute("shoppingBean") ShoppingBean bb, BindingResult result,
 			Model model) {
+		
+		CheckaddProductVaildator validator=new CheckaddProductVaildator();
+		validator.validate(bb, result);
+		if (result.hasErrors()) {
+			return "shopping/addProduct";
+		} else {
 		MultipartFile productImage = bb.getProductImage();
 		String originalFilename = productImage.getOriginalFilename();
 		bb.setShoppingfileName(originalFilename);
@@ -149,7 +156,7 @@ public class ShoppingController {
 		bb.setShoppingDate(new Timestamp(System.currentTimeMillis()));
 
 		service.addProduct(bb);
-		return "redirect:/shopping/allProductsUpdateDelete";
+		return "redirect:/shopping/allProductsUpdateDelete";}
 	}
 
 	@GetMapping("/shopping/picture/{id}")
