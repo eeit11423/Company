@@ -26,6 +26,7 @@ public interface GraphDao {
 	Map<Integer, OrderCount> getshopping(String sho );
 	
 	List<Join> getActity(String Actity);
+	List<OrderItemBean> getshoppinAjex(String productNO1);
 	
 	//訊息
 	

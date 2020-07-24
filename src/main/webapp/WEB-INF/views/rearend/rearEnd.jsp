@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +10,12 @@
 <title>Insert title here</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  
    
  
 
 
-  <link rel="shortcut icon" href="/dist/images/favicon.png" />
+
 </head>
 <body>
 	<jsp:include page="/fragment/headerRearend.jsp" />
@@ -237,74 +237,87 @@
             </div>
           </div>
 <script>
- var xhr = new XMLHttpRequest();
-//  xhr.open("GET", "<c:url value='/rearend/allActivity_ajax' />", true);
-//  xhr.send();
-//  xhr.onreadystatechange = function() {
-// 		if (xhr.readyState == 4 && xhr.status == 200) {
-// 			var members = JSON.parse(xhr.responseText);
-// 			for (var aa in members) {
-				
-// 			}
-// 			console.log(members);
-		
-		
-// 		}
-// 		}
  function ck() {//
 	 var K = document.getElementById("mySelect").value;
-	 console.log(K=="Taoyuan");
+	
 	 var urlAJAX = "";
 	 if (K == "Taoyuan") {
-		 urlAJAX = "<c:url value='/rearend/allActivity_ajax' />";
-		// Taoyuan(urlAJAX);
+		 urlAJAX = "rearend/allActivity_ajax";
+		 Taoyuana(urlAJAX);
 	}else if(K == "Taipei"){
-		urlAJAX = "";
-		//Taipei(urlAJAX);
-	}
+ 		urlAJAX =  "rearend/allproductNO1_ajax";
+ 		Taipei(urlAJAX);
+ 	}
 	 
-// 	   var xhr = new XMLHttpRequest();
-	   var table = document.getElementById("tableaaajex");
-	  
-// 	   var roomName = tr.insertCell(2);
-		   
-		   
-	   $.ajax({//AJAX開始
-	          url : urlAJAX,
-	          type : "GET",
-	          success : function(data) 
-	          {
-	        	  var th = table.insertRow(0);
-// 	        	  var onename=insertCell(0)="活動名稱";
-// 	        	  var TWOname=insertCell(0)="報名人數";
-// 	        	  onename.innerHTML=data[0]
-// 	        	  TWOname.innerHTML=data[0]
-// 	        	  console.log(th);
-	        	  $("#tableaaajex  tr:not(:first)").html("");
-	        	  for (var i = 0; i < data.length; i++) {
-	        	
-// 	        		  $('table tbody').html('');。
-	        		  var tr = table.insertRow(1+i);
-	        		   var ActivityName = tr.insertCell(0);
-	        		   var ActivityNumber = tr.insertCell(1);
-	        		 // for (var j = 0; j < data[i].length; j++) {
-	        			  ActivityName.innerHTML=data[i][0];
-			        	  ActivityNumber.innerHTML=data[i][1];
-					//}
-	        		  
-				}
-	        	  
-	        	  
-	        	  
-	        	  
-	          },error: function(data) 
-	          {
-	              console.log('無法送出');
-	          }
-	      });
-	  }
+	 function Taoyuana(urlAJAX) {
+		 $("#tableaaajex  ").html("");
+			var table = document.getElementById("tableaaajex");
+			   $.ajax({//AJAX開始
+			          url : urlAJAX,
+			          type : "GET",
+			          success : function(data) 
+			          {
+			        	  var th = table.insertRow(0);
+			        	  var onename=th.insertCell(0);
+			        	  var TWOname=th.insertCell(1);
+			        	  onename.innerHTML="<b>活動名稱</b>"
+			        	  TWOname.innerHTML="<b>報名人數</b>"
+			        	  console.log(th);
+			        	  
+			        	  for (var i = 0; i < data.length; i++) {
+			        		  var tr = table.insertRow(1+i);
+			        		  var ActivityName = tr.insertCell(0);
+			        		  var ActivityNumber = tr.insertCell(1);
+			        		  ActivityName.innerHTML=data[i][0];
+					          ActivityNumber.innerHTML=data[i][1]; 
+							} 
+			          },error: function(data) {
+			              console.log('');
+			          	}
+			      });
+		}   
 
- 
+		function Taipei(urlAJAX) {
+			 console.log("FUCK");
+			var table = document.getElementById("tableaaajex");
+			 $.ajax({//AJAX開始
+		          url : urlAJAX,
+		          type : "GET",
+		          success : function(data) 
+		          {
+		        	  $("#tableaaajex").html("");
+		        	  var th = table.insertRow(0);
+		        	  var Taipeith=th.insertCell(0);
+		        	  var Taipei1=th.insertCell(1);
+		        	  var Taipei2=th.insertCell(2);
+		        	  var Taipei3=th.insertCell(3);
+		        	  Taipeith.innerHTML="<b>項目</b>";
+		        	  Taipei1.innerHTML="<b>產品名稱</b>";
+		        	  Taipei2.innerHTML="<b>總數</b>";
+		        	  Taipei3.innerHTML="<b>總金額</b>";
+		        	  console.log(th);
+		        	  for (var i = 0; i < data.length; i++) {
+		        		  var tr = table.insertRow(1+i);
+		        		   var ProductType = tr.insertCell(0);
+		        		   var ProductName = tr.insertCell(1);
+		        		   var ProductNumber = tr.insertCell(2);
+		        		   var PriceNumber = tr.insertCell(3);
+		        			  ProductType.innerHTML=data[i][0];
+		        			  ProductName.innerHTML=data[i][1];
+		        			  $(ProductNumber).attr("class","text-success");
+		        			  ProductNumber.innerHTML=data[i][2]+'<i class="ti-arrow-up"></i>';
+		        			  
+		        			  PriceNumber.innerHTML=data[i][3];
+						}
+		        	  
+		          },error : function(data) {
+		              console.log('');
+		          }
+		      });
+			}	
+}
+	
+	   
  </script>
 
         </div>
@@ -313,20 +326,12 @@
  
  
  
-  <!-- plugins:js -->
-  <script src="${pageContext.request.contextPath}/dist/base/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <script src="${pageContext.request.contextPath}/dist/chart.js/Chart.min.js"></script>
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="${pageContext.request.contextPath}/dist/js/off-canvas.js"></script>
-  <script src="${pageContext.request.contextPath}/dist/js/hoverable-collapse.js"></script>
-  <script src="${pageContext.request.contextPath}/dist/js/template.js"></script>
-  <script src="${pageContext.request.contextPath}/dist/js/todolist.js"></script>
+
+ 
+
   <!-- endinject -->
   <!-- Custom js for this page-->
-  <script src="${pageContext.request.contextPath}/dist/js/dashboard.js"></script>
+
   <!-- End custom js for this page-->
 </body>
 </html>

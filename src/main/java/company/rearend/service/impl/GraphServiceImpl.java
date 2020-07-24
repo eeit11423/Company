@@ -78,5 +78,11 @@ public class GraphServiceImpl implements GraphService {
 	public List<Join> getActity(String Actity) {
 		return graphDao.getActity(Actity);
 	}
+
+	@Override
+	public List<OrderItemBean> getshoppinAjex(String productNO1) {
+		return graphDao.getshoppinAjex(productNO1);
+	}
+	
 	
 }

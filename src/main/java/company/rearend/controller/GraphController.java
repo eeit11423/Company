@@ -89,8 +89,15 @@ public class GraphController {
 		List<Join> products = graphservice.getActity(null);
 		ResponseEntity<List<Join>> re = new ResponseEntity<>(products, HttpStatus.OK);
 		return re;
-	}//會員資料AJEX
+	}//報名活動資料AJEX
 	
+	@GetMapping("/rearend/allproductNO1_ajax")
+	public ResponseEntity<List<OrderItemBean>>  productNO1() {
+		System.out.println("=========================================================b");
+		List<OrderItemBean> products = graphservice.getshoppinAjex(null);
+		ResponseEntity<List<OrderItemBean>> re = new ResponseEntity<>(products, HttpStatus.OK);
+		return re;
+	}//報名活動資料AJEX
 	
 	@GetMapping("/rearend/Salaryex")
 	public String aa() {

@@ -21,5 +21,6 @@ public interface GraphService {
 	Map<Integer,ShoppingBean> getShoppingType(String Type);
 	Map<Integer, OrderCount> getshopping(String sho );
 	List<Join> getActity(String Actity);
+	List<OrderItemBean> getshoppinAjex(String productNO1);
 
 }

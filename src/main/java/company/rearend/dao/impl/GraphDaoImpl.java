@@ -174,6 +174,16 @@ public class GraphDaoImpl implements GraphDao {
 		return list2;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderItemBean> getshoppinAjex(String productNO1) {
+		String hql = "SELECT  shoppingType,shoppingProductName ,SUM(orderItemsNumber) as countTest ,SUM(shoppingProductPrice) as price "
+				+ "FROM OrderItemBean  GROUP BY shoppingProductName,shoppingType ORDER BY countTest DESC";
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list2 = session.createQuery(hql).setMaxResults(5).getResultList();
+	
+		return list2;
+	}
 //	@SuppressWarnings("unchecked")
 //	@Override
 //	public Map<Integer, JoinEX> getActity(String Actity) {
