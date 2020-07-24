@@ -137,8 +137,9 @@ public class GraphDaoImpl implements GraphDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<Integer, OrderCount> getshopping(String sho) {
-		String hql = "SELECT  shoppingType,shoppingProductName ,orderItemsNumber *count(*) as countTest ,SUM(shoppingProductPrice) as price "
-					+ "FROM OrderItemBean  GROUP BY orderItemsNumber,shoppingProductName,shoppingType ORDER BY countTest DESC";
+		
+		String hql = "SELECT  shoppingType,shoppingProductName ,SUM(orderItemsNumber) as countTest ,SUM(shoppingProductPrice) as price "
+					+ "FROM OrderItemBean  GROUP BY shoppingProductName,shoppingType ORDER BY countTest DESC";
 		Session session = factory.getCurrentSession();
 		
 		List<Object[]> listO = session.createQuery(hql).setMaxResults(5).getResultList();

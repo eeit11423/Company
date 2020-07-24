@@ -101,17 +101,24 @@
             <div class="col-md-7 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body" style="hight:1px">
-                  <form>
-						<select name="YourLocation">
+<!--                <ul class="nav nav-tabs" id="mySelect" role="tablist" onchange="ck()"> -->
+<!--                                 <li class="nav-item"> -->
+<!--                                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" ">熱門產品</a> -->
+<!--                                 </li> -->
+<!--                                 <li class="nav-item"> -->
+<!--                                     <a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification" aria-selected="false">熱門活動</a> -->
+<!--                                 </li> -->
+<!--                             </ul> -->
+						<select id="mySelect" name="YourLocation" onchange="ck()">
 　					<option value="Taipei">熱門產品</option>
 　					<option value="Taoyuan">熱門活動</option>
 　					
 
 					</select>
-					</form>
+				
                   <div class="table-responsive">
                 
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="tableaaajex">
                       <thead>
                         <tr>
                           <th>品項</th>
@@ -128,7 +135,7 @@
                           <td>${TPp.value.shoppingType}</td>                             
                           <td>${TPp.value.shoppingProductName}</td>
                           <td class="text-success"> ${TPp.value.countTest} <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-danger">${Math.round(TPp.value.countTest * TPp.value.price)}</label></td>
+                          <td><label class="badge badge-danger">${Math.round(TPp.value.countTest * (TPp.value.price*0.9))}</label></td>
                       </tr>
                       
                            </c:forEach>
@@ -229,23 +236,79 @@
 							</div>
             </div>
           </div>
-
-        </div>
- <script>
+<script>
  var xhr = new XMLHttpRequest();
- xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			var members = JSON.parse(xhr.responseText);
-			for (var aa in members) {
+//  xhr.open("GET", "<c:url value='/rearend/allActivity_ajax' />", true);
+//  xhr.send();
+//  xhr.onreadystatechange = function() {
+// 		if (xhr.readyState == 4 && xhr.status == 200) {
+// 			var members = JSON.parse(xhr.responseText);
+// 			for (var aa in members) {
 				
-			}
-			console.log(members);
+// 			}
+// 			console.log(members);
 		
 		
-		}
-		}
+// 		}
+// 		}
+ function ck() {//
+	 var K = document.getElementById("mySelect").value;
+	 console.log(K=="Taoyuan");
+	 var urlAJAX = "";
+	 if (K == "Taoyuan") {
+		 urlAJAX = "<c:url value='/rearend/allActivity_ajax' />";
+		// Taoyuan(urlAJAX);
+	}else if(K == "Taipei"){
+		urlAJAX = "";
+		//Taipei(urlAJAX);
+	}
+	 
+// 	   var xhr = new XMLHttpRequest();
+	   var table = document.getElementById("tableaaajex");
+	  
+// 	   var roomName = tr.insertCell(2);
+		   
+		   
+	   $.ajax({//AJAX開始
+	          url : urlAJAX,
+	          type : "GET",
+	          success : function(data) 
+	          {
+	        	  var th = table.insertRow(0);
+// 	        	  var onename=insertCell(0)="活動名稱";
+// 	        	  var TWOname=insertCell(0)="報名人數";
+// 	        	  onename.innerHTML=data[0]
+// 	        	  TWOname.innerHTML=data[0]
+// 	        	  console.log(th);
+	        	  $("#tableaaajex  tr:not(:first)").html("");
+	        	  for (var i = 0; i < data.length; i++) {
+	        	
+// 	        		  $('table tbody').html('');。
+	        		  var tr = table.insertRow(1+i);
+	        		   var ActivityName = tr.insertCell(0);
+	        		   var ActivityNumber = tr.insertCell(1);
+	        		 // for (var j = 0; j < data[i].length; j++) {
+	        			  ActivityName.innerHTML=data[i][0];
+			        	  ActivityNumber.innerHTML=data[i][1];
+					//}
+	        		  
+				}
+	        	  
+	        	  
+	        	  
+	        	  
+	          },error: function(data) 
+	          {
+	              console.log('無法送出');
+	          }
+	      });
+	  }
+
+ 
  </script>
 
+        </div>
+ 
  
  
  
