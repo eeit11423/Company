@@ -37,10 +37,8 @@ public class LeaveServiceImpl implements LeaveService {
     
 	@Override
 	public int saveLeave(Leave leave) {
-		if (dao.isMemberAndPunchDateExist(leave) != null) {
-			System.out.println("AAAAAVVVVVVDDDDDDDWWWWWWWWWWWWWWW");
-			System.out.println(dao.isMemberAndPunchDateExist(leave).get(0).getPunchId());
-			int punchId = dao.isMemberAndPunchDateExist(leave).get(0).getPunchId();
+		if (dao.getMemberAndPunchDateList(leave) != null) {
+			int punchId = dao.getMemberAndPunchDateList(leave).get(0).getPunchId();
 			dao.updatePunchtime(leave, punchId);
 		}
 		int n = dao.saveLeave(leave);
@@ -55,9 +53,9 @@ public class LeaveServiceImpl implements LeaveService {
 	
 	@Override
 	public void updateLeave(Leave leave) {
-		if (dao.isMemberAndPunchDateExist(leave) != null) {
+		if (dao.getMemberAndPunchDateList(leave) != null) {
 			System.out.println("AAAAAVVVVVVDDDDDDDWWWWWWWWWWWWWWW");
-			int punchId = dao.isMemberAndPunchDateExist(leave).get(0).getPunchId();
+			int punchId = dao.getMemberAndPunchDateList(leave).get(0).getPunchId();
 			dao.updatePunchtime(leave, punchId);
 		}
 		dao.updateLeave(leave);

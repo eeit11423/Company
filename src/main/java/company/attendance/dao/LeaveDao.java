@@ -26,5 +26,5 @@ public interface LeaveDao {
 
 	void updatePunchtime(Leave leave, int punchId);
 
-	List<Punch> isMemberAndPunchDateExist(Leave leave);
+	List<Punch> getMemberAndPunchDateList(Leave leave);
 }

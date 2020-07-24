@@ -23,7 +23,7 @@ public class Leave {
 	Date leaveDate;
 	Timestamp leaveStart;
 	Timestamp leaveEnd;
-	String leaveHours;
+	Long leaveHours;
 	String leaveCategory;
 	String leaveCause;
 	String leaveAudit;
@@ -92,10 +92,10 @@ public class Leave {
 	public void setLeaveEnd(Timestamp leaveEnd) {
 		this.leaveEnd = leaveEnd;
 	}
-	public String getLeaveHours() {
+	public Long getLeaveHours() {
 		return leaveHours;
 	}
-	public void setLeaveHours(String leaveHours) {
+	public void setLeaveHours(Long leaveHours) {
 		this.leaveHours = leaveHours;
 	}
 	public String getLeaveCategory() {

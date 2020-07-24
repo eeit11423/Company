@@ -34,5 +34,6 @@ public interface PunchService {
 
 	int savePunchTime(Punch punch);
 
+	List queryAttendanceData(String memberNumber, String selectdate) ;
 	
 }

@@ -195,6 +195,7 @@ public class EDMTableResetHibernate {
 					SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					punch.setPunchWorkOn(Timestamp.valueOf(token[5]));
 					punch.setPunchWorkOff(Timestamp.valueOf(token[6]));
+					punch.setPunchHours(Long.parseLong((token[7].trim())));
 					session.save(punch);
 					count++;
 					System.out.println("新增" + count +"筆punch資料成功");
@@ -278,7 +279,9 @@ public class EDMTableResetHibernate {
 					leave.setLeaveStart(Timestamp.valueOf(token[5]));
 					leave.setLeaveEnd(Timestamp.valueOf(token[6]));
 					leave.setLeaveCategory(token[7]);
-					leave.setLeaveCause(token[8]);
+					leave.setLeaveHours(Long.parseLong((token[8].trim())));
+					leave.setLeaveCause(token[9]);
+					leave.setLeaveAudit(token[10]);
 					session.save(leave);
 					System.out.println("新增一筆leave資料成功");
 				}

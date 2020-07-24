@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import company.member.model.MemberBean;
 import company.attendance.model.Punch;
+import company.attendance.service.LeaveService;
 import company.attendance.service.PunchService;
 import company.attendance.validators.AttendancePunchValidator;
 
@@ -38,6 +39,9 @@ public class PunchController {
 
 	@Autowired
 	PunchService service;
+	
+	@Autowired
+	LeaveService leaveService;
 	
 	@Autowired
 	ServletContext context;
@@ -177,6 +181,18 @@ public class PunchController {
 		
 			ResponseEntity<Map<String, Object>> re = new ResponseEntity<>(map, HttpStatus.OK);
 			return re;
+	}
+	
+	@GetMapping("/queryAttendanceData")
+	public ResponseEntity<List> queryAttendanceData(
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate, Model model){ 
+		List attendance = service.queryAttendanceData(memberNumber, selectdate);
+		System.out.println("attendance得到的List："+attendance);
+//		System.out.println(attendance);
+//		System.out.println(attendance.get(1));
+		ResponseEntity<List> re = new ResponseEntity<>(attendance, HttpStatus.OK);
+		return re;
 	}
 	
 	@GetMapping("/queryPunchTimeDataByPunchLate")

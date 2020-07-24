@@ -10,8 +10,6 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-	<div class= "class="sidebar sidebar-offcanvas">
 		<div class="container"
 			style="text-align: center; background-color: #dee2e6">
 			<h1>
@@ -75,7 +73,7 @@
 				xhr3
 						.open(
 								"GET",
-								"<c:url value='queryPunchTimeData' />?memberNumber=all&selectdate=all",
+								"<c:url value='queryAttendanceData' />?memberNumber=all&selectdate=all",
 								true);
 				// 			// 送出請求						
 				xhr3.send();
@@ -91,7 +89,7 @@
 				var selectdate = selectElement2.options[selectElement2.selectedIndex].value;
 				// 			// 定義open方法
 				xhr2.open("GET",
-						"<c:url value='queryPunchTimeData' />?memberNumber="
+						"<c:url value='queryAttendanceData' />?memberNumber="
 								+ memberNumber + "&selectdate=" + selectdate,
 						true);
 				// 			// 送出請求						
@@ -109,7 +107,7 @@
 				var selectdate = selectElement2.options[selectElement2.selectedIndex].value;
 				// 			// 定義open方法
 				xhr2.open("GET",
-						"<c:url value='queryPunchTimeData' />?memberNumber="
+						"<c:url value='queryAttendanceData' />?memberNumber="
 								+ memberNumber + "&selectdate=" + selectdate,
 						true);
 				// 			// 送出請求						
@@ -117,79 +115,90 @@
 			}
 
 			function displayPagePunchTime(responseText) {
-				var mapData = JSON.parse(responseText);
-				var punchtimes = mapData.punchtimes;
+				var attendances = JSON.parse(responseText);
+// 				var attendances = mapData.attendance;
+				console.log("typeof attendances:" + typeof attendances);
 				var content = "<table align='center' border='1'  bgcolor='#fbdb98'>";
-
+// 				console.log("1");
+// 				console.log(responseText);
+				
+// 				console.log("2");
+// 				console.log(attendances.length);
 				content += "<tr align='center'>"
 						+ "<th align='center' width='70'>流水號</th>"
 						+ "<th align='center' width='100'>姓名</th>"
 						+ "<th align='center' width='70'>部門</th>"
-						+ "<th align='center' width='100'>日期</th>"
+						+ "<th align='center' width='100'>上班日期</th>"
 						+ "<th align='center' width='140'>上班時間</th>"
 						+ "<th align='center' width='70'>遲到</th>"
 						+ "<th align='center' width='140'>下班時間</th>"
 						+ "<th align='center' width='70'>早退</th>"
-						+ "<th align='center' width='100'><a href='insertPunchTime'>新增</a></th></tr>";
-				for (var i = 0; i < punchtimes.length; i++) {
-					var punchday = punchtimes[i].punchDate; //or time=1439018115000; 结果一样
-					console.log(timeStampToDate(punchday));
-					var workOn = punchtimes[i].punchWorkOn;
-					console.log(timeStampToTime(workOn));
-					var workOff = punchtimes[i].punchWorkOff;
-					console.log(timeStampToTime(workOff));
+						+ "<th align='center' width='100'>上班時數</th>"
+						+ "<th align='center' width='100'>請假日期</th>"
+						+ "<th align='center' width='100'>請假開始</th>"
+						+ "<th align='center' width='100'>請假結束</th>"
+						+ "<th align='center' width='100'>請假時數</th>"
+						+ "<th align='center' width='100'>請假審核</th>"
+						+ "<th align='center' width='100'><a href='insertPunchTime'>出勤新增</a></th>"
+						+ "<th align='center' width='100'><a href='../leave/insertLeave'>請假新增</a></th></tr>";
+				for (var i = 0; i < attendances.length; i++) {
+					var punchday = attendances[i][0].punchDate; //or time=1439018115000; 结果一样
+					var workOn = attendances[i][0].punchWorkOn;
+					var workOff = attendances[i][0].punchWorkOff;
 					console.log('-------------------------------------');
-
-					content += "<tr><td align='center'>"
-							+ punchtimes[i].punchId
-							+ "</td>"
-							+ "<td align='center'>"
-							+ punchtimes[i].memberName
-							+ "</td>"
-							+ "<td align='center'>"
-							+ punchtimes[i].memberDepartment
-							+ "</td>"
-							+ "<td align='center'>"
-							+ timeStampToDate(punchday)
-							+ "</td>"
-							+ "<td align='center'>"
-							+ timeStampToTime(workOn)
-							+ "</td>"
-							+ "<td align='center'>"
-							+ punchtimes[i].punchLate
-							+ "</td>"
-							+ "<td align='center'>"
-							+ timeStampToTime(workOff)
-							+ "</td>"
-							+ "<td align='center'>"
-							+ punchtimes[i].punchEarly
-							+ "</td>"
-							+ "<td align='center'><a href='punchTimeEdit/" + punchtimes[i].punchId + "'>更改</a>/<a href='deletePunchTime/"
-							+ punchtimes[i].punchId
-							+ "' onclick='confirmDelete()'>刪除</a></td></tr>";
+					var leave = attendances[i][1]? attendances[i][1] : {};
+					var punch = attendances[i][0]? attendances[i][0] : {};
+					console.log("leave:"+leave);
+					content += "<tr><td align='center'>" + attendances[i][0].punchId + "</td>"
+							+ "<td align='center'>"	+ punch.memberName + "</td>"
+							+ "<td align='center'>" + punch.memberDepartment + "</td>"
+							+ "<td align='center'>" + timeStampToDate(punch.punchDate) + "</td>"
+							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOn) + "</td>"
+							+ "<td align='center'>" + checkNull(punch.punchLate) + "</td>"
+							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOff) + "</td>"
+							+ "<td align='center'>" + checkNull(punch.punchEarly) + "</td>"
+							+ "<td align='center'>" + checkZero(punch.punchHours/(1000 * 60 * 60 )) + "</td>"
+							+ "<td align='center'>" + checkNull(timeStampToDate(leave.leaveDate)) + "</td>"
+							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveStart)) + "</td>"
+							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveEnd)) + "</td>"
+							+ "<td align='center'>" + checkZero(checkNull(leave.leaveHours)/(1000 * 60 * 60 )) + "</td>"
+							+ "<td align='center'>" + checkNull(leave.leaveAudit) + "</td>"
+							+ "<td align='center'><a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a href='deletePunchTime/"
+							+ punch.punchId + "' onclick='confirmDelete()'>刪除</a></td>"
+							+ "<td align='center'><a href='leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='deleteLeave/"
+							+ leave.leaveId + "' onclick='confirmDelete()'>刪除</a></td>"
+							+ "</tr>";
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;
 			}
-
+			
 			function checkNull(String) {
 				if (String == null) {
 					return '';
 				} else {
 					return String;
 				}
-
+			}
+			function checkZero(Long) {
+				if (Long == 0) {
+					return '';
+				} else {
+					return Long;
+				}
 			}
 
 			function timeStampToDate(date) {
-				var datetime = new Date();
-				datetime.setTime(date);
-				var year = datetime.getFullYear();
-				var month = datetime.getMonth() + 1;
-				var date = (datetime.getDate() < 10 ? '0' : '')
+				if (date != null) {
+					var datetime = new Date();
+						datetime.setTime(date);
+					var year = datetime.getFullYear();
+					var month = datetime.getMonth() + 1;
+					var date = (datetime.getDate() < 10 ? '0' : '')
 						+ datetime.getDate();
-				var date = year + "-" + month + "-" + date;
-				return date;
+					var date = year + "-" + month + "-" + date;
+					return date;
+				}
 			};
 
 			function timeStampToTime(time) {

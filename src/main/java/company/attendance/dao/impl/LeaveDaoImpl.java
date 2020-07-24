@@ -59,6 +59,9 @@ public class LeaveDaoImpl implements LeaveDao {
 		}
 		Session session = factory.getCurrentSession();
 		try {
+			long leaveHours = leave.getLeaveEnd().getTime() - leave.getLeaveStart().getTime();
+			leave.setLeaveHours(leaveHours);
+			leave.setLeaveAudit("審核中");
 			session.save(leave);
 			n = 1;
 		} catch (Exception e) {
@@ -155,7 +158,7 @@ public class LeaveDaoImpl implements LeaveDao {
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	public List<Punch> isMemberAndPunchDateExist(Leave leave) {
+	public List<Punch> getMemberAndPunchDateList(Leave leave) {
 		Session session = factory.getCurrentSession();
 		int leaveDateMomth = leave.getLeaveDate().getMonth()+1;
 		int leaveDateDay = leave.getLeaveDate().getDate();

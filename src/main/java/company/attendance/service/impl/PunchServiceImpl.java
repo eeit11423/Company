@@ -86,4 +86,9 @@ public class PunchServiceImpl implements PunchService {
 	public void deletePunchTimeByPunchId(int key) {
 		dao.deletePunchTimeByPunchId(key);
 	}
+	
+	@Override
+	public List queryAttendanceData(String memberNumber, String selectdate) {
+		return dao.queryAttendanceData(memberNumber, selectdate);
+	}
 }

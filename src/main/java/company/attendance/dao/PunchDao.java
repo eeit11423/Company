@@ -36,5 +36,6 @@ public interface PunchDao {
 
 	void deletePunchTimeByPunchId(int key);
 
+	List queryAttendanceData(String memberNumber, String selectdate);
 
 }

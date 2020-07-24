@@ -32,6 +32,11 @@
 					<form:errors path='memberNumber' cssClass="error"/></td>
 				</tr>
 				<tr style='height: 40px'>
+					<td align='center'>部門:</td>
+					<td><form:input path='memberDepartment' />
+					<form:errors path='memberDepartment' cssClass="error"/></td>
+				</tr>
+				<tr style='height: 40px'>
 					<td align='center'>日期:</td>
 					<td><form:input type='date' path='punchDate' />
 					<form:errors path='punchDate' cssClass="error"/></td>

@@ -28,7 +28,7 @@ public class Punch {
 //	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	Timestamp punchWorkOff;
 	String punchEarly;
-	
+	Long punchHours;
 	
 	
 	public Punch() {
@@ -44,8 +44,6 @@ public class Punch {
 		this.memberName = memberName;
 		this.memberDepartment = memberDepartment;
 	}
-
-
 
 	public Punch(Integer punchId, String memberName, String memberDepartment,String memberNumber,Date punchDate, Timestamp punchWorkOn, String punchLate) {
 		super();
@@ -146,4 +144,12 @@ public class Punch {
 		this.punchEarly = punchEarly;
 	}
 	
+	
+	public Long getPunchHours() {
+		return punchHours;
+	}
+	
+	public void setPunchHours(Long punchHours) {
+		this.punchHours = punchHours;
+	}
 }
