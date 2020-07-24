@@ -68,11 +68,11 @@
 				</c:otherwise>
 			</c:choose>
 				<tr id='borderA'  >
- 				<td id='borderA' align="center">${aBean.orderItemsId}</td>
+ 				<td id='borderA' align="center">${stat.index+1}</td>
  				<td id='borderA' align="center">${aBean.shoppingId}</td>
 				<td id='borderA' align="left">${aBean.shoppingProductName}</td>
 				<td id='borderA' align="left">${aBean.productrelatio}&nbsp;</td>
-				<td id='borderA' align="right">${aBean.shoppingProductPrice}&nbsp;</td>
+				<td id='borderA' align="right"><fmt:formatNumber  value="${aBean.shoppingProductPrice}"  	pattern="#,###,###" />&nbsp;</td>
 				<td id='borderA' align="center">${aBean.shoppingProductDiscount}&nbsp;</td>
 				<td id='borderA' align="right">${aBean.orderItemsNumber}&nbsp;</td>
 				

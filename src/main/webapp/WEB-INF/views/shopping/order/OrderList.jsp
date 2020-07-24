@@ -51,7 +51,7 @@
 					<TD align="left">&nbsp;${memberBean.memberName}</TD>
 					<TD align="left">&nbsp;${memberBean.memberPhone}</TD>
 					<TD align="left">&nbsp;${orderBean.orderAddress}</TD>
-					<TD align="left">&nbsp;${orderBean.orderTotalPrice}</TD>
+					<TD align="left">&nbsp;<fmt:formatNumber value="${orderBean.orderTotalPrice}" pattern="#,###,###" /></TD>
 					<TD align="left">&nbsp;<fmt:formatDate value="${orderBean.orderDate}" pattern="yyyy-MM-dd"/></TD>
 					<TD align="center">
 					<a	class='btn btn-secondary btn-sm btn-block' style='background: #646D73' href="<c:url value='../shopping/order/ShowOrderDetail/${memberBean.memberNumber}/${orderBean.orderNo}' />">
