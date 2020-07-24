@@ -3,6 +3,7 @@ package company.attendance.dao;
 import java.util.List;
 
 import company.attendance.model.Leave;
+import company.attendance.model.Punch;
 import company.member.model.MemberBean;
 
 public interface LeaveDao {
@@ -22,4 +23,8 @@ public interface LeaveDao {
 	void updateLeave(Leave leave);
 
 	void deleteLeaveByLeaveId(int key);
+
+	void updatePunchtime(Leave leave, int punchId);
+
+	List<Punch> isMemberAndPunchDateExist(Leave leave);
 }

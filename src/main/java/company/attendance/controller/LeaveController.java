@@ -23,13 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import company.attendance.model.Leave;
+import company.attendance.model.Punch;
 import company.member.model.MemberBean;
 import company.attendance.service.LeaveService;
 import company.attendance.validators.AttendanceLeaveValidator;
 
 @Controller
 @RequestMapping(value ="attendance/leave/")
-@SessionAttributes({"leave","memberBean"})
+@SessionAttributes({"leave","memberBean","punch"})
 public class LeaveController {
 	public LeaveController() { }
 
@@ -80,6 +81,7 @@ public class LeaveController {
 	@PostMapping(value = "/saveInsertLeave", consumes = "application/x-www-form-urlencoded")
 	public String saveInsertPunchTime(@ModelAttribute("leave") Leave leave, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
+//		Punch punch = (Punch) model.getAttribute("punch");
 		AttendanceLeaveValidator validator = new AttendanceLeaveValidator();
 		validator.validate(leave, bindingResult);
 		if (bindingResult.hasErrors()) {
@@ -161,6 +163,12 @@ public class LeaveController {
 	public Leave leaveModelAttribute(Model model) {
 		Leave leave = new Leave();
 		return leave;
+	}
+	
+	@ModelAttribute("punch")
+	public Punch punchModelAttribute(Model model) {
+		Punch punch = new Punch();
+		return punch;
 	}
 	
 }

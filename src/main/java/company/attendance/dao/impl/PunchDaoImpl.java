@@ -133,11 +133,11 @@ public class PunchDaoImpl implements PunchDao {
 		System.out.println("下班打卡list：" + list);
 		if (list.get(0) == null) {
 			String hql2 = "UPDATE Punch SET punchWorkOff = :punchWorkOff, punchEarly = :punchEarly WHERE punchWorkOn = :punchWorkOn";
-			int n = session.createQuery(hql2)
-						   .setParameter("punchWorkOff", punchWorkOff)
-						   .setParameter("punchEarly", punchEarly)
-						   .setParameter("punchWorkOn", punchWorkOn)
-						   .executeUpdate();
+			 session.createQuery(hql2)
+			 		.setParameter("punchWorkOff", punchWorkOff)
+			 		.setParameter("punchEarly", punchEarly)
+			 		.setParameter("punchWorkOn", punchWorkOn)
+			 		.executeUpdate();
 			System.out.println("------新增下班打卡------");
 		}
 		System.out.println("------下班打卡結束------");

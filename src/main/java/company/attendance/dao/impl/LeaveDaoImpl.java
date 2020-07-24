@@ -1,6 +1,8 @@
 package company.attendance.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -9,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import company.attendance.dao.LeaveDao;
 import company.attendance.model.Leave;
@@ -148,5 +151,67 @@ public class LeaveDaoImpl implements LeaveDao {
 		Leave leave = new Leave();
 		leave.setLeaveId(key);
 		session.delete(leave);
+	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@Override
+	public List<Punch> isMemberAndPunchDateExist(Leave leave) {
+		Session session = factory.getCurrentSession();
+		int leaveDateMomth = leave.getLeaveDate().getMonth()+1;
+		int leaveDateDay = leave.getLeaveDate().getDate();
+		String hql = "FROM Punch WHERE memberName=:memberName and DATEPART(mm,punchDate) = :month and DATEPART(dd,punchDate) = :day";
+		List<Punch> list = (List<Punch>) session.createQuery(hql)
+												.setParameter("memberName", leave.getMemberName())
+												.setParameter("month", leaveDateMomth)
+												.setParameter("day", leaveDateDay)	
+												.getResultList();
+		System.out.println(leave.getLeaveDate());
+		System.out.println(list);
+		System.out.println(list.get(0));
+		System.out.println(list.get(0).getPunchId());
+		return list;
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public void updatePunchtime(Leave leave, int punchId){
+		Session session = factory.getCurrentSession();
+		Timestamp leaveStart = leave.getLeaveStart();
+		Timestamp leaveEnd = leave.getLeaveEnd();
+//		Punch punch = session.get(Punch.class, punchId);
+		
+		//請假 9點開始
+		if (leaveStart.getHours() == 9 && (leaveStart.getMinutes()+leaveStart.getSeconds()) == 0 ) {
+			//請假 18點結束
+			if (leaveEnd.getHours() == 18 ) {
+				String hql = "UPDATE Punch SET punchWorkOn = null, punchEarly = null "
+						+ " , punchWorkOff = null, punchLate = null WHERE punchId = :punchId";
+				session.createQuery(hql)
+					   .setParameter("punchId", punchId)
+					   .executeUpdate();
+			//請假 18點以前結束
+			}else {
+				String hql = "UPDATE Punch SET  punchWorkOn = :Start, punchEarly = null "
+						+ " WHERE punchId = :punchId";
+				session.createQuery(hql)
+				.setParameter("punchId", punchId)
+				.setParameter("Start", leave.getLeaveEnd())
+				.executeUpdate();
+			}
+		//請假 9點以後
+		}else {
+			//請假 18點結束
+			if (leaveEnd.getHours() == 18 ) {
+				String hql = "UPDATE Punch SET punchWorkOff = :end, punchLate = null WHERE punchId = :punchId";
+				session.createQuery(hql)
+				.setParameter("punchId", punchId)
+				.setParameter("end", leave.getLeaveStart())
+				.executeUpdate();
+			//請假 18點以前結束
+			}else {
+				System.out.println("打卡紀錄無變化");
+			}
+		}
+		System.out.println("打卡紀錄更改完成");
 	}
 }
