@@ -7,9 +7,6 @@
 <head>
 
 <meta charset="UTF-8">
-<script src='//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script> 
-<!-- <link rel="stylesheet" -->
-<!--     href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -17,57 +14,47 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/dist/css/adminlte.css'
-	type="text/css" />
-	<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/plugin/bootstrap/js/.css'
-	type="text/js" />
-	
 <title>Products</title>
 </head>
 <body>
 <jsp:include page="/fragment/headerRearend.jsp" />
-	<div class="main-panel">
-<!--     <div class="content-wrapper"> -->
-<!-- 	<hr style="height: 1px; border: none; color: #333; background-color: #333;"> -->
-<!-- 	<section class="container"> -->
-		<div class="row">	
-<%-- 			<c:forEach var='ga' items='${graph}'> --%>
+<div class="main-panel">
+ <div class="content-wrapper">
+   <div class="row">
+      <div class="col-md-12 grid-margin stretch-card" >
+       <div class="card">
+         <div class="card-body" >
+         	<figure class="highcharts-figure"> 
+				<div id="container1"></div>
+				<p class="highcharts-description"></p>
+				<button id="inverted">橫條形統計圖</button>
+				<button id="plain">長條圖</button>
+				<button id="polar">圓餅圖</button>
+			</figure>               
+		  </div>
+	   </div>
+     </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+       <div class="card">
+         <div class="card-body" >
+         	<figure class="highcharts-figure"> 
+    			<div id="container" ></div>
+    		</figure>
+    		<p class="highcharts-description"></p>
+    		<figure class="highcharts-figure">
+    			<div id="container"></div>
+			</figure>			          
+		  </div>
+	   </div>
+     </div>
+   </div>
+  </div>
+ </div>
+ 
 
 
-
-
-<%-- 			<input type="hidden" id="salary${ga.memberId}" value="${ga.memberSalary}"> --%>
-<%-- 			<input type="hidden" id="name${ga.memberId}" value="${ga.memberName}"> --%>
-			
-
-<%-- 			</c:forEach> --%>
-		
-		</div>
-		<figure class="highcharts-figure">
-    <div id="container1"></div>
-    <p class="highcharts-description">
-     
-    </p>
-	
-    <button id="plain">長條圖</button>
-    <button id="inverted">橫條形統計圖</button>
-    <button id="polar">圓餅圖</button>
-    <figure class="highcharts-figure">
-    <div id="container" style="height:600px"></div>
-    <p class="highcharts-description">
-     
-    </p>
-</figure>
-    <figure class="highcharts-figure">
-    <div id="container"></div>
-
-</figure>
-</figure>
-
-	</div>
 	<script>
 // 	var members = "${graph}";
 // 	var mem = "${graph[0].getMemberName()}";
@@ -174,7 +161,17 @@ xhr.onreadystatechange = function() {
 		    });
 		});
 	}
+	chart.update({
+	    chart: {
+	        inverted: true,
+	        polar: false
+	    },
+	    subtitle: {
+	        text: '橫條形統計圖'
+	    }
+	});
 }
+
 
 var member_S = [];
 var member_L = [];
@@ -237,10 +234,11 @@ xhr2.onreadystatechange = function() {
 		    series: [ {
 		        type: 'column',
 		        name: '總人數',
-		        data: member_S
+		        data: member_S,
+		        color: "#5B4B00"
 		    },{
 		        type: 'column',
-		        color:'#058DC7',
+		        color:'blue',
 		        name: '男生',
 		        data: member_L
 		    },  {
@@ -255,18 +253,18 @@ xhr2.onreadystatechange = function() {
 		        data: [{
 		            name: '男生總人數',
 		            y: 13,
-		            color: Highcharts.getOptions().colors[0] // Jane's color
+		            color: "blue" // Jane's color
 		        }, {
 		            name: '女生總人數',
 		            y: 23,
-		            color: Highcharts.getOptions().colors[1] // John's color
+		            color: "red" // John's color
 		        }, {
 		            name: '總人數',
 		            y: 19,
-		            color: Highcharts.getOptions().colors[2] // Joe's color
+		            color: "#5B4B00" // Joe's color
 		        }],
-		        center: [800,50],
-		        size: 200,
+		        center: [800,30],
+		        size: 100,
 		        
 		        showInLegend: false,
 		        dataLabels: {

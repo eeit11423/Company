@@ -6,6 +6,7 @@ import java.util.Map;
 import company.activity.model.Join;
 import company.member.model.MemberBean;
 import company.rearend.model.JoinEX;
+import company.rearend.model.MessageBean;
 import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
@@ -22,5 +23,8 @@ public interface GraphService {
 	Map<Integer, OrderCount> getshopping(String sho );
 	List<Join> getActity(String Actity);
 	List<OrderItemBean> getshoppinAjex(String productNO1);
-
+	List<MessageBean> getAllMessage();
+	void addmessages(MessageBean ms);
+	void DeleteMessage(Integer messageId);
+	void UpMessage(Integer messageId);
 }

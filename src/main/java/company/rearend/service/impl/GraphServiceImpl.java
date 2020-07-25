@@ -12,6 +12,7 @@ import company.activity.model.Join;
 import company.member.model.MemberBean;
 import company.rearend.dao.GraphDao;
 import company.rearend.model.JoinEX;
+import company.rearend.model.MessageBean;
 import company.rearend.service.GraphService;
 import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
@@ -82,6 +83,29 @@ public class GraphServiceImpl implements GraphService {
 	@Override
 	public List<OrderItemBean> getshoppinAjex(String productNO1) {
 		return graphDao.getshoppinAjex(productNO1);
+	}
+
+	@Override
+	public List<MessageBean> getAllMessage() {
+		return graphDao.getAllMessage();
+	}
+
+	@Override
+	public void addmessages(MessageBean ms) {
+		graphDao.addmessages(ms);
+		
+	}
+
+	@Override
+	public void DeleteMessage(Integer messageId) {
+		graphDao.DeleteMessage(messageId);
+		
+	}
+
+	@Override
+	public void UpMessage(Integer messageId) {
+		graphDao.UpMessage(messageId);
+		
 	}
 	
 	

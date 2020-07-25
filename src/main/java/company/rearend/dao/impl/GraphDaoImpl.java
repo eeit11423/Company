@@ -14,6 +14,7 @@ import company.activity.model.Join;
 import company.member.model.MemberBean;
 import company.rearend.dao.GraphDao;
 import company.rearend.model.JoinEX;
+import company.rearend.model.MessageBean;
 import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
@@ -210,5 +211,45 @@ public class GraphDaoImpl implements GraphDao {
 //	}
 //	return map;
 //	} 普通版 熱門活動
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MessageBean> getAllMessage() {
+	String hql="FROM MessageBean";		
+		Session session=factory.getCurrentSession();
+		List<MessageBean> list=session.createQuery(hql)										
+							          .getResultList();
+		return list;
+	}
+
+
+	@Override
+	public void addmessages(MessageBean ms) {
+		Session session=factory.getCurrentSession();
+		session.save(ms);		
+	}
+
+	@Override
+	public void DeleteMessage(Integer messageId) {
+		String hql="Delete MessageBean WHERE messageId = :messageId ";
+		Session session=factory.getCurrentSession();
+		session.createQuery(hql).setParameter("messageId",messageId).executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void UpMessage(Integer messageId) {
+		String hql="FROM MessageBean WHERE messageId = :messageId ";
+		Session session=factory.getCurrentSession();
+		List<MessageBean> list=  session.createQuery(hql).setParameter("messageId",messageId).getResultList();
+		for (MessageBean messageBean : list) {
+			if(messageBean.getMemberId()==0) {
+				messageBean.setMemberId(messageBean.getMemberId()+1);		
+			}else {
+				messageBean.setMemberId(messageBean.getMemberId()-1);		
+			}
+			session.update(messageBean);
+		}
+	}
 
 }
