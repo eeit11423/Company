@@ -73,14 +73,14 @@
 <!--                 <li class="nav-item"> <a class="nav-link" href="連結"></a></li> -->
               </ul>
             </div>
-             	
+             	 </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
               <i class="ti-palette menu-icon"></i>
               <span class="menu-title">商品類</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="ui-basic1">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/products/add">新增產品資料</a></li>
                 <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/shopping/allProductsUpdateDelete">後台修改編輯產品資料</a></li>               
