@@ -12,10 +12,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 import company.activity.model.Join;
 import company.member.model.MemberBean;
+import company.rearend.model.MessageBean;
 import company.rearend.service.GraphService;
 import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
@@ -80,6 +87,8 @@ public class GraphController {
 		List<MemberBean> beans3 =graphservice.getSalary(null);
 		Map<Integer,ShoppingBean> beans4 =graphservice.getShoppingType(null);
 		Map<Integer, OrderCount> beans5 =graphservice.getshopping(null);
+		List<MessageBean> beans6 =graphservice.getAllMessage();
+		
 		
 		model.addAttribute("peopleNumber", bean1);
 		model.addAttribute("priceNumber", beans2);
@@ -87,6 +96,7 @@ public class GraphController {
 		model.addAttribute("salary", beans3);
 		model.addAttribute("Type", beans4);
 		model.addAttribute("ss", beans5);
+		model.addAttribute("message", beans6);
 		
 		
 		return "rearend/rearEnd";
@@ -109,6 +119,32 @@ public class GraphController {
 		ResponseEntity<List<OrderItemBean>> re = new ResponseEntity<>(products, HttpStatus.OK);
 		return re;
 	}//報名活動資料AJEX
+	
+	@PostMapping(value = "/rearend/allmessage_ajax",produces = "application/json")
+	public ResponseEntity<List<MessageBean>> MessageBean(String addmessage) {
+//		System.out.println("=========================================================a");
+//		List<MessageBean> beans =graphservice.getAllMessage();
+//		ResponseEntity<List<MessageBean>> re = new ResponseEntity<>(beans, HttpStatus.OK);
+//		
+		MessageBean ms=new MessageBean(); 
+		ms.setMessage(addmessage);
+		ms.setMemberId(0);
+		graphservice.addmessages(ms);
+		
+		return null;
+	}	
+
+	@PostMapping(value = "/removemessage_ajax",produces = "application/json")
+	public ResponseEntity<List<MessageBean>> removeMessage(Integer messageId) {
+		graphservice.DeleteMessage(messageId);		
+		return null;
+	}	
+
+	@PostMapping(value = "/upmessage_ajax",produces = "application/json")
+	public ResponseEntity<List<MessageBean>> UpMessage(Integer messageId) {
+		graphservice.UpMessage(messageId);		
+		return null;
+	}	
 	
 	@GetMapping("/rearend/Salaryex")
 	public String aa() {

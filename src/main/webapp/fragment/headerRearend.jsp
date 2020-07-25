@@ -25,8 +25,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" ><img src="../dist/images/logo.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" ><img src="../dist/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" ><img src="${pageContext.request.contextPath}/dist/images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" ><img src="${pageContext.request.contextPath}/dist/images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -53,9 +53,9 @@
           <li class="nav-item">
            <i class="menu-arrow"></i>
             <a class="nav-link" href="${pageContext.request.contextPath}/">
-     <i class="ti-palette menu-icon"></i>
+     		<i class="ti-view-list-alt menu-icon"></i>
               <span class="menu-title">回首頁</span>
-              <i class="menu-arrow"></i>        
+                     
             
             </a>
           </li>
@@ -68,9 +68,9 @@
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/rearend/allSalary">人員分佈曲線圖</a></li>
-<!--                 <li class="nav-item"> <a class="nav-link" href="連結"></a></li> -->
+              <ul class="nav flex-column sub-menu">              
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/orderprice">統計公司資料表</a></li>             
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/rearend/allSalary">人員分佈曲線圖</a></li>             
               </ul>
             </div>
              	 </li>

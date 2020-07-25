@@ -10,31 +10,12 @@
 <title>Insert title here</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  
-   
- 
-
-
-
 </head>
 <body>
 	<jsp:include page="/fragment/headerRearend.jsp" />
+	 
        <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-md-12 grid-margin">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <h4 class="font-weight-bold mb-0">數據分析表</h4>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-primary btn-icon-text btn-rounded">
-                      <i class="ti-clipboard btn-icon-prepend"></i>報表
-                    </button>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="row">
             <div class="col-md-3 grid-margin stretch-card">
               <div class="card">
@@ -96,26 +77,24 @@
       
           </div>
         	
-          </div>
+        
           <div class="row">
             <div class="col-md-7 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body" style="hight:1px">
-<!--                <ul class="nav nav-tabs" id="mySelect" role="tablist" onchange="ck()"> -->
-<!--                                 <li class="nav-item"> -->
-<!--                                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" ">熱門產品</a> -->
-<!--                                 </li> -->
-<!--                                 <li class="nav-item"> -->
-<!--                                     <a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification" aria-selected="false">熱門活動</a> -->
-<!--                                 </li> -->
-<!--                             </ul> -->
-						<select id="mySelect" name="YourLocation" onchange="ck()">
-　					<option value="Taipei">熱門產品</option>
-　					<option value="Taoyuan">熱門活動</option>
-　					
-
-					</select>
-				
+               <ul class="nav nav-tabs" id="mySelect" role="tablist" >
+                                <li class="nav-item" value="Taipei" onclick="ck('Taipei')">
+                                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" >熱門產品</a>
+                                </li>
+                                <li class="nav-item" value="Taoyuan" onclick="ck('Taoyuan')">
+                                    <a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification" aria-selected="false" >熱門活動</a>
+                                </li>
+                            </ul>
+<!-- 						<select id="mySelect" name="YourLocation" onchange="ck()"> -->
+<!-- 　					<option value="Taipei">熱門產品</option> -->
+<!-- 　					<option value="Taoyuan">熱門活動</option> -->
+<!-- 　					 -->
+<!-- 					</select> -->				
                   <div class="table-responsive">
                 
                     <table class="table table-hover" id="tableaaajex">
@@ -178,68 +157,186 @@
             <div class="col-md-5 grid-margin stretch-card">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">等待新增產品</h4>
+									<h4 class="card-title">等待處理事件</h4>
 									<div class="list-wrapper pt-2">
 										<ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+											<c:forEach var='mess' items="${message}">
+											<c:if test="${mess.memberId == '0' }">
 											<li>
-												<div class="form-check form-check-flat">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox">
-														Become A Travel Pro In One Easy Lesson
-													</label>
+												<div class="form-check form-check-flat">													
+												<label class="form-check-label">
+														<input class="checkbox" type="checkbox" onchange="UpMessage(${mess.messageId})" >
+														${mess.message}
+												</label>
 												</div>
-												<i class="remove ti-trash"></i>
+												<i class="remove ti-trash" onclick="remove(${mess.messageId})"></i>
 											</li>
+											</c:if>
+											<c:if test="${mess.memberId == '1' }">
 											<li class="completed">
 												<div class="form-check form-check-flat">
 													<label class="form-check-label">
-														<input class="checkbox" type="checkbox" checked>
-														See The Unmatched Beauty Of The Great Lakes
+															<input class="checkbox" type="checkbox" checked onchange="UpMessage(${mess.messageId})">
+													 		 ${mess.message}
 													</label>
-												</div>
-												<i class="remove ti-trash"></i>
+							 					</div>
+												<i class="remove ti-trash" onclick="remove(${mess.messageId})"></i>
 											</li>
-											<li>
-												<div class="form-check form-check-flat">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox">
-														Copper Canyon
-													</label>
-												</div>
-												<i class="remove ti-trash"></i>
-											</li>
-											<li class="completed">
-												<div class="form-check form-check-flat">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox" checked>
-														Top Things To See During A Holiday In Hong Kong
-													</label>
-												</div>
-												<i class="remove ti-trash"></i>
-											</li>
-											<li>
-												<div class="form-check form-check-flat">
-													<label class="form-check-label">
-														<input class="checkbox" type="checkbox">
-														Travelagent India
-													</label>
-												</div>
-												<i class="remove ti-trash"></i>
-											</li>
-										</ul>
-                  </div>
-                  <div class="add-items d-flex mb-0 mt-4">
-										<input type="text" class="form-control todo-list-input mr-2"  placeholder="Add new task">
-										<button class="add btn btn-icon text-primary todo-list-add-btn bg-transparent"><i class="ti-location-arrow"></i></button>
+											</c:if>
+									</c:forEach>
+									</ul>
+                 				    </div>
+                 						 <div class="add-items d-flex mb-0 mt-4">
+										<input id="inmessage"  type="text" class="form-control todo-list-input mr-2"  placeholder="新增事情">
+										<button class="add btn btn-icon text-primary todo-list-add-btn bg-transparent" onclick="addmessage()">
+										<i class="ti-location-arrow"></i></button>
 									</div>
 								</div>
 							</div>
             </div>
+            
           </div>
+          
+            <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card position-relative">
+                <div class="card-body">
+                  <p class="card-title">Detailed Reports</p>
+                  <div class="row">
+                    <div class="col-md-12 col-xl-3 d-flex flex-column justify-content-center">
+                      <div class="ml-xl-4">
+                        <h1>33500</h1>
+                        <h3 class="font-weight-light mb-xl-4">Sales</h3>
+                        <p class="text-muted mb-2 mb-xl-0">The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc</p>
+                      </div>  
+                    </div>
+                    <div class="col-md-12 col-xl-9">
+                      <div class="row">
+                        <div class="col-md-6 mt-3 col-xl-5">
+                          <canvas id="north-america-chart"></canvas>
+                          <div id="north-america-legend"></div>
+                        </div>
+                        <div class="col-md-6 col-xl-7">
+                          <div class="table-responsive mb-3 mb-md-0">
+                            <table class="table table-borderless report-table">
+                              <tr>
+                                <td class="text-muted">Illinois</td>
+                                <td class="w-100 px-0">
+                                  <div class="progress progress-md mx-4">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 20.3%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                                </td>
+                                <td><h5 class="font-weight-bold mb-0">524</h5></td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Washington</td>
+                                <td class="w-100 px-0">
+                                  <div class="progress progress-md mx-4">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                                </td>
+                                <td><h5 class="font-weight-bold mb-0">722</h5></td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Mississippi</td>
+                                <td class="w-100 px-0">
+                                  <div class="progress progress-md mx-4">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                                </td>
+                                <td><h5 class="font-weight-bold mb-0">173</h5></td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">California</td>
+                                <td class="w-100 px-0">
+                                  <div class="progress progress-md mx-4">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                                </td>
+                                <td><h5 class="font-weight-bold mb-0">945</h5></td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Maryland</td>
+                                <td class="w-100 px-0">
+                                  <div class="progress progress-md mx-4">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                                </td>
+                                <td><h5 class="font-weight-bold mb-0">553</h5></td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Alaska</td>
+                                <td class="w-100 px-0">
+                                  <div class="progress progress-md mx-4">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                                </td>
+                                <td><h5 class="font-weight-bold mb-0">912</h5></td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
 <script>
- function ck() {//
-	 var K = document.getElementById("mySelect").value;
-	
+function UpMessage(id) {
+	$.ajax({//AJAX開始
+        url :"upmessage_ajax",
+        type : "POST",       
+        data: { messageId:id},
+      
+        success : function(data) 
+        {
+       	 
+			
+        },error: function(data) {
+		
+        }
+    });
+}
+
+function remove(id){
+	 $.ajax({//AJAX開始
+         url :"removemessage_ajax",
+         type : "POST",       
+         data: { messageId:id},
+       
+         success : function(data) 
+         {
+        	 
+		
+         },error: function(data) {
+		
+         }
+     });
+}
+
+ function addmessage(){
+	 	 var message=$("#inmessage").val();
+	 	 $.ajax({//AJAX開始
+         url :"rearend/allmessage_ajax",
+         type : "POST",       
+         data: { addmessage:message },
+       
+         success : function(data) 
+         {
+        	 
+		
+         },error: function(data) {
+		
+         }
+     });
+}
+
+ function ck(K) {//
+// 	 var K = document.getElementById("mySelect").value;
+
 	 var urlAJAX = "";
 	 if (K == "Taoyuan") {
 		 urlAJAX = "rearend/allActivity_ajax";
@@ -305,9 +402,8 @@
 		        			  ProductType.innerHTML=data[i][0];
 		        			  ProductName.innerHTML=data[i][1];
 		        			  $(ProductNumber).attr("class","text-success");
-		        			  ProductNumber.innerHTML=data[i][2]+'<i class="ti-arrow-up"></i>';
-		        			  
-		        			  PriceNumber.innerHTML=data[i][3];
+		        			  ProductNumber.innerHTML=data[i][2]+'<i class="ti-arrow-up"></i>';		        			  
+		        			  PriceNumber.innerHTML="<label class='badge badge-danger'>"+data[i][3]+"</label>";		        			  
 						}
 		        	  
 		          },error : function(data) {

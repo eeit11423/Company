@@ -40,7 +40,7 @@ public class RootAppConfig {
 	        factory.setDataSource(dataSource());
 	        factory.setPackagesToScan(new String[] {
 	                    "company.member.model","company.shopping.model","company.activity.model"
-	                    ,"company.attendance.model","company.train.model"
+	                    ,"company.attendance.model","company.train.model","company.rearend.model"
 	                });
 	        factory.setHibernateProperties(additionalProperties());
 	        return factory;
