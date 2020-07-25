@@ -28,6 +28,7 @@
                      
                         </div>
                     </div>
+                    
                     <div class="carousel-item">
                         <img class="d-block w-100" src="./images/slider_2.jpg" alt="Second slide">
                         <div class="carousel-caption d-none d-md-block">
