@@ -111,12 +111,19 @@ public class ShoppingCartController {
 		oib.setShoppingType(bean.getShoppingType());
 		oib.setShoppingAmount(bean.getShoppingProductDiscount()*bean.getShoppingProductPrice()*(orderItemsNumber));
 		
-		System.out.println(oib.toString());
-		
+//		System.out.println(oib.toString());
+		try {
+			cart.addToCart(ShoppingId, oib);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("單品項加入購物車有問題");
+			return "redirect:/";
+		}
 		// 將OrderItem物件內加入ShoppingCart的物件內
-		cart.addToCart(ShoppingId, oib);
 		
 		return "shopping/oneProduct";
+		
 	}
 	@PostMapping("/shopping/addToCart")
 	protected String buyBook(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -176,10 +183,17 @@ public class ShoppingCartController {
 		oib.setShoppingType(bean.getShoppingType());
 		oib.setShoppingAmount(bean.getShoppingProductDiscount()*bean.getShoppingProductPrice()*orderItemsNumber);
 		
-		System.out.println(oib.toString());
-		
+//		System.out.println(oib.toString());
+		try {
+			cart.addToCart(ShoppingId, oib);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("商城加入購物車有問題");
+			return "redirect:/";
+		}
 		// 將OrderItem物件內加入ShoppingCart的物件內
-		cart.addToCart(ShoppingId, oib);
+		
 		
 		return  "redirect:/shopping/allProducts";
 	}
@@ -194,11 +208,21 @@ public class ShoppingCartController {
 	}
 
 	
-	@PostMapping("/UpdateItem/{key}/{newQty}")   //更新購物車商品買賣數量(尚未成功)
+	@PostMapping("/UpdateItem/{key}/{newQty}")   //更新購物車商品買賣數量
 	protected String  update(Model model,WebRequest webRequest,
 			@PathVariable ("key") Integer shoppingId,@PathVariable ("newQty") Integer newQty){
 		ShoppingCart cart = (ShoppingCart) model.getAttribute("ShoppingCart");
-		cart.modifyQty(shoppingId,newQty);
+		
+
+		try{
+			// 進行資料型態的轉換
+			cart.modifyQty(shoppingId,newQty);
+		} catch(Exception e){
+			e.printStackTrace();
+			System.out.println("購物車更新數量有問題");
+			return "redirect:/";
+		}
+	
 		return "redirect: " + context.getContextPath() + "/shoppingCart";
 	}
 	

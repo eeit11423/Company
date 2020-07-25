@@ -145,8 +145,7 @@
 											for='productImage'> 照片上傳 </label>
 										<div class="col-md-6">
 											<form:input path="productImage" type='file' />
-											
-											
+											<form:errors path="productImage" cssClass="error"/>
 										</div>
 						
 <br>&nbsp;

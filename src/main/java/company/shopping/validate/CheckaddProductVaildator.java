@@ -11,14 +11,6 @@ public class CheckaddProductVaildator implements Validator {
 
 	private static final Integer Integer = null;
 	
-	boolean insertMode = true;
-	
-	public CheckaddProductVaildator() {
-	}
-
-	public CheckaddProductVaildator(boolean insertMode) {
-		this.insertMode = insertMode;
-	}
 	
 	
 
@@ -41,12 +33,7 @@ public class CheckaddProductVaildator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shoppingProductDiscount", "","商品折扣不能空白");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shoppingType", "","商品種類不能空白");
 			
-		
-		if (insertMode) {
-			if (sb.getProductImage().isEmpty()) {
-				errors.rejectValue("productImage","", "必須挑選圖片");
-			}
-		}
+
 
 
 	}

@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +61,7 @@ public class ShoppingController {
 		return "shopping/oneProduct";
 	}
 
-	@RequestMapping("/shoppingChange")
+	@RequestMapping("/shoppingChange") //讀取所有產品測試
 	public String getmemberByDepart(Model model) {
 		List<ShoppingBean> st = service.getALLShoppingType();
 		model.addAttribute("shoppingType", st);
@@ -68,7 +69,7 @@ public class ShoppingController {
 		return "shopping/shoppingChange";
 	}
 
-	@RequestMapping("/shoppingChange1")
+	@RequestMapping("/shoppingChange1")//讀取所有產品測試分類
 	public String getmemberByDepart1(Model model) {
 		List<ShoppingBean> st = service.getALLShoppingType();
 		model.addAttribute("shoppingType", st);
@@ -76,7 +77,7 @@ public class ShoppingController {
 		return "shopping/shoppingChange1";
 	}
 
-	@RequestMapping("/shopping/SearchShoppingName/{searchWord}")
+	@RequestMapping("/shopping/SearchShoppingName/{searchWord}") //模糊搜尋找商品名稱測試用
 	public String geSearchShoppingName(Model model, @PathVariable("searchWord") String searchWord) {
 	
 		List<ShoppingBean> st = service.getSearchShoppingNameProductrelatio(searchWord);
@@ -138,7 +139,8 @@ public class ShoppingController {
 		validator.validate(bb, result);
 		if (result.hasErrors()) {
 			return "shopping/addProduct";
-		} else {
+		}
+	
 		MultipartFile productImage = bb.getProductImage();
 		String originalFilename = productImage.getOriginalFilename();
 		bb.setShoppingfileName(originalFilename);
@@ -154,9 +156,18 @@ public class ShoppingController {
 			}
 		}
 		bb.setShoppingDate(new Timestamp(System.currentTimeMillis()));
-
-		service.addProduct(bb);
-		return "redirect:/shopping/allProductsUpdateDelete";}
+      try {
+    	  service.addProduct(bb);
+	} catch (org.hibernate.exception.ConstraintViolationException e) {
+		result.rejectValue("memberNumber", "", "商品已存在，請重新輸入");
+		 return "shopping/addProduct";
+	} catch (Exception e) {
+		result.rejectValue("memberNumber", "", "資料新增出現問題請洽系統人員");
+	   System.out.println("新增品項有問題");
+	   return "shopping/addProduct";
+	}
+		
+		return "redirect:/shopping/allProductsUpdateDelete";
 	}
 
 	@GetMapping("/shopping/picture/{id}")
@@ -223,6 +234,18 @@ public class ShoppingController {
 	@PostMapping("/shopping/sh/{id}")
 	public String modify(@ModelAttribute("shoppingBean") ShoppingBean ss, BindingResult result, Model model,
 			@PathVariable Integer id, HttpServletRequest request) {
+		
+		CheckaddProductVaildator validator=new CheckaddProductVaildator();
+		validator.validate(ss, result);
+		if (result.hasErrors()) {
+			result.rejectValue("memberNumber", "", "資料更新出現問題請洽系統人員");
+			System.out.println("result hasErrors(), ShoppingBean=" + ss);
+			List<ObjectError> list = result.getAllErrors();
+			for (ObjectError error : list) {
+				System.out.println("更新有錯誤：" + error);
+			}
+			return "shopping/updateProduct";
+		}
 		ss.setShoppingId(id);
 		MultipartFile productImage = ss.getProductImage();
 		if (productImage.getSize() == 0) {
@@ -244,7 +267,14 @@ public class ShoppingController {
 				throw new RuntimeException("檔案上傳發生異常");
 			}
 		}
-		service.update(ss);
+		try {
+			service.update(ss);
+		} catch (Exception e) {
+			result.rejectValue("memberNumber", "", "資料新增出現問題請洽系統人員");
+			System.out.println("更新有問題,請洽系統人員");
+			 return "shopping/updateProduct";
+		}
+		
 
 		return "redirect:/shopping/allProductsUpdateDelete";
 	}
