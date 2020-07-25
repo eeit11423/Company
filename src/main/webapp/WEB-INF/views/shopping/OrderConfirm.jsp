@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions"  %>
+
 <html>
 <head>
+<meta charset="UTF-8">
+
+<!-- 取得今天的日期，今天的日期應當在最後確認時才取得 -->
+<jsp:useBean   id="today"  class="java.util.Date" scope="session"/> 
+<title>訂單明細資訊確認</title>
 <script type="text/javascript">
 function cancelOrder() {
 	if (confirm("確定取消此份訂單 ? ") ) {
@@ -33,14 +41,25 @@ function reconfirmOrder() {
 		return;
 	}
 }
+
+function check(){
+	var checkbox=document.getElementById('checkbox').checked
+
+	document.getElementById('orderAddress').value ="${memberBean.memberAddress}"
+	
+	 if(checkbox==false){
+		   document.getElementById('orderAddress').value =""
+		 }
+
+	  
+	
+}
+	
+ 
 </script>
-<meta charset="UTF-8">
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions"  %>
-<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- 取得今天的日期，今天的日期應當在最後確認時才取得 -->
-<jsp:useBean   id="today"  class="java.util.Date" scope="session"/> 
-<title>訂單明細資訊確認</title>
+
+
+
 </head>
 <body>
 <jsp:include page="/fragment/header.jsp" />
@@ -72,8 +91,12 @@ function reconfirmOrder() {
 			</tr >
 		<tr  class="text-white text-left" style='background:#646D73'>
 			<td colspan='6'>
-			<span>出貨地址：</span><Input size='60px' type="text" id='orderAddress' 
-                   name="orderAddress" value="" ></td>
+			<span>出貨地址：</span>
+			
+			<Input size='60px' type="text" id='orderAddress' 
+                   name="orderAddress" value="" >
+                   <input type="checkbox" name="" value="" id="checkbox" onchange='check()' >同上
+                   </td>
                    
 			</tr>
 				</table>
