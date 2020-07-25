@@ -104,13 +104,11 @@
 									<div class="second-features-box">
 										<ul class="features second-feature" id="second-feature">
 											<li style="display:flex; align-items: center; width:60%;">
-											 <span style="white-space: nowrap;">餐點：</span>
-												<select>
-													<option value="麥脆雞">麥脆雞</option>
-												</select>
+											 <span style="white-space: nowrap;" >餐點：</span>
+												<select id = "menu3" onchange="getMenuPrice()"></select>
 											</li>
 											<li style="display:flex; align-items: center;">
-												 <span style="white-space: nowrap;">價格：</span><input type="text" value="100">
+												 <span style="white-space: nowrap;">價格：</span><input type="text" id="price3" value="100">
 											</li>
 											<li style="white-space: nowrap; margin-top:0 ;display:flex; align-items: center;">
 												 <span style="white-space: nowrap;">數量：</span><input type="text"  value="">
@@ -270,19 +268,39 @@
 </script>
 
  <script>
-  var secData = []
-
-      getJson();
-      
+      getJson(); 
       function getJson() {
     	  var select = document.getElementById("second-store");
     	  var chooseOption = select.options[select.selectedIndex].value;
-    	  $.ajax({'url':'/mvcExercisetest/orderLunch/selectStoreList',
+    	  $.ajax({'url':'/mvcExercisetest/orderLunch/getStoreMenuList',
 				'method' : "POST",
 				'data' : {'store' : chooseOption
 				},'success' : function(datas) {
+					var secData = [];
  					var datasJson = JSON.parse(datas);
  					 secData = datasJson;
+ 					 $('#menu3').empty();
+ 					 for(var i = 0;i < secData.length; i++) {
+ 	 				    var newOption = $('<option value="'+secData[i].id+'">'+secData[i].product+'</option>');
+ 	 				    $('#menu3').append(newOption);
+               }
+ 				getMenuPrice();
+				},'error':function(xhr, ajaxOptions, thrownError){
+					console.log(xhr.responseText);
+				}
+     		 });
+      };
+      function getMenuPrice() {
+    	  var select = document.getElementById("menu3").value;
+    	  $.ajax({'url':'/mvcExercisetest/orderLunch/getStoreMenuPrice',
+				'method' : "POST",
+				'data' : {'menu' : select
+				},'success' : function(datas) {
+					var secData = [];
+ 					var datasJson = JSON.parse(datas);
+ 					 secData = datasJson;
+ 			    	  console.log(secData);
+ 						document.getElementById("price3").value=secData[0].price;	 
 				},'error':function(xhr, ajaxOptions, thrownError){
 					console.log(xhr.responseText);
 				}

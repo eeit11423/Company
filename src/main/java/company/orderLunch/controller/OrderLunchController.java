@@ -36,8 +36,10 @@ public class OrderLunchController extends HttpServlet{
     String passwd = "sa123456";
     
     //sql
-    private static final String SELECT_LUNCH_STORE = "SELECT STORE FROM LUNCHORDER ";
-    private static final String SELECT_LUNCH_STORE_DETAIL = "SELECT * FROM LUNCHSTORE WHERE STORE=?";
+    private static final String SELECT_LUNCH_STORE = "SELECT DISTINCT STORE FROM LUNCHSTORE ";
+    private static final String SELECT_LUNCH_STORE_MENU = "SELECT * FROM LUNCHSTORE WHERE STORE = ?";
+    private static final String SELECT_LUNCH_STORE_MENU_PRICE = "SELECT * FROM LUNCHSTORE WHERE id = ?";
+    private static final String SELECT_LUNCH_STORE_DETAIL = "SELECT * FROM LUNCHSTORE WHERE STORE = ?";
     private static final String SELECT_STORE_LIST = "SELECT * FROM LUNCHORDER WHERE STORE = ? ";
     private static final String INSERT_LUNCH_ORDER = "INSERT INTO LUNCHORDER (ID,STORE,PRODUCT,PRICE,ORDERTIME,USERNAME) VALUES(?,?,?,?,?,?)";
     
@@ -135,6 +137,69 @@ public class OrderLunchController extends HttpServlet{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@RequestMapping(value="/orderLunch/getStoreMenuList",method = RequestMethod.POST)
+	public void getStoreMenuList(HttpServletRequest request, HttpServletResponse response) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String store = request.getParameter("store");
+		List<Map<String, String>> menuList = new ArrayList<Map<String,String>>();
+		String listJson="";
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+		     request.setCharacterEncoding("UTF-8");
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps=con.prepareStatement(SELECT_LUNCH_STORE_MENU);
+			ps.setString(1, store);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Map<String, String> menu = new HashMap<String, String>();
+				menu.put("product", rs.getString("product"));
+				menu.put("id", rs.getString("id"));
+				menuList.add(menu);
+			}
+			listJson = JSON.toJSONString(menuList);
+			PrintWriter out =response.getWriter();
+			out.print(listJson);
+			out.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//取得商品價格
+	@RequestMapping(value="/orderLunch/getStoreMenuPrice",method = RequestMethod.POST)
+	public void getStoreMenuPrice(HttpServletRequest request, HttpServletResponse response) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String menuId = request.getParameter("menu");
+		List<Map<String, String>> menuList = new ArrayList<Map<String,String>>();
+		String listJson="";
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+		     request.setCharacterEncoding("UTF-8");
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps=con.prepareStatement(SELECT_LUNCH_STORE_MENU_PRICE);
+			ps.setString(1, menuId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Map<String, String> menu = new HashMap<String, String>();
+				menu.put("price", rs.getString("price"));
+				menu.put("id", rs.getString("id"));
+				menuList.add(menu);
+			}
+			listJson = JSON.toJSONString(menuList);
+			PrintWriter out =response.getWriter();
+			out.print(listJson);
+			System.out.println(listJson);
+			out.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
