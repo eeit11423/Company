@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import company.activity.model.Join;
 import company.member.model.MemberBean;
@@ -20,6 +21,7 @@ import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 @Controller
+@SessionAttributes({"memberBean"})
 public class GraphController {
 	@Autowired
 	ServletContext context;
