@@ -51,7 +51,7 @@ public class LeaveController {
 	public String  getMemberPunch(Model model)  {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 //		}
 		}else {
 			System.out.println(memberBean.getMemberName().length());
@@ -122,7 +122,6 @@ public class LeaveController {
 	
 	@GetMapping("/getAllMember")
 	public ResponseEntity<List<MemberBean>>  getAllMember(){
-		System.out.println("-----------------------SSSSS");
 		List<MemberBean> list = service.getAllMember();
 		ResponseEntity<List<MemberBean>> re = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;

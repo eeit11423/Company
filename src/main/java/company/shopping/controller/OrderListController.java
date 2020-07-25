@@ -33,7 +33,7 @@ public class OrderListController {
 	protected String orderList(Model model) {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 
 //		ServletContext sc = getServletContext();
@@ -51,7 +51,7 @@ public class OrderListController {
 			 	) {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 		System.out.println("no="+no);
 		OrderBean ob = orderService.getOrder(no);

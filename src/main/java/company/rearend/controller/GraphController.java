@@ -4,6 +4,8 @@ package company.rearend.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 @Controller
 public class GraphController {
+	@Autowired
+	ServletContext context;
 	@Autowired
 	GraphService graphservice;
 	//會員資料
@@ -62,6 +66,11 @@ public class GraphController {
 
 	@GetMapping("/orderprice")
 	public String list2(Model model) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
+
 		System.out.println("=========================================================a");
 		List<OrderItemBean> beans =graphservice.getOrderprice(null);
 		List<MemberBean> bean1 =graphservice.getMemberNumberpeople(null);
