@@ -111,6 +111,11 @@ public class ShoppingController {
 
 	@GetMapping("/shopping/allProducts") // show出全部商品
 	public String list(Model model, HttpServletRequest req) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
+
 		List<ShoppingBean> beans = service.getAllProducts();
 		model.addAttribute("products", beans);
 		return "shopping/allProducts";
@@ -118,6 +123,11 @@ public class ShoppingController {
 
 	@GetMapping("/shopping/allProductsUpdateDelete") // 後台show出全部商品
 	public String allProductsUpdateDeletelist(Model model, HttpServletRequest req) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
+
 		List<ShoppingBean> beans = service.getAllProductsNewtoOld();
 		model.addAttribute("products", beans);
 		return "shopping/allProductsUpdateDelete";
@@ -125,6 +135,11 @@ public class ShoppingController {
 
 	@GetMapping("/products/add")
 	public String getAddNewProductForm(Model model) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
+
 		ShoppingBean bb = new ShoppingBean();
 		model.addAttribute("shoppingBean", bb);
 
@@ -234,6 +249,11 @@ public class ShoppingController {
 	@PostMapping("/shopping/sh/{id}")
 	public String modify(@ModelAttribute("shoppingBean") ShoppingBean ss, BindingResult result, Model model,
 			@PathVariable Integer id, HttpServletRequest request) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
+
 		
 		CheckaddProductVaildator validator=new CheckaddProductVaildator();
 		validator.validate(ss, result);
@@ -282,7 +302,7 @@ public class ShoppingController {
 	@RequestMapping("/shopping/sh1/{id}")
 	public String delete(@ModelAttribute("shoppingBean") ShoppingBean ss, @PathVariable("id") Integer id) {
 		ss.setShoppingId(id);
-		System.out.println("刪除ID=====================" + id);
+	
 		service.delete(id);
 		return "redirect:/shopping/allProductsUpdateDelete";
 	}

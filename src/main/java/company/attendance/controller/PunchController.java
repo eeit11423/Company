@@ -50,7 +50,7 @@ public class PunchController {
 	public String  getMemberPunch(Model model)  {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 //		}
 		}else {
 			System.out.println(memberBean.getMemberName().length());
@@ -66,7 +66,7 @@ public class PunchController {
 //	public String punch( Model model) {
 //		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 //		if (memberBean == null) {
-//			return "redirect: " + context.getContextPath() + "/";
+//			return "redirect: " + context.getContextPath() + "/login";
 //		}else {
 //			System.out.println(memberBean.getMemberName());
 //			List<Punch> list = service.getPunchTime(memberBean.getMemberName());

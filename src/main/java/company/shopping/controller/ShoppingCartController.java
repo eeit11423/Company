@@ -100,16 +100,22 @@ public class ShoppingCartController {
 		} catch(NumberFormatException e){
 			throw new ServletException(e); 
 		}
-		// 將訂單資料(價格，數量，折扣與BookBean)封裝到OrderItemBean物件內
 		OrderItemBean oib = new  OrderItemBean();
-		oib.setOrderItemsNumber(orderItemsNumber);
-		oib.setShoppingId(ShoppingId);
-		oib.setShoppingProductName(bean.getShoppingname());
-		oib.setProductrelatio(bean.getProductrelation());
-		oib.setShoppingProductPrice(bean.getShoppingProductPrice());
-		oib.setShoppingProductDiscount(bean.getShoppingProductDiscount());
-		oib.setShoppingType(bean.getShoppingType());
-		oib.setShoppingAmount(bean.getShoppingProductDiscount()*bean.getShoppingProductPrice()*(orderItemsNumber));
+		// 將訂單資料(價格，數量，折扣與BookBean)封裝到OrderItemBean物件內
+		try {
+			
+			oib.setOrderItemsNumber(orderItemsNumber);
+			oib.setShoppingId(ShoppingId);
+			oib.setShoppingProductName(bean.getShoppingname());
+			oib.setProductrelatio(bean.getProductrelation());
+			oib.setShoppingProductPrice(bean.getShoppingProductPrice());
+			oib.setShoppingProductDiscount(bean.getShoppingProductDiscount());
+			oib.setShoppingType(bean.getShoppingType());
+			oib.setShoppingAmount(bean.getShoppingProductDiscount()*bean.getShoppingProductPrice()*(orderItemsNumber));
+			} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("單品項加入購物車有問題(addToCartOneProduct)方法");
+		}
 		
 //		System.out.println(oib.toString());
 		try {

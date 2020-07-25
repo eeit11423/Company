@@ -21,9 +21,38 @@ function modifynumber() {
 	
 }
 
-function modify() {
+function chceknumber(){
 	
-	var newQty = document.getElementById(newQty).value;
+    var sno = $('#quantity').val();
+	
+	if((sno.indexOf(" ") >= 0 || sno == null)){
+		alert('數量不能為空格或null值');
+		return;
+	}else{
+	
+	}
+	
+	
+	
+}
+
+
+function isNumberKey(evt)
+{
+	
+   var charCode = (evt.which) ? evt.which : event.keyCode
+   if (charCode > 31 && (charCode < 48 || charCode > 57)){
+      return false;
+   }
+   return true;
+}
+
+
+function modify(x) {
+	
+	var shId=x
+	var newQty = document.getElementById(quantity).value;
+	
 	if  (newQty < 0 ) {
 		window.alert ('數量不能小於 0');
 		return ; 
@@ -35,7 +64,7 @@ function modify() {
 	}
 
 	if (confirm("確定將此商品的加入數量是否" + newQty + " ? ") ) {
-		document.forms[0].action="<c:url value='addToCartOneProduct' />";
+		document.forms[0].action="pageContext.request.contextPath"+"shopping/addToCartOneProduct/"+shId+"/"+newQty;
 		document.forms[0].method="POST";
 		document.forms[0].submit();
 	} else {
@@ -75,7 +104,7 @@ function modify() {
                             <div class="d-block mb-3">
                                 <p class="mb-0 d-inline-block">數量</p>
                                
-                                    <input class="d-inline-block" type="number"  name='orderItemsNumber'  class="form-control w-25" id="quantity" value='1' >
+                                    <input class="d-inline-block" type="number"  name='orderItemsNumber'  class="form-control w-25" id="quantity" value='1' min="1" max="50" required   onkeypress="return isNumberKey(event)">
                        
                             </div>
                             <div class="mb-3">
@@ -84,7 +113,7 @@ function modify() {
                                     <input type='hidden'  value='1'  id='orderItemsNumber'>
                              
                                     <input class="btn btn-primary text-white mr-1" type='submit' value='加入購物車' >
-                                    
+                         
                                 <span><a href="${pageContext.request.contextPath}/OrderConfirm" onClick="return Checkout(${ShoppingCart.subtotal});"  class="btn btn-secondary text-white mr-1">直接結帳</a></span>
                             	
                             	</div>  </form>

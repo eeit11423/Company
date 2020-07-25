@@ -92,7 +92,7 @@ public class ProcessOrderController {
 			shortMsg =  message.substring(message.indexOf(":") + 1);
 			System.out.println(shortMsg);
 			model.addAttribute("OrderErrorMessage", "處理訂單時發生異常: " + shortMsg  + "，請調正訂單內容" );
-			return "redirect: " + context.getContextPath() + "/";
+			return "redirect: " + context.getContextPath() + "/login";
 		}
 	}
 	@ModelAttribute("ShoppingCart")

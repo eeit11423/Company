@@ -130,7 +130,7 @@ function Abort() {
 										style="width: 80px; text-align: left" name="newQty"
 										type="number"
 										value="<fmt:formatNumber value="${ShoppingCart.value.orderItemsNumber}" />"
-										name="qty" onkeypress="return isNumberKey(event)" 
+										name="qty" onkeypress="return isNumberKey(event)"  min="1" max="50" 
 											onblur="modify(${ShoppingCart.value.shoppingId}, ${ShoppingCart.value.orderItemsNumber}, ${vs.index})"
 										/>
 <!-- 										<Input type="button" name="update" value="修改" -->

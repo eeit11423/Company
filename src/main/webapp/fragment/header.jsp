@@ -18,7 +18,7 @@
 
 <header class="container-fluid">
 		<nav class="navbar navbar-expand-lg navbar-light bg-white">
-			<a class="navbar-brand" href="index.html"> <img
+			<a class="navbar-brand" href="<c:url value='/' />"> <img
 				src="${pageContext.request.contextPath}/images/logo2.png" alt="logo2">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
