@@ -4,15 +4,21 @@ package company.rearend.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+import org.springframework.web.bind.annotation.SessionAttributes;
+>>>>>>> 8e3b1c7db787fe0faa32658ed0fe87b0995d6afa
 
 import company.activity.model.Join;
 import company.member.model.MemberBean;
@@ -22,7 +28,10 @@ import company.shopping.model.OrderCount;
 import company.shopping.model.OrderItemBean;
 import company.shopping.model.ShoppingBean;
 @Controller
+@SessionAttributes({"memberBean"})
 public class GraphController {
+	@Autowired
+	ServletContext context;
 	@Autowired
 	GraphService graphservice;
 	//會員資料
@@ -66,6 +75,11 @@ public class GraphController {
 
 	@GetMapping("/orderprice")
 	public String list2(Model model) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
+
 		System.out.println("=========================================================a");
 		List<OrderItemBean> beans =graphservice.getOrderprice(null);
 		List<MemberBean> bean1 =graphservice.getMemberNumberpeople(null);
