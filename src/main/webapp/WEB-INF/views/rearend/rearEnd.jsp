@@ -82,21 +82,19 @@
             <div class="col-md-7 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body" style="hight:1px">
-<!--                <ul class="nav nav-tabs" id="mySelect" role="tablist" onchange="ck()"> -->
-<!--                                 <li class="nav-item"> -->
-<!--                                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" ">熱門產品</a> -->
-<!--                                 </li> -->
-<!--                                 <li class="nav-item"> -->
-<!--                                     <a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification" aria-selected="false">熱門活動</a> -->
-<!--                                 </li> -->
-<!--                             </ul> -->
-						<select id="mySelect" name="YourLocation" onchange="ck()">
-　					<option value="Taipei">熱門產品</option>
-　					<option value="Taoyuan">熱門活動</option>
-　					
-
-					</select>
-				
+               <ul class="nav nav-tabs" id="mySelect" role="tablist" >
+                                <li class="nav-item" value="Taipei" onclick="ck('Taipei')">
+                                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" >熱門產品</a>
+                                </li>
+                                <li class="nav-item" value="Taoyuan" onclick="ck('Taoyuan')">
+                                    <a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification" aria-selected="false" >熱門活動</a>
+                                </li>
+                            </ul>
+<!-- 						<select id="mySelect" name="YourLocation" onchange="ck()"> -->
+<!-- 　					<option value="Taipei">熱門產品</option> -->
+<!-- 　					<option value="Taoyuan">熱門活動</option> -->
+<!-- 　					 -->
+<!-- 					</select> -->				
                   <div class="table-responsive">
                 
                     <table class="table table-hover" id="tableaaajex">
@@ -336,8 +334,8 @@ function remove(id){
      });
 }
 
- function ck() {//
-	 var K = document.getElementById("mySelect").value;
+ function ck(K) {//
+// 	 var K = document.getElementById("mySelect").value;
 
 	 var urlAJAX = "";
 	 if (K == "Taoyuan") {
@@ -404,9 +402,8 @@ function remove(id){
 		        			  ProductType.innerHTML=data[i][0];
 		        			  ProductName.innerHTML=data[i][1];
 		        			  $(ProductNumber).attr("class","text-success");
-		        			  ProductNumber.innerHTML=data[i][2]+'<i class="ti-arrow-up"></i>';
-		        			  
-		        			  PriceNumber.innerHTML=data[i][3];
+		        			  ProductNumber.innerHTML=data[i][2]+'<i class="ti-arrow-up"></i>';		        			  
+		        			  PriceNumber.innerHTML="<label class='badge badge-danger'>"+data[i][3]+"</label>";		        			  
 						}
 		        	  
 		          },error : function(data) {

@@ -98,7 +98,7 @@ xhr.onreadystatechange = function() {
 // 			//member_Department.push(s);
 // 		}
 		var chart = Highcharts.chart('container1', {
-
+			credits: { enabled:false },   //去掉右下角highchart.com
 		    title: {
 		        text: '部門總額'
 		    },
@@ -113,7 +113,6 @@ xhr.onreadystatechange = function() {
 		    		 
 		    		
 		    },
-
 		    series: [{
 		        type: 'column',
 		        colorByPoint: true,
@@ -212,12 +211,22 @@ xhr2.onreadystatechange = function() {
 	 // Build the chart
 		
 		Highcharts.chart('container', {
+			credits: { enabled:false },   //去掉右下角highchart.com
 		    title: {
 		        text: '部門男女人數'
 		    },
 		    xAxis: {
 		        categories: member_D
-		    },
+		    },		    
+		    yAxis:{
+                title:{
+                    text:'人數',
+                    style: {
+                         color: 'black'
+                        
+                     }
+                },               
+             },
 		    labels: {
 		        items: [{
 		           
@@ -238,12 +247,12 @@ xhr2.onreadystatechange = function() {
 		        color: "#5B4B00"
 		    },{
 		        type: 'column',
-		        color:'blue',
+		        color:'#00AEAE',
 		        name: '男生',
 		        data: member_L
 		    },  {
 		        type: 'column',
-		        color:'red',
+		        color:'#FFAAD5',
 		        name: '女生',
 		        data: member_R
 		    },
@@ -253,11 +262,11 @@ xhr2.onreadystatechange = function() {
 		        data: [{
 		            name: '男生總人數',
 		            y: 13,
-		            color: "blue" // Jane's color
+		            color: "#00AEAE" // Jane's color
 		        }, {
 		            name: '女生總人數',
 		            y: 23,
-		            color: "red" // John's color
+		            color: "#FFAAD5" // John's color
 		        }, {
 		            name: '總人數',
 		            y: 19,

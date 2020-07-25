@@ -12,13 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-<<<<<<< HEAD
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-=======
+
 import org.springframework.web.bind.annotation.SessionAttributes;
->>>>>>> 8e3b1c7db787fe0faa32658ed0fe87b0995d6afa
+
 
 import company.activity.model.Join;
 import company.member.model.MemberBean;
