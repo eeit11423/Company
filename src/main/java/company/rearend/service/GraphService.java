@@ -27,4 +27,6 @@ public interface GraphService {
 	void addmessages(MessageBean ms);
 	void DeleteMessage(Integer messageId);
 	void UpMessage(Integer messageId);
+	List<OrderItemBean> getshoppinTypeAjex(String producttype);
+	List<OrderItemBean> getshoppinTypeSAjex(String producSttype);
 }

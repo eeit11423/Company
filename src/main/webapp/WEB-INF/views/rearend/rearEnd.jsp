@@ -10,6 +10,12 @@
 <title>Insert title here</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
 </head>
 <body>
 	<jsp:include page="/fragment/headerRearend.jsp" />
@@ -82,14 +88,14 @@
             <div class="col-md-7 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body" style="hight:1px">
-               <ul class="nav nav-tabs" id="mySelect" role="tablist" >
-                                <li class="nav-item" value="Taipei" onclick="ck('Taipei')">
-                                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" >熱門產品</a>
-                                </li>
-                                <li class="nav-item" value="Taoyuan" onclick="ck('Taoyuan')">
-                                    <a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification" aria-selected="false" >熱門活動</a>
-                                </li>
-                            </ul>
+               					<ul class="nav nav-tabs" id="mySelect" role="tablist" >
+                                	<li class="nav-item" value="Taipei" onclick="ck('Taipei')">
+                                    	<a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" >熱門產品</a>
+                                	</li>
+                                	<li class="nav-item" value="Taoyuan" onclick="ck('Taoyuan')">
+                                    	<a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification" aria-selected="false" >熱門活動</a>
+                                	</li>
+                            	</ul>
 <!-- 						<select id="mySelect" name="YourLocation" onchange="ck()"> -->
 <!-- 　					<option value="Taipei">熱門產品</option> -->
 <!-- 　					<option value="Taoyuan">熱門活動</option> -->
@@ -196,93 +202,34 @@
             </div>
             
           </div>
-          
-            <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
-              <div class="card position-relative">
-                <div class="card-body">
-                  <p class="card-title">Detailed Reports</p>
-                  <div class="row">
-                    <div class="col-md-12 col-xl-3 d-flex flex-column justify-content-center">
-                      <div class="ml-xl-4">
-                        <h1>33500</h1>
-                        <h3 class="font-weight-light mb-xl-4">Sales</h3>
-                        <p class="text-muted mb-2 mb-xl-0">The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc</p>
-                      </div>  
-                    </div>
-                    <div class="col-md-12 col-xl-9">
-                      <div class="row">
-                        <div class="col-md-6 mt-3 col-xl-5">
-                          <canvas id="north-america-chart"></canvas>
-                          <div id="north-america-legend"></div>
-                        </div>
-                        <div class="col-md-6 col-xl-7">
-                          <div class="table-responsive mb-3 mb-md-0">
-                            <table class="table table-borderless report-table">
-                              <tr>
-                                <td class="text-muted">Illinois</td>
-                                <td class="w-100 px-0">
-                                  <div class="progress progress-md mx-4">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 20.3%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                                  </div>
-                                </td>
-                                <td><h5 class="font-weight-bold mb-0">524</h5></td>
-                              </tr>
-                              <tr>
-                                <td class="text-muted">Washington</td>
-                                <td class="w-100 px-0">
-                                  <div class="progress progress-md mx-4">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                  </div>
-                                </td>
-                                <td><h5 class="font-weight-bold mb-0">722</h5></td>
-                              </tr>
-                              <tr>
-                                <td class="text-muted">Mississippi</td>
-                                <td class="w-100 px-0">
-                                  <div class="progress progress-md mx-4">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                  </div>
-                                </td>
-                                <td><h5 class="font-weight-bold mb-0">173</h5></td>
-                              </tr>
-                              <tr>
-                                <td class="text-muted">California</td>
-                                <td class="w-100 px-0">
-                                  <div class="progress progress-md mx-4">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                  </div>
-                                </td>
-                                <td><h5 class="font-weight-bold mb-0">945</h5></td>
-                              </tr>
-                              <tr>
-                                <td class="text-muted">Maryland</td>
-                                <td class="w-100 px-0">
-                                  <div class="progress progress-md mx-4">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                  </div>
-                                </td>
-                                <td><h5 class="font-weight-bold mb-0">553</h5></td>
-                              </tr>
-                              <tr>
-                                <td class="text-muted">Alaska</td>
-                                <td class="w-100 px-0">
-                                  <div class="progress progress-md mx-4">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                  </div>
-                                </td>
-                                <td><h5 class="font-weight-bold mb-0">912</h5></td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+          <div class="row">
+            <div class="col-md-7 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body" style="hight:1px">
+			        <figure class="highcharts-figure">
+			    	<div id="container"></div>
+			    	<p class="highcharts-description">
+			
+			    	</p>
+					</figure>
+		
+                 
                 </div>
               </div>
             </div>
-          </div>
+            <div class="col-md-5 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<figure class="highcharts-figure">
+								    <div id="container1"></div>
+								    <p class="highcharts-description">
+								       
+								    </p>
+									</figure>							
+							</div>
+            </div>            
+          </div>        
+         </div>
          </div>
 <script>
 function UpMessage(id) {
@@ -412,8 +359,128 @@ function remove(id){
 		      });
 			}	
 }
-	
-	   
+ var member_Ts = [];
+ var member_Ss = [];
+ var xhr = new XMLHttpRequest();
+ var map1= new Map();
+ xhr.open("GET", "<c:url value='shoppingtypeyS_ajax' />", true);
+ xhr.send();
+ xhr.onreadystatechange = function() {
+ 	if (xhr.readyState == 4 && xhr.status == 200) {
+ 		var members1 = JSON.parse(xhr.responseText);
+ 		for (var d in members1) { 			
+			 member_Ts.push({name:members1[d][0],y:members1[d][1]});
+// 			 member_Ss.push(parseInt(members1[d][1]));	
+			// map1.set(members1[d][0],parseInt(members1[d][1]));
+			// var map = [{ y: 20, name: "Medical Aid"},{y: 5, name: "Debt/Capital" }];
+			//[{name: members1[0][0],y: 5,sliced: true,selected: true},{name: 'asa',y: 56,sliced: true,selected: true}]
+}
+ 		
+ 
+ 		console.log(member_Ts);
+ 	
+// 	圓型產品比例分布圖
+ Highcharts.chart('container', {
+	 credits: { enabled:false }, 
+	    chart: {
+	        plotBackgroundColor: null,
+	        plotBorderWidth: null,
+	        plotShadow: false,
+	        type: 'pie'
+	    },
+	    title: {
+	        text: '各產品分類販賣比例'
+	    },
+	    tooltip: {
+	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	    },
+	    accessibility: {
+	        point: {
+	            valueSuffix: '%'
+	        }
+	    },
+	    plotOptions: {
+	        pie: {
+	            allowPointSelect: true,
+	            cursor: 'pointer',
+	            dataLabels: {
+	                enabled: false
+	            },
+	            showInLegend: true
+	        }
+	    },
+	    xAxis: {
+	        name: member_Ts,
+	    },
+	    series: [{
+	        name: 'Brands',
+	        colorByPoint: true,
+	        data:
+	        	member_Ts
+	        
+	        
+	        	//[{name: members1[0][0],y: 5},{name: 'asa',y: 56}]
+	    }]
+	});
+	}
+ }
+ var member_T = [];
+ var member_S = [];
+ var xhr2 = new XMLHttpRequest();
+ xhr2.open("GET", "<c:url value='shoppingtypey_ajax' />", true);
+ xhr2.send();
+ xhr2.onreadystatechange = function() {
+ 	if (xhr2.readyState == 4 && xhr2.status == 200) {
+ 		var members = JSON.parse(xhr2.responseText);
+ 		for (var d in members) { 			
+ 					 member_T.push(members[d][0])
+ 					 member_S.push(parseInt(members[d][1]));			
+ 		}
+//  		console.log(member_S);
+//3D產品分布圖	
+ Highcharts.chart('container1', {
+	 credits: { enabled:false }, 
+	    chart: {
+	        type: 'column',
+	        options3d: {
+	            enabled: true,
+	            alpha: 10,
+	            beta: 25,
+	            depth: 70
+	        }
+	    },
+	    title: {
+	        text: '各類型產品銷售總額'
+	    },
+	    subtitle: {
+	        text: ''
+	    },
+	    plotOptions: {
+	        column: {
+	            depth: 25
+	        }
+	    },
+	    xAxis: {
+	        categories: member_T,
+	        labels: {
+	            skew3d: true,
+	            style: {
+	                fontSize: '16px'
+	            }
+	        }
+	    },
+	    yAxis: {
+	        title: {
+	            text: null
+	        }
+	    },
+	    series: [{
+	        name: '各產品金額',
+	        data: member_S
+	    }]
+	});
+	}
+ }
  </script>
 
         </div>

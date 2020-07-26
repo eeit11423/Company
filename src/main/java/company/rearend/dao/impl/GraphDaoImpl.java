@@ -138,15 +138,18 @@ public class GraphDaoImpl implements GraphDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<Integer, OrderCount> getshopping(String sho) {
-		
-		String hql = "SELECT  shoppingType,shoppingProductName ,SUM(orderItemsNumber) as countTest ,SUM(shoppingProductPrice) as price "
+		Map<Integer, OrderCount> map=new HashMap();
+		//判斷客戶的訂單資訊
+		try {
+			String hql = "SELECT  shoppingType,shoppingProductName ,SUM(orderItemsNumber) as countTest ,SUM(shoppingProductPrice) as price "
 					+ "FROM OrderItemBean  GROUP BY shoppingProductName,shoppingType ORDER BY countTest DESC";
+		//判斷客戶訂單並用GROUP BY分組抓取顯示最常購買的商品名稱及價錢、總數 ，並由高到低排序。
 		Session session = factory.getCurrentSession();
 		
 		List<Object[]> listO = session.createQuery(hql).setMaxResults(5).getResultList();
+		//抓取前5名的商品資訊
 		
-		Map<Integer, OrderCount> map = new HashMap();
-
+		//新增新的Map來抓對應資料庫欄位並設定↓↓
 		int n = 0;
 		for (Object[] object : listO) {
 			n++;
@@ -162,7 +165,13 @@ public class GraphDaoImpl implements GraphDao {
 			map.put(n, order);
 			
 		}
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return map;
+		
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -250,6 +259,32 @@ public class GraphDaoImpl implements GraphDao {
 			}
 			session.update(messageBean);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderItemBean> getshoppinTypeAjex(String producttype) {
+		String hql = "SELECT SUM(O.shoppingAmount) FROM OrderItemBean O ";
+		String hql2 = "SELECT shoppingType ,SUM(O.shoppingAmount) FROM OrderItemBean O  GROUP BY shoppingType ";
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list = session.createQuery(hql).getResultList();
+		List<OrderItemBean> list2 = session.createQuery(hql2).getResultList();
+		
+		
+//		for (OrderItemBean orderItemBean : list2) {
+//			System.out.println(orderItemBean.getShoppingType()+"...............................................");
+//		}
+		return list2;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderItemBean> getshoppinTypeSAjex(String producSttype) {
+		String hql = "SELECT shoppingType,(SUM(shoppingAmount)/(SELECT SUM(O.shoppingAmount) FROM OrderItemBean O )*100) as Snum FROM OrderItemBean GROUP BY shoppingType";
+		Session session = factory.getCurrentSession();
+		List<OrderItemBean> list = session.createQuery(hql).getResultList();
+
+		return list;
 	}
 
 }

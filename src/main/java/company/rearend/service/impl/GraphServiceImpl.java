@@ -107,6 +107,17 @@ public class GraphServiceImpl implements GraphService {
 		graphDao.UpMessage(messageId);
 		
 	}
+
+	@Override
+	public List<OrderItemBean> getshoppinTypeAjex(String producttype) {
+		return graphDao.getshoppinTypeAjex(producttype); 
+			
+	}
+
+	@Override
+	public List<OrderItemBean> getshoppinTypeSAjex(String producSttype) {
+		return graphDao.getshoppinTypeSAjex(producSttype); 
+	}
 	
 	
 }

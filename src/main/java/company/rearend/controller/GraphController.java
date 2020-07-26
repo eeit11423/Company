@@ -1,11 +1,13 @@
 package company.rearend.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -145,6 +147,29 @@ public class GraphController {
 		graphservice.UpMessage(messageId);		
 		return null;
 	}	
+	
+	@GetMapping("/shoppingtypey_ajax")
+	public ResponseEntity<List<OrderItemBean>>  shoppingtype_ajax() {
+		System.out.println("=========================================================b");
+		List<OrderItemBean> products = graphservice.getshoppinTypeAjex(null);
+		ResponseEntity<List<OrderItemBean>> re = new ResponseEntity<>(products, HttpStatus.OK);
+		return re;
+	}
+	
+	@GetMapping("/shoppingtypeyS_ajax")
+	public ResponseEntity<List<OrderItemBean>>  shoppingtypeS_ajax() {
+		System.out.println("=========================================================b");
+		List<Map> va=new ArrayList<Map>();
+		Map vb=new HashedMap<>();
+		List<OrderItemBean> products = graphservice.getshoppinTypeSAjex(null);
+//		for (OrderItemBean orderItemBean : products) {
+//			vb.put("name:", value)
+//		}
+		ResponseEntity<List<OrderItemBean>> re = new ResponseEntity<>(products, HttpStatus.OK);
+		
+		//[{name: members1[0][0],y: 5,sliced: true,selected: true},{name: 'asa',y: 56,sliced: true,selected: true}]
+		return re;
+	}
 	
 	@GetMapping("/rearend/Salaryex")
 	public String aa() {

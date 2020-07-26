@@ -35,5 +35,7 @@ public interface GraphDao {
 	void DeleteMessage(Integer messageId);
 	void UpMessage(Integer messageId);
 	
+	List<OrderItemBean> getshoppinTypeAjex(String producttype);
+	List<OrderItemBean> getshoppinTypeSAjex(String producSttype);
 	//List<Map<ShoppingBean,MemberBean>>  getShoppingNumbera(String Number);
 }
