@@ -72,6 +72,32 @@ function modify(x) {
 	}
 }
 
+$(document).ready(function() {
+    $('.addshoppingcart').click(function() {
+    	if (confirm('確定刪除此筆紀錄? ')) {
+    		var href = $(this).attr('href');
+            $('form').attr('action', href).submit();
+    	} 
+    	return false;
+        
+    });
+})
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip({trigger: "click"});
+})
+function Checkout(qty) {
+	console.log("qty"+qty)
+}
+	if (qty == 0)  {
+		alert("無購買任何商品，不需結帳");
+		return false;
+	}
+	if (confirm("再次確認訂單內容 ? ") ) {
+		return true;
+	} else {
+		return false;
+	}
 
 </script>
 
@@ -114,7 +140,7 @@ function modify(x) {
                              
                                     <input class="btn btn-primary text-white mr-1" type='submit' value='加入購物車' >
                          
-                                <span><a href="${pageContext.request.contextPath}/OrderConfirm" onClick="return Checkout(${ShoppingCart.subtotal});"  class="btn btn-secondary text-white mr-1">直接結帳</a></span>
+                                <span><a href="${pageContext.request.contextPath}/OrderConfirm" 	onClick="return Checkout(${ShoppingCart.subtotal})"  class="btn btn-secondary text-white mr-1">直接結帳</a></span>
                             	
                             	</div>  </form>
                             <p class="d-block text-secondary">產品分類：<span>${shoppingBean.shoppingType}</span></p>

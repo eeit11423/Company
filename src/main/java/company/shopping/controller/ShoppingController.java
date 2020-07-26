@@ -43,6 +43,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import company.member.model.MemberBean;
 import company.shopping.model.ShoppingBean;
+import company.shopping.model.ShoppingCart;
 import company.shopping.service.ShoppingService;
 import company.shopping.validate.CheckaddProductVaildator;
 
@@ -351,6 +352,13 @@ public class ShoppingController {
 			ShoppingBean shoppingBean = new ShoppingBean();
 			model.addAttribute("shoppingBean", shoppingBean);
 		}
+	}
+	
+	@ModelAttribute("ShoppingCart")
+	public ShoppingCart createShopping(Model model) {
+		ShoppingCart shoppingCart = new ShoppingCart();
+		System.out.println("在Ch04Controller1類別內的@ModelAttribute修飾的方法中,新建ShoppingCart物件=" + shoppingCart);
+		return shoppingCart;
 	}
 
 	@ModelAttribute("AllShoppingType")
