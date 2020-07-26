@@ -50,7 +50,9 @@
 										<div style=" display: flex; width: 100%; argin: 0 10px;  align-items: center;" >
 											<span style="display: block;"> 訂購者姓名：</span> 
 											<input type="text" style="width: 65%;" id="seachOrder" />
-											
+										</div>
+										<div>
+											<span id="orderList"></span>
 										</div>
 									</div>
 									<span class="image"><img src="${pageContext.request.contextPath}/images/orderLunchImages/mm.jpg" alt="" /></span>
@@ -182,6 +184,32 @@
 		    	    });
 		    	  } );
 			
+		       
+		       $('#seachOrder').keypress(function(e) {
+		           var key = window.event ? e.keyCode : e.which;
+		           var userName = document.getElementById("seachOrder").value;
+		           var newOption="";
+		           if (key == 13){
+		        	   $.ajax({'url':'/mvcExercisetest/orderLunch/seachOrder',
+							'method' : "POST",
+							'data' : {'userName' : userName
+							},'success' : function(datas) {
+			 					$('#seachOrder').val("");
+			 						var secData = [];
+			 	 					var datasJson = JSON.parse(datas);
+			 	 					 secData = datasJson;
+			 	 					console.log(secData);
+			 	 					 for(var i = 0;i < secData.length; i++) {
+			 	 	 				   newOption += "訂單編號：["+secData[i].id+"]  餐點：["+secData[i].product+"]  數量：["+secData[i].quantity+" ]  餐點單價： ["+secData[i].price+"]";
+			 	               }
+			 	 					 document.getElementById("orderList").innerHTML=newOption;
+							},'error':function(xhr, ajaxOptions, thrownError){
+								console.log(xhr.responseText);
+							}
+			     		 });
+		           }
+		       });
+		       
 		    function insertMenu(){
 		    	  var store = document.getElementById("first-box-store").value;
 		    	  var date = document.getElementById("datepicker").value;
