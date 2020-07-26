@@ -59,7 +59,7 @@ span.error {
 													type='file'  />
 											</div>
 											<div class="form-group ">
-												<img  class='col-lg-offset-2 col-lg-12' id="productImage1" src=""">
+												<img  class='col-lg-offset-2 col-lg-12' id="productImage1" >
 											</div>
 
 											<br>&nbsp;
