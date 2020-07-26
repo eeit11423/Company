@@ -71,18 +71,7 @@
  						</div></li>
 
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/activity/index' />">活動資訊</a>
-					</li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbardrop"
-						data-toggle="dropdown"> 數據分析 </a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="${pageContext.request.contextPath}/rearend/allSalary">圖表分析</a>
-							<a class="dropdown-item" href="${pageContext.request.contextPath}/rearend/Salaryex">圖表分析2</a>
-							<a class="dropdown-item" href="${pageContext.request.contextPath}/rearend/meindex">測試</a>
-
-							
-						</div></li>
-		
+					</li>		
 					<li class="nav-item"><a class="nav-link">連絡我們</a>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/orderprice">後端</a>
 <!-- 				.. -->
