@@ -119,6 +119,20 @@
               </ul>
             </div>
             
+ 		  <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#attendance" aria-expanded="false" aria-controls="attendance">
+              <i class="ti-user menu-icon"></i>
+              <span class="menu-title">出勤管理</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="attendance">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/punch/insertPunchTime"> 新增打卡紀錄 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/leave/insertLeave"> 新增請假紀錄 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/punch/queryPunchTime"> 出勤記錄管理</a></li>
+              </ul>
+            </div>
+>>>>>>> 32c2cd8a07d0ea1af1d8dcfed31947ad617f471b
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
