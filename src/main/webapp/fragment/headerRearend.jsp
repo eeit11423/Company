@@ -95,7 +95,7 @@
             </a>
             <div class="collapse" id="ui-basic1">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/products/add">新增產品資料</a></li>
+                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/products/add2">新增產品資料</a></li>
                 <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/shopping/allProductsUpdateDelete">後台修改編輯產品資料</a></li>               
               </ul>
             </div>

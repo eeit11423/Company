@@ -14,7 +14,17 @@ span.error {
 </style>
 <meta charset="UTF-8">
 <script>
-	
+window.onload = function() {
+	var btn = document.getElementById("clickmeS");
+	btn.onclick = function() {
+		indexH2 = document.getElementById("indexH2")
+		indexH2.value = "付酬者有限公司"
+			indexP = document.getElementById("indexP")
+		indexP.value = "員工每個人都好棒棒,程式語言小學三年級就學的會了"
+	}	
+
+
+	}
 </script>
 
 
@@ -51,6 +61,27 @@ span.error {
 													<form:errors path="memberNumber" cssClass="error" />
 												</div>
 											</div>
+													
+													<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="indexH2"> 標頭文字</label>
+												<div class="col-md-6">
+													<form:input id="indexH2" path="indexH2"
+														type='text' 
+														class="form-control input-md" />
+													<form:errors path="indexH2" cssClass="error" />
+												</div>
+											</div>
+														<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="indexP">文字內容</label>
+												<div class="col-md-6">
+													<form:input id="indexP" path="indexP"
+														type='text' 
+														class="form-control input-md" />
+													<form:errors path="indexP" cssClass="error" />
+												</div>
+											</div>
 
 											<div class="form-group ">
 												<label for="your_pass" class="col-md-4 col-form-label text-md-right"><i
@@ -66,8 +97,8 @@ span.error {
 											<div class='col-lg-offset-2 col-lg-12'>
 												<input id="btnAdd" type='submit'
 													class="btn btn-secondary btn-lg btn-block" value="送出" /> 
-<!-- 													<input type='button' class='btn btn-primary float-right' -->
-<!-- 													id='clickmeS' value='一鍵Demo'> -->
+													<input type='button' class='btn btn-primary float-right'
+													id='clickmeS' value='一鍵Demo'>
 											</div>
 
 

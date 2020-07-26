@@ -133,7 +133,7 @@ public class ShoppingController {
 		return "shopping/allProductsUpdateDelete";
 	}
 
-	@GetMapping("/products/add")
+	@GetMapping("/products/add2")
 	public String getAddNewProductForm(Model model) {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
@@ -146,7 +146,7 @@ public class ShoppingController {
 		return "shopping/addProduct";
 	}
 
-	@PostMapping("/products/add") // 新增一筆商品
+	@PostMapping("/products/add2") // 新增一筆商品
 	public String processAddNewProductForm(@ModelAttribute("shoppingBean") ShoppingBean bb, BindingResult result,
 			Model model) {
 		

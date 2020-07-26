@@ -33,7 +33,7 @@ span.error {
 						<div class="col-md-10">
 							<div class="card">
 								<div class="card-header text-white" style='background: #646D73'>
-									<strong><h3>圖片更新</h3></strong>
+									<strong><h3>圖片新增</h3></strong>
 								</div>
 								<div class="card-body">
 
@@ -51,6 +51,27 @@ span.error {
 													<form:errors path="memberNumber" cssClass="error" />
 												</div>
 											</div>
+													
+													<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="indexH2"> 標頭文字</label>
+												<div class="col-md-6">
+													<form:input id="indexH2" path="indexH2"
+														type='text' 
+														class="form-control input-md" />
+													<form:errors path="indexH2" cssClass="error" />
+												</div>
+											</div>
+														<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="indexP">  文字內容</label>
+												<div class="col-md-6">
+													<form:input id="indexP" path="indexP"
+														type='text' 
+														class="form-control input-md" />
+													<form:errors path="indexP" cssClass="error" />
+												</div>
+											</div>
 
 											<div class="form-group ">
 												<label for="your_pass" class="col-md-4 col-form-label text-md-right"><i
@@ -66,9 +87,7 @@ span.error {
 											<div class='col-lg-offset-2 col-lg-12'>
 												<input id="btnAdd" type='submit'
 													class="btn btn-secondary btn-lg btn-block" value="送出" /> 
-													
-<!-- 													<input -->
-<!-- 													type='button' class='btn btn-primary float-right' -->
+<!-- 													<input type='button' class='btn btn-primary float-right' -->
 <!-- 													id='clickmeS' value='一鍵Demo'> -->
 											</div>
 

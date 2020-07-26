@@ -21,6 +21,8 @@ public class indexBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer indexId;
 	private String memberNumber;
+	private String indexH2;
+	private String indexP;
 	private Blob indexImage;// 圖片
 	private String indexfileName;// 圖片檔名
 	private Timestamp indexDate;
@@ -34,21 +36,36 @@ public class indexBean {
 	
 
 
+
 	@Override
 	public String toString() {
-		return "indexBean [indexId=" + indexId + ", memberNumber=" + memberNumber + ", indexImage=" + indexImage
-				+ ", indexfileName=" + indexfileName + ", indexDate=" + indexDate + ", productImage=" + productImage
-				+ "]";
+		return "indexBean [indexId=" + indexId + ", memberNumber=" + memberNumber + ", indexH2=" + indexH2 + ", indexP="
+				+ indexP + ", indexImage=" + indexImage + ", indexfileName=" + indexfileName + ", indexDate="
+				+ indexDate + ", productImage=" + productImage + "]";
 	}
-	public indexBean(Integer indexId, String memberNumber, Blob indexImage, String indexfileName, Timestamp indexDate,
-			MultipartFile productImage) {
+	public indexBean(Integer indexId, String memberNumber, String indexH2, String indexP, Blob indexImage,
+			String indexfileName, Timestamp indexDate, MultipartFile productImage) {
 		super();
 		this.indexId = indexId;
 		this.memberNumber = memberNumber;
+		this.indexH2 = indexH2;
+		this.indexP = indexP;
 		this.indexImage = indexImage;
 		this.indexfileName = indexfileName;
 		this.indexDate = indexDate;
 		this.productImage = productImage;
+	}
+	public String getIndexH2() {
+		return indexH2;
+	}
+	public void setIndexH2(String indexH2) {
+		this.indexH2 = indexH2;
+	}
+	public String getIndexP() {
+		return indexP;
+	}
+	public void setIndexP(String indexP) {
+		this.indexP = indexP;
 	}
 	public indexBean() {
 		// TODO Auto-generated constructor stub
