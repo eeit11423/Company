@@ -25,8 +25,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" ><img src="${pageContext.request.contextPath}/dist/images/logo.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" ><img src="${pageContext.request.contextPath}/dist/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" ><img src="../dist/images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" ><img src="../dist/images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -53,9 +53,9 @@
           <li class="nav-item">
            <i class="menu-arrow"></i>
             <a class="nav-link" href="${pageContext.request.contextPath}/">
-     		<i class="ti-view-list-alt menu-icon"></i>
+     <i class="ti-palette menu-icon"></i>
               <span class="menu-title">回首頁</span>
-                     
+              <i class="menu-arrow"></i>        
             
             </a>
           </li>
@@ -68,9 +68,9 @@
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">              
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/orderprice">統計公司資料表</a></li>             
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/rearend/allSalary">人員分佈曲線圖</a></li>             
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/rearend/allSalary">人員分佈曲線圖</a></li>
+<!--                 <li class="nav-item"> <a class="nav-link" href="連結"></a></li> -->
               </ul>
             </div>
              	 </li>
@@ -83,7 +83,7 @@
             <div class="collapse" id="ui-basic1">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/products/add">新增產品資料</a></li>
-                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/shopping/allProductsUpdateDelete">後台修改編輯產品資料</a></li>               
+                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/index/allindexUpdateDelete">後台修改編輯產品資料</a></li>               
               </ul>
             </div>
             
@@ -106,11 +106,19 @@
               <span class="menu-title">訂單</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="連結">
-              <i class="ti-star menu-icon"></i>
-              <span class="menu-title">備用</span>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#index" aria-expanded="false" aria-controls="index">
+              <i class="ti-palette menu-icon"></i>
+              <span class="menu-title">首頁圖片管理</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="index">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/index/add">新增產品資料</a></li>
+                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/index/allindexUpdateDelete">修改編輯index資料</a></li>               
+              </ul>
+            </div>
+            
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
