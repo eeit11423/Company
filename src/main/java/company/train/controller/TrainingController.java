@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.sql.Alias;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DaoSupport;
@@ -33,14 +38,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import company.member.model.MemberBean;
 import company.train.model.CompanyBean;
 import company.train.model.RosterBean;
 import company.train.model.TrainingBean;
 import company.train.service.ProductService;
 
 @Controller
+@SessionAttributes({"memberBean"})
 public class TrainingController {
 	@Autowired
 	ProductService service;
@@ -48,39 +56,55 @@ public class TrainingController {
 	ServletContext ctx;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	SessionFactory factory;
 	
 
 	@Autowired
 	public void setService(ProductService service) {
 		this.service = service;
-	}
+	}	
 	
-	@RequestMapping(value="/{trainingId}", method = RequestMethod.GET)
-	public String oneproduct(@PathVariable("trainingId") Integer trainingId, Model model){
-		 TrainingBean products = service.getProductById(trainingId);
-		model.addAttribute("product", products);
-		return "/train/product";
-	}
-	
-	
-	@RequestMapping("/train/trainAllProducts")//所有課程
+	@RequestMapping("/train/trainAllProducts")//所有課程(前台)
 	public String list(Model model) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
 		List<TrainingBean> list = service.getAllProducts();
 		model.addAttribute("trainAllProducts",list);
 		return "/train/trainAllProducts";
 	}
+	
+	@RequestMapping("/train/trainAllProductsDelete")//所有課程(後台)
+	public String listDelete(Model model) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
+		List<TrainingBean> list = service.getAllProducts();
+		model.addAttribute("trainAllProductsDelete",list);
+		return "/train/trainAllProductsDelete";
+	}
+	@RequestMapping("/train/CourseList")//所有Roster明細
+	public String Courselist(Model model) {
+		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		if (memberBean == null) {
+			return "redirect: " + context.getContextPath() + "/login";
+		}
+		List<RosterBean> list2 = service.getAllCourse();
+		model.addAttribute("CourseList",list2);
+		return "/train/CourseList";
+	}
 	@ModelAttribute("CategoryList")
 	public List<String> getcategory(){
-		System.out.println("=======================");
-		System.out.println("Hello");
 		List<String> ssString = service.getAllCategories();
-		System.out.println(ssString);
 		return ssString ; 	
 	}
 	@RequestMapping("/queryByCategory")
 	public String getCategoryList(Model model) {
 		List<String>  list = service.getAllCategories();
-		model.addAttribute("categoryList", list);
+		model.addAttribute("CategoryList", list);
 		return "types/category";
 	}
 	@RequestMapping("/productss/{category}")
@@ -91,12 +115,23 @@ public class TrainingController {
 	}
 	@RequestMapping("train/trainproduct/{id}")
 	public String getProductById(@PathVariable("id") Integer id, Model model){
-		System.out.println("++++++++++++++++++++++++++=");
-		System.out.println("HAHA");
-		System.out.println("+++++++++++++++++++++++++++++++");
+
 		model.addAttribute("product", service.getProductById(id));
 		return "train/trainproduct";
 	}
+	@RequestMapping("train/trainproduct2/{id}")
+	public String Video(@PathVariable("id") Integer id, Model model){
+
+		model.addAttribute("product", service.getProductById(id));
+		return "train/trainproduct2";
+	}
+	@RequestMapping("train/trainproduct3/{id}")//我的課程的詳細課程連結
+	public String VideoCourseList(@PathVariable("id") Integer id, Model model){
+
+		model.addAttribute("product", service.getProductById(id));
+		return "train/trainproduct3";
+	}
+	
 	@Autowired
 	public void setContext(ServletContext context) {
 		this.context = context;
@@ -149,7 +184,7 @@ public class TrainingController {
 		re = new ResponseEntity<>(b0, headers, HttpStatus.OK);
 		return re;
 	}
-	//如下為空白表單
+	//傳送一個空白表單
 	@RequestMapping(value = "/trainProduct/add", method = RequestMethod.GET)
 	public String getAddNewProductForm(Model model) {
 		TrainingBean bb = new TrainingBean();
@@ -164,9 +199,7 @@ public class TrainingController {
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
-//		if (bb.getStock() == null) {
-//			bb.setStock(0);
-//		}
+
 		MultipartFile productImage = bb.getProductImage();
 		String originalFilename = productImage.getOriginalFilename();
 		bb.setpictureName(originalFilename);
@@ -194,7 +227,7 @@ public class TrainingController {
 			e.printStackTrace();
 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 		}
-		return "redirect:/train/trainAllProducts";
+		return "redirect:/train/trainAllProductsDelete";
 	}
 	
 	@ModelAttribute("companyList")
@@ -208,12 +241,27 @@ public class TrainingController {
 	}
 	
 	
-	@GetMapping("train/deleteTrain/{trainingId}")
+	@GetMapping("train/deleteTrain/{trainingId}")//前台
 	public String delete(@PathVariable ("trainingId") Integer trainingId) {
 		System.out.println("");
 		service.delete(trainingId);	
 
-		return "redirect:/train/trainAllProducts"; //
+		return "redirect:/train/trainAllProducts"; 
+	}
+	@GetMapping("train/deleteTrain2/{trainingId}")//後台
+	public String delete2(@PathVariable ("trainingId") Integer trainingId) {
+		System.out.println("");
+		service.delete(trainingId);	
+
+		return "redirect:/train/trainAllProductsDelete"; 
+	}
+	
+	@GetMapping("train/deleteRoster/{rosterId}")
+	public String deleteCourse(@PathVariable ("rosterId") Integer rosterId) {
+		System.out.println("");
+		service.delete(rosterId);	
+
+		return "redirect:/train/CourseList"; 
 	}
 	
 	@GetMapping("train/updateTrain/{trainingId}")
@@ -224,7 +272,7 @@ public class TrainingController {
 	}
 	@PostMapping("train/updateTrain/{trainingId}")
 	public String modify(
-			@ModelAttribute("updatePic")  TrainingBean tb, //這邊的updatePic是從
+			@ModelAttribute("updatePic")  TrainingBean tb, //getTraining這邊的updatePic也要改
 			BindingResult result, 
 			Model model,
 			@PathVariable Integer trainingId, 
@@ -250,7 +298,7 @@ public class TrainingController {
 			}
 		}
 		service.updateTraining(tb);		
-		return "redirect:/train/trainAllProducts";
+		return "redirect:/train/trainAllProductsDelete"; //redirect代表執行以前註釋的路徑
 	}
 	
 	// 更新方法
@@ -258,7 +306,7 @@ public class TrainingController {
 		public void getTraining(@PathVariable(value = "trainingId", required = false) Integer trainingId, Model model) {
 			if (trainingId != null) {
 				TrainingBean training = service.getProductById(trainingId);
-				model.addAttribute("updatePic", training);//updatePic 為預設值可做更改其他地' 也要做改動
+				model.addAttribute("updatePic", training);//updatePic 為預設值可自行改名，一旦更動其他地方也要做改動。
 			}
 		}
 		
@@ -268,26 +316,96 @@ public class TrainingController {
 //			model.addAttribute("rosterBean",rb);
 //			return "rosters";
 //		}
+		@GetMapping("/train/score/{id}") 
+		public String getStar(@PathVariable("id") Integer id, HttpServletRequest request, Model model) {
+			TrainingBean rBean = service.getProductById(id);
+			model.addAttribute("trainingId", id);
+			return "train/score";
+		};
 		
-		@RequestMapping("/score")
+		@RequestMapping("/train/scorepoint")
 		public String getAllStar(HttpServletRequest request, Model model) {
 			
-			String rosterStr1 	= request.getParameter("question1");
+			String rosterStr1 	= request.getParameter("question1");//把隱藏標籤的value丟過來
 			String rosterStr2 	= request.getParameter("question2");
 			String rosterStr3 	= request.getParameter("question3");
 			String rosterStr4 	= request.getParameter("question4");
 			String rosterStr5 	= request.getParameter("question5");
-
-//			System.out.println(rosterStr1+"============================a");
+			String memberNumber = request.getParameter("memberNumber");
+			String trainingId 	= request.getParameter("trainingId");
 			int starsum1 = Integer.parseInt(rosterStr1.trim());
 			int starsum2 = Integer.parseInt(rosterStr2.trim());
 			int starsum3 = Integer.parseInt(rosterStr3.trim());
 			int starsum4 = Integer.parseInt(rosterStr4.trim());
 			int starsum5 = Integer.parseInt(rosterStr5.trim());
+			int starsummemberNumber = Integer.parseInt(memberNumber.trim());
+			int starsumtrainingId = Integer.parseInt(trainingId.trim());
 			int star = starsum1+starsum2+starsum3+starsum4+starsum5;
-			int id = 1 ; 
-			service.addscore(star, id);
-			return "index";
+//			MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");//抓session裡面的memebean
+//			int id = Integer.valueOf(memberBean.getMemberNumber()) ; 
+//			System.out.println(starsummemberNumber+"=="+starsumtrainingId+"=================================A");
+			
+			service.addscore(star, starsummemberNumber,starsumtrainingId);
+			return "redirect:/CourseList"; 
 		}
+		@RequestMapping("/CourseList")//抓取資料庫的方法
+		public String getTrainList(HttpServletRequest request, Model model) {//HttpServletRequest是抓頁面上的資料						
+			MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+			if (memberBean == null) {
+				return "redirect: " + context.getContextPath() + "/login";//沒登入就跳轉畫面進登入
+			}
+			List<RosterBean> trainCon = service.listRosterBean(memberBean.getMemberNumber());		
+			List<TrainingBean> CourseList = new LinkedList<TrainingBean>();
+			for(RosterBean aa:trainCon) {
+				int add = aa.getTrainingId();
+				CourseList.add(service.getProductById(add));			
+			}			
+			model.addAttribute("train001",CourseList);
+			return "train/CourseList";
+		}
+		
+		@PostMapping(value="/Course123")//存取資料庫的方法
+		public String addCourseList(HttpServletRequest request,Model model) {
+			String trainingString = request.getParameter("trainingId");//裡面丟的是隱藏標籤的NAME
+			String traincreditSTR = request.getParameter("trainingCredit");
+			int trainingId = Integer.parseInt(trainingString);//轉型
+			int trainingcredit =Integer.parseInt(traincreditSTR);
+			MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");//從session裡抓出memberBean
+			String  membernumber = memberBean.getMemberNumber();
+			
+			RosterBean RB =new RosterBean(null,membernumber,trainingId,trainingcredit,null);//依序丟入
+			service.insertCourseDao(RB);
+			return "redirect:/train/trainAllProducts";
+		}
+		@RequestMapping("/train/Video/{id}")
+		public String Video(Model model) {
+			List<TrainingBean> list = service.getAllProducts();
+			model.addAttribute("train001",list);
+			return "train/Video";
+		}
+//			@RequestMapping("/train/Video/{id}")
+//		public String Video(@PathVariable("id") Integer id, Model model){
+//
+//			model.addAttribute("Video", service.getProductById(id));
+//			return "train/Video";
+//		}
+//		@RequestMapping("/Course123")
+//		public String testall(Model model) {
+//			MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+//			List<String> list = service.getStrings(memberBean.getMemberNumber());
+//			List<TrainingBean> tb1 = new ArrayList<TrainingBean>();
+//			for (int i = 0; i < list.size(); i++) {
+//				List<TrainingBean> tb = service.getonetrain(Integer.valueOf(list.get(i)));
+//				for (TrainingBean trainingBean : tb) {
+//					tb1.add(trainingBean);
+//				}
+//				
+//			}			
+//			model.addAttribute("tt",tb1);
+//			return "redirect:/train/trainAllProducts";
+//		}
+		
+		
+		
 }
 

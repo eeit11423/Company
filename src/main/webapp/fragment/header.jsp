@@ -67,7 +67,8 @@
 						data-toggle="dropdown"> 訓練課程 </a>
 						<div class="dropdown-menu">
 								<a class="dropdown-item" href="<c:url value='/train/trainAllProducts' />">所有課程</a>
-								<a class="dropdown-item" href="<c:url value='/trainProduct/add' />">新增課程</a>
+<%-- 								<a class="dropdown-item" href="<c:url value='/trainProduct/add' />">新增課程</a> --%>
+								<a class="dropdown-item" href="<c:url value='/CourseList' />">我的課程</a>
  						</div></li>
 
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/activity/index' />">活動資訊</a>

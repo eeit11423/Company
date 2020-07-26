@@ -6,4 +6,4 @@ JAVASCRIPT初探|30|20200811|20200814|3|JavaScript（通常縮寫為JS）是一�
 Python基本課程|45|20200901|20200911|3|Python是一種廣泛使用的直譯式、進階程式、通用型程式語言。|Python的設計哲學強調代碼的可讀性和簡潔的語法（尤其是使用空格縮排劃分代碼塊，而非使用大括號或者關鍵詞）。相比於C++或Java，Python讓開發者能夠用更少的代碼表達想法。不管是小型還是大型程式，該語言都試圖讓程式的結構清晰明瞭。|data/images/smallPic/PYTHON.jpg|006|後端|PYTHON.jpg|https://www.youtube.com/embed/rfscVS0vtbw
 BootStrap深入淺出教學|20|20200803|20200810|1|Bootstrap是一組用於網站和網路應用程式開發的開源前端|Bootstrap 是一個由 HTML、CSS 和 JavaScript 寫成的前端框架。|data/images/smallPic/BOOTSTRAP.jpg|007|前端|BOOTSTRAP.jpg|https://www.youtube.com/embed/9X1graZtuPs
 C++新手入門指南|50|20200919|20200926|2|C++是一種被廣泛使用的電腦程式設計語言。|C語言是個十分強大的程式語言。|data/images/smallPic/C.jpg|008|後端 |C.jpg|https://www.youtube.com/embed/vLnPwxZdW4Y
-JAVA基礎講座|45|20200810|20200831|2|Java 是一種廣泛使用的電腦程式設計語言，擁有跨平台、物件導向、泛型程式設計的特性，可以運用在各種領域，支援性非常強大！|Java 是 Sun Microsystems 於 1995 年率先發表的程式設計語言與運算平台。|data/images/smallPic/JAVA.jpg|009|後端|JAVA.jpg|https://www.youtube.com/embed/eIrMbAQSU34
+JAVA基礎講座|45|20200810|20200831|2|Java 是 Sun Microsystems 於 1995 年率先發表的程式設計語言與運算平台。|Java 是一種廣泛使用的電腦程式設計語言，擁有跨平台、物件導向、泛型程式設計的特性，可以運用在各種領域，支援性非常強大！|data/images/smallPic/JAVA.jpg|009|後端|JAVA.jpg|https://www.youtube.com/embed/eIrMbAQSU34

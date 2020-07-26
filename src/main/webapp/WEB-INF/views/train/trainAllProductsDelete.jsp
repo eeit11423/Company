@@ -19,27 +19,27 @@
     <section>
         <div class="jumbotron">
             <div class="container" style="text-align: center" >
-                <h1>所有訓練課程</h1>
+                <h1>所有訓練課程(後台)</h1>
 <%--                 <a href="<c:url value='/' />">首頁</a> --%>
 <%--                 <a href="<c:url value='/trainProduct/add' />">新增</a> --%>
 
             </div>
-            <div align='center'>
-				請挑選課程類型: <select id='Publish_course' onchange="memberChange()">
-					<c:forEach var="category" items="${CategoryList}">
-						<option value="${category}">${category}</option>
-					</c:forEach>
-				</select>
-				<hr>
+<!--             <div align='center'> -->
+<!-- 				請挑選課程類型: <select id='Publish_course' onchange="memberChange()"> -->
+<%-- 					<c:forEach var="category" items="${CategoryList}"> --%>
+<%-- 						<option value="${category}">${category}</option> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> -->
+<!-- 				<hr> -->
 
-			</div>
+<!-- 			</div> -->
         </div>
     <section class="container"></section>
     <hr style="height:1px;border:none;color:#333;background-color:#333;">
     </section>
     <section class="container">
         <div class="row">
-        <c:forEach var='product' items='${trainAllProducts}'> <!-- controller的識別字串trainAllProducts會導引過來這裡 -->
+        <c:forEach var='product' items='${trainAllProductsDelete}'> <!-- controller的識別字串trainAllProducts會導引過來這裡 -->
             <div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
                 <div class="thumbnail" style="width: 320px; height: 340px">
                 <img width='80' height='80'
@@ -54,19 +54,19 @@
                         <p>學分:${product.trainingCredit}</p>
                         
                         <p>
-                        	<a href="trainproduct/${product.trainingId}"
-                        	class="btn btn-primary"><span
-                        	class="glyphicon-info-sigh glyphicon"></span>詳細內容
-                        	</a>
+<%--                         	<a href="trainproduct/${product.trainingId}" --%>
+<!--                         	class="btn btn-primary"><span -->
+<!--                         	class="glyphicon-info-sigh glyphicon"></span>詳細內容 -->
+<!--                         	</a> -->
                         	
            	
-<%--                         	<a href="deleteTrain/${product.trainingId}"class="btn btn-primary"> --%>
-<!-- 								<span class="glyphicon-info-sigh glyphicon"></span>刪除 -->
-<!-- 							</a> -->
+                        	<a href="deleteTrain2/${product.trainingId}"class="btn btn-primary">
+								<span class="glyphicon-info-sigh glyphicon"></span>刪除
+							</a>
 							
-<%-- 							<a href="updateTrain/${product.trainingId}"class="btn btn-primary"> --%>
-<!-- 								<span class="glyphicon-info-sigh glyphicon"></span>修改 -->
-<!-- 							</a> -->
+							<a href="updateTrain/${product.trainingId}"class="btn btn-primary">
+								<span class="glyphicon-info-sigh glyphicon"></span>修改
+							</a>
                         </p>
                     
                     </div>

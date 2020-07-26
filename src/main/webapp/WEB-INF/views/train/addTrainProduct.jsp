@@ -11,17 +11,17 @@
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <style type="text/css">
 fieldset {
-	border: 1px solid rgb(255, 232, 57);
+	border: 1px solid 	#FFFFFF;
 	width: 400px;
 	margin: auto;
 }
 </style>
-<title>Products</title>
+<title>addTrainProduct</title>
 </head>
 <body>
 	<section>
 		<div class="container">
-			<h1 style="text-align: center">新增課程資料</h1>
+			<h1 style="text-align: center">新增與編輯</h1>
 		</div>
 	</section>
 	<hr style="height: 1px; border: none; color: #333; background-color: #333;">

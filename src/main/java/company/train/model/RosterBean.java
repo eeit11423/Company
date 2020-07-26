@@ -13,7 +13,7 @@ public class RosterBean implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer rosterId;	
-	private Integer memberNumber;	
+	private String memberNumber;	
 	private Integer trainingId;
 	private Integer totalCredits;//學分
 	private Integer starSum; //評分總分，拿來判斷是否取得學分
@@ -22,7 +22,7 @@ public class RosterBean implements Serializable{
 	public RosterBean() {
 		super();
 	}
-	public RosterBean(Integer rosterId, Integer memberNumber, Integer trainingId, Integer totalCredits,
+	public RosterBean(Integer rosterId, String memberNumber, Integer trainingId, Integer totalCredits,
 			Integer starSum) {
 		super();
 		this.rosterId = rosterId;
@@ -37,10 +37,10 @@ public class RosterBean implements Serializable{
 	public void setRosterId(Integer rosterId) {
 		this.rosterId = rosterId;
 	}
-	public Integer getMemberNumber() {
+	public String getMemberNumber() {
 		return memberNumber;
 	}
-	public void setMemberNumber(Integer memberNumber) {
+	public void setMemberNumber(String memberNumber) {
 		this.memberNumber = memberNumber;
 	}
 	public Integer getTrainingId() {

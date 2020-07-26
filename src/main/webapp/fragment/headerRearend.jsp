@@ -114,6 +114,21 @@
               </ul>
             </div>
           </li>
+           
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#Training" aria-expanded="false" aria-controls="Training">
+              <i class="ti-user menu-icon"></i>
+              <span class="menu-title">課程</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="Training">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/trainProduct/add"> 新增課程 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/train/trainAllProductsDelete"> 修改與刪除 </a></li>
+              
+              </ul>
+            </div>
+          </li> 
                     
           <li class="nav-item">
             <a class="nav-link" href="連結">

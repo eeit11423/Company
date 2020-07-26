@@ -1,11 +1,14 @@
 package company.train.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import company.shopping.model.OrderBean;
 import company.train.dao.ProductDao;
 import company.train.model.TrainingBean;
 import company.train.model.CompanyBean;
@@ -25,7 +28,15 @@ public class ProductDaoImpl implements ProductDao {
 									  .getResultList();
 		return beans;
 	}
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RosterBean> getAllCourse() {
+		String hql = "FROM RosterBean";
+		Session session = factory.getCurrentSession();
+		List<RosterBean> bean2 = session.createQuery(hql)
+									  .getResultList();
+		return bean2;
+	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllCategories() {
@@ -60,7 +71,6 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		return session.get(TrainingBean.class, productId);
 	}
-
 	@Override
 	public void addProduct(TrainingBean product) {
 		Session session = factory.getCurrentSession();
@@ -90,22 +100,77 @@ public class ProductDaoImpl implements ProductDao {
 		training.setTrainingId(key);
 		session.delete(training);
 	}
+	@Override
+	public void deleteCourse(int key2) {
+		Session session2 = factory.getCurrentSession();
+		RosterBean training2 = new RosterBean();
+		training2.setRosterId(key2);
+		session2.delete(training2);
+	}
+
+	
 //	@Override
 //	public void addscore(RosterBean rosterBean) {
 //		Session session = factory.getCurrentSession();
 //		session.save(rosterBean);
 //	}
 	@Override
-	public void addscore(int totalstar,int id) {
+	public void addscore(int totalstar,int id, int starsumtrainingId) {
+//		System.out.println("====================================");
+//		System.out.println(totalstar);
+//		System.out.println(id);
+//		System.out.println(starsumtrainingId);
 		String hqlString = "UPDATE RosterBean rb SET rb.starSum = :star1" 
-				+" Where rb.rosterId = :rid";
+				+" Where rb.trainingId = :trainingId and rb.memberNumber = :memberNumber";
 		Session session = factory.getCurrentSession();
+		String num = Integer.toString(id);//把id轉型成字串
 		session.createQuery(hqlString)
 		.setParameter("star1", totalstar)
-		.setParameter("rid", id)
-		.executeUpdate();
-		
+		.setParameter("trainingId", starsumtrainingId)
+		.setParameter("memberNumber", num)
+		.executeUpdate();		
+	}
+
+	@SuppressWarnings("unchecked")//用memberId為依據去RosterBean裡找所有的此Id的資料。
+	@Override
+	public List<RosterBean> listRosterBean(String memberId) {
+		Session session = factory.getCurrentSession();
+		String hqlRoster = "FROM RosterBean b WHERE b.memberNumber = :id";
+		List<RosterBean> RosterList= session.createQuery(hqlRoster)
+		.setParameter("id", memberId)
+		.getResultList();
+		return RosterList;
 	}
 	
+	public void insertCourseDao(RosterBean rb) {
+		Session session = factory.getCurrentSession();
+        session.save(rb);
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getStrings(String number) {				
+//		String hql = "From RosterBean r WHERE r.memberNumber = :number";
+		String hql = "Select Distinct r.trainingId From RosterBean r WHERE r.memberNumber = :number";
+		Session session = factory.getCurrentSession();
+		List<String> list = new ArrayList<String>();
+		//ArrayList<String> list1 = (ArrayList<String>) session.createQuery(hql).setParameter("number", number).getResultList();
+		List<Object[]> list1 = session.createQuery(hql).setParameter("number", number).getResultList();
+		for (Object objects : list1) {
+			list.add(objects.toString());
+		}
+		
+//		RosterBean rb = new  RosterBean();
+//		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
+		return list;
+		}
 
+	@Override
+	public List<TrainingBean> getonetrain(Integer trainingId) {
+		String hql = "From TrainingBean t where t.trainingId = :tid";
+		Session session = factory.getCurrentSession();
+		List<TrainingBean> tb = session.createQuery(hql)
+										.setParameter("tid", trainingId)
+										.getResultList();
+		return tb;
+	}
 }

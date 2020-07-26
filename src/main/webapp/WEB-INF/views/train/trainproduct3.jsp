@@ -8,18 +8,7 @@
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <title>Product</title>
 <script type="text/javascript">
-		function reconfirmOrder() {
-
-			if (confirm("確定參加此課程 ? ") ) {
-				document.forms[0].action="<c:url value='/Course123' />";
-				document.forms[0].method="POST";
-				document.forms[0].submit();
-				
-				return;
-			} else {
-				return;
-			}
-		}
+		
 </script>
 </head>
 <body>
@@ -47,32 +36,15 @@
 				<p>課程介紹: ${product.elaborate}</p>				
 				<p>學分: ${product.trainingCredit}</p>
 
-<!-- 				<div> -->
-<!-- 					<figure> -->
-<%-- 						<iframe src="<c:url value='${product.URLUpload}'/>"  --%>
-<!-- 							width=400 height=300 frameborder="0" allowfullscreen></iframe>			    -->
-<!-- 					</figure> -->
-<!-- 				</div> -->
-				<p>
-					
-					
+				<p>										
 					<input type='hidden' id='hiiii' name='trainingId' value='${product.trainingId}'> 
-					<input type='hidden' id='hiiii' name='trainingCredit' value='${product.trainingCredit}'> 
-					
+					<input type='hidden' id='hiiii' name='trainingCredit' value='${product.trainingCredit}'> 					
 					<input type='hidden'  name='page' value='secondPage'>
-					 
-					 
-<%-- 					<a href="<spring:url value='/products' />" class="btn btn-default"> --%>
-<!-- 						<span class="glyphicon-hand-left glyphicon"></span>返回 -->
-<!-- 					</a> -->
-
-<!-- 					<a href='#' class='btn btn-warning btn-large'>  -->
-<!-- 					    <span class='glyphicon-shopping-cart glyphicon' type='submit' ></span>確定送出 -->
-<!-- 					</a> -->
-					<input style="color:black" type="button" name="OrderBtn"  value="確定選課" onclick="reconfirmOrder()">
 				</p>
 				
-                    
+<%--                  <a href="deleteRoster/${roster329.rosterId}"class="btn btn-primary"> --%>
+<!-- 								<span class="glyphicon-info-sigh glyphicon"></span>刪除 -->
+<!-- 							</a>    -->
 			</div>
 		</div>
 	</section>

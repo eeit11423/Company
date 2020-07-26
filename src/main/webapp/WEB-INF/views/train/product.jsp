@@ -31,7 +31,6 @@
 					<strong>課程編號: </strong> <span class='label label-warning'>
 						${product.trainingId} </span>
 				</p>
-				<h1>11111111111111111111</h1>
 				<div>
 					<figure>
 						<iframe src="<c:url value='${product.URLUpload}'/>" 
