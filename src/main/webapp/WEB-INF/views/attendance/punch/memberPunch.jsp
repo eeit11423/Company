@@ -1,29 +1,62 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>出勤系統</title>
-<link href="${pageContext.request.contextPath}/css/attendance-form.css"
-	rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/attendance-form.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/dist/css/vendor.bundle.base.css" rel="stylesheet"  media="all" />
+<link href="${pageContext.request.contextPath}/dist/css/style.css" rel="stylesheet"  media="all" />
+<link href="${pageContext.request.contextPath}/dist/css/themify-icons.css" rel="stylesheet"  media="all" />
+<link rel="shortcut icon" href="/dist/images/favicon.png" />
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div class="container"
-		style="text-align: center; background-color: #dee2e6">
-		<h1>
-			出勤系統
-			<hr>
-		</h1>
-		<button onclick="location.href='../../'">返回首頁</button>
-		<button onclick="location.href='../leave/memberLeave'">請假系統</button>
-		<div id="Date"></div>
-		<h4>使用者：${memberpunch[0].memberName}</h4>
+ 	<div class="container-fluid page-body-wrapper">
+    	<nav class="sidebar sidebar-offcanvas" id="sidebar">
+			<ul class="nav">
 
-		<script type="text/javascript"> 
+				<li class="nav-item"><a class="nav-link" data-toggle="collapse"
+					href="#punch" aria-expanded="false" aria-controls="punch">
+						<i class="ti-user menu-icon"></i> <span class="menu-title">打卡系統</span>
+						<i class="menu-arrow"></i>
+				</a>
+					<div class="collapse" id="punch">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/attendance/punch/memberPunch">
+									出勤打卡 </a></li>
+						</ul>
+					</div></li>
+					
+				<li class="nav-item"><a class="nav-link" data-toggle="collapse"
+					href="#leave" aria-expanded="false" aria-controls="leave">
+						<i class="ti-user menu-icon"></i> <span class="menu-title">請假系統</span>
+						<i class="menu-arrow"></i>
+				</a>
+					<div class="collapse" id="leave">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/attendance/leave/memberInsertLeave">
+									新增請假紀錄 </a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/attendance/leave/memberLeave">
+									請假記錄查詢</a></li>
+						</ul>
+					</div></li>
+			</ul>
+		</nav>
+	<div class="main-panel" >
+		<div class="contnt-wrapper">
+		<div class="row">
+		<div class="card">
+			<div class="card-header text-white" style='background: #646D73'>
+				<div class="col-md-4 text-md-left"><strong><h3>出勤紀錄表</h3></strong></div>
+				<div id="Date" class="col-md-6 text-md-left"></div>
+<script type="text/javascript"> 
 	function setClock(){
 		var date=new Date(); //建立日期
 		var year=date.getFullYear(); //获取当前年份 
@@ -37,35 +70,26 @@
 		d.innerHTML='現在時間:'+year+'年'+mon+'月'+da+'日'+'星期'+day+' '+h+':'+m+':'+s;	}
 	window.setInterval(setClock,1000);
 	window.setInterval(setClock());
-
 </script>
-		<!-- 	<div class="container" align='center' > -->
-		<div align='center'>
-			<button id='manage' name='manage' style='display: none'
-				onclick="location.href='queryPunchTime'">後台管理</button>
-		</div>
-		<div class="container" align='center' style="text-align: center">
-			<button onclick="location.href='punchWorkOn'">上班打卡</button>
-			<button onclick="location.href='punchWorkOff'">下班打卡</button>
-			<button onclick="location.href='memberInsertPunchTime'">新增紀錄</button>
-			<button id='btn_late'>遲到</button>
-			<button id='btn_early'>早退</button>
-		</div>
-		選擇年月份：<select id='dateselect'></select>
-		<hr>
-	</div>
-	<div align='center' id='tablearea' style='height: 150px;'
-		class='center'></div>
+			</div>
+			<div class="card-body">
+				<div class="form-group row">		
+					<div class="col-md-3 text-md-right"><h4>使用者：</h4></div>
+					<div class="col-md-3 text-md-left"><h4>${memberpunch[0].memberName}</h4></div>
+					<div class="col-md-3 text-md-right">選擇年月份：</div>
+					<div class="col-md-3"><select id='dateselect'></select></div>
+				</div>
+				<div class="container" align='center' style="text-align: center">
+					<button onclick="location.href='punchWorkOn'">上班打卡</button>
+					<button onclick="location.href='punchWorkOff'">下班打卡</button>
+					<button onclick="location.href='memberInsertPunchTime'">新增紀錄</button>
+					<button id='btn_late'>遲到</button>
+					<button id='btn_early'>早退</button>
+				</div>
+			</div>
+			<div class="card-body">
+				<div align='center' id='tablearea' class='class="col-md-12 grid-margin stretch-card"'></div>
 	<script>
-			var btn = document.getElementById("manage"); 
-			function checkAdmin(){
-			    if(${memberBean.memberAdmin == "s"}) {
-			        btn.style.display = "block";
-			    } else {
-			        btn.style.display = "none";
-			    } 
-			}
-			checkAdmin();
 			var btn_late = document.getElementById("btn_late");
 			var btn_early = document.getElementById("btn_early");
 			var selectElement = document.getElementById('dateselect'); 
@@ -141,16 +165,16 @@
 				var punchtimes = mapData.punchtimes;
 				var countLate = 0;
 				var countEarly = 0;
-				var content = "<table class='tm-responsive-table' align='center' border='1'  bgcolor='#fbdb98'>";
+				var content = "<table class='table table-hover border border-secondary'>";
 
 				content += "<tr class='tm-tr-header' align='center'>"
 						+ "<th align='center' width='70'>流水號</th>"
-						+ "<th align='center' width='100'>姓名</th>"
-						+ "<th align='center' width='100'>日期</th>"
+						+ "<th align='center' width='140'>日期</th>"
 						+ "<th align='center' width='140'>上班時間</th>"
 						+ "<th align='center' width='70'>遲到</th>"
 						+ "<th align='center' width='140'>下班時間</th>"
-						+ "<th align='center' width='70'>早退</th></tr>";
+						+ "<th align='center' width='70'>早退</th>"
+						+ "<th align='center' width='70'>上班時數</th></tr>";
 				for (var i = 0; i < punchtimes.length; i++) {
 					var punchday = punchtimes[i].punchDate; //or time=1439018115000; 结果一样
 					console.log(timeStampToDate(punchday));
@@ -167,12 +191,12 @@
 						countLate ++;
 					}
 					content += "<tr ><td align='center'>" + punchtimes[i].punchId + "</a></td>"
-							+ "<td align='center'>"	+ punchtimes[i].memberName	+ "</td>"
 							+ "<td align='center'>"	+ timeStampToDate(punchday)	+ "</td>"
 							+ "<td align='center'>"	+ timeStampToTime(workOn) + "</td>"
 							+ "<td align='center'>"	+ checkNull(punchtimes[i].punchLate) + "</td>"
 							+ "<td align='center'>"	+ timeStampToTime(workOff) + "</td>"
-							+ "<td align='center'>"	+ checkNull(punchtimes[i].punchEarly) + "</td></tr>";
+							+ "<td align='center'>"	+ checkNull(punchtimes[i].punchEarly) + "</td>"
+							+ "<td align='center'>"	+ checkZero(checkNull(punchtimes[i].punchHours)/(1000 * 60 * 60 )) + "</td></tr>";
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;
@@ -187,6 +211,14 @@
 					return String;
 				}
 				
+			}
+			
+			function checkZero(Long) {
+				if (Long == 0) {
+					return '';
+				} else {
+					return Long;
+				}
 			}
 			
 			function timeStampToDate(date) {
@@ -213,6 +245,23 @@
 				}
 			}
 		</script>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
 	</div>
 </body>
+<script src="${pageContext.request.contextPath}/dist/base/vendor.bundle.base.js"></script>
+  <script src="${pageContext.request.contextPath}/dist/chart.js/Chart.min.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="${pageContext.request.contextPath}/dist/js/off-canvas.js"></script>
+  <script src="${pageContext.request.contextPath}/dist/js/hoverable-collapse.js"></script>
+  <script src="${pageContext.request.contextPath}/dist/js/template.js"></script>
+  <script src="${pageContext.request.contextPath}/dist/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="${pageContext.request.contextPath}/dist/js/dashboard.js"></script>
 </html>

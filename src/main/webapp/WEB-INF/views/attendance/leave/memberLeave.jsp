@@ -6,29 +6,68 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>請假系統</title>
-</script>
+<link href="${pageContext.request.contextPath}/css/attendance-form.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/dist/css/vendor.bundle.base.css" rel="stylesheet"  media="all" />
+<link href="${pageContext.request.contextPath}/dist/css/style.css" rel="stylesheet"  media="all" />
+<link href="${pageContext.request.contextPath}/dist/css/themify-icons.css" rel="stylesheet"  media="all" />
+<link rel="shortcut icon" href="/dist/images/favicon.png" />
+
 </head>
-<body onload="ShowTime()"	>
+<body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div class="container" style="text-align: center;background-color:#dee2e6">
-		<h1>請假系統	</h1><hr>
-		<button onclick="location.href='../../'">返回首頁</button>
-		<button onclick="location.href='../punch/memberPunch'">請假系統</button>
-		<button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">後台管理</button>
-		<h4>使用者：${memberleave[0].memberName}</h4>
-		
-		<div align='center'><button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">後台管理</button></div>
-		<div class="container" align='center' style="text-align: center">
-		<button onclick="location.href='memberInsertLeave'">新增紀錄</button>
-		</div>
-		選擇年月份：<select id='dateselect'></select>
+<div class="container-fluid page-body-wrapper">
+    	<nav class="sidebar sidebar-offcanvas" id="sidebar">
+			<ul class="nav">
+
+				<li class="nav-item"><a class="nav-link" data-toggle="collapse"
+					href="#punch" aria-expanded="false" aria-controls="punch">
+						<i class="ti-user menu-icon"></i> <span class="menu-title">打卡系統</span>
+						<i class="menu-arrow"></i>
+				</a>
+					<div class="collapse" id="punch">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/attendance/punch/memberPunch">
+									出勤打卡 </a></li>
+						</ul>
+					</div></li>
+					
+				<li class="nav-item"><a class="nav-link" data-toggle="collapse"
+					href="#leave" aria-expanded="false" aria-controls="leave">
+						<i class="ti-user menu-icon"></i> <span class="menu-title">請假系統</span>
+						<i class="menu-arrow"></i>
+				</a>
+					<div class="collapse" id="leave">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/attendance/leave/memberInsertLeave">
+									新增請假紀錄 </a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/attendance/leave/memberLeave">
+									請假記錄查詢</a></li>
+						</ul>
+					</div></li>
+			</ul>
+		</nav>
+	<div class="main-panel" >
+		<div class="contnt-wrapper">
+			<div class="row">
+				<div class="card">
+					<div class="card-header text-white" style='background: #646D73'>
+						<strong><h3>請假紀錄表</h3></strong>
+					</div>
+					<div align='center'><button id='manage' name='manage' style='display:none' onclick="location.href='queryLeave'">後台管理</button></div>
+					<div class="card-body">
+						<div>						
+							<h4>使用者：${memberleave[0].memberName}</h4>
+								選擇年月份：<select id='dateselect'></select>
 		<!-- 顯示書籍資料的區域 -->
-			<hr>
-	</div>
-	<div align='center'>
-		<div align='center' id='tablearea' style='height: 150px;'
-			class='center'></div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div align='center' id='tablearea' style='height: 150px;' class='center'>
 		<script>
 			var btn = document.getElementById("manage"); 
 			function checkAdmin(){
@@ -84,7 +123,7 @@
 			
 			function displayPagePunchTime(responseText) {
 				var leave = JSON.parse(responseText);
-				var content = "<table align='center' border='1'  bgcolor='#fbdb98'>";
+				var content = "<table class='table table-hover border border-secondary'>";
 
 				content += "<tr align='center'>"
 						+ "<th align='center' width='60'>流水號</th>"
@@ -93,7 +132,9 @@
 						+ "<th align='center' width='100'>假別</th>"
 						+ "<th align='center' width='200'>請假開始</th>"
 						+ "<th align='center' width='200'>請假結束</th>"
+						+ "<th align='center' width='200'>請假時數</th>"
 						+ "<th align='center' width='200'>原因</th>"
+						+ "<th align='center' width='200'>審核</th>"
 						+"</tr>";
 				for (var i = 0; i < leave.length; i++) {
 					var leaveDay = leave[i].leaveDate; //or time=1439018115000; 结果一样
@@ -107,7 +148,9 @@
 					+ "<td align='center'>" + leave[i].leaveCategory + "</td>" 
 					+ "<td align='center'>"	+ timeStampToTime(leaveStart) + "</td>"
 					+ "<td align='center'>" + timeStampToTime(leaveEnd)	+ "</td>"
+					+ "<td align='center'>" + leave[i].leaveHours + "</td>" 
 					+ "<td align='center'>" + leave[i].leaveCause + "</td>" 
+					+ "<td align='center'>" + leave[i].leaveAudit + "</td>" 
 					+ "</tr>";
 				}
 				content += "</table>";
@@ -147,6 +190,12 @@
 				}
 			}
 		</script>
+						</div>
+				</div>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
 </body>
 </html>

@@ -9,21 +9,28 @@
 <title>公司出勤紀錄表</title>
 </head>
 <body>
-	<jsp:include page="/fragment/header.jsp" />
-		<div class="container"
-			style="text-align: center; background-color: #dee2e6">
-			<h1>
-				員工出勤紀錄表
-				<hr>
-			</h1>
+	<jsp:include page="/fragment/headerRearend.jsp" />
+	<div class="main-panel" >
+		<div class="contnt-wrapper">
+		<div class="row">
+		<div class="card">
+			<div class="card-header text-white" style='background: #646D73'>
+				<strong><h3>出勤紀錄表</h3></strong>
+			</div>
+			<div class="card-body">
 			<a href='memberPunch'>回前頁</a> <a href='../leave/queryLeave'>請假查詢</a>
-			請挑選姓名: <select id='membername'></select> 選擇年月份：<select
-				id='dateselect'></select>
+			</div>
+			<div class="card-body">
+				<div class="form-group row">
+					<span class="col-md-2 text-md-right">請挑選姓名：</span>
+					<div class="col-md-3"><select id='membername'></select></div>
+					<span class="col-md-2 text-md-right">選擇年月份：</span>
+					<div class="col-md-3"><select id='dateselect'></select></div>
+				</div>
+			</div>
+			<div align='center' id='tablearea' class="col-md-6 grid-margin stretch-card"></div>
 		</div>
-		<hr>
-		<!-- 顯示書籍資料的區域 -->
-		<div align='center' id='tablearea' style='height: 150px;'
-			class='center'></div>
+		
 		<script>
 			var selectElement = document.getElementById('membername'); // 取出select標籤
 			var selectElement2 = document.getElementById('dateselect'); // 取出select標籤
@@ -116,14 +123,8 @@
 
 			function displayPagePunchTime(responseText) {
 				var attendances = JSON.parse(responseText);
-// 				var attendances = mapData.attendance;
 				console.log("typeof attendances:" + typeof attendances);
-				var content = "<table align='center' border='1'  bgcolor='#fbdb98'>";
-// 				console.log("1");
-// 				console.log(responseText);
-				
-// 				console.log("2");
-// 				console.log(attendances.length);
+				var content = "<table class='table table-hover border border-secondary'";
 				content += "<tr align='center'>"
 						+ "<th align='center' width='70'>流水號</th>"
 						+ "<th align='center' width='100'>姓名</th>"
@@ -149,7 +150,7 @@
 					var leave = attendances[i][1]? attendances[i][1] : {};
 					var punch = attendances[i][0]? attendances[i][0] : {};
 					console.log("leave:"+leave);
-					content += "<tr><td align='center'>" + attendances[i][0].punchId + "</td>"
+					content += "<tr><td align='center'>" + punch.punchId + "</td>"
 							+ "<td align='center'>"	+ punch.memberName + "</td>"
 							+ "<td align='center'>" + punch.memberDepartment + "</td>"
 							+ "<td align='center'>" + timeStampToDate(punch.punchDate) + "</td>"
@@ -180,6 +181,7 @@
 					return String;
 				}
 			}
+			
 			function checkZero(Long) {
 				if (Long == 0) {
 					return '';
@@ -225,6 +227,8 @@
 				return false;
 			}
 		</script>
+		</div>
+		</div>
 	</div>
 </body>
 </html>
