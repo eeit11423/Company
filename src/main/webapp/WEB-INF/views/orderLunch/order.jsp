@@ -231,14 +231,7 @@
 				}
      		 });
       };
-      
-   function changeSecStore(e){
-    	  var select = document.getElementById("second-store");
-    	  var chooseOption = select.options[select.selectedIndex].value
-           console.log(select.options[select.selectedIndex])
-           $(`#second-store option[value=${'${e.id}'}]`).attr('selected', 'selected');
-      }
-   
+       
   
   function addSecondBox() {
 	  var store = document.getElementById("second-store").value;
@@ -246,7 +239,6 @@
 	  var price = document.getElementById("price3").value;
 	  var quantity = document.getElementById("quantity3").value;
 	  var userName = document.getElementById("userName3").value;
-	  console.log("menu:"+menu);
 	  $.ajax({'url':'/mvcExercisetest/orderLunch/addOrder',
 			'method' : "POST",
 			'data' : {'store' : store,'menu':menu , 'price':price ,  'quantity':quantity , 'userName':userName
@@ -254,6 +246,7 @@
 				var secData = datas;
 				if("success"==secData)
 					 alert("下單成功");
+					getJson(); 
 					$("#quantity3").val("");
 					$("#userName3").val("");
 			},'error':function(xhr, ajaxOptions, thrownError){
