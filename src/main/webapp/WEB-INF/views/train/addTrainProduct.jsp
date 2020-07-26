@@ -19,6 +19,7 @@ fieldset {
 <title>addTrainProduct</title>
 </head>
 <body>
+<%-- <jsp:include page="/fragment/header.jsp" /> --%>
 	<section>
 		<div class="container">
 			<h1 style="text-align: center">新增與編輯</h1>
@@ -94,23 +95,22 @@ fieldset {
 						</form:select>
 					</div>	
 				</div>
-				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="trainingStartDate">
-						訓練開始日期時間 </label>
-					<div class='col-lg-10'>
-					 <form:input type="date" id="trainingStartDate" path="trainingStartDate" 
-							class='form:input-large' />
-					</div>	
-				</div>	
-				
-				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="trainingEndDate">
-						訓練結束日期時間 </label>
-					<div class='col-lg-10'>
-					 <form:input type="date" id="trainingEndDate" path="trainingEndDate" 
-							class='form:input-large' />						
-					</div>
-				</div>
+<!-- 				<div class="form-group"> -->
+<!-- 					<label class='control-label col-lg-2 col-lg-2' for="trainingStartDate"> -->
+<!-- 						訓練開始日期時間 </label> -->
+<!-- 					<div class='col-lg-10'> -->
+<%-- 					 <form:input type="date" id="trainingStartDate" path="trainingStartDate"  --%>
+<%-- 							class='form:input-large' /> --%>
+<!-- 					</div>	 -->
+<!-- 				</div>	 -->
+<!-- 				<div class="form-group"> -->
+<!-- 					<label class='control-label col-lg-2 col-lg-2' for="trainingEndDate"> -->
+<!-- 						訓練結束日期時間 </label> -->
+<!-- 					<div class='col-lg-10'> -->
+<%-- 					 <form:input type="date" id="trainingEndDate" path="trainingEndDate"  --%>
+<%-- 							class='form:input-large' />						 --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
 				
 				<div class="form-group">
 					<label class='control-label col-lg-2 col-lg-2' for="URLUpload">

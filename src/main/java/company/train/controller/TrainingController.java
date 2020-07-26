@@ -81,6 +81,7 @@ public class TrainingController {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
 			return "redirect: " + context.getContextPath() + "/login";
+			
 		}
 		List<TrainingBean> list = service.getAllProducts();
 		model.addAttribute("trainAllProductsDelete",list);

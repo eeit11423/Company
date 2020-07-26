@@ -7,3 +7,4 @@ Python基本課程|45|20200901|20200911|3|Python是一種廣泛使用的直譯�
 BootStrap深入淺出教學|20|20200803|20200810|1|Bootstrap是一組用於網站和網路應用程式開發的開源前端|Bootstrap 是一個由 HTML、CSS 和 JavaScript 寫成的前端框架。|data/images/smallPic/BOOTSTRAP.jpg|007|前端|BOOTSTRAP.jpg|https://www.youtube.com/embed/9X1graZtuPs
 C++新手入門指南|50|20200919|20200926|2|C++是一種被廣泛使用的電腦程式設計語言。|C語言是個十分強大的程式語言。|data/images/smallPic/C.jpg|008|後端 |C.jpg|https://www.youtube.com/embed/vLnPwxZdW4Y
 JAVA基礎講座|45|20200810|20200831|2|Java 是 Sun Microsystems 於 1995 年率先發表的程式設計語言與運算平台。|Java 是一種廣泛使用的電腦程式設計語言，擁有跨平台、物件導向、泛型程式設計的特性，可以運用在各種領域，支援性非常強大！|data/images/smallPic/JAVA.jpg|009|後端|JAVA.jpg|https://www.youtube.com/embed/eIrMbAQSU34
+什麼是Node.js|40|20200722|20200731|2|Node.js 是能夠在伺服器端運行 JavaScript 的開放原始碼、跨平台 JavaScript 執行環境。|Node.js採用Google開發的V8執行程式碼，使用事件驅動、非阻塞和非同步輸入輸出模型等技術來提高效能，可最佳化應用程式的傳輸量和規模。這些技術通常用於資料密集的即時應用程式。|data/images/smallPic/Node-js.jpg|010|後端|Node-js.jpg|https://www.youtube.com/embed/RLtyhwFtXQA

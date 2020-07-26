@@ -24,6 +24,20 @@
             padding-top: 5px;
         }
     </style>
+    <script>
+	    function reconfirmOrder() {
+	
+			if (confirm("確定送出評分結果 ? ") ) {
+				document.forms[0].action="<c:url value='/train/scorepoint' />";
+				document.forms[0].method="POST";
+				document.forms[0].submit();
+				
+				return;
+			} else {
+				return;
+			}
+		}
+    </script>
 </head>
 <body>
 	<h1 style="text-align:center">線上學習評點</h1>
@@ -228,7 +242,7 @@
             
         
         </script>
-       	<form  action="<c:url value='/train/scorepoint'/>"method="POST"> <!-- action代表送進controller的目標 -->
+       	<form  style="text-align:center" action="<c:url value='/train/scorepoint'/>"method="POST"> <!-- action代表送進controller的目標 -->
         	<Input id='question1Id' type='hidden' name='question1' value='0'><!-- 零代表的是預設值 -->
 	        <Input id='question2Id' type='hidden' name='question2' value='0'>
 	        <Input id='question3Id' type='hidden' name='question3' value='0'>
@@ -237,9 +251,11 @@
 	        <Input id='memberNumber' type='hidden' name='memberNumber' value='${memberBean.memberNumber}'>
 	        <Input id='trainingId' type='hidden' name='trainingId' value='${trainingId}'>
 	        
+	        
 	        <Input style="" id='' type='submit'
 	        	   class="btn btn-secondary" name='question1,question2,question3,
-	        	   									question4,question5' value='確認'>		   
+	        	   									question4,question5' value='送出' onclick="reconfirmOrder()">
+			   
         </form>
        
 </body>
