@@ -45,16 +45,13 @@
 								<div class="spotlight">
 									<div class="content">
 										<header class="major">
-											<h2>選擇喜歡的店家</h2>
+											<h2>訂單查詢</h2>
 										</header>
-										<p>選擇一家要進行訂購的店家  再+1吧！</p> 
-										<ul class="actions">
-											<li>店家名單：
-												<c:forEach var='store' items='${storeList}'>
-													<a id="${store}" onclick="changeSecStore(${store})" style="cursor: pointer;">${store}</a>
-												</c:forEach>
-											</li>
-										</ul>
+										<div style=" display: flex; width: 100%; argin: 0 10px;  align-items: center;" >
+											<span style="display: block;"> 訂購者姓名：</span> 
+											<input type="text" style="width: 65%;" id="seachOrder" />
+											
+										</div>
 									</div>
 									<span class="image"><img src="${pageContext.request.contextPath}/images/orderLunchImages/mm.jpg" alt="" /></span>
 								</div>
@@ -66,24 +63,27 @@
 								</header>
 								  <div>
                                    <div style="display: flex; align-items: center; padding-bottom: 5%; border-bottom: 1px solid rgb(197, 197, 197);">
-              <div
-                style="
-                  display: flex;
-                  width: 50%;
-                  margin: 0 10px;
-                  align-items: center;
-                "
-              >
-                <span style="display: block;"> 店家：</span
-                ><input type="text" style="width: 80%;" id="first-box-store" onkeyup="getFirstBoxStore()"/>
+              <div style=" display: flex; width: 50%; argin: 0 10px;  align-items: center;" >
+                <span style="display: block;"> 店家：</span>
+                <input type="text" style="width: 80%;" id="first-box-store" />
               </div>
               <div style="display: flex;width: 50%;margin: 0 10px; align-items: center;">
-                <span style="display: block;white-space: nowrap;" >結束時間：</span><input type="text" style="width: 80%;" id='datepicker' onchange="getDatepicker()"/>
-              </div>
-                   <div style="display: flex; width: 50%;margin: 0 10px; align-items: center; " >
+                <span style="display: block;white-space: nowrap;" >結束時間：</span><input type="text" style="width: 80%;" id='datepicker' />
               </div>
             </div>
-            <div class="first-feature-box"></div>
+            <div class="first-feature-box">
+           		 <ul class="features first-feature"  style="margin:10px 0 0 0;justify-content: inherit;">
+			      	 <li style="display:flex; align-items: center;margin-left: 0.5em;"> 
+			     		 <span style="white-space: nowrap;white-space: nowrap;">餐點：</span><input type="text" id="menu2"></span>
+			      	 </li>
+			        <li style="display:flex; align-items: center;"> 
+			        	  <span style="white-space: nowrap;">價格：</span><input  id="price2"  type="text" ></span>  	
+			        </li>
+			        <li>
+			        	<a id="first-add" class="far fa-plus-square fa-3x first-add" onclick="insertMenu()" ></a>
+			        </li>
+			     </ul>
+            </div>
           </div>
 							</section>
 							
@@ -111,10 +111,10 @@
 												 <span style="white-space: nowrap;">價格：</span><input type="text" id="price3" value="100">
 											</li>
 											<li style="white-space: nowrap; margin-top:0 ;display:flex; align-items: center;">
-												 <span style="white-space: nowrap;">數量：</span><input type="text"  value="">
+												 <span style="white-space: nowrap;">數量：</span><input type="text"  id="quantity3" >
 											</li>
 										    <li style=" margin-top:0 ;display:flex; align-items: center;width:50%">
-              							        <span style="white-space: nowrap;">點餐者：</span><input type="text" value="" />
+              							        <span style="white-space: nowrap;">點餐者：</span><input type="text" id="userName3" />
                							    </li>
 											<li style="margin-top:1%">
 											  <a id="second-add" class="far fa-plus-square fa-3x second-add" onclick="addSecondBox()"></a>
@@ -176,98 +176,33 @@
 			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 			<script>
-		
-		    var firstData = [{sale:'100',price:'100'}]
-		
-		    addFirstData(firstData);
-		    
 		       $( function() {
-		    	    $( "#datepicker" ).datepicker();
+		    	    $( "#datepicker" ).datepicker({
+		    	    	dateFormat : "yy-mm-dd"
+		    	    });
 		    	  } );
-		    
-			function addFirstData(data){
-		    	data.map((item,index)=>
-			      {
-			        var htmlTag =`<ul class="features first-feature"  style="margin:10px 0 0 0;justify-content: inherit;">
-			        	             	 <li style="display:flex; align-items: center;margin-left: 0.5em;"> 
-			        	              		 <span style="white-space: nowrap;white-space: nowrap;">餐點：</span><input type="text" id="first-sale-${'${index}'}"  value="${'${item.sale}'}" onkeyup="changeSale(${'${index}'})"></span>
-			        	              	 </li>
-			        	               	<li style="display:flex; align-items: center;"> 
-			        	             	 	 <span style="white-space: nowrap;">價格：</span><input  id="first-price-${'${index}'}"  type="text" value="${'${item.price}'}"  onkeyup="changePrice(${'${index}'})"></span>  	
-			        	             	 	 </li>
-			        	             	<li>
-			        	                	<a id="first-add" class="far fa-plus-square fa-3x first-add" onclick="insertMenu()" ></a>
-			        	                	<a id="first-remove" class="far fa-minus-square fa-3x first-remove" onclick="removeFirstData(${'${index}'})"></a>
-			        	            	   </li>
-			        	           </ul>`
-			                $(".first-feature-box").append(htmlTag);
-			      }
-			      )
-		    }
 			
-			function getDatepicker(){
-				var datepickerInput = document.getElementById("datepicker");
-				var currentDate = $( "#datepicker" ).datepicker( "getDate" );		
-				  var newFirstData =   firstData.map(item=>{
-               	   return {...item, date:currentDate}
-                  })                    
-                  firstData = newFirstData		
-			} 
-			
-			function getFirstBoxStore(){
-				var storeInput = document.getElementById("first-box-store");
-				storeInput.addEventListener("keyup",function(event){
-                     var newFirstData =   firstData.map(item=>{
-                    	   return {...item,store:event.target.value}
-                       })                    
-                       firstData = newFirstData
-				})
-			}
-			
-			function changeSale(index){
-	 			var priceInput = document.getElementById(`first-sale-${'${index}'}`)
-				priceInput.addEventListener("keyup",function(event){
-					firstData[index].sale= event.target.value;
-				})
-				getFirstBoxStore()
-				}
-			
-		function changePrice(index){
- 			var priceInput = document.getElementById(`first-price-${'${index}'}`)
-			priceInput.addEventListener("keyup",function(event){
-				firstData[index].price= event.target.value;
-			})
-			getFirstBoxStore();
-		}	
-			
-		function removeFirstData(index){
-			 var taskIndex = firstData[index];
-			   $(".first-feature").remove();
-			     firstData.splice(firstData.indexOf(taskIndex), 1);
-			     addFirstData(firstData);
-
-			}
-			
-		      
-		      //  新增菜單選項
-      function insertMenu(item1,item2){
-		    	  console.log(firstData)
-        	  $.ajax({'url':'/mvcExercisetest/orderLunch/insertMenu',
-    				'method' : "POST",
-    				'data' : {'data':firstData} 
-      }).then(response =>{
-    			     $(".first-feature").remove();
- 		        	firstData.push({sale:'',price:''});
- 		        	addFirstData(firstData);
-    		  }) // 輸出成 json
-    		
-
-               
-      }
-			
-</script>
-
- <script>
+		    function insertMenu(){
+		    	  var store = document.getElementById("first-box-store").value;
+		    	  var date = document.getElementById("datepicker").value;
+		    	  var menu = document.getElementById("menu2").value;
+		    	  var price = document.getElementById("price2").value;
+		    	  $.ajax({'url':'/mvcExercisetest/orderLunch/insertStore',
+						'method' : "POST",
+						'data' : {'store' : store,'date':date ,'menu':menu,'price':price
+						},'success' : function(datas) {
+		 					$('#first-box-store').val("");
+		 					$('#datepicker').val("");
+		 					$('#menu2').val("");
+		 					$('#price2').val("");
+		 					if("success"==datas)
+		 						alert("建立成功");
+						},'error':function(xhr, ajaxOptions, thrownError){
+							console.log(xhr.responseText);
+						}
+		     		 });
+		    } 
+		       	
       getJson(); 
       function getJson() {
     	  var select = document.getElementById("second-store");
@@ -281,7 +216,7 @@
  					 secData = datasJson;
  					 $('#menu3').empty();
  					 for(var i = 0;i < secData.length; i++) {
- 	 				    var newOption = $('<option value="'+secData[i].id+'">'+secData[i].product+'</option>');
+ 	 				    var newOption = $('<option value="'+secData[i].id+'" name="'+secData[i].product+'">'+secData[i].product+'</option>');
  	 				    $('#menu3').append(newOption);
                }
  				getMenuPrice();
@@ -299,8 +234,9 @@
 					var secData = [];
  					var datasJson = JSON.parse(datas);
  					 secData = datasJson;
- 			    	  console.log(secData);
- 						document.getElementById("price3").value=secData[0].price;	 
+ 						document.getElementById("price3").value=secData[0].price;	
+ 						$("#quantity3").val("");
+ 						$("#userName3").val("");
 				},'error':function(xhr, ajaxOptions, thrownError){
 					console.log(xhr.responseText);
 				}
@@ -314,25 +250,29 @@
            $(`#second-store option[value=${'${e.id}'}]`).attr('selected', 'selected');
       }
    
-
-   
-   function getOptionPrice(index){
-	  	 var select = document.getElementById(`second-sale-${'${index}'}`);
-	  	 var priceInput = document.getElementById(`second-price-${'${index}'}`);
-    	 var chooseOption = select.options[select.selectedIndex].value;
-    	 var filterPdt = secData.find(item=>item.product ===chooseOption)
-    	 priceInput.value = filterPdt.price; 
-   }
-  function addSecondBox(){
-	    $(".second-feature").remove();
-	    secData.order.push({"product":"卡拉雞腿堡","quantity":"1","price":"100","userName":"大寶"});
-  }
-  function removeSecondBox(index){
-	  var taskIndex =  secData[index];
-	   $(".second-feature").remove();
-	     firstData.splice(secData.indexOf(taskIndex), 1);
-	  
-  }
+  
+  function addSecondBox() {
+	  var store = document.getElementById("second-store").value;
+	  var menu = document.getElementById("menu3").value;
+	  var price = document.getElementById("price3").value;
+	  var quantity = document.getElementById("quantity3").value;
+	  var userName = document.getElementById("userName3").value;
+	  console.log("menu:"+menu);
+	  $.ajax({'url':'/mvcExercisetest/orderLunch/addOrder',
+			'method' : "POST",
+			'data' : {'store' : store,'menu':menu , 'price':price ,  'quantity':quantity , 'userName':userName
+			},'success' : function(datas) {
+				var secData = datas;
+				if("success"==secData)
+					 alert("下單成功");
+					$("#quantity3").val("");
+					$("#userName3").val("");
+			},'error':function(xhr, ajaxOptions, thrownError){
+				console.log(xhr.responseText);
+			}
+ 		 });
+  };
+  
     </script>
 	</body>
 </html>

@@ -41,9 +41,9 @@ public class OrderLunchController extends HttpServlet{
     private static final String SELECT_LUNCH_STORE_MENU_PRICE = "SELECT * FROM LUNCHSTORE WHERE id = ?";
     private static final String SELECT_LUNCH_STORE_DETAIL = "SELECT * FROM LUNCHSTORE WHERE STORE = ?";
     private static final String SELECT_STORE_LIST = "SELECT * FROM LUNCHORDER WHERE STORE = ? ";
-    private static final String INSERT_LUNCH_ORDER = "INSERT INTO LUNCHORDER (ID,STORE,PRODUCT,PRICE,ORDERTIME,USERNAME) VALUES(?,?,?,?,?,?)";
-    
-    
+    private static final String SELECT_MAX_ORDER_ID =  "select MAX (id)+1 as id FROM LunchOrder";
+    private static final String INSERT_LUNCH_ORDER = "INSERT INTO LUNCHORDER (ID,STORE,PRODUCT,PRICE,QUANTITY,USERNAME) VALUES(?,?,(select product from LunchStore where id=?),?,?,?)";
+    private static final String INSERT_LUNCH_STORE = "INSERT INTO lunchStore(ID,STORE,PRODUCT,PRICE,ENDDATE) VALUES((select max(id)+1 as id from lunchStore),?,?,?,?)";
 	//導頁
 	@GetMapping("/orderLunch/order")
 	public String order(Model model) {
@@ -67,28 +67,30 @@ public class OrderLunchController extends HttpServlet{
 		return "orderLunch/order";
 	}
 	
-	@RequestMapping(value = "/orderLunch/insertMenu",method = RequestMethod.POST )
+	@RequestMapping(value = "/orderLunch/insertStore",method = RequestMethod.POST )
 	public void insertOrder(HttpServletRequest request, HttpServletResponse response) {
-		String sale = request.getParameter("sale");
+		String store = request.getParameter("store");
+		String date = request.getParameter("date");
+		String menu = request.getParameter("menu");
 		String price = request.getParameter("price");
-//		Connection con = null;
-//		PreparedStatement ps = null;
-//		try {
-//			
-//			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
-//			ps = con.prepareStatement(INSERT_LUNCH_ORDER);
-//			ps.setInt(1, 1);
-//			ps.setNString(2,"麥當勞");
-//			ps.setString(3, "麥脆雞");
-//			ps.setInt(4,100);
-//			ps.setDate(5, new java.sql.Date(System.currentTimeMillis()));
-//			ps.setInt(6, 1001);
-//			ps.execute();
-//			
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(INSERT_LUNCH_STORE);
+			ps.setString(1, store);
+			ps.setString(2,menu);
+			ps.setString(3, price);
+			ps.setString(4, date);
+			ps.execute();
+			PrintWriter out =response.getWriter();
+			out.print("success");
+			out.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	@RequestMapping(value="/orderLunch/selectStoreList",method = RequestMethod.POST)
 	public void selectStore(HttpServletRequest request, HttpServletResponse response) {
@@ -201,6 +203,45 @@ public class OrderLunchController extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
-	
-	
+	//寫入訂單
+	@RequestMapping(value="/orderLunch/addOrder",method = RequestMethod.POST)
+	public void addOrder(HttpServletRequest request, HttpServletResponse response) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		PreparedStatement ps2 = null;
+		String store = request.getParameter("store");
+		String menu = request.getParameter("menu");
+		String price = request.getParameter("price");
+		String quantity = request.getParameter("quantity");
+		String userName = request.getParameter("userName");
+		List<Map<String, String>> menuList = new ArrayList<Map<String,String>>();
+		String listJson="";
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+		     request.setCharacterEncoding("UTF-8");
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps=con.prepareStatement(SELECT_MAX_ORDER_ID);
+			rs = ps.executeQuery();
+			Map<Object, Object> order = new HashMap<Object, Object>();
+			while(rs.next()) {
+				order.put("id", rs.getInt("id"));
+			}
+			
+			ps2=con.prepareStatement(INSERT_LUNCH_ORDER);
+			ps2.setInt(1, (int) order.get("id"));
+			ps2.setString(2, store);
+			ps2.setString(3, menu);
+			ps2.setString(4, price);
+			ps2.setInt(5, Integer.parseInt(quantity));
+			ps2.setString(6, userName);
+			ps2.execute();
+			PrintWriter out =response.getWriter();
+			out.print("success");
+			out.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
