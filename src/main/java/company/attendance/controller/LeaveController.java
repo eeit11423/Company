@@ -98,7 +98,7 @@ public class LeaveController {
 		}
 	}
 	
-	@PostMapping(value = "/memberSaveInsertLeave", consumes = "application/x-www-form-urlencoded")
+	@PostMapping("/memberSaveInsertLeave")
 	public String memberSaveInsertLeave(@ModelAttribute("leave") Leave leave, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
 		AttendanceLeaveValidator validator = new AttendanceLeaveValidator();

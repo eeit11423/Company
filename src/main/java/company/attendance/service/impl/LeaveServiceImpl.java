@@ -37,7 +37,7 @@ public class LeaveServiceImpl implements LeaveService {
     
 	@Override
 	public int saveLeave(Leave leave) {
-		if (dao.getMemberAndPunchDateList(leave) == null) {
+		if (dao.getMemberAndPunchDateList(leave) != null) {
 			int punchId = dao.getMemberAndPunchDateList(leave).get(0).getPunchId();
 			dao.updatePunchtime(leave, punchId);
 		}

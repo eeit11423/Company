@@ -50,6 +50,7 @@ public class LeaveDaoImpl implements LeaveDao {
 		return list;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int saveLeave(Leave leave) {
 		int n = 0;
@@ -59,7 +60,15 @@ public class LeaveDaoImpl implements LeaveDao {
 		}
 		Session session = factory.getCurrentSession();
 		try {
-			long leaveHours = leave.getLeaveEnd().getTime() - leave.getLeaveStart().getTime();
+			Timestamp leaveStart = leave.getLeaveStart();
+			Timestamp leaveEnd = leave.getLeaveEnd();
+			long leaveHours = leaveEnd.getTime() - leaveStart.getTime();
+
+			if (leaveStart.getHours() < 12 && leaveEnd.getHours() > 12 ) {
+				leaveHours -= 3600000;					
+			}
+			//請假 9點以後
+			
 			leave.setLeaveHours(leaveHours);
 			leave.setLeaveAudit("審核中");
 			session.save(leave);

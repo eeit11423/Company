@@ -69,15 +69,15 @@
 				</li>
 			</ul>
 		</nav>
-	<div class="main-panel" >
-		<div class="contnt-wrapper">
-			<div class="row">
-				<div class="card">
+	<div class="main-panel" align='center'>
+		<div class="contnt-wrapper" align='center'>
+			<div class="row justify-content-center" >
+				<div class="card col-md-12">
 					<div class="card-header text-white" style='background: #646D73'>
 						<strong><h3>新增請假紀錄</h3></strong>
 					</div>
 					<div class="card-body">
-						<form:form method='POST' modelAttribute="leave" action='saveInsertLeave'
+						<form:form method='POST' modelAttribute="leave" action='memberSaveInsertLeave'
 									 enctype='multipart/form-data' class='form-horizontal'>
 							<input type="hidden" name='memberName' value="${leave.memberName}"/>
 							<input type="hidden" name='memberNumber' value="${leave.memberNumber}"/>

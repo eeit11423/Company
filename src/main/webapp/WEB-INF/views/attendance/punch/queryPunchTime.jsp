@@ -27,13 +27,13 @@
 					<span class="col-md-2 text-md-right">選擇年月份：</span>
 					<div class="col-md-3"><select id='dateselect'></select></div>
 				</div>
-				<div>
-					<button id='btn_late'>遲到</button>
-					<button id='btn_early'>早退</button>
-					<button id='btn_leave'>請假</button>
+				<div class="row">
+					<button class="btn btn-secondary col-md-4" id='btn_late'>遲到</button>
+					<button class="btn btn-secondary col-md-4" id='btn_early'>早退</button>
+					<button class="btn btn-secondary col-md-4" id='btn_leave'>請假</button>
 				</div>
 			</div>
-			<div align='center' id='tablearea' class="col-md-6 grid-margin stretch-card"></div>
+			<div align='center' id='tablearea' class="col-md-12 grid-margin stretch-card"></div>
 		</div>
 		
 		<script>
@@ -186,12 +186,12 @@
 						+ "<th align='center' width='70'>遲到</th>"
 						+ "<th align='center' width='140'>下班時間</th>"
 						+ "<th align='center' width='70'>早退</th>"
-						+ "<th align='center' width='100'>上班時數</th>"
+						+ "<th align='center' width='140'>上班時數</th>"
 						+ "<th align='center' width='100'>請假日期</th>"
 						+ "<th align='center' width='100'>請假開始</th>"
 						+ "<th align='center' width='100'>請假結束</th>"
 						+ "<th align='center' width='100'>假別</th>"
-						+ "<th align='center' width='100'>請假時數</th>"
+						+ "<th align='center' width='140'>請假時數</th>"
 						+ "<th align='center' width='100'>請假審核</th>"
 						+ "<th align='center' width='100'>出勤修改</th>"
 						+ "<th align='center' width='100'>請假修改</th></tr>";
@@ -211,12 +211,12 @@
 							+ "<td align='center'>" + checkNull(punch.punchLate) + "</td>"
 							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOff) + "</td>"
 							+ "<td align='center'>" + checkNull(punch.punchEarly) + "</td>"
-							+ "<td align='center'>" + checkZero(checkNull(punch.punchHours)/(1000 * 60 * 60 )) + "</td>"
+							+ "<td align='center'>" + timeFn(checkZero(checkNull(punch.punchHours))) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToDate(leave.leaveDate)) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveStart)) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveEnd)) + "</td>"
 							+ "<td align='center'>" + checkNull(leave.leaveCategory) + "</td>"
-							+ "<td align='center'>" + checkZero(checkNull(leave.leaveHours)/(1000 * 60 * 60 )) + "</td>"
+							+ "<td align='center'>" + timeFn(checkZero(checkNull(leave.leaveHours))) + "</td>"
 							+ "<td align='center'>" + checkNull(leave.leaveAudit) + "</td>"
 							+ "<td align='center'>" + checkPunchTimeDataExist(punch.memberName) + "</td>"
 // 							+ "<td align='center'><a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a class='deletelink' href='deletePunchTime/"
@@ -301,6 +301,20 @@
 				} else {
 					return '';
 				}
+			}
+			
+			function timeFn(timediff) {
+			    var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
+			    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
+			    //计算相差分钟数
+			    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
+			    var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
+			    //计算相差秒数
+			    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+			    var seconds=Math.round(leave3/1000)
+
+			    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
+			    return timeFn;
 			}
 // 			function confirmDelete() {
 // 				var result = confirm("確定刪除此筆記錄?");

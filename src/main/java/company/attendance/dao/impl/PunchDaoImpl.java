@@ -558,38 +558,34 @@ public class PunchDaoImpl implements PunchDao {
 		if (timesplit.length == 1) {                     //所有時間
 			if(memberNumber.equals("all")) {				//所有員工
 				System.out.println("所有員工-所有時間");
-				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.punchEarly = :punchEarly Order By punchDate";
+				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate Order By punchDate";
 				List<Punch> listTarget = session.createQuery(hql)
-						.setParameter("punchEarly", leave)
 						.getResultList();
 				return listTarget;
 			}else {
 				System.out.println("指定員工-所有時間");		//指定員工
-				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and p.punchEarly = :punchEarly Order By punchDate";
+				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number Order By punchDate";
 				List<Punch> listTarget = session.createQuery(hql)
 						.setParameter("number", memberNumber)
-						.setParameter("punchEarly", leave)
 						.getResultList();
 				return listTarget;
 			}
 		}else {											 //指定時間
 			if(memberNumber.equals("all")){					//所有員工
 				System.out.println("所有員工-指定時間");
-				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm and p.punchEarly = :punchEarly Order By punchDate";
+				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm Order By punchDate";
 				List<Punch> listTarget = session.createQuery(hql)
 						.setParameter("yyyy", timesplit[0])
 						.setParameter("mm", timesplit[1])
-						.setParameter("punchEarly", leave)
 						.getResultList();
 				return listTarget;
 			}else{											//指定員工
 				System.out.println("指定員工-指定時間");
-				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm and p.punchEarly = :punchEarly Order By punchDate";
+				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm Order By punchDate";
 				List<Punch> listTarget = session.createQuery(hql)
 						.setParameter("number", memberNumber)
 						.setParameter("yyyy", timesplit[0])
 						.setParameter("mm", timesplit[1])
-						.setParameter("punchEarly", leave)
 						.getResultList();
 				return listTarget;
 			}

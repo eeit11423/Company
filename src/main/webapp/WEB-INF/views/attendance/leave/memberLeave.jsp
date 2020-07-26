@@ -51,8 +51,8 @@
 		</nav>
 	<div class="main-panel" >
 		<div class="contnt-wrapper">
-			<div class="row">
-				<div class="card">
+			<div class="row justify-content-center">
+				<div class="card col-md-12">
 					<div class="card-header text-white" style='background: #646D73'>
 						<strong><h3>請假紀錄表</h3></strong>
 					</div>
@@ -136,7 +136,7 @@
 					+ "<td align='center'>" + leave[i].leaveCategory + "</td>" 
 					+ "<td align='center'>"	+ timeStampToTime(leaveStart) + "</td>"
 					+ "<td align='center'>" + timeStampToTime(leaveEnd)	+ "</td>"
-					+ "<td align='center'>" + leave[i].leaveHours + "</td>" 
+					+ "<td align='center'>" + timeFn(leave[i].leaveHours) + "</td>" 
 					+ "<td align='center'>" + leave[i].leaveCause + "</td>" 
 					+ "<td align='center'>" + leave[i].leaveAudit + "</td>" 
 					+ "</tr>";
@@ -176,6 +176,20 @@
 				}else{
 					return '';
 				}
+			}
+			
+			function timeFn(timediff) {
+			    var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
+			    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
+			    //计算相差分钟数
+			    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
+			    var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
+			    //计算相差秒数
+			    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+			    var seconds=Math.round(leave3/1000)
+
+			    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
+			    return timeFn;
 			}
 		</script>
 						</div>

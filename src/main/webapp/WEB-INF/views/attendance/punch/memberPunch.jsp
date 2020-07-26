@@ -49,11 +49,13 @@
 					</div></li>
 			</ul>
 		</nav>
-	<div class="main-panel" >
-		<div class="contnt-wrapper">
-		<div class="row">
-		<div class="card">
+	<div class="main-panel">
+		<div class="contnt-wrapper ">
+		<div class="row justify-content-center">
+		<div class="card col-md-12">
+<!-- 		<div> -->
 			<div class="card-header text-white" style='background: #646D73'>
+<!-- 			<div class="text-white" style='background: #646D73'> -->
 				<div class="col-md-4 text-md-left"><strong><h3>出勤紀錄表</h3></strong></div>
 				<div id="Date" class="col-md-6 text-md-left"></div>
 <script type="text/javascript"> 
@@ -72,6 +74,7 @@
 	window.setInterval(setClock());
 </script>
 			</div>
+<!-- 			<div> -->
 			<div class="card-body">
 				<div class="form-group row">		
 					<div class="col-md-3 text-md-right"><h4>使用者：</h4></div>
@@ -88,6 +91,7 @@
 				</div>
 			</div>
 			<div class="card-body">
+<!-- 			<div> -->
 				<div align='center' id='tablearea' class='class="col-md-12 grid-margin stretch-card"'></div>
 	<script>
 			var btn_late = document.getElementById("btn_late");
@@ -196,7 +200,8 @@
 							+ "<td align='center'>"	+ checkNull(punchtimes[i].punchLate) + "</td>"
 							+ "<td align='center'>"	+ timeStampToTime(workOff) + "</td>"
 							+ "<td align='center'>"	+ checkNull(punchtimes[i].punchEarly) + "</td>"
-							+ "<td align='center'>"	+ checkZero(checkNull(punchtimes[i].punchHours)/(1000 * 60 * 60 )) + "</td></tr>";
+// 							+ "<td align='center'>"	+ checkZero(checkNull(punchtimes[i].punchHours)/(1000 * 60 * 60 )) + "</td></tr>";
+							+ "<td align='center'>"	+ timeFn(checkZero(checkNull(punchtimes[i].punchHours))) + "</td></tr>";
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;
@@ -244,10 +249,22 @@
 					return '';
 				}
 			}
+			function timeFn(timediff) {
+			    var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
+			    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
+			    //计算相差分钟数
+			    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
+			    var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
+			    //计算相差秒数
+			    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+			    var seconds=Math.round(leave3/1000)
+
+			    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
+			    return timeFn;
+			}
 		</script>
 			</div>
 		</div>
-	</div>
 	</div>
 	</div>
 	</div>
