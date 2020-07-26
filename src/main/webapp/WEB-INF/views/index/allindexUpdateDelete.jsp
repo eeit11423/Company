@@ -41,15 +41,15 @@
                   <div class="table-responsive">
              
 			<div class="container-fluid " id="double-scroll">
-				<table class="table table-hover border border-secondary"   >
+				<table class="table-hover border border-secondary"   >
 					<tr class="text-white text-left border border-secondary " style='background:#646D73'>
-						<th width='50' class="border border-secondary " >ID</th>
+						<th width='50' class="border border-secondary " >No</th>
 						<th width='50' class="border border-secondary " >員工編號</th>
-						<th width='50' class="border border-secondary " >標頭文字</th>
-						<th width='50' class="border border-secondary " >文字內容</th>
+						<th width='auto' class="border border-secondary " >標頭文字</th> 
+						<th width='200' class="border border-secondary " >文字內容</th>
 						<th width='50'  class="border border-secondary ">照片名稱</th>
-						<th  width='200' height='200' class="border border-secondary ">照片</th>
-						<th width='70' class="border border-secondary ">上傳日期</th>						
+						<th  width='300' height='100' class="border border-secondary ">照片</th>
+						<th width='100' class="border border-secondary ">上傳日期</th>						
 						<th colspan='2' width='100'  class="border border-secondary" style="text-align: center">維護</th>
 					</tr>
 					
@@ -57,12 +57,12 @@
 						<tr    id="testshow" class="border border-secondary "> 		
 						<td  class="border border-secondary ">${indexBean.indexId}</td>		
 							<td  class="border border-secondary ">${indexBean.memberNumber}</td>
+							<td width='auto' class="border border-secondary ">${indexBean.indexH2}</td>
+							<td  class="border border-secondary " width='200'>${indexBean.indexP}</td>
 							<td  class="border border-secondary ">${indexBean.indexfileName}</td>
-							<td  class="border border-secondary ">${indexBean.indexH2}</td>
-							<td  class="border border-secondary ">${indexBean.indexP}</td>
-							<td  class="border border-secondary " width='200' height='200'><img width='200' height='200'
+							<td  class="border border-secondary " width='300' height='100'><img width='300' height='100'
 								src='picture/${indexBean.indexId}' /></td>
-							<td  class="border border-secondary "><fmt:formatDate value="${indexBean.indexDate}" pattern="yyyy-MM-dd"/></td>
+							<td width='100' class="border border-secondary "><fmt:formatDate value="${indexBean.indexDate}" pattern="yyyy-MM-dd"/></td>
 							<td  class="border border-secondary "><a
 								href="${pageContext.request.contextPath}/index/sh/${indexBean.indexId}">編輯</a></td>
 							<td  class="border border-secondary "><a class='deletelink'
