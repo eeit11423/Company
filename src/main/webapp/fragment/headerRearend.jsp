@@ -18,15 +18,15 @@
 <link href="${pageContext.request.contextPath}/dist/css/style.css" rel="stylesheet"  media="all" />
 <link href="${pageContext.request.contextPath}/dist/css/themify-icons.css" rel="stylesheet"  media="all" />
  
-  <link rel="shortcut icon" href="/dist/images/favicon.png" />
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/dist/images/favicon.png" />
 </head>
 <body>
  <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" ><img src="../dist/images/logo.svg" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" ><img src="../dist/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" ><img src="${pageContext.request.contextPath}/dist/images/logo.svg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" ><img src="${pageContext.request.contextPath}/dist/images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -59,7 +59,20 @@
             
             </a>
           </li>
-
+         <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#index1" aria-expanded="false" aria-controls="index1">
+              <i class="ti-palette menu-icon"></i>
+              <span class="menu-title">首頁圖片管理</span>
+              <i class="menu-arrow"></i>
+            </a>
+             <div class="collapse" id="index1">
+              <ul class="nav flex-column sub-menu">
+             
+               <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/index/add1">新增輪播圖面</a></li>
+                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/index/allindexUpdateDelete">修改編輯index資料</a></li>               
+              </ul>
+            </div>
+              </li>
            
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -83,11 +96,25 @@
             <div class="collapse" id="ui-basic1">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/products/add">新增產品資料</a></li>
-                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/index/allindexUpdateDelete">後台修改編輯產品資料</a></li>               
+                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/shopping/allProductsUpdateDelete">後台修改編輯產品資料</a></li>               
               </ul>
             </div>
-            
+              </li>            
+ 		  <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#attendance" aria-expanded="false" aria-controls="attendance">
+              <i class="ti-user menu-icon"></i>
+              <span class="menu-title">出勤管理</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="attendance">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/punch/insertPunchTime"> 新增打卡紀錄 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/leave/insertLeave"> 新增請假紀錄 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/punch/queryPunchTime"> 出勤記錄管理</a></li>
+              </ul>
+            </div>
           </li>
+                    
           <li class="nav-item">
             <a class="nav-link" href="連結">
               <i class="ti-layout-list-post menu-icon"></i>
@@ -105,34 +132,6 @@
               <i class="ti-view-list-alt menu-icon"></i>
               <span class="menu-title">訂單</span>
             </a>
-          </li>
-         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#index" aria-expanded="false" aria-controls="index">
-              <i class="ti-palette menu-icon"></i>
-              <span class="menu-title">首頁圖片管理</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="index">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/index/add">新增產品資料</a></li>
-                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/index/allindexUpdateDelete">修改編輯index資料</a></li>               
-              </ul>
-            </div>
-            
- 		  <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#attendance" aria-expanded="false" aria-controls="attendance">
-              <i class="ti-user menu-icon"></i>
-              <span class="menu-title">出勤管理</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="attendance">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/punch/insertPunchTime"> 新增打卡紀錄 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/leave/insertLeave"> 新增請假紀錄 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/punch/queryPunchTime"> 出勤記錄管理</a></li>
-              </ul>
-            </div>
->>>>>>> 32c2cd8a07d0ea1af1d8dcfed31947ad617f471b
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">

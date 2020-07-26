@@ -44,13 +44,13 @@ public class indexController {
 	ServletContext context;
 
 
-	@RequestMapping("/index") //讀取所有產品測試
-	public String getmemberByDepart(Model model) {
-		List<indexBean> ib = service.getAllProducts();
-		model.addAttribute("indexBean", ib);
-
-		return "redirect: " + context.getContextPath() + "/";
-	}
+//	@RequestMapping("/index") //讀取所有產品測試
+//	public String getmemberByDepart(Model model) {
+//		List<indexBean> ib = service.getAllProducts();
+//		model.addAttribute("indexBean", ib);
+//
+//		return "redirect: " + context.getContextPath() + "/";
+//	}
 
 
 	@GetMapping("/index/allindexUpdateDelete") // 後台show出全部商品
@@ -66,7 +66,7 @@ public class indexController {
 		return "index/allindexUpdateDelete";
 	}
 
-	@GetMapping("/index/add")
+	@GetMapping("/index/add1")
 	public String getAddindex(Model model) {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
@@ -79,7 +79,7 @@ public class indexController {
 		return "index/addindex";
 	}
 
-	@PostMapping("/index/add") // 新增一筆商品
+	@PostMapping("/index/add1") // 新增一筆商品
 	public String processAddNewProductForm(@ModelAttribute("indexBean") indexBean ib, BindingResult result,
 			Model model) {
 		

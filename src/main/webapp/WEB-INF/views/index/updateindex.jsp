@@ -33,7 +33,7 @@ span.error {
 						<div class="col-md-10">
 							<div class="card">
 								<div class="card-header text-white" style='background: #646D73'>
-									<strong><h3>商品新增</h3></strong>
+									<strong><h3>圖片更新</h3></strong>
 								</div>
 								<div class="card-body">
 
@@ -59,15 +59,17 @@ span.error {
 													type='file'  />
 											</div>
 											<div class="form-group ">
-												<img  class='col-lg-offset-2 col-lg-8' id="productImage1" src=""">
+												<img  class='col-lg-offset-2 col-lg-12' id="productImage1" src=""">
 											</div>
 
 											<br>&nbsp;
 											<div class='col-lg-offset-2 col-lg-12'>
 												<input id="btnAdd" type='submit'
-													class="btn btn-secondary btn-lg btn-block" value="送出" /> <input
-													type='button' class='btn btn-primary float-right'
-													id='clickmeS' value='一鍵Demo'>
+													class="btn btn-secondary btn-lg btn-block" value="送出" /> 
+													
+<!-- 													<input -->
+<!-- 													type='button' class='btn btn-primary float-right' -->
+<!-- 													id='clickmeS' value='一鍵Demo'> -->
 											</div>
 
 
