@@ -57,7 +57,7 @@
 
 									<!--       三個地方要完全一樣 -->
 									<form:form method='POST' modelAttribute="leave" action='saveInsertLeave'
-									 enctype='multipart/form-data' class='form-horizontal'>
+									  class='form-horizontal'>
 										<input type="hidden" name="leaveAudit" value="通過" />
 										<fieldset>
 											<div class="form-group row">
@@ -66,7 +66,7 @@
 												<div class="col-md-6">
 													<form:input id="memberNumber" path="memberNumber"
 														type='text'
-														class="form-control input-md" />
+														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberNumber" cssClass="error" />
 												</div>
 											</div>
@@ -76,7 +76,7 @@
 													class="col-md-4 col-form-label text-md-right">編號</label>
 												<div class="col-md-6">
 													<form:input type="text" id="memberName"
-														path="memberName" class="form-control input-md" />
+														path="memberName" class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberName" cssClass="error" />
 												</div>
 											</div>
@@ -87,12 +87,10 @@
 												<div class="col-md-6">
 													<form:input id="memberDepartment"
 														path="memberDepartment" type='text'
-														class="form-control input-md" />
+														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberDepartment" cssClass="error" />
 												</div>
 											</div>
-
-
 
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
@@ -100,7 +98,7 @@
 												<div class="col-md-6">
 													<form:input id="leaveDate"
 														path="leaveDate" type='text'
-														class="form-control input-md" />
+														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="leaveDate" cssClass="error" />
 												</div>
 											</div>
@@ -109,7 +107,7 @@
 													for="leaveStart">請假開始</label>
 												<div class="col-md-6">
 													<form:input id="leaveStart" path="leaveStart"
-														type='text' class="form-control input-md" />
+														type='text' class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="leaveStart" cssClass="error" />
 												</div>
 											</div>
@@ -120,7 +118,7 @@
 												<div class="col-md-6">
 													<form:input id="leaveEnd"
 														path="leaveEnd" type='text'
-														class="form-control input-md" />
+														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="leaveEnd"
 														cssClass="error" />
 												</div>
@@ -131,7 +129,7 @@
 													for="leaveCategory">假別</label>
 												<div class="col-md-6">
 													<form:select id="leaveCategory"
-													path="leaveCategory" class="form-control input-md">
+													path="leaveCategory" class="form-control input-md col-form-label text-md-center">
 														<form:option value='事假'>事假</form:option>
 														<form:option value='病假'>病假</form:option>
 														<form:option value='公假'>公假</form:option>
@@ -148,7 +146,7 @@
 												<div class="col-md-6">
 													<form:input id="leaveCause"
 														path="leaveCause" type='text'
-														class="form-control input-md" />
+														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="leaveCause"
 														cssClass="error" />
 												</div>

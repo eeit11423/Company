@@ -36,4 +36,9 @@ public interface PunchService {
 
 	List queryAttendanceData(String memberNumber, String selectdate) ;
 	
+	List queryAttendanceDataByPunchLate(String memberNumber, String selectdate, String punchLate) ;
+	
+	List queryAttendanceDataByPunchEarly(String memberNumber, String selectdate, String punchEarly) ;
+	
+	List queryAttendanceDataByLeave(String memberNumber, String selectdate, String leave) ;
 }

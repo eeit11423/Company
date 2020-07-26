@@ -27,6 +27,11 @@
 					<span class="col-md-2 text-md-right">選擇年月份：</span>
 					<div class="col-md-3"><select id='dateselect'></select></div>
 				</div>
+				<div>
+					<button id='btn_late'>遲到</button>
+					<button id='btn_early'>早退</button>
+					<button id='btn_leave'>請假</button>
+				</div>
 			</div>
 			<div align='center' id='tablearea' class="col-md-6 grid-margin stretch-card"></div>
 		</div>
@@ -34,11 +39,15 @@
 		<script>
 			var selectElement = document.getElementById('membername'); // 取出select標籤
 			var selectElement2 = document.getElementById('dateselect'); // 取出select標籤
+			var btn_late = document.getElementById("btn_late");
+			var btn_early = document.getElementById("btn_early");
+			var btn_leave = document.getElementById("btn_leave");			
 			var tablearea = document.getElementById('tablearea'); // 取出書籍資料的div標籤
 			var detail = document.getElementById('detail'); // 取出書籍資料的div標籤
 			var xhr = new XMLHttpRequest(); // 讀取書籍表格內的書籍資料
 			var xhr2 = new XMLHttpRequest(); // 讀取單一書籍的資料
 			var xhr3 = new XMLHttpRequest(); // 讀取單一書籍的資料
+			var xhr4 = new XMLHttpRequest(); // 讀取單一書籍的資料
 			var memberData = [];
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == 4 && xhr.status == 200) {
@@ -72,55 +81,98 @@
 			xhr.send();
 
 			window.onload = function() {
+				xhr2.onreadystatechange = function() {
+					if (xhr2.readyState == 4 && xhr2.status == 200) {
+						displayPagePunchTime(xhr2.responseText);
+					}
+				}
+				xhr2.open("GET",
+								"<c:url value='queryAttendanceData' />?memberNumber=all&selectdate=all",
+								true);
+				// 			// 送出請求						
+				xhr2.send();
+			}
+
+			selectElement.onchange = function() {
 				xhr3.onreadystatechange = function() {
 					if (xhr3.readyState == 4 && xhr3.status == 200) {
 						displayPagePunchTime(xhr3.responseText);
 					}
 				}
-				xhr3
-						.open(
-								"GET",
-								"<c:url value='queryAttendanceData' />?memberNumber=all&selectdate=all",
-								true);
-				// 			// 送出請求						
-				xhr3.send();
-			}
-
-			selectElement.onchange = function() {
-				xhr2.onreadystatechange = function() {
-					if (xhr2.readyState == 4 && xhr2.status == 200) {
-						displayPagePunchTime(xhr2.responseText);
-					}
-				}
 				var memberNumber = selectElement.options[selectElement.selectedIndex].value;
 				var selectdate = selectElement2.options[selectElement2.selectedIndex].value;
 				// 			// 定義open方法
-				xhr2.open("GET",
+				xhr3.open("GET",
 						"<c:url value='queryAttendanceData' />?memberNumber="
 								+ memberNumber + "&selectdate=" + selectdate,
 						true);
 				// 			// 送出請求						
-				xhr2.send();
+				xhr3.send();
 			}
 
 			selectElement2.onchange = function() {
-				xhr2.onreadystatechange = function() {
-					if (xhr2.readyState == 4 && xhr2.status == 200) {
-						displayPagePunchTime(xhr2.responseText);
+				xhr3.onreadystatechange = function() {
+					if (xhr3.readyState == 4 && xhr3.status == 200) {
+						displayPagePunchTime(xhr3.responseText);
 					}
 				}
 				// 			//使用者挑選的書籍之主鍵值是存放在selectElement.options[selectElement.selectedIndex].value中
 				var memberNumber = selectElement.options[selectElement.selectedIndex].value;
 				var selectdate = selectElement2.options[selectElement2.selectedIndex].value;
 				// 			// 定義open方法
-				xhr2.open("GET",
+				xhr3.open("GET",
 						"<c:url value='queryAttendanceData' />?memberNumber="
 								+ memberNumber + "&selectdate=" + selectdate,
 						true);
 				// 			// 送出請求						
-				xhr2.send();
+				xhr3.send();
 			}
 
+			btn_late.onclick = function(){
+				xhr4.onreadystatechange = function() {
+					if (xhr4.readyState == 4 && xhr4.status == 200) {
+						displayPagePunchTime(xhr4.responseText);
+					}
+				}
+				var memberNumber = selectElement.options[selectElement.selectedIndex].value;
+				var selectdate = selectElement.options[selectElement.selectedIndex].value;
+			xhr4.open("GET",
+					"<c:url value='queryAttendanceDataByPunchLate' />?memberNumber="+ memberNumber 
+					+ "&selectdate=" + selectdate + "&punchLate=遲到", true);
+			xhr4.send();
+			}
+			
+			btn_early.onclick = function(){
+				xhr4.onreadystatechange = function() {
+					if (xhr4.readyState == 4 && xhr4.status == 200) {
+						displayPagePunchTime(xhr4.responseText);
+					}
+				}
+				var memberNumber = selectElement.options[selectElement.selectedIndex].value;
+				var selectdate = selectElement.options[selectElement.selectedIndex].value;
+			xhr4.open("GET",
+					"<c:url value='queryAttendanceDataByPunchEarly' />?memberNumber="+ memberNumber 
+					+ "&selectdate=" + selectdate + "&punchEarly=早退", true);
+			xhr4.send();
+			}
+			
+			btn_leave.onclick = function(){
+				xhr4.onreadystatechange = function() {
+					if (xhr4.readyState == 4 && xhr4.status == 200) {
+						displayPagePunchTime(xhr4.responseText);
+					}
+				}
+				var memberNumber = selectElement.options[selectElement.selectedIndex].value;
+				var selectdate = selectElement.options[selectElement.selectedIndex].value;
+			xhr4.open("GET",
+					"<c:url value='queryAttendanceDataByLeave' />?memberNumber="+ memberNumber 
+					+ "&selectdate=" + selectdate + "&leave=all", true);
+			xhr4.send();
+			}
+			
+			
+			
+			
 			function displayPagePunchTime(responseText) {
 				var attendances = JSON.parse(responseText);
 				console.log("typeof attendances:" + typeof attendances);
@@ -138,37 +190,67 @@
 						+ "<th align='center' width='100'>請假日期</th>"
 						+ "<th align='center' width='100'>請假開始</th>"
 						+ "<th align='center' width='100'>請假結束</th>"
+						+ "<th align='center' width='100'>假別</th>"
 						+ "<th align='center' width='100'>請假時數</th>"
 						+ "<th align='center' width='100'>請假審核</th>"
-						+ "<th align='center' width='100'><a href='insertPunchTime'>出勤新增</a></th>"
-						+ "<th align='center' width='100'><a href='../leave/insertLeave'>請假新增</a></th></tr>";
+						+ "<th align='center' width='100'>出勤修改</th>"
+						+ "<th align='center' width='100'>請假修改</th></tr>";
 				for (var i = 0; i < attendances.length; i++) {
-					var punchday = attendances[i][0].punchDate; //or time=1439018115000; 结果一样
-					var workOn = attendances[i][0].punchWorkOn;
-					var workOff = attendances[i][0].punchWorkOff;
-					console.log('-------------------------------------');
-					var leave = attendances[i][1]? attendances[i][1] : {};
 					var punch = attendances[i][0]? attendances[i][0] : {};
+					var leave = attendances[i][1]? attendances[i][1] : {};
 					console.log("leave:"+leave);
-					content += "<tr><td align='center'>" + punch.punchId + "</td>"
+					var name = punch? punch : leave;
+					content += "<tr><td align='center'>" + punch.punchId+ "</td>"
 							+ "<td align='center'>"	+ punch.memberName + "</td>"
 							+ "<td align='center'>" + punch.memberDepartment + "</td>"
-							+ "<td align='center'>" + timeStampToDate(punch.punchDate) + "</td>"
+// 					content += "<tr><td align='center'>" + name.leaveId+ "</td>"
+// 							+ "<td align='center'>"	+ name.memberName + "</td>"
+// 							+ "<td align='center'>" + name.memberDepartment + "</td>"
+							+ "<td align='center'>" + checkNull(timeStampToDate(punch.punchDate)) + "</td>"
 							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOn) + "</td>"
 							+ "<td align='center'>" + checkNull(punch.punchLate) + "</td>"
 							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOff) + "</td>"
 							+ "<td align='center'>" + checkNull(punch.punchEarly) + "</td>"
-							+ "<td align='center'>" + checkZero(punch.punchHours/(1000 * 60 * 60 )) + "</td>"
+							+ "<td align='center'>" + checkZero(checkNull(punch.punchHours)/(1000 * 60 * 60 )) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToDate(leave.leaveDate)) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveStart)) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveEnd)) + "</td>"
+							+ "<td align='center'>" + checkNull(leave.leaveCategory) + "</td>"
 							+ "<td align='center'>" + checkZero(checkNull(leave.leaveHours)/(1000 * 60 * 60 )) + "</td>"
 							+ "<td align='center'>" + checkNull(leave.leaveAudit) + "</td>"
-							+ "<td align='center'><a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a href='deletePunchTime/"
-							+ punch.punchId + "' onclick='confirmDelete()'>刪除</a></td>"
-							+ "<td align='center'><a href='leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='deleteLeave/"
-							+ leave.leaveId + "' onclick='confirmDelete()'>刪除</a></td>"
+							+ "<td align='center'>" + checkPunchTimeDataExist(punch.memberName) + "</td>"
+// 							+ "<td align='center'><a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a class='deletelink' href='deletePunchTime/"
+// 							+ punch.punchId + "' onclick='confirmDelete()'>刪除</a></td>"
+							+ "<td align='center'>" + checkLeaveDataExist(leave.memberName) + "</td>"
+// 							+ "<td align='center'><a href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='../leave/deleteLeave/"
+// 							+ leave.leaveId + "' onclick='confirmDelete()'>刪除</a></td>"
 							+ "</tr>";
+					function checkLeaveDataExist(String) {
+						if (String == null) {
+							return "<a href='../leave/insertLeave'>新增</a>";
+						} else {
+							return "<a class='deletelink' href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='../leave/deleteLeave/"
+								+ leave.leaveId + "' onclick='confirmDelete()'>刪除</a>";
+						}
+					}
+					
+					function checkPunchTimeDataExist(String) {
+						if (String == null) {
+							return "<a href='insertPunchTime'>新增</a>";
+						} else {
+							return "<a class='deletelink' href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a href='deletePunchTime/"
+								+ punch.punchId + "' onclick='confirmDelete()'>刪除</a>";
+						}
+					}
+					
+					function confirmDelete() {
+						var result = confirm("確定刪除此筆記錄?");
+						if (result) {
+							return window.location.href='../leave/deleteLeave/';
+						}
+						return false;
+					}
+					
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;
@@ -189,6 +271,7 @@
 					return Long;
 				}
 			}
+			
 
 			function timeStampToDate(date) {
 				if (date != null) {
@@ -219,13 +302,24 @@
 					return '';
 				}
 			}
-			function confirmDelete() {
-				var result = confirm("確定刪除此筆記錄?");
-				if (result) {
-					return true;
-				}
-				return false;
-			}
+// 			function confirmDelete() {
+// 				var result = confirm("確定刪除此筆記錄?");
+// 				if (result) {
+// 					return window.location='../leave/deleteLeave/';
+// 				}
+// 				return false;
+// 			}
+			
+// 		    $(document).ready(function() {
+// 		        $('.deletelink').click(function() {
+// 		        	if (confirm('確定刪除此筆紀錄? ')) {
+// 		        		var href = $(this).attr('href');
+// 		                $('form').attr('action', href).submit();
+// 		        	} 
+// 		        	return false;
+		            
+// 		        });
+// 		    })
 		</script>
 		</div>
 		</div>

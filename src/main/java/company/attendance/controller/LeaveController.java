@@ -57,7 +57,7 @@ public class LeaveController {
 			System.out.println(memberBean.getMemberName().length());
 			List<Leave> list = service.getLeave(memberBean.getMemberName());
 			model.addAttribute("memberleave",list);
-			
+			System.out.println("得到的Beannnnnnnnnnnnnn:" + list);
 		return "attendance/leave/memberLeave" ;
 		}
 	}
@@ -78,7 +78,8 @@ public class LeaveController {
 		return "attendance/leave/memberInsertLeave";
 	}
 
-	@PostMapping(value = "/saveInsertLeave", consumes = "application/x-www-form-urlencoded")
+//	@PostMapping(value = "/saveInsertLeave", consumes = "multipart/form-data")
+	@PostMapping("/saveInsertLeave")
 	public String saveInsertPunchTime(@ModelAttribute("leave") Leave leave, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
 //		Punch punch = (Punch) model.getAttribute("punch");
@@ -149,13 +150,13 @@ public class LeaveController {
 			@PathVariable Integer key, Leave leave) {
 		service.updateLeave(leave);
 		System.out.println("hi");
-		return "redirect:/attendance/leave/queryLeave";
+		return "redirect:/attendance/punch/queryPunchTime";
 	}
 
 	@GetMapping("/deleteLeave/{key}")
 	public String deletePunchTime(@PathVariable Integer key, Model model, HttpServletRequest req) {
 		service.deleteLeaveByLeaveId(key);
-		return "redirect:/attendance/leave/queryLeave";
+		return "redirect:/attendance/punch/queryPunchTime";
 	}
 	
 	@ModelAttribute("leave")

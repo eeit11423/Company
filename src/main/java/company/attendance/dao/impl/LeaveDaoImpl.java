@@ -170,8 +170,8 @@ public class LeaveDaoImpl implements LeaveDao {
 												.getResultList();
 		System.out.println(leave.getLeaveDate());
 		System.out.println(list);
-		System.out.println(list.get(0));
-		System.out.println(list.get(0).getPunchId());
+//		System.out.println(list.get(0));
+//		System.out.println(list.get(0).getPunchId());
 		return list;
 	}
 	

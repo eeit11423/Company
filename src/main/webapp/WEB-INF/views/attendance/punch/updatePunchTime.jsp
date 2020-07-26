@@ -9,7 +9,7 @@
 <style>
 </style>
 <meta charset="UTF-8">
-<title>>修改出勤紀錄</title>
+<title>修改出勤紀錄</title>
 <script type="text/javascript">
 // 	function confirmDelete(userId) {
 // 		var result = confirm("確定刪除此筆記錄(帳號:" + userId.trim() + ")?");
@@ -30,52 +30,90 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/fragment/header.jsp" />
-	<div class='container' align='center' style="text-align: center">
-		<div align='center' style="text-align: center;background-color:#dee2e6">
-		<h1 align='center'>修改出勤紀錄</h1>
-		<hr>
-		<a href='../queryPunchTime'>回前頁</a>
-		</div>
-			<form:form class='center' action="../punchTime/update/${punch.punchId}" modelAttribute="punch"
-				method="POST">
-				<input type="hidden" name="punchId" value="${punch.punchId}">
-				<input type="hidden" name="memberName" value="${punch.memberName}">
-				<input type="hidden" name="finalDecision" value="">
-				<Table align='center'>
-					<TR>
-						<TD align="RIGHT">姓名：</TD>
-						<TD align="LEFT">${punch.memberName}</TD>
-					</TR>
-					<TR>
-						<TD align="RIGHT">打卡日期：</TD>
-						<TD align="LEFT"><form:input type='date' path="punchDate" size="30" /> <font
-							color='red' size='-3'>${error.punchDate}</font></TD>
-					</TR>
-					<TR>
-						<TD align="RIGHT">上班時間：</TD>
-						<TD align="LEFT"><form:input path="punchWorkOn" /> <font
-							color='red' size='-3'>${error.punchWorkOn}</font></TD>
-					</TR>
-					<TR>
-						<TD align="RIGHT">下班時間：</TD>
-						<TD align="LEFT"><form:input path="punchWorkOff" /> <font
-							color='red' size='-3'>${error.punchWorkOff}</font></TD>
-					</TR>
+	<jsp:include page="/fragment/headerRearend.jsp" />
+	<div class="main-panel">
+		<div class="content-wrapper">
+			<!-- 			<div class="row"> -->
+			<main class="my-form">
+				<div class="cotainer">
+					<div class="row justify-content-center">
+						<div class="col-md-10">
+							<div class="card">
+								<div class="card-header text-white" style='background: #646D73'>
+									<strong><h3>修改打卡紀錄</h3></strong>
+								</div>
+								<div class="card-body">
+									<form:form class='center' action="../punchTime/update/${punch.punchId}" modelAttribute="punch"
+											method="POST">									
+										<input type="hidden" name="leaveId" value="${punch.punchId}">
+										<input type="hidden" name="memberName" value="${punch.memberName}">	
+										<input type="hidden" name="memberDepartment" value="${punch.memberDepartment}">	
+									<fieldset>
+										<div class="form-group row">
+											<label class="col-md-4 col-form-label text-md-right"
+												for="memberName">姓名</label>
+											<div class="col-md-6 col-form-label text-md-center">${punch.memberName}</div>
+										</div>
 
-					<TR>
-						<TD colspan="2" align="center">
-<%-- 							<input type="submit" value="更新" name='updateBtn' onclick="return confirmUpdate('${punch.memberName}');">  --%>
-<%-- 							<input type="submit" value="刪除" name='deleteBtn' onclick="return confirmDelete('${punch.memberName}');"> --%>
-							<input type='submit' class="btn btn-info" value='提交'>
-							<input type='reset' class="btn btn-outline-secondary "value='還原'>
-					</TR>
-				</Table>
-				<c:if test="${not empty requestScope.modify}">
-					<c:remove var="punch" scope="request" />
-				</c:if>
-			</form:form>
-		<p />
+										<div class="form-group row">
+											<label for="memberNumber"
+												class="col-md-4 col-form-label text-md-right">編號</label>
+											<div class="col-md-6 col-form-label text-md-center" >${punch.memberNumber}</div>
+										</div>
+
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="memberDepartment">部門</label>
+												<div class="col-md-6 col-form-label text-md-center">${punch.memberDepartment}</div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="punchDate">上班日期</label>
+												<div class="col-md-6 col-form-label text-md-center">${punch.punchDate}</div>
+											</div>
+											
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="punchWorkOn">上班時間</label>
+												<div class="col-md-6">
+													<form:input id="punchWorkOn" path="punchWorkOn"
+														type='text' class="form-control input-md text-md-center" value="${punch.punchWorkOn}"/>
+													<form:errors path="punchWorkOn" cssClass="error" />
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="punchWorkOff">下班時間</label>
+												<div class="col-md-6">
+													<form:input id="punchWorkOff"
+														path="punchWorkOff" type='text'
+														class="form-control input-md text-md-center" value="${punch.punchWorkOff}"/>
+													<form:errors path="punchWorkOff"
+														cssClass="error" />
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<div class='col-lg-offset-2 col-lg-12'>
+													<input id="btnAdd" type='submit'
+														class="btn btn-secondary btn-lg btn-block" value="送出" />
+													<input type='button' class='btn btn-primary float-right'
+														id='clickmeS' value='一鍵Demo'>
+												</div>
+											</div>
+										</fieldset>
+									</form:form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</main>
+		</div>
 	</div>
 </body>
 

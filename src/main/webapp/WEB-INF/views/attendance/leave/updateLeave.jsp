@@ -29,54 +29,121 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/fragment/header.jsp" />
-	<div class="container" align='center' style="text-align: center">
-		<div align='center' style="text-align: center;background-color:#dee2e6">
-		<h1 align='center'>查詢請假紀錄</h1><hr>
-		<a href='../queryLeave'>回前頁</a>
-		</div>
-			<form:form class='center' action="../leave/update/${leave.leaveId}"
-				modelAttribute="leave" method="POST">
-				<input type="hidden" name="leaveId" value="${leave.leaveId}">
-				<input type="hidden" name="memberName" value="${leave.memberName}">
-				<input type="hidden" name="finalDecision" value="">
-				<Table align='center'>
-					<TR>
-						<TD align="RIGHT">姓名：</TD>
-						<TD align="LEFT">${leave.memberName}</TD>
-					</TR>
-					<TR>
-						<TD align="RIGHT">請假日期：</TD>
-						<TD align="LEFT"><form:input path="leaveDate" size="30" /> <font
-							color='red' size='-3'>${error.leaveDate}</font></TD>
-					</TR>
-					<TR>
-						<TD align="RIGHT">請假開始：</TD>
-						<TD align="LEFT"><form:input path="leaveStart" /> <font
-							color='red' size='-3'>${error.leaveStart}</font></TD>
-					</TR>
-					<TR>
-						<TD align="RIGHT">請假結束：</TD>
-						<TD align="LEFT"><form:input path="leaveEnd" /> <font
-							color='red' size='-3'>${error.leaveEnd}</font></TD>
-					</TR>
+<jsp:include page="/fragment/headerRearend.jsp" />
+	<div class="main-panel">
+		<div class="content-wrapper">
+			<!-- 			<div class="row"> -->
+			<main class="my-form">
+				<div class="cotainer">
+					<div class="row justify-content-center">
+						<div class="col-md-10">
+							<div class="card">
+								<div class="card-header text-white" style='background: #646D73'>
+									<strong><h3>修改打卡紀錄</h3></strong>
+								</div>
+								<div class="card-body">
+									<form:form class='center' action="../leave/update/${leave.leaveId}"
+										modelAttribute="leave" method="POST">					
+										<input type="hidden" name="leaveId" value="${leave.leaveId}">
+										<input type="hidden" name="memberName" value="${leave.memberName}">	
+										<input type="hidden" name="memberDepartment" value="${leave.memberDepartment}">	
+									<fieldset>
+										<div class="form-group row">
+											<label class="col-md-4 col-form-label text-md-right"
+												for="memberName">姓名</label>
+											<div class="col-md-6 col-form-label text-md-center">${leave.memberName}</div>
+										</div>
 
-					<TR>
-						<TD colspan="2" align="center">
-<!-- 							<input type="submit" value="更新" name='updateBtn' -->
-<%-- 							onclick="return confirmUpdate('${leave.memberName}');">  --%>
-<%-- 							<input type="submit" value="刪除" name='deleteBtn' onclick="return confirmDelete('${leave.memberName}');"> --%>
-														<input type='submit' class="btn btn-info" value='提交'>
-							<input type='reset' class="btn btn-outline-secondary "value='還原'>
-						</TD>
-							
-					</TR>
-				</Table>
-				<c:if test="${not empty requestScope.modify}">
-					<c:remove var="leave" scope="request" />
-				</c:if>
-			</form:form>
-		<p />
+										<div class="form-group row">
+											<label for="memberNumber"
+												class="col-md-4 col-form-label text-md-right">編號</label>
+											<div class="col-md-6 col-form-label text-md-center" >${leave.memberNumber}</div>
+										</div>
+
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="memberDepartment">部門</label>
+												<div class="col-md-6 col-form-label text-md-center">${leave.memberDepartment}</div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="leaveDate">請假日期</label>
+												<div class="col-md-6 col-form-label text-md-center">
+													<form:input id="leaveDate"
+														path="leaveDate" type='text' 
+														class="form-control input-md text-md-center" value="${leave.leaveDate}"/>
+													<form:errors path="leaveDate" cssClass="error" />
+												</div>
+											</div>
+											
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="leaveStart">請假開始</label>
+												<div class="col-md-6">
+													<form:input id="leaveStart" path="leaveStart"
+														type='text' class="form-control input-md text-md-center" value="${leave.leaveStart}"/>
+													<form:errors path="leaveStart" cssClass="error" />
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+													for="leaveEnd">請假結束</label>
+												<div class="col-md-6">
+													<form:input id="leaveEnd"
+														path="leaveEnd" type='text'
+														class="form-control input-md text-md-center" value="${leave.leaveEnd}"/>
+													<form:errors path="leaveEnd"
+														cssClass="error" />
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+														for="leaveCategory">假別</label>
+												<div class="col-md-6">
+													<form:select id="leaveCategory"	path="leaveCategory"
+																class="form-control input-md col-form-label text-md-center">
+														<form:option value='事假'>事假</form:option>
+														<form:option value='病假'>病假</form:option>
+														<form:option value='公假'>公假</form:option>
+														<form:option value='婚嫁'>婚嫁</form:option>
+														<form:option value='喪假'>喪假</form:option>
+													</form:select>
+													<form:errors path="leaveCategory" cssClass="error" />
+												</div>
+											</div>
+											
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right"
+																for="leaveCause">原因</label>
+												<div class="col-md-6">
+													<form:input id="leaveCause"	path="leaveCause"
+																 type='text' class="form-control input-md col-form-label text-md-center" />
+													<form:errors path="leaveCause" cssClass="error" />
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<div class='col-lg-offset-2 col-lg-12'>
+													<input id="btnAdd" type='submit'
+														class="btn btn-secondary btn-lg btn-block" value="送出" />
+													<input type='button' class='btn btn-primary float-right'
+														id='clickmeS' value='一鍵Demo'>
+												</div>
+											</div>
+										</fieldset>
+									</form:form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</main>
+		</div>
 	</div>
 </body>
 

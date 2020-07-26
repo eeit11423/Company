@@ -183,17 +183,6 @@ public class PunchController {
 			return re;
 	}
 	
-	@GetMapping("/queryAttendanceData")
-	public ResponseEntity<List> queryAttendanceData(
-			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
-			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate, Model model){ 
-		List attendance = service.queryAttendanceData(memberNumber, selectdate);
-		System.out.println("attendance得到的List："+attendance);
-//		System.out.println(attendance);
-//		System.out.println(attendance.get(1));
-		ResponseEntity<List> re = new ResponseEntity<>(attendance, HttpStatus.OK);
-		return re;
-	}
 	
 	@GetMapping("/queryPunchTimeDataByPunchLate")
 	public ResponseEntity<Map<String, Object>> queryPunchTimeByPunchLate(
@@ -218,6 +207,57 @@ public class PunchController {
 		map.put("punchtimes", listTarget);
 		
 		ResponseEntity<Map<String, Object>> re = new ResponseEntity<>(map, HttpStatus.OK);
+		return re;
+	}
+	
+	@GetMapping("/queryAttendanceData")
+	public ResponseEntity<List> queryAttendanceDataByPunch(
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate, Model model){ 
+		List attendance = service.queryAttendanceData(memberNumber, selectdate);
+		System.out.println("attendance得到的List："+attendance);
+//		System.out.println(attendance);
+//		System.out.println(attendance.get(1));
+		ResponseEntity<List> re = new ResponseEntity<>(attendance, HttpStatus.OK);
+		return re;
+	}
+	
+	@GetMapping("/queryAttendanceDataByPunchLate")
+	public ResponseEntity<List> queryAttendanceDataByPunchLate(
+			@RequestParam(value="punchLate", defaultValue = "遲到", required = false) String punchLate,
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate, Model model){ 
+		List attendance = service.queryAttendanceDataByPunchLate(memberNumber, selectdate, punchLate);
+		System.out.println("attendance得到的List："+attendance);
+//		System.out.println(attendance);
+//		System.out.println(attendance.get(1));
+		ResponseEntity<List> re = new ResponseEntity<>(attendance, HttpStatus.OK);
+		return re;
+	}
+	
+	@GetMapping("/queryAttendanceDataByPunchEarly")
+	public ResponseEntity<List> queryAttendanceDataByPunchEarly(
+			@RequestParam(value="punchLate", defaultValue = "早退", required = false) String punchEarly,
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate, Model model){ 
+		List attendance = service.queryAttendanceDataByPunchEarly(memberNumber, selectdate, punchEarly);
+		System.out.println("attendance得到的List："+attendance);
+//		System.out.println(attendance);
+//		System.out.println(attendance.get(1));
+		ResponseEntity<List> re = new ResponseEntity<>(attendance, HttpStatus.OK);
+		return re;
+	}
+	
+	@GetMapping("/queryAttendanceDataByLeave")
+	public ResponseEntity<List> queryAttendanceDataByLeave(
+			@RequestParam(value="punchLate", defaultValue = "all", required = false) String leave,
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate, Model model){ 
+		List attendance = service.queryAttendanceDataByLeave(memberNumber, selectdate, leave);
+		System.out.println("attendance得到的List："+attendance);
+//		System.out.println(attendance);
+//		System.out.println(attendance.get(1));
+		ResponseEntity<List> re = new ResponseEntity<>(attendance, HttpStatus.OK);
 		return re;
 	}
 	

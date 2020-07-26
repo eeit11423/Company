@@ -52,7 +52,7 @@
 
 									<!--       三個地方要完全一樣 -->
 									<form:form method='POST' modelAttribute="punch" action='saveInsertPunchTime'
-										enctype='multipart/form-data' class='form-horizontal'>
+										enctype='application/x-www-form-urlencoded' class='form-horizontal'>
 										<fieldset>
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
@@ -60,7 +60,7 @@
 												<div class="col-md-6">
 													<form:input id="memberNumber" path="memberNumber"
 														type='text'
-														class="form-control input-md" />
+														class="form-control col-form-label text-md-center" />
 													<form:errors path="memberNumber" cssClass="error" />
 												</div>
 											</div>
@@ -70,7 +70,7 @@
 													class="col-md-4 col-form-label text-md-right">編號</label>
 												<div class="col-md-6">
 													<form:input type="text" id="memberName"
-														path="memberName" class="form-control input-md" />
+														path="memberName" class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberName" cssClass="error" />
 												</div>
 											</div>
@@ -81,12 +81,10 @@
 												<div class="col-md-6">
 													<form:input id="memberDepartment"
 														path="memberDepartment" type='text'
-														class="form-control input-md" />
+														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberDepartment" cssClass="error" />
 												</div>
 											</div>
-
-
 
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
@@ -94,16 +92,17 @@
 												<div class="col-md-6">
 													<form:input id="punchDate"
 														path="punchDate" type='text'
-														class="form-control input-md" />
+														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="punchDate" cssClass="error" />
 												</div>
 											</div>
+											
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
 													for="punchWorkOn">上班時間</label>
 												<div class="col-md-6">
 													<form:input id="punchWorkOn" path="punchWorkOn"
-														type='text' class="form-control input-md" />
+														type='text' class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="punchWorkOn" cssClass="error" />
 												</div>
 											</div>
@@ -114,7 +113,7 @@
 												<div class="col-md-6">
 													<form:input id="punchWorkOff"
 														path="punchWorkOff" type='text'
-														class="form-control input-md" />
+														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="punchWorkOff"
 														cssClass="error" />
 												</div>

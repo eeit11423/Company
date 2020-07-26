@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import company.attendance.dao.LeaveDao;
 import company.attendance.model.Leave;
 import company.member.model.MemberBean;
-
+import sun.nio.cs.ext.ISCII91;
 import company.attendance.service.LeaveService;
 
 @Transactional
@@ -37,7 +37,7 @@ public class LeaveServiceImpl implements LeaveService {
     
 	@Override
 	public int saveLeave(Leave leave) {
-		if (dao.getMemberAndPunchDateList(leave) != null) {
+		if (dao.getMemberAndPunchDateList(leave) == null) {
 			int punchId = dao.getMemberAndPunchDateList(leave).get(0).getPunchId();
 			dao.updatePunchtime(leave, punchId);
 		}

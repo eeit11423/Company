@@ -91,4 +91,19 @@ public class PunchServiceImpl implements PunchService {
 	public List queryAttendanceData(String memberNumber, String selectdate) {
 		return dao.queryAttendanceData(memberNumber, selectdate);
 	}
+	
+	@Override
+	public List queryAttendanceDataByPunchLate(String memberNumber, String selectdate, String punchLate) {
+	return dao.queryAttendanceDataByPunchLate(memberNumber, selectdate, punchLate);
+	}	
+	
+	@Override
+	public List queryAttendanceDataByPunchEarly(String memberNumber, String selectdate, String punchEarly) {
+	return dao.queryAttendanceDataByPunchEarly(memberNumber, selectdate, punchEarly);
+	}	
+	@Override
+	
+	public List queryAttendanceDataByLeave(String memberNumber, String selectdate, String leave) {
+	return dao.queryAttendanceDataByLeave(memberNumber, selectdate, leave);
+	}
 }

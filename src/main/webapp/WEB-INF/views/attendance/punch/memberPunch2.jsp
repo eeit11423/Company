@@ -75,7 +75,7 @@
 			<div class="card-body">
 				<div class="form-group row">		
 					<div class="col-md-3 text-md-right"><h4>使用者：</h4></div>
-					<div class="col-md-3 text-md-left"><h4>${memberBean.memberName}</h4></div>
+					<div class="col-md-3 text-md-left"><h4>${memberpunch[0].memberName}</h4></div>
 					<div class="col-md-3 text-md-right">選擇年月份：</div>
 					<div class="col-md-3"><select id='dateselect'></select></div>
 				</div>
@@ -253,4 +253,15 @@
 	</div>
 	</div>
 </body>
+<script src="${pageContext.request.contextPath}/dist/base/vendor.bundle.base.js"></script>
+  <script src="${pageContext.request.contextPath}/dist/chart.js/Chart.min.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="${pageContext.request.contextPath}/dist/js/off-canvas.js"></script>
+  <script src="${pageContext.request.contextPath}/dist/js/hoverable-collapse.js"></script>
+  <script src="${pageContext.request.contextPath}/dist/js/template.js"></script>
+  <script src="${pageContext.request.contextPath}/dist/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="${pageContext.request.contextPath}/dist/js/dashboard.js"></script>
 </html>
