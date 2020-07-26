@@ -11,7 +11,7 @@
 <link href="${pageContext.request.contextPath}/dist/css/vendor.bundle.base.css" rel="stylesheet"  media="all" />
 <link href="${pageContext.request.contextPath}/dist/css/style.css" rel="stylesheet"  media="all" />
 <link href="${pageContext.request.contextPath}/dist/css/themify-icons.css" rel="stylesheet"  media="all" />
-<link rel="shortcut icon" href="/dist/images/favicon.png" />
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/dist/images/favicon.png" />
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
@@ -30,7 +30,9 @@
 								href="${pageContext.request.contextPath}/attendance/punch/memberPunch">
 									出勤打卡 </a></li>
 						</ul>
-					</div></li>
+					</div>
+					
+					</li>
 					
 				<li class="nav-item"><a class="nav-link" data-toggle="collapse"
 					href="#leave" aria-expanded="false" aria-controls="leave">
