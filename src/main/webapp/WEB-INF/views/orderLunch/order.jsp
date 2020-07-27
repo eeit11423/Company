@@ -32,7 +32,7 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li><a href="#intro" class="active">訂購清單</a></li>
+							<li><a href="#intro" class="active">訂單查詢</a></li>
 							<li><a href="#first">新增清單</a></li>
 							<li><a href="#second">訂購名單</a></li>
 						</ul>
@@ -44,7 +44,7 @@
 								<div class="spotlight">
 									<div class="content">
 										<header class="major">
-											<h2>訂單查詢</h2>
+											<h2>看看你訂了甚麼吧！</h2>
 										</header>
 										<div style=" display: flex; width: 100%; argin: 0 10px;  align-items: center;" >
 											<span style="display: block;"> 訂購者姓名：</span> 
@@ -60,7 +60,7 @@
 						<!-- First Section -->
 							<section id="first" class="main special">
 								<header class="major">
-									<h2>如果上面沒喜歡的 那就自己建立清單吧！</h2>
+									<h2>自己建立想吃的東西吧！</h2>
 								</header>
 								  <div>
                                    <div style="display: flex; align-items: center; padding-bottom: 5%; border-bottom: 1px solid rgb(197, 197, 197);">
@@ -156,10 +156,9 @@
 							'data' : {'userName' : userName
 							},'success' : function(datas) {
 			 					$('#seachOrder').val("");
-			 						var secData = [];
+			 						var secData = []; 
 			 	 					var datasJson = JSON.parse(datas);
 			 	 					 secData = datasJson;
-			 	 					console.log(secData);
 			 	 					 for(var i = 0;i < secData.length; i++) {
 			 	 	 				   newOption += "訂單編號：["+secData[i].id+"]  餐點：["+secData[i].product+"]  數量：["+secData[i].quantity+" ]  餐點單價： ["+secData[i].price+"]";
 			 	               }
@@ -184,8 +183,31 @@
 		 					$('#datepicker').val("");
 		 					$('#menu2').val("");
 		 					$('#price2').val("");
-		 					if("success"==datas)
+		 					if("success"==datas){
 		 						alert("建立成功");
+		 						resetMenu();	
+		 					}
+						},'error':function(xhr, ajaxOptions, thrownError){
+							console.log(xhr.responseText);
+						}
+		     		 });
+		    } 
+		    
+		    function resetMenu(){
+		    	  $.ajax({'url':'/mvcExercisetest/orderLunch/resetStore',
+						'method' : "POST"
+						,'success' : function(datas) {
+							var secData = [];
+		 					var datasJson = JSON.parse(datas);
+		 					 secData = datasJson;
+		 					console.log(secData);
+		 					$('#second-store').empty();
+		 					for(var i = 0;i < secData.length; i++) {
+		 						var newOption = $('<option value="'+secData[i]+'">'+secData[i]+'</option>');
+		 						 $('#second-store').append(newOption);
+		 					}
+		 					
+		 					getJson();
 						},'error':function(xhr, ajaxOptions, thrownError){
 							console.log(xhr.responseText);
 						}

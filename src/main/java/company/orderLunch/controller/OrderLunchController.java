@@ -37,14 +37,14 @@ public class OrderLunchController extends HttpServlet{
     
     //sql
     private static final String SELECT_LUNCH_ORDER = "SELECT * FROM LUNCHORDER WHERE USERNAME=?";
-    private static final String SELECT_LUNCH_STORE = "SELECT DISTINCT STORE FROM LUNCHSTORE ";
-    private static final String SELECT_LUNCH_STORE_MENU = "SELECT * FROM LUNCHSTORE WHERE STORE = ?";
-    private static final String SELECT_LUNCH_STORE_MENU_PRICE = "SELECT * FROM LUNCHSTORE WHERE id = ?";
-    private static final String SELECT_LUNCH_STORE_DETAIL = "SELECT * FROM LUNCHSTORE WHERE STORE = ?";
+    private static final String SELECT_LUNCH_STORE = "SELECT DISTINCT STORE FROM LUNCHSTORE WHERE ENDDATE >GETDATE()-1";
+    private static final String SELECT_LUNCH_STORE_MENU = "SELECT * FROM LUNCHSTORE WHERE STORE = ? AND ENDDATE >GETDATE()-1";
+    private static final String SELECT_LUNCH_STORE_MENU_PRICE = "SELECT * FROM LUNCHSTORE WHERE id = ? AND ENDDATE >GETDATE()-1";
+    private static final String SELECT_LUNCH_STORE_DETAIL = "SELECT * FROM LUNCHSTORE WHERE STORE = ? AND ENDDATE >GETDATE()-1";
     private static final String SELECT_STORE_LIST = "SELECT * FROM LUNCHORDER WHERE STORE = ? ";
-    private static final String SELECT_MAX_ORDER_ID =  "select MAX (id)+1 as id FROM LunchOrder";
-    private static final String INSERT_LUNCH_ORDER = "INSERT INTO LUNCHORDER (ID,STORE,PRODUCT,PRICE,QUANTITY,USERNAME) VALUES(?,?,(select product from LunchStore where id=?),?,?,?)";
-    private static final String INSERT_LUNCH_STORE = "INSERT INTO lunchStore(ID,STORE,PRODUCT,PRICE,ENDDATE) VALUES((select max(id)+1 as id from lunchStore),?,?,?,?)";
+    private static final String SELECT_MAX_ORDER_ID =  "SELECT MAX (ID)+1 AS ID FROM LUNCHORDER";
+    private static final String INSERT_LUNCH_ORDER = "INSERT INTO LUNCHORDER (ID,STORE,PRODUCT,PRICE,QUANTITY,USERNAME) VALUES(?,?,(SELECT PRODUCT FROM LUNCHSTORE WHERE ID=?),?,?,?)";
+    private static final String INSERT_LUNCH_STORE = "INSERT INTO LUNCHSTORE(ID,STORE,PRODUCT,PRICE,ENDDATE) VALUES((SELECT MAX(ID)+1 AS ID FROM LUNCHSTORE),?,?,?,?)";
 	//導頁
 	@GetMapping("/orderLunch/order")
 	public String order(Model model) {
@@ -66,6 +66,33 @@ public class OrderLunchController extends HttpServlet{
 		}
 		
 		return "orderLunch/order";
+	}
+	
+	@RequestMapping(value = "/orderLunch/resetStore",method = RequestMethod.POST )
+	public void resetOrder(HttpServletRequest request, HttpServletResponse response) {
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		String listJson = "";
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+		    request.setCharacterEncoding("UTF-8");
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(SELECT_LUNCH_STORE);
+			rs=ps.executeQuery();
+			List<String> list = new ArrayList<String>();
+			while (rs.next()) {
+				list.add(rs.getString("STORE"));
+			}
+			listJson = JSON.toJSONString(list);
+			PrintWriter out =response.getWriter();
+			out.print(listJson);
+			out.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(value = "/orderLunch/insertStore",method = RequestMethod.POST )
