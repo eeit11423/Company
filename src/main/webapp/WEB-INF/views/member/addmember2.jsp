@@ -33,9 +33,27 @@ span.error {
 	font-size: 5pt;
 }
 </style>
+<script >
+window.onload = function(){
+		var btn = document.getElementById("clickmeS");
+		btn.onclick = function(){
+		Name =  document.getElementById("name")
+		Name.value ="1001"
+		address = document.getElementById("your_pass")
+		address.value = "1234"
+		email = document.getElementById("your_pass2")
+		email.value="38000"
+		
+		
+		
+		}
+	}
+</script >
 </head>
 <body>
-	<div class="main" style="background: url(../signup/images/3.jpg)">
+<jsp:include page="/fragment/headerRearend.jsp" />
+
+	<div class="main" style="background: url(../signup/images/3.jpg);width:1500px">
 
 		<!-- Sing in  Form -->
 		<section class="sign-in">
@@ -58,7 +76,7 @@ span.error {
 								<label for="your_name"><i
 									class="zmdi zmdi-account material-icons-name"></i></label>
 								<form:input path="memberNumber" type="text" name="your_name"
-									id="your_name" placeholder="員工編號" />
+									id="name" placeholder="員工編號" />
 							</div>
 
 							<div class="form-group">
@@ -78,8 +96,8 @@ span.error {
 							<div class="form-group">
 								<label for="your_pass"><i
 									class="zmdi zmdi-money zmdi-hc-lg"></i></label>
-								<form:input path="memberSalary" type="password" name="your_pass"
-									id="your_pass" placeholder="薪資" />
+								<form:input path="memberSalary" type="text" name="your_pass"
+									id="your_pass2" placeholder="薪資" />
 
 							</div>
 
@@ -93,6 +111,8 @@ span.error {
 								<form:input id="productImage" path="productImage" type='file'
 									class='form:input-large' />
 							</div>
+							<div><img id="productImage1" src="" >
+							</div>
 
 							<div class="form-group">
 								<span>部門:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -104,10 +124,11 @@ span.error {
 							<div class="form-group form-button">
 								<input type="submit" name="signin" id="signin"
 									class="form-submit" value="Log in" />
-								<a href="test" class="btn btn-outline-warning" class="btn btn-primary"
+								<a href="test" class="btn btn-outline-success" class="btn btn-primary"
 									data-toggle="modal" data-target="#myModal" > 
-									<span class="glyphicon-info-sigh glyphicon"></span>上傳1	
+									<span class="glyphicon-info-sigh glyphicon"></span>上傳Excel
 									</a>
+								<input type='button' class='form-submit'  id='clickmeS' value='一鍵Demo' >
 							</div>
 						</form:form>
 						<div class="container">
@@ -117,24 +138,25 @@ span.error {
 									<div class="modal-content">
 
 										<!-- Modal Header -->
-										<div class="modal-header">
-											<h4 class="modal-title">Modal Heading</h4>
+										<div class="modal-header" style="background-color:#FFFCEC;">
+											<h4 class="modal-title">上傳excel</h4>
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
 										</div>
 
 										<!-- Modal body -->
-										<div class="modal-body">
+										<div class="modal-body" style="background-color:#FFFCEC;">
 											<form method="post" action="test"
 												enctype="multipart/form-data">
-												<input type="file" name="uploadFile" /> <br /> <input
-													type="submit" value="上傳" />
+												<input type="file" name="uploadFile" /> <br /> 
+												<input type="submit" value="上傳" class="btn btn-outline-success"/>
 											</form>
+											
 										</div>
 
 										<!-- Modal footer -->
-										<div class="modal-footer">
+										<div class="modal-footer" style="background-color:#FFFCEC;">
 											<button type="button" class="btn btn-danger"
-												data-dismiss="modal">Close</button>
+												data-dismiss="modal">關閉</button>
 										</div>
 
 									</div>
@@ -145,9 +167,21 @@ span.error {
 		</section>
 
 	</div>
-
-	<!-- JS -->
-	<!--     <script src="vendor/jquery/jquery.min.js"></script> -->
-	<!--     <script src="js/main.js"></script> -->
+<script>
+	$("#productImage").change(function(){
+  readURL(this);
+});
+function readURL(input){
+	  if(input.files && input.files[0]){
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	       $("#productImage1").attr('src', e.target.result);
+	       $("#productImage1").attr('width', "200px");
+	       $("#productImage1").attr('heigth', "200px");
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	  }
+}
+</script>
 </body>
 </html>

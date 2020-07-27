@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import company.member.dao.MemberDao;
 import company.member.model.MemberBean;
+import company.member.model.ResignBean;
 import company.member.service.MemberSerivce;
 
 
@@ -104,5 +105,20 @@ public class MemberServiceImpl implements MemberSerivce {
 		
 		return memberdao.CheckPassword(oldpwd, newpwd,id);
 	}
+	@Transactional
+	@Override
+	public List<MemberBean> getOneMemberID(Integer id) {
+		
+		return memberdao.getOneMemberID(id);
+	}
+	@Transactional
+	@Override
+	public MemberBean saveId(List<ResignBean> rb) {
+		// TODO Auto-generated method stub
+		return memberdao.saveId(rb);
+	}
+
+	
+
 
 }

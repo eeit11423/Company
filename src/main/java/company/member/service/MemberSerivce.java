@@ -4,6 +4,7 @@ package company.member.service;
 import java.util.List;
 
 import company.member.model.MemberBean;
+import company.member.model.ResignBean;
 
 
 
@@ -34,4 +35,10 @@ public interface MemberSerivce {
 	public boolean idExists(String id);
 	
 	public  boolean CheckPassword(String oldpwd, String newpwd, Integer id);
+
+	public List<MemberBean> getOneMemberID(Integer id);
+	
+	
+	public MemberBean saveId(List<ResignBean> rb);
+	
 }

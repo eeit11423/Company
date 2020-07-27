@@ -82,14 +82,7 @@
 							</div>
 						</div>
 						
-						<div class="form-group">
-							<label class="col-md-3 control-label" for='memberSalary'>薪資
-							</label>
-							<div class="col-md-9">
-								<form:input id="memberEmail" path="memberSalary" type='text'
-									class='form-control' />
-							</div>
-						</div>
+						
 						
 						<div class="form-group">
 						<label class="col-md-3 control-label" for='memberSalary'>員工部門</label>
@@ -101,12 +94,14 @@
                         </div>
 						
 						<div class="form-group">
-							<label class='col-md-3 control-label' for="productImage">圖片
+							<label class='col-md-3 control-label' for="productImage">員工圖片
 							</label>
 
 							<div class='col-md-9'>
 								<form:input id="productImage" path="productImage" type='file'
 									class='form:input-large' /> 
+							</div>
+							<div><img id="productImage1" src="" ">
 							</div>
 						</div>
 
@@ -132,5 +127,21 @@
 
 
 		</div>
+		<script>
+	$("#productImage").change(function(){
+  readURL(this);
+});
+function readURL(input){
+	  if(input.files && input.files[0]){
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	       $("#productImage1").attr('src', e.target.result);
+	       $("#productImage1").attr('width', "200px");
+	       $("#productImage1").attr('heigth', "200px");
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	  }
+}
+</script>
 </body>
 </html>

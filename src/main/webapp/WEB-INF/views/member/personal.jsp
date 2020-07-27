@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
- 		 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!--  		 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss/css/bootstrap.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss/vendors/linericon/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss/css/font-awesome.min.css">
@@ -24,11 +24,11 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss/vendors/nice-select/css/nice-select.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss/vendors/animate-css/animate.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss/vendors/popup/magnific-popup.css">
-        <!-- main css -->
+        
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss/css/responsive.css">
     </head>
-    <body style="background-image: url(personalcss/img/4.jpg);background-size: cover;">
+    <body style="background-image: url(../personalcss/img/4.jpg);background-size: cover ; ">
     <jsp:include page="/fragment/header.jsp" />
     
         <section class="profile_area">
@@ -57,13 +57,13 @@
 								<p style="margin-bottom:0px;color:#2894FF">地址:${member.memberAddress}</p>
 								<p style="margin-bottom:0px;color:#FFDC35">&nbsp;</p>
 								<h4>
-								<a href="personalUpdate/${member.memberId}" class="btn btn-outline-warning">
-									<span class="glyphicon-info-sigh glyphicon"></span>編輯基本資料 </a>
-<!-- 									 <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#myModal"> -->
-<!-- 										   編輯個人資料 -->
-<!-- 									 </button> -->
+<%-- 								<a href="personalUpdate/${member.memberId}" class="btn btn-outline-warning"> --%>
+<!-- 									<span class="glyphicon-info-sigh glyphicon"></span>編輯基本資料 </a> -->
+									 <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#myModal">
+										   編輯個人資料
+									 </button>
 <%-- 									<a href="updatepasswd/${member.memberId}" style="color:#FFDC35">&nbsp;&nbsp;&nbsp;&nbsp;更改密碼?</a> --%>
-									<a href="updatepasswd/${member.memberId}" class="btn btn-outline-warning">
+									<a href="/mvcExercisetest/updatepasswd/${member.memberId}" class="btn btn-outline-warning">
 									<span class="glyphicon-info-sigh glyphicon"></span>更改密碼
 								</a>
 								</h4>
@@ -77,119 +77,133 @@
            		</div>
             </div>
         </section>
-<!--         <div align='center'> -->
-<%-- 		<a href="<c:url value='/'  />"class="btn btn-primary">回首頁</a> --%>
-<!-- 		<div class="container"> -->
-<!--   <h2>Large Modal</h2> -->
-  <!-- Button to Open the Modal -->
-<!--   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> -->
-<!--     Open modal -->
-<!--   </button> -->
+        <div align='center'>
+		<a href="<c:url value='/'  />"class="btn btn-primary">回首頁</a>
+		<div class="container">
 
-  <!-- The Modal -->
-<!--   <div class="modal fade" id="myModal"> -->
-<!--     <div class="modal-dialog modal-lg"> -->
-<!--       <div class="modal-content"> -->
-      
-<!--         Modal Header -->
-<!--         <div class="modal-header"style="background-color:#E8FFC4;"> -->
-<!--           <h4 class="modal-title">會員資料修改<h4> -->
-<!--         </div> -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header"style="background-color:#E8FFC4;">
+          <h4 class="modal-title">會員資料修改</h4>
+        </div>
         
 <!--         Modal body -->
-<%--         <c:forEach var='member' items='${onemember}'> --%>
-<!--         <div class="modal-body" style="background-color:#E8FFC4;"> -->
-<%--           	<form:form id="signupform" class="form-horizontal" role="form" --%>
-<%-- 						method='POST' modelAttribute='member' --%>
-<%-- 						enctype="multipart/form-data"> --%>
+        <c:forEach var='member' items='${onemember}'>
+        <div class="modal-body" style="background-color:#E8FFC4;">
+          	<form:form id="signupform" class="form-horizontal" role="form"
+ 						method='POST' modelAttribute='member' 
+ 						enctype="multipart/form-data"> 
 
-<!-- 						<div id="signupalert" style="display: none" -->
-<!-- 							class="alert alert-danger"> -->
-<!-- 							<p>Error:</p> -->
-<!-- 							<span></span> -->
-<!-- 						</div> -->
+						<div id="signupalert" style="display: none"
+							class="alert alert-danger">
+							<p>Error:</p>
+							<span></span>
+						</div>
 
-<!-- 						<div class="form-group"> -->
-<!-- 							<label for="firstname" class="col-md-3 control-label">帳號</label> -->
-<!-- 							<div class="col-md-9"> -->
-<%-- 								<form:hidden id="memberNumber" path="memberNumber" --%>
-<%-- 									class='form-control' /> --%>
-<%-- 								${member.memberNumber} --%>
+						<div class="form-group">
+							<label for="firstname" class="col-md-3 control-label">帳號</label>
+							<div class="col-md-1">
+								<form:hidden id="memberNumber" path="memberNumber" 
+ 									class='form-control' /> 
+ 								${member.memberNumber} 
 
-<!-- 							</div> -->
-<!-- 						</div> -->
+							</div>
+						</div>
 
 <!-- 						<div class="form-group"> -->
 <!-- 							<label for="memberPassword" class="col-md-3 control-label">密碼</label> -->
 <!-- 							<div class="col-md-9"> -->
 <%-- 								<form:input type="password" path="memberPassword" --%>
-<%-- 									class="form-control" /> --%>
+<%--  									class="form-control" />  --%>
 <!-- 							</div> -->
 <!-- 						</div> -->
 
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class="col-md-3 control-label" for='memberName'>姓名 -->
-<!-- 							</label> -->
-<!-- 							<div class="col-md-9"> -->
-<%-- 								<form:input id="memberName" path="memberName" type='text' --%>
-<%-- 									class='form-control' /> --%>
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for='memberName'>姓名
+							</label>
+							<div class="col-md-9">
+								<form:input id="memberName" path="memberName" type='text' 
+									class='form-control' /> 
+							</div>
+						</div>
 
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class="col-md-3 control-label" for='memberAddress'>地址 -->
-<!-- 							</label> -->
-<!-- 							<div class="col-md-9"> -->
-<%-- 								<form:input id="memberAddress" path="memberAddress" type='text' --%>
-<%-- 									class='form-control' /> --%>
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for='memberAddress'>地址
+							</label>
+							<div class="col-md-9">
+								<form:input id="memberAddress" path="memberAddress" type='text'
+ 									class='form-control' /> 
+							</div>
+						</div>
 
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class="col-md-3 control-label" for='memberEmail'>信箱 -->
-<!-- 							</label> -->
-<!-- 							<div class="col-md-9"> -->
-<%-- 								<form:input id="memberEmail" path="memberEmail" type='text' --%>
-<%-- 									class='form-control' /> --%>
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for='memberEmail'>信箱
+							</label>
+							<div class="col-md-9">
+								<form:input id="memberEmail" path="memberEmail" type='text'
+									class='form-control' /> 
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label" for='memberPhone'>電話
+							</label>
+							<div class="col-md-9">
+								<form:input id="memberPhone" path="memberPhone" type='text'
+									class='form-control' />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-3 control-label" for='memberGender'>性別
+							</label>
+							<div class="col-md-9">
+								<form:radiobutton id="men" path="memberGender" value="男"
+									 />男
+								<form:radiobutton id="women" path="memberGender" value="女"
+									 />女
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-3 control-label" for='memberBirthdaay'>出生日期
+							</label>
+							<div class="col-md-9">
+								<form:input id="memberBirthdaay" path="memberBirthdaay" type='date'
+									class='form-control' />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class='col-md-3 control-label' for="productImage">圖片
+							</label>
 
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class='col-md-3 control-label' for="productImage">圖片 -->
-<!-- 							</label> -->
+							<div class='col-md-9'>
+								<form:input id="productImage" path="productImage" type='file'
+ 									class='form:input-large' /> 
+							</div>
+							<div><img id="productImage1" src="" ">
+							</div>
+							
+						</div>
 
-<!-- 							<div class='col-md-9'> -->
-<%-- 								<form:input id="productImage" path="productImage" type='file' --%>
-<%-- 									class='form:input-large' /> --%>
-<!-- 							</div> -->
-<%-- 							<form:input type="hidden" path="memberId" value="${member.memberId}" /> --%>
-<!-- 						</div> -->
+						<div class="form-group">
+							<div class="col-md-offset-3 col-md-9">
+								<input id="btnAdd" type='submit' class='btn btn-primary'
+							value="送出" />
 
+							</div>
+						</div>
 
-
-<!-- 						<div class="form-group"> -->
-<!-- 							Button -->
-<!-- 							<div class="col-md-offset-3 col-md-9"> -->
-<!-- 								<input id="btnAdd" type='submit' class='btn btn-primary' -->
-<!-- 							value="送出" /> -->
-
-<!-- 							</div> -->
-<!-- 						</div> -->
-
-
-
-
-<%-- 					</form:form> --%>
-<!--         </div> -->
-<%--         </c:forEach> --%>
-<!--         Modal footer -->
-<!--         <div class="modal-footer" style="background-color:#E8FFC4;"> -->
-<!--           <button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button> -->
-<!--         </div> -->
+					</form:form>
+        </div>
+        </c:forEach>
+        <div class="modal-footer" style="background-color:#E8FFC4;">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button>
+        </div>
         
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
+      </div>
+    </div>
+  </div>
   
 </div>
 	</div>
@@ -210,5 +224,21 @@
         <script src="vendors/counter-up/jquery.counterup.min.js"></script>
         <script src="js/mail-script.js"></script>
         <script src="js/theme.js"></script>
+        <script>
+	$("#productImage").change(function(){
+  readURL(this);
+});
+function readURL(input){
+	  if(input.files && input.files[0]){
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	       $("#productImage1").attr('src', e.target.result);
+	       $("#productImage1").attr('width', "200px");
+	       $("#productImage1").attr('heigth', "200px");
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	  }
+}
+</script>
     </body>
 </html>

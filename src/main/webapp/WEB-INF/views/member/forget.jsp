@@ -25,7 +25,7 @@ span.error {
 </style>
 <title>Products</title>
 </head>
-<body>
+<body style="background-image: url(../personalcss/img/4.jpg) ;">
 	<section>
 		<div class="container">
 			<h1 style="text-align: center">忘記密碼</h1>

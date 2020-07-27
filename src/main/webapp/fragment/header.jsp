@@ -35,10 +35,10 @@
 						class="nav-link dropdown-toggle" href="#" id="navbardrop"
 						data-toggle="dropdown"> 會員系統 </a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="<c:url value='/register/add' />">會員註冊</a> <a
-								class="dropdown-item" href="<c:url value='/members' />">查詢會員資料</a>
-								<a class="dropdown-item" href="<c:url value='/personal' />">會員專區</a>
-								<a class="dropdown-item" href="<c:url value='/test' />">上傳excel</a>
+<%-- 							<a class="dropdown-item" href="<c:url value='/register/add' />">會員註冊</a> <a --%>
+<%-- 								class="dropdown-item" href="<c:url value='/members' />">查詢會員資料</a> --%>
+								<a class="dropdown-item" href="<c:url value='/showpersonal/${memberBean.memberId}' />">會員專區</a>
+<%-- 								<a class="dropdown-item" href="<c:url value='/test' />">上傳excel</a> --%>
 						</div></li>
 				
 					<li class="nav-item dropdown"><a

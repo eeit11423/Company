@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/personalcss2/css/responsive.css">
     </head>
      <body style="background-image: url(../personalcss/img/4.jpg);background-size: cover ;">
-    <jsp:include page="/fragment/header.jsp" />
+    <jsp:include page="/fragment/headerRearend.jsp" />
  
         <section class="profile_area">
            	<div class="container" >
@@ -89,5 +89,6 @@
 <!--         <script src="vendors/counter-up/jquery.counterup.min.js"></script> -->
 <!--         <script src="js/mail-script.js"></script> -->
 <!--         <script src="js/theme.js"></script> -->
+
     </body>
 </html>

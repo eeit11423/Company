@@ -1,5 +1,6 @@
 package company.member.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,11 +8,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -30,6 +34,10 @@ import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.xml.transform.Source;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -57,7 +65,9 @@ import com.sun.mail.handlers.image_gif;
 import company.member.model.ForgetBean;
 import company.member.model.LoginBean;
 import company.member.model.MemberBean;
+import company.member.model.ResignBean;
 import company.member.service.MemberSerivce;
+import company.member.service.ResignSerivce;
 import company.member.validate.ChangePasswdValidator;
 import company.member.validate.CheckaddVaildator;
 import company.member.validate.ForgetPasswd;
@@ -71,6 +81,8 @@ public class ProductController {
 	MemberSerivce service;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	ResignSerivce reservice;
 
 	@RequestMapping("/register")
 	public String register(Model model) {
@@ -91,6 +103,7 @@ public class ProductController {
 		}
 
 	}
+	
 
 	@RequestMapping("/test2")
 	public String getmemberList(Model model) {
@@ -121,7 +134,7 @@ public class ProductController {
 		return re;
 	}
 
-	@GetMapping("/register/add")
+	@GetMapping("/register/add3")
 	public String addnewProduct(Model model, HttpServletRequest request,
 			@CookieValue(value = "MemberNumber", required = false) String user) {
 		MemberBean mb = new MemberBean();
@@ -130,7 +143,7 @@ public class ProductController {
 		return "member/addmember2";
 	}
 
-	@PostMapping("/register/add")
+	@PostMapping("/register/add3")
 	public String addnewproductform(@ModelAttribute("memberbean") MemberBean mb, Model model, BindingResult result) {
 		MultipartFile productImage = mb.getProductImage();
 
@@ -159,7 +172,7 @@ public class ProductController {
 			}
 			mb.setMemberRegisterDate(new Timestamp(System.currentTimeMillis()));
 			service.saveMember(mb);
-			return "redirect:/members";
+			return "redirect:/register/add3";
 		}
 	}
 	
@@ -220,8 +233,13 @@ public class ProductController {
 
 	@RequestMapping("/delect/{id}")
 	public String delete(@PathVariable("id") Integer id) {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
 		System.out.println(id);
-
+		List<MemberBean> mb = service.getOneMemberID(id);
+		System.out.println(mb+"OOOOOOOOOOOOOOOOOOOOOOOO");
+		ResignBean rBean = new ResignBean();
+		
+		reservice.saveId(mb);
 		service.deleted(id);
 		return "redirect:/members";
 	}
@@ -306,8 +324,7 @@ public class ProductController {
 			if (mmm.getMemberPassword().equals("1234")) {
 				processCookies(lb, request, response);
 				return "redirect:/updatee/"+mmm.getMemberId()+"";
-			}else if(mmm.getMemberPassword().equals("@875MK")) {
-				processCookies(lb, request, response);
+			}else if(mmm.getMemberPassword().equals("@8M75K")) {
 				return "redirect:/updatepasswd/"+mmm.getMemberId()+"";
 			}
 			else {
@@ -380,7 +397,7 @@ public class ProductController {
 			message.setFrom(new InternetAddress("lintest546@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject("忘記密碼.");
-			message.setText("忘記密碼, 您的密碼已預設成，@875MK，請登入後修改密碼");
+			message.setText("忘記密碼， 您的密碼已預設成，@8M75K，請登入後修改密碼");
 
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, username, password);
@@ -493,7 +510,6 @@ public class ProductController {
 	}
 	@PostMapping("/updatepasswd/{id}")
 	public String ChangePasswdShow(@ModelAttribute("changepwd") MemberBean mb, Model model,BindingResult result,@PathVariable("id") Integer id) {
-		System.out.println("================3456767");
 		System.out.println(id);
 		ChangePasswdValidator validator = new ChangePasswdValidator();
 		validator.validate(mb, result);
@@ -503,7 +519,7 @@ public class ProductController {
 		boolean check;
 		check = service.CheckPassword(mb.getMemberPassword(),mb.getMemberNewPassword(), id);
 		if (check == true) {
-			return "redirect:/personal";
+			return "redirect:/";
 		}
 		else {
 			result.rejectValue("memberPassword", "", "*該舊密碼不存在或密碼錯誤");
@@ -515,9 +531,6 @@ public class ProductController {
 //會員資料修改
 	@GetMapping("/personalUpdate/{id}")
 	public String showDataPersonal(@PathVariable("id") Integer id, Model model) {
-		MemberBean memberbean = service.getProductById(id);
-
-		model.addAttribute("member", memberbean);
 		return "member/updateyouself";
 	}
 
@@ -551,8 +564,19 @@ public class ProductController {
 		return "redirect:/personal";
 	}
 	
-	@RequestMapping("/personal")
-	public String show(Model model ,HttpSession session) {
+	
+	@RequestMapping("/personal/{id}")
+	public String showallpersonal(@PathVariable Integer id,Model model ,HttpSession session) {
+		MemberBean mb = service.getProductById(id);
+		List<MemberBean> list = service.getOneMember(mb.getMemberNumber());
+		model.addAttribute("onemember", list);
+		
+		return "member/personal2";
+	}	
+	
+	@RequestMapping("/showpersonal/{id}")
+	public String show(@PathVariable Integer id,Model model ,HttpSession session) {
+		
 		try {
 			MemberBean mb = (MemberBean) session.getAttribute("memberBean");
 			System.out.println(mb.getMemberNumber());
@@ -560,60 +584,56 @@ public class ProductController {
 			model.addAttribute("onemember", list);
 			System.out.println(list);
 			MemberBean memberbean = service.getProductById(mb.getMemberId());
-
 			model.addAttribute("member", memberbean);
 			return "member/personal";
 		} catch (Exception e) {
 			System.out.println("錯誤");
 			return "redirect:/login";
+//			return "redirect: " + context.getContextPath() + "/login";
 		}
 	}	
+	@PostMapping("/showpersonal/{id}")
+	public String updatememberform1(@ModelAttribute("member") MemberBean mb, Model model, @PathVariable Integer id,
+			HttpServletRequest request) {
+		System.out.println(id);
+		System.out.println(mb.getMemberId());
+		System.out.println("+++++++++++++++++++++showpersonal");
+		mb.setMemberId(mb.getMemberId());
+
+		MultipartFile productImage = mb.getProductImage();
+
+		if (productImage.getSize() == 0) {
+
+		} else {
+			String originalFilename = productImage.getOriginalFilename();
+			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
+				mb.setMemberfilename(originalFilename);
+			}
+
+			if (productImage != null && !productImage.isEmpty()) {
+				try {
+					byte[] b = productImage.getBytes();
+					Blob blob = new SerialBlob(b);
+					mb.setMemberPicture1(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常");
+				}
+			}
+		}
+		service.updateMember(mb);
+		return "redirect:/showpersonal/"+mb.getMemberId()+"";
+	}
 	
-	@RequestMapping("/personal/{id}")
-	public String showallpersonal(@PathVariable Integer id,Model model ,HttpSession session) {
-		MemberBean mb = service.getProductById(id);
-		List<MemberBean> list = service.getOneMember(mb.getMemberNumber());
-		model.addAttribute("onemember", list);
-		return "member/personal2";
-	
-	}	
-//	@PostMapping("/personal")
-//	public String updatememberform(@ModelAttribute("member") MemberBean mb, Model model,
-//			HttpServletRequest request) {
-//		mb.setMemberId(mb.getMemberId());
-//
-//		MultipartFile productImage = mb.getProductImage();
-//
-//		if (productImage.getSize() == 0) {
-//
-//		} else {
-//			String originalFilename = productImage.getOriginalFilename();
-//			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
-//				mb.setMemberfilename(originalFilename);
-//			}
-//
-//			if (productImage != null && !productImage.isEmpty()) {
-//				try {
-//					byte[] b = productImage.getBytes();
-//					Blob blob = new SerialBlob(b);
-//					mb.setMemberPicture1(blob);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					throw new RuntimeException("檔案上傳發生異常");
-//				}
-//			}
-//		}
-//		service.updateMember(mb);
-//		return "redirect:/personal";
-//	}
 	@RequestMapping(value="test",method =RequestMethod.GET)
 	public String getaaaa1() {
+		
 		return "member/test";
 	}
 	
-	@RequestMapping(value="test",method = RequestMethod.POST)
+	@RequestMapping(value="/register/test",method = RequestMethod.POST)
 	public String getaaaa(@RequestParam("uploadFile")MultipartFile tfile,HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+		System.out.println("=================================================JIJIJI");
 		    request.setCharacterEncoding("UTF-8");
 	        response.setCharacterEncoding("UTF-8");
 	        //判斷文件是否爲空
@@ -654,6 +674,7 @@ public class ProductController {
 					mb.setMemberPerformance(list1.get(5));
 					mb.setMemberAdmin(list1.get(6));
 					mb.setMemberSalary(Integer.valueOf(list1.get(7)));
+					mb.setMemberGender(list1.get(8));
 					service.updateMember(mb);
 					System.out.println("HIHIHI+++++++++++++++");
 //					service.updateCsv(list1.get(0), list1.get(1), list1.get(2), list1.get(3));
@@ -664,8 +685,107 @@ public class ProductController {
 				System.out.println("error");
 			}
 
-		return "redirect:/";
+		return "redirect:/register/add3";
 	}
+	@RequestMapping(value = "downloadExcel", method = RequestMethod.GET)
+	public void downloadExcel(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		System.out.println("in downloadExcel");
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet("Datatypes in Java");
+		List<MemberBean> list = service.getAllMember();
+		System.out.println(list.size());
+		int x = list.size();
+		System.out.println(list);
+		System.out.println(list.get(0));
+		System.out.println(list.get(0).getMemberNumber());
+		int n = 0;
+		Map<Integer,MemberBean> map = new LinkedHashMap<Integer, MemberBean>();
+		for (int i = 0 ; i < x ; i++) {
+			map.put(i, list.get(i));
+		}
+		System.out.println(map);
+		Row row = null;
+		Cell cell = null;
+		for(int r = 0; r < x; r++){
+		    row = sheet.createRow(r);
+		    for(int c = 0; c < 14; c++){
+		        cell = row.createCell(c);
+		        switch (c) {
+				case 0:
+					cell.setCellValue((map.get(r)).getMemberId());
+					break;
+				case 1:
+					cell.setCellValue((map.get(r)).getMemberNumber());
+					break;
+				case 2:
+					cell.setCellValue((map.get(r)).getMemberName());
+					break;
+				case 3:
+					cell.setCellValue((map.get(r)).getMemberPassword());
+					break;
+				case 4:
+					cell.setCellValue((map.get(r)).getMemberAddress());
+					break;
+				case 5:
+					cell.setCellValue((map.get(r)).getMemberAdmin());
+					break;
+				case 6:
+					cell.setCellValue((map.get(r)).getMemberPhone());
+					break;
+				case 7:
+					cell.setCellValue((map.get(r)).getMemberBirthdaay());
+					break;
+				case 8:
+					cell.setCellValue((map.get(r)).getMemberSalary());
+					break;
+				case 9:
+					cell.setCellValue((map.get(r)).getMemberGender());
+					break;
+				case 10:
+					cell.setCellValue((map.get(r)).getMemberEmail());
+					break;
+				case 11:
+					cell.setCellValue((map.get(r)).getMemberDepartment());
+					break;
+				case 12:
+					cell.setCellValue((map.get(r)).getMemberRegisterDate());
+					break;
+				case 13:
+					cell.setCellValue((map.get(r)).getMemberfilename());
+					break;
+//				case 14:
+//					cell.setCellValue((map.get(r)).getMemberPicture1());
+//					break;
+//				case 15:
+//					cell.setCellValue((map.get(r)).getProductImage());
+//					break;
+//				case 16:
+//					cell.setCellValue((map.get(r)).getMemberNumber());
+//					break;
+				default:
+					break;
+				}
+		    }
+		}
+		String filename = "會員訂單報表.xlsx";
+		String headerFileName = new String(filename.getBytes(), "ISO8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=" + headerFileName);
+		OutputStream out = null;
+		try {
+			out = new BufferedOutputStream(response.getOutputStream());
+			workbook.write(out);
+		} catch (IOException e) {
+			System.out.println("excel匯出有誤");
+		} finally {
+			try {
+				out.close();
+				workbook.close();
+			} catch (IOException e) {
+				System.out.println("讀取內容有誤");
+			}
+		}
+	}
+
 	// JSON 全部
 //	@RequestMapping("/memberjson")
 //	public ResponseEntity<List<MemberBean>>alllist() {

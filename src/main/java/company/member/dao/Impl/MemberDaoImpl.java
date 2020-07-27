@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import company.member.dao.MemberDao;
 import company.member.model.MemberBean;
+import company.member.model.ResignBean;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -114,7 +115,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public void updatePasswd(String email) {
-		String passwd = "@875MK";
+		String passwd = "@8M75K";
 		String hql = "UPDATE MemberBean mb SET mb.memberPassword = :mpwd " +
 					"Where mb.memberEmail = :memail";
 		Session session = factory.getCurrentSession();
@@ -179,6 +180,57 @@ public class MemberDaoImpl implements MemberDao {
 			return check;
 		}
 	}
+
+	@Override
+	public List<MemberBean> getOneMemberID(Integer id) {
+		String hql = "From MemberBean m Where m.memberId = :mid";
+		Session session = factory.getCurrentSession();
+		return  session.createQuery(hql)
+					.setParameter("mid", id)
+					.getResultList();
+		
+	}
+
+	@Override
+	public MemberBean saveId(List<ResignBean> rb) {
+		Session session = factory.getCurrentSession();
+		MemberBean mb = new MemberBean();
+		for (ResignBean resignBean : rb) {
+			mb.MemberResig(resignBean);
+			session.save(mb);
+		}
+		return mb;
+	}
+
+//	@Override
+//	public ResignBean saveId(List<MemberBean> mb) {
+//		Session session = factory.getCurrentSession();
+//		ResignBean rb = new ResignBean();
+//		for (MemberBean memberBean : mb) {
+//			rb.ResigMember(memberBean);
+//			session.save(rb);
+//		}
+//		return rb;
+//	}
+//
+//	@Override
+//	public List<ResignBean> getAllResignMember() {
+//		String hql = "FROM ResignBean";
+//		Session session = null;
+//		List<ResignBean> list = new ArrayList<ResignBean>();
+//		session = factory.getCurrentSession();
+//		list = session.createQuery(hql)
+//				   	  .getResultList();
+//		return list;
+//		
+//	}
+//
+//	@Override
+//	public ResignBean getProduct1ById(int memberId) {
+//		Session session = factory.getCurrentSession();
+//		return session.get(ResignBean.class, memberId);
+//		
+//	}
 
 
 	

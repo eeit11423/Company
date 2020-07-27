@@ -21,8 +21,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "Members")
-public class MemberBean implements Serializable{
+@Table(name = "Resigns")
+public class ResignBean implements Serializable{
+	private static final Timestamp Timestamp = null;
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer memberId;//id
@@ -68,53 +69,69 @@ public class MemberBean implements Serializable{
 
 
 
-	public MemberBean() {
+	public ResignBean() {
 		super();
 	}
 	
-	public void MemberResig(ResignBean rb) {
+
+	public void ResigMember(MemberBean me) {
 		//ResignBean rb = new ResignBean();
-		setMemberAddress(rb.getMemberAddress());
-		setMemberAdmin(rb.getMemberAdmin());
-		setMemberBirthdaay(rb.getMemberBirthdaay());
-		setMemberDepartment(rb.getMemberDepartment());
-		setMemberEmail(rb.getMemberEmail());
-		setMemberfilename(rb.getMemberfilename());
-		setMemberGender(rb.getMemberGender());
-		setMemberName(rb.getMemberName());
-		setMemberPassword(rb.getMemberPassword());
-		setMemberPerformance(rb.getMemberPerformance());
-		setMemberNumber(rb.getMemberNumber());
-		setMemberNewPassword(rb.getMemberNewPassword());
-		setMemberPhone(rb.getMemberPhone());
-		setMemberPicture1(rb.getMemberPicture1());
-		setMemberSalary(rb.getMemberSalary());
+		setMemberAddress(me.getMemberAddress());
+		setMemberAdmin(me.getMemberAdmin());
+		setMemberBirthdaay(me.getMemberBirthdaay());
+		setMemberDepartment(me.getMemberDepartment());
+		setMemberEmail(me.getMemberEmail());
+		setMemberfilename(me.getMemberfilename());
+		setMemberGender(me.getMemberGender());
+		setMemberName(me.getMemberName());
+		setMemberPassword(me.getMemberPassword());
+		setMemberPerformance(me.getMemberPerformance());
+		setMemberNumber(me.getMemberNumber());
+		setMemberNewPassword(me.getMemberPassword());
+		setMemberPhone(me.getMemberPhone());
+		setMemberPicture1(me.getMemberPicture1());
+		setMemberSalary(me.getMemberSalary());
 	}
 	
 	
-	
-	public MemberBean(String memberNumber, String memberPassword) {
+	public ResignBean(String memberNumber, String memberPassword) {
 		super();
 		this.memberNumber = memberNumber;
 		this.memberPassword = memberPassword;
 	}
 
+	
+
+
+	public ResignBean(Integer memberId, String memberNumber, String memberPassword, String memberNewPassword,
+			String memberName, String memberAddress, String memberGender, String memberEmail, Blob memberPicture1,
+			String memberfilename, String memberDepartment, String memberPhone, String memberBirthdaay,
+			Timestamp memberRegisterDate, String memberPerformance, Integer memberSalary, String memberAdmin) {
+		super();
+		this.memberId = memberId;
+		this.memberNumber = memberNumber;
+		this.memberPassword = memberPassword;
+		this.memberNewPassword = memberNewPassword;
+		this.memberName = memberName;
+		this.memberAddress = memberAddress;
+		this.memberGender = memberGender;
+		this.memberEmail = memberEmail;
+		this.memberPicture1 = memberPicture1;
+		this.memberfilename = memberfilename;
+		this.memberDepartment = memberDepartment;
+		this.memberPhone = memberPhone;
+		this.memberBirthdaay = memberBirthdaay;
+		this.memberRegisterDate = memberRegisterDate;
+		this.memberPerformance = memberPerformance;
+		this.memberSalary = memberSalary;
+		this.memberAdmin = memberAdmin;
+	}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-	public MemberBean(Integer memberId, String memberNumber, String memberPassword, String memberName,
+	public ResignBean(Integer memberId, String memberNumber, String memberPassword, String memberName,
 			String memberAddress, String memberGender, String memberEmail, Blob memberPicture1, String memberfilename,
 			String memberDepartment, String memberPhone, String memberBirthdaay, Timestamp memberRegisterDate,
 			String memberPerformance, Integer memberSalary, String memberAdmin) {
@@ -356,6 +373,8 @@ public class MemberBean implements Serializable{
 	public void setMemberAdmin(String memberAdmin) {
 		this.memberAdmin = memberAdmin;
 	}
+	
+
 
 	
 	

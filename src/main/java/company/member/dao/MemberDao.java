@@ -3,6 +3,7 @@ package company.member.dao;
 import java.util.List;
 
 import company.member.model.MemberBean;
+import company.member.model.ResignBean;
 
 
 
@@ -11,6 +12,8 @@ import company.member.model.MemberBean;
 public interface MemberDao {
 	
 	public List<MemberBean> getAllMember();
+	
+//	public List<ResignBean> getAllResignMember();
 	
 	public List<String> getAllMembers();
 	
@@ -32,8 +35,16 @@ public interface MemberDao {
 	
 	public List<MemberBean> getOneMember(String account);
 	
+	public List<MemberBean> getOneMemberID(Integer id);
+	
 	public boolean idExists(String id);
 	
 	public  boolean CheckPassword(String oldpwd, String newpwd, Integer id);
+	
+	public MemberBean saveId(List<ResignBean> rb);
+	
+//	public ResignBean saveId(List<MemberBean> mb);
+//	
+//	public ResignBean getProduct1ById(int memberId);
 	
 }

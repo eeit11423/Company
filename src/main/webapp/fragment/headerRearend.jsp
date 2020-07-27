@@ -131,10 +131,18 @@
           </li> 
                     
           <li class="nav-item">
-            <a class="nav-link" href="連結">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
               <i class="ti-layout-list-post menu-icon"></i>
               <span class="menu-title">人員維護</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="ui-basic2">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/register/add3">註冊會員</a></li>
+                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/members">查詢所有會員</a></li>
+                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/Resignup">查詢離職會員</a></li>               
+              </ul>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="連結">

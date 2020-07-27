@@ -27,18 +27,19 @@
                   <div class="table-responsive" style="background-color:#FFFFF4">
 		<div>
 			<div class="container" style="text-align: center; background-color:#FFFFF4">
-				<h1>會員清單</h1>
+				<h1>離職清單</h1>
 				<br>
 			</div>
 			<div align='center'>
-				請挑選部門: <select class='btn btn-outline-warning dropdown-toggle  btn-sm' id='Publish_test' onchange="memberChange()">
-					<c:forEach var="member" items="${memberList}">
-						<option value="${member}">${member}</option>
-					</c:forEach>
-				</select>
+<!-- 				請挑選部門: <select class='btn btn-outline-warning dropdown-toggle  btn-sm' id='Publish_test' onchange="memberChange()"> -->
+<%-- 					<c:forEach var="member" items="${memberList}"> --%>
+<%-- 						<option value="${member}">${member}</option> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> -->
 				<hr>
-				<a href="downloadExcel" class="btn btn-success">下載Excel</a>
-				<a href="Resignup" class="btn btn-primary">離職員工</a>
+<!-- 				<a href="downloadExcel" class="btn btn-success">下載Excel</a> -->
+<!-- 				<a href="Resignup" class="btn btn-primary ">離職員工</a> -->
+				<a class="btn btn-primary" href="<c:url value='/members' />">查詢會員資料</a>
 			</div>
 
 			<div id='showsmember' align='center'>
@@ -54,14 +55,14 @@
 <!-- 			<section class="container"> -->
 		<div class="row" id='testshow' style="background-color:#FFFFF4">
 		
-			<c:forEach var='member1' items='${members}'>
+			<c:forEach var='member1' items='${resign}'>
 			<div class="col-md-4 grid-margin stretch-card" >
         	<div class="card" style="background-color:	#FFECEC">
 			<div class="card-body" >
 				<div class="col-sm-6 col-md-3" >
 					<div class="thumbnail" style="width: 320px;" >
 						<img height='200' width='150'
-							src="<c:url value='/getPicture/${member1.memberId}' />" />
+							src="<c:url value='/getPicture1/${member1.memberId}' />" />
 						<div class="caption" ><p />
 							<p>
 								<b style='font-size: 16px;'>${member1.memberName}</b>
@@ -71,8 +72,8 @@
 							<p>會員性別: ${member1.memberGender}</p>
 							<p>會員部門: ${member1.memberDepartment}</p>
 							<p>
-								<a class="btn btn-outline-danger" href="delect/${member1.memberId}" >
-									<span class="glyphicon-info-sigh glyphicon"></span>離職
+								<a class="btn btn-outline-danger" href="delect1/${member1.memberId}" >
+									<span class="glyphicon-info-sigh glyphicon"></span>復職
 								</a> 
 <%-- 								<a href="update/${member1.memberId}" class="btn btn-primary"> --%>
 <!-- 									<span class="glyphicon-info-sigh glyphicon"></span>修改 -->
@@ -96,43 +97,7 @@
 				
 		</div>
 			</div></div></div></div>
-<!-- 	</section> -->
-	<script>
-		function memberChange(){
-			var Publish_member = document.getElementById("Publish_test").value;
-			var xhr = new XMLHttpRequest();
-			xhr.open("GET","<c:url value='/membersdepart/"+ Publish_member+"' />",true);
-			xhr.send();
-			xhr.onreadystatechange = function(){
-				if (xhr.readyState == 4 && xhr.status ==200){
-					var content = "";
-					var member = JSON.parse(xhr.responseText);
-					for (var i= 0 ; i<member.length ; i++){
-						content += "<div class='col-md-4 grid-margin stretch-card' >"+
-						"<div class='card' style='background-color:	#FFECEC'>"+
-						"<div class='card-body'>"+
-						"<div class='col-sm-6 col-md-3'>"+
-						"<div class='thumbnail' style='width: 320px;' >"+
-						"<img height='200' width='150' src='<c:url value='/getPicture/"+member[i].memberId+"' />' />"
-						content += "<div class='caption' >"+ " <p />"+
-						"<p><b style='font-size: 16px;'>" + member[i].memberName + "</b></p>"+
-				 		"<p> 會員編號 :" + member[i].memberNumber + "</p>" +
-						"<p> 會員信箱 :" + member[i].memberEmail + "</p>" + 
-						"<p> 會員部門 :" + member[i].memberDepartment + "</p>"+
-						"<p>"+
-						"<a class='btn btn-outline-danger' href='delect/" + member[i].memberId +"'>" +
-						"<span class='glyphicon-info-sigh glyphicon'></span>離職</a> " +
-						"<a class='btn btn-outline-primary' href='personal/" + member[i].memberId +"'>" +
-						"<span class='glyphicon-info-sigh glyphicon'></span>詳細資料</a> " +
-						"</p>"+
-						"</div></div></div></div></div></div>" 
-					}
-					content += "";
-					var div = document.getElementById("testshow");
-					div.innerHTML = content;
-				}
-			}
-		}
-	</script>
+
+
 </body>
 </html>

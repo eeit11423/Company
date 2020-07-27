@@ -8,6 +8,22 @@
 <head>
 <meta charset="UTF-8">
 <title>修改資料</title>
+<script>
+	window.onload = function(){
+		var btn = document.getElementById("btnAdd");
+		btn.onclick = function(){
+		pwd1 = 	document.getElementById("passwd1").value;
+		pwd2 = 	document.getElementById("passwd2").value;
+		if (pwd1 != pwd2){
+			document.getElementById("nopasswd").innerHTML="*密碼不相同";
+		}
+		else{
+			document.getElementById("btnAdd").type = "submit";
+			
+		}
+		}
+	}
+</script>
 </head>
 <body style="background-image: url(../personalcss/img/2.jpg);background-size: cover ; ">
 	<link
@@ -57,7 +73,7 @@
 						<div class="form-group">
 							<label for="memberPassword" class="col-md-3 control-label">輸入舊密碼</label>
 							<div class="col-md-9">
-								<form:input type="password" path="memberPassword"
+								<form:input type="password" path="memberPassword" id = "oldpasswd"
 									class="form-control" />
 								<form:errors path="memberPassword" class="text-danger" style="font-size:12px" />
 							</div>
@@ -66,17 +82,25 @@
 						<div class="form-group">
 							<label for="memberPassword" class="col-md-3 control-label">輸入新密碼</label>
 							<div class="col-md-9">
-								<form:input type="password" path="memberNewPassword"
+								<form:input type="password" path="memberNewPassword" id = "passwd1"
 									class="form-control" />
 								<form:errors path="memberNewPassword" class="text-danger" style="font-size:12px" />
 							</div>
 						</div>
 							
+						<div class="form-group">
+							<label for="memberPassword" class="col-md-3 control-label">確認新密碼</label>
+							<div class="col-md-9">
+								<input type="password" id="passwd2" class="form-control" />
+								<p id="nopasswd" style="font-size:12px" class="text-danger"></p>
+								
+							</div>
+						</div>
 
 						<div class="form-group">
 							<!-- Button -->
 							<div class="col-md-offset-3 col-md-9">
-								<input id="btnAdd" type='submit' class='btn btn-primary'
+								<input id="btnAdd" type='button' class='btn btn-primary'
 							value="送出" />
 
 							</div>
