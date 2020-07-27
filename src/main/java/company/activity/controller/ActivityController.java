@@ -515,6 +515,10 @@ public class ActivityController {
 			@GetMapping(value = "/join/{id}")
 			public String showEmptyJoinForm(@PathVariable("id") Integer id, Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{		
 				MemberBean mb = (MemberBean) model.getAttribute("memberBean");
+				if (mb == null) {
+					return "redirect: " + context.getContextPath() + "/login";
+				}
+
 				System.out.println("#########################"+mb.getMemberId());
 				
 				Activity activity = activityService.get(id);
@@ -608,6 +612,10 @@ public class ActivityController {
 			@RequestMapping("/queryByActMemberId")
 			public String getActMemberIdList(Model model,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 				MemberBean mb = (MemberBean) model.getAttribute("memberBean");
+				if (mb == null) {
+					return "redirect: " + context.getContextPath() + "/login";
+				}
+
 				Integer mbId = mb.getMemberId();
 				List<Activity> list = activityService.getActivitiesByMemberId(mbId);
 				model.addAttribute("actMemberIdList", list);
@@ -617,6 +625,10 @@ public class ActivityController {
 			@RequestMapping("/queryJoinsByActMemberId")
 			public String getJoinsByActMemberIdList(Model model,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 				MemberBean mb = (MemberBean) model.getAttribute("memberBean");
+				if (mb == null) {
+					return "redirect: " + context.getContextPath() + "/login";
+				}
+
 				Integer mbId = mb.getMemberId();
 				List<Join> list = joinService.getJoinsByJoinMemberId(mbId);
 				model.addAttribute("joins", list);

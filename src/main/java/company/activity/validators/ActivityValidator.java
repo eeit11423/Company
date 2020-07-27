@@ -21,13 +21,13 @@ public class ActivityValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		Activity activity = (Activity)target;
 		ValidationUtils.rejectIfEmptyOrWhitespace
-			(errors, "activityTitle", "activity.activityTitle.not.empty","標題欄不能空白(預設值)");
+			(errors, "activityTitle", "activity.activityTitle.not.empty","標題欄不能空白");
 		ValidationUtils.rejectIfEmptyOrWhitespace
-			(errors, "activitySubtitle", "activity.activitySubtitle.not.empty","內容欄不能空白(預設值)");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startDate", "", "起始日期不能空白(ActivityValidator)");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endDate", "", "結束日期不能空白(ActivityValidator)");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "joinNum", "", "參加人數不能空白(ActivityValidator)");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "organiserId", "", "貼文者不能空白(ActivityValidator)");
+			(errors, "activitySubtitle", "activity.activitySubtitle.not.empty","內容欄不能空白");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startDate", "", "起始日期不能空白");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endDate", "", "結束日期不能空白");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "joinNum", "", "參加人數不能空白");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "organiserId", "", "您未登入，請登入");
 		
 		if (activity.getActivityTitle().length()<2) {
 			errors.rejectValue("activityTitle","", "至少三個字");
