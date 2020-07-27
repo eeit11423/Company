@@ -199,19 +199,21 @@
 					var punch = attendances[i][0]? attendances[i][0] : {};
 					var leave = attendances[i][1]? attendances[i][1] : {};
 					console.log("leave:"+leave);
-					var name = punch? punch : leave;
-					content += "<tr><td align='center'>" + punch.punchId+ "</td>"
-							+ "<td align='center'>"	+ punch.memberName + "</td>"
-							+ "<td align='center'>" + punch.memberDepartment + "</td>"
-// 					content += "<tr><td align='center'>" + name.leaveId+ "</td>"
-// 							+ "<td align='center'>"	+ name.memberName + "</td>"
-// 							+ "<td align='center'>" + name.memberDepartment + "</td>"
+					var attendanceId = punch.length != 0 ? punch.punchId : leave.leaveId;
+					var attendanceName = punch.length != 0? punch.memberName : leave.memberName;
+					var attendanceDepartment = punch.length != 0? punch.memberDepartment : leave.memberDepartment;
+// 					content += "<tr><td align='center'>" + punch.punchId+ "</td>"
+// 							+ "<td align='center'>"	+ punch.memberName + "</td>"
+// 							+ "<td align='center'>" + punch.memberDepartment + "</td>"
+					content += "<tr><td align='center'>" + attendanceId+ "</td>"
+							+ "<td align='center'>"	+ attendanceName + "</td>"
+							+ "<td align='center'>" + attendanceDepartment + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToDate(punch.punchDate)) + "</td>"
 							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOn) + "</td>"
 							+ "<td align='center'>" + checkNull(punch.punchLate) + "</td>"
 							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOff) + "</td>"
 							+ "<td align='center'>" + checkNull(punch.punchEarly) + "</td>"
-							+ "<td align='center'>" + timeFn(checkZero(checkNull(punch.punchHours))) + "</td>"
+							+ "<td align='center'>" + timeFn(checkNull(checkZero(punch.punchHours))) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToDate(leave.leaveDate)) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveStart)) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveEnd)) + "</td>"

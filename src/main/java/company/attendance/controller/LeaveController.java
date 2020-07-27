@@ -80,7 +80,7 @@ public class LeaveController {
 
 //	@PostMapping(value = "/saveInsertLeave", consumes = "multipart/form-data")
 	@PostMapping("/saveInsertLeave")
-	public String saveInsertPunchTime(@ModelAttribute("leave") Leave leave, BindingResult bindingResult, Model model,
+	public String saveInsertLeave(@ModelAttribute("leave") Leave leave, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
 //		Punch punch = (Punch) model.getAttribute("punch");
 		AttendanceLeaveValidator validator = new AttendanceLeaveValidator();
@@ -90,7 +90,7 @@ public class LeaveController {
 		}
 		int n = service.saveLeave(leave);
 		if (n == 1) {
-			return "redirect:/attendance/leave/queryLeave";
+			return "redirect:/attendance/punch/queryPunchTime";
 		} else {
 			FieldError error = new FieldError("leave", "leaveDate",leave.getLeaveDate(), false, null, null,  (n==-1 ? "日期重複" : "資料庫錯誤"));
 			bindingResult.addError(error);
@@ -158,6 +158,8 @@ public class LeaveController {
 		service.deleteLeaveByLeaveId(key);
 		return "redirect:/attendance/punch/queryPunchTime";
 	}
+	
+	
 	
 	@ModelAttribute("leave")
 	public Leave leaveModelAttribute(Model model) {

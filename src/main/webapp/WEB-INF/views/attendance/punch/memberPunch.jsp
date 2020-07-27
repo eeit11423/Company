@@ -85,7 +85,6 @@
 				<div class="container" align='center' style="text-align: center">
 					<button onclick="location.href='punchWorkOn'">上班打卡</button>
 					<button onclick="location.href='punchWorkOff'">下班打卡</button>
-					<button onclick="location.href='memberInsertPunchTime'">新增紀錄</button>
 					<button id='btn_late'>遲到</button>
 					<button id='btn_early'>早退</button>
 				</div>
