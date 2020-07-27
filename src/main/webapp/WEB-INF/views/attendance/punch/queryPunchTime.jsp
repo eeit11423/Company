@@ -10,7 +10,7 @@
 </head>
 <body>
 	<jsp:include page="/fragment/headerRearend.jsp" />
-	<div class="main-panel" >
+	<div class="container-scroller" >
 		<div class="contnt-wrapper">
 		<div class="row">
 		<div class="card">
@@ -33,7 +33,7 @@
 					<button class="btn btn-secondary col-md-4" id='btn_leave'>請假</button>
 				</div>
 			</div>
-			<div align='center' id='tablearea' class="col-md-12 grid-margin stretch-card"></div>
+			<div align='center' id='tablearea' class="table-responsive"></div>
 		</div>
 		
 		<script>
@@ -192,7 +192,7 @@
 						+ "<th align='center' width='100'>請假結束</th>"
 						+ "<th align='center' width='100'>假別</th>"
 						+ "<th align='center' width='140'>請假時數</th>"
-						+ "<th align='center' width='100'>請假審核</th>"
+// 						+ "<th align='center' width='100'>請假審核</th>"
 						+ "<th align='center' width='100'>出勤修改</th>"
 						+ "<th align='center' width='100'>請假修改</th></tr>";
 				for (var i = 0; i < attendances.length; i++) {
@@ -219,7 +219,7 @@
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveEnd)) + "</td>"
 							+ "<td align='center'>" + checkNull(leave.leaveCategory) + "</td>"
 							+ "<td align='center'>" + timeFn(checkZero(checkNull(leave.leaveHours))) + "</td>"
-							+ "<td align='center'>" + checkNull(leave.leaveAudit) + "</td>"
+// 							+ "<td align='center'>" + checkNull(leave.leaveAudit) + "</td>"
 							+ "<td align='center'>" + checkPunchTimeDataExist(punch.memberName) + "</td>"
 // 							+ "<td align='center'><a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a class='deletelink' href='deletePunchTime/"
 // 							+ punch.punchId + "' onclick='confirmDelete()'>刪除</a></td>"
@@ -306,17 +306,21 @@
 			}
 			
 			function timeFn(timediff) {
-			    var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
-			    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
+			    if (timediff != null){
+					var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
+				    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
 			    //计算相差分钟数
-			    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
-			    var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
+				    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
+			    	var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
 			    //计算相差秒数
-			    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
-			    var seconds=Math.round(leave3/1000)
+			    	var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+			    	var seconds=Math.round(leave3/1000)
 
-			    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
-			    return timeFn;
+				    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
+				    return timeFn;
+			    } else{
+			    	return '';
+			    }
 			}
 // 			function confirmDelete() {
 // 				var result = confirm("確定刪除此筆記錄?");

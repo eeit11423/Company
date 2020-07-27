@@ -56,8 +56,10 @@
 <!-- 		<div> -->
 			<div class="card-header text-white" style='background: #646D73'>
 <!-- 			<div class="text-white" style='background: #646D73'> -->
-				<div class="col-md-4 text-md-left"><strong><h3>出勤紀錄表</h3></strong></div>
-				<div id="Date" class="col-md-6 text-md-left"></div>
+				<div class="form-group row">	
+					<div class="col-md-4 text-md-left"><strong><h3>出勤紀錄表</h3></strong></div>
+					<div  class="col-md-6 text-md-right"><h3 id="Date"></h3></div>
+				</div>
 <script type="text/javascript"> 
 	function setClock(){
 		var date=new Date(); //建立日期

@@ -122,7 +122,7 @@
 						+ "<th align='center' width='200'>請假結束</th>"
 						+ "<th align='center' width='200'>請假時數</th>"
 						+ "<th align='center' width='200'>原因</th>"
-						+ "<th align='center' width='200'>審核</th>"
+// 						+ "<th align='center' width='200'>審核</th>"
 						+"</tr>";
 				for (var i = 0; i < leave.length; i++) {
 					var leaveDay = leave[i].leaveDate; //or time=1439018115000; 结果一样
@@ -138,7 +138,7 @@
 					+ "<td align='center'>" + timeStampToTime(leaveEnd)	+ "</td>"
 					+ "<td align='center'>" + timeFn(leave[i].leaveHours) + "</td>" 
 					+ "<td align='center'>" + leave[i].leaveCause + "</td>" 
-					+ "<td align='center'>" + leave[i].leaveAudit + "</td>" 
+// 					+ "<td align='center'>" + leave[i].leaveAudit + "</td>" 
 					+ "</tr>";
 				}
 				content += "</table>";
