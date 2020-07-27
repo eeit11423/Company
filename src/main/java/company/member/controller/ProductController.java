@@ -391,13 +391,13 @@ public class ProductController {
 				return new PasswordAuthentication(username, password);
 			}
 		});
-
+		String div = "忘記密碼， 您的密碼已預設成，"+"<h2 style='color:red'>"+"@8M75K"+"</h2>"+"，請登入後修改密碼";
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("lintest546@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject("忘記密碼.");
-			message.setText("忘記密碼， 您的密碼已預設成，@8M75K，請登入後修改密碼");
+			message.setContent(div,"text/html;charset=UTF-8");
 
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, username, password);
