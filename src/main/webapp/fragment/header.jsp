@@ -75,9 +75,11 @@
 <%-- 								<a class="dropdown-item" href="<c:url value='/trainProduct/add' />">新增課程</a> --%>
 								<a class="dropdown-item" href="<c:url value='/CourseList' />">我的課程</a>
  						</div></li>
-
+					
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/activity/index' />">活動資訊</a>
-					</li>		
+					</li>
+<%-- 					<li class="nav-item"><a class="nav-link" href="<c:url value='orderLunch/order' />">訂餐系統</a> --%>
+<!-- 					</li>		 -->
 					<li class="nav-item"><a class="nav-link">連絡我們</a>
 					<c:if test="${memberBean.memberAdmin == 's' }">
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/orderprice">後端</a>

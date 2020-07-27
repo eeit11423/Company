@@ -160,7 +160,7 @@
 			 	 					var datasJson = JSON.parse(datas);
 			 	 					 secData = datasJson;
 			 	 					 for(var i = 0;i < secData.length; i++) {
-			 	 	 				   newOption += "訂單編號：["+secData[i].id+"]  餐點：["+secData[i].product+"]  數量：["+secData[i].quantity+" ]  餐點單價： ["+secData[i].price+"]";
+			 	 	 				   newOption += "訂單編號：["+secData[i].id+"]  餐點：["+secData[i].product+"]  數量：["+secData[i].quantity+" ]  餐點總價： ["+secData[i].quantity*secData[i].price+"]</br>";
 			 	               }
 			 	 					 document.getElementById("orderList").innerHTML=newOption;
 							},'error':function(xhr, ajaxOptions, thrownError){
