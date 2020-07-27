@@ -37,7 +37,12 @@
 						<div class="dropdown-menu">
 <%-- 							<a class="dropdown-item" href="<c:url value='/register/add' />">會員註冊</a> <a --%>
 <%-- 								class="dropdown-item" href="<c:url value='/members' />">查詢會員資料</a> --%>
+						<c:if test="${memberBean.memberId == null}">
+								<a class="dropdown-item" href="<c:url value='/login' />">會員專區</a>
+						</c:if>
+						<c:if test="${memberBean.memberId != null}">
 								<a class="dropdown-item" href="<c:url value='/showpersonal/${memberBean.memberId}' />">會員專區</a>
+						</c:if>
 <%-- 								<a class="dropdown-item" href="<c:url value='/test' />">上傳excel</a> --%>
 						</div></li>
 				
@@ -74,9 +79,10 @@
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/activity/index' />">活動資訊</a>
 					</li>		
 					<li class="nav-item"><a class="nav-link">連絡我們</a>
+					<c:if test="${memberBean.memberAdmin == 's' }">
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/orderprice">後端</a>
 <!-- 				.. -->
-					</li>
+					</li></c:if>
 					
 					<li></li>
 		<li></li>
