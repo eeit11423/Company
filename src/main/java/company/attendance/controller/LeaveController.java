@@ -106,7 +106,7 @@ public class LeaveController {
 		if (bindingResult.hasErrors()) {
 			return "attendance/leave/memberInsertLeave";
 		}
-		int n = service.saveLeave(leave);
+		int n = service.memberSaveLeave(leave);
 		if (n == 1) {
 			return "redirect:/attendance/leave/memberLeave";
 		} else {
@@ -159,6 +159,11 @@ public class LeaveController {
 		return "redirect:/attendance/punch/queryPunchTime";
 	}
 	
+	@GetMapping("/checkAudit/{leaveId}")
+	public String checkAudit(@PathVariable Integer leaveId) {
+		service.checkAudit(leaveId);
+		return "attendance/punch/queryPunchTime";
+	}
 	
 	
 	@ModelAttribute("leave")

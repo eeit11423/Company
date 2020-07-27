@@ -12,6 +12,8 @@ public interface LeaveDao {
 
 	int saveLeave(Leave leave);
 	
+	int memberSaveLeave(Leave leave);
+	
 	boolean isMemberAndLeaveDateExist(Leave leave);
 	
 	List<Leave> queryLeave(String memberNumber, String selectdate);
@@ -27,4 +29,6 @@ public interface LeaveDao {
 	void updatePunchtime(Leave leave, int punchId);
 
 	List<Punch> getMemberAndPunchDateList(Leave leave);
+
+	void checkAudit(int leaveId);
 }

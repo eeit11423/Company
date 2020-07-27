@@ -20,5 +20,8 @@ public interface LeaveService {
 	void deleteLeaveByLeaveId(int key);
 
 	int saveLeave(Leave leave);
-
+	
+	int memberSaveLeave(Leave leave);
+	
+	void checkAudit(int leaveId);
 }

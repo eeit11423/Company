@@ -219,6 +219,7 @@
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveEnd)) + "</td>"
 							+ "<td align='center'>" + checkNull(leave.leaveCategory) + "</td>"
 							+ "<td align='center'>" + timeFn(checkZero(checkNull(leave.leaveHours))) + "</td>"
+
 // 							+ "<td align='center'>" + checkNull(leave.leaveAudit) + "</td>"
 							+ "<td align='center'>" + checkPunchTimeDataExist(punch.memberName) + "</td>"
 // 							+ "<td align='center'><a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a class='deletelink' href='deletePunchTime/"

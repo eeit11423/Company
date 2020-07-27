@@ -43,7 +43,16 @@ public class LeaveServiceImpl implements LeaveService {
 		}
 		int n = dao.saveLeave(leave);
 		return n;
-		
+	}
+	
+	@Override
+	public int memberSaveLeave(Leave leave) {
+		int n = dao.saveLeave(leave);
+		return n;
+	}
+	
+	public void checkAudit(int leaveId){
+		dao.checkAudit(leaveId);
 	}
 	
 	@Override

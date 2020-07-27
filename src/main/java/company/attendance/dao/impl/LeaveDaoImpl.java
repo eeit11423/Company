@@ -78,6 +78,34 @@ public class LeaveDaoImpl implements LeaveDao {
 		}
 		return n;
 	}
+	@SuppressWarnings("deprecation")
+	@Override
+	public int memberSaveLeave(Leave leave) {
+		int n = 0;
+		boolean exist = isMemberAndLeaveDateExist(leave);
+		if (exist) {
+			return -1;
+		}
+		Session session = factory.getCurrentSession();
+		try {
+			Timestamp leaveStart = leave.getLeaveStart();
+			Timestamp leaveEnd = leave.getLeaveEnd();
+			long leaveHours = leaveEnd.getTime() - leaveStart.getTime();
+			
+			if (leaveStart.getHours() < 12 && leaveEnd.getHours() > 12 ) {
+				leaveHours -= 3600000;					
+			}
+			//請假 9點以後
+			
+			leave.setLeaveHours(leaveHours);
+			leave.setLeaveAudit("通過");
+			session.save(leave);
+			n = 1;
+		} catch (Exception e) {
+			n = -2;
+		}
+		return n;
+	}
 
 	@Override
 	public boolean isMemberAndLeaveDateExist(Leave leave) {
@@ -225,5 +253,15 @@ public class LeaveDaoImpl implements LeaveDao {
 			}
 		}
 		System.out.println("打卡紀錄更改完成");
+	}
+	
+	@Override
+	public void checkAudit(int leaveId) {
+		Session session = factory.getCurrentSession();
+		Leave leave = session.get(Leave.class, leaveId);
+		if (leave.getLeaveAudit()=="審核中") {
+			leave.setLeaveAudit("通過");
+		}
+		session.update(leave);
 	}
 }
