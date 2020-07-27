@@ -190,7 +190,7 @@ public class LeaveDaoImpl implements LeaveDao {
 		Session session = factory.getCurrentSession();
 		Timestamp leaveStart = leave.getLeaveStart();
 		Timestamp leaveEnd = leave.getLeaveEnd();
-//		Punch punch = session.get(Punch.class, punchId);
+		Punch punch = session.get(Punch.class, punchId);
 		
 		//請假 9點開始
 		if (leaveStart.getHours() == 9 && (leaveStart.getMinutes()+leaveStart.getSeconds()) == 0 ) {

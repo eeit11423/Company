@@ -28,14 +28,14 @@
 			leaveDate = document.getElementById("leaveDate") 
 			leaveDate.value = "2020-1-1" 
 			leaveStart = document.getElementById("leaveStart") 
-			leaveStart.value = "2020-1-1 09:00:00.000" 
+			leaveStart.value = "2020-1-1 11:00:00.000" 
 			leaveEnd = document.getElementById("leaveEnd") 
  			leaveEnd.value = "2020-1-1 18:00:00.000" 
  			Category = document.getElementById("leaveCategory") 
  			option=Category.getElementsByTagName("option")
  			option[0].selected = true 
 			leaveCause = document.getElementById("leaveCause") 
- 			leaveCause.value = "跨年" 
+ 			leaveCause.value = "應酬" 
 		}
 	}
 </script>

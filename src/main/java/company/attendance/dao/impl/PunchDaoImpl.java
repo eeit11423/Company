@@ -168,6 +168,10 @@ public class PunchDaoImpl implements PunchDao {
 		try {
 			String punchLate = null;		
 			String punchEarly = null;
+			long punchHours = punch.getPunchWorkOff().getTime() - punch.getPunchWorkOn().getTime();
+			if (punch.getPunchWorkOn().getHours()<12 && punch.getPunchWorkOff().getHours()>13) {
+				punchHours -= 3600000;
+			}
 			
 			if (punch.getPunchWorkOn().getHours() > 9 ) {
 				punchLate = "遲到";
@@ -177,7 +181,6 @@ public class PunchDaoImpl implements PunchDao {
 			if (punch.getPunchWorkOff().getHours() < 18 ) {
 				punchEarly = "早退";
 			}
-			long punchHours = punch.getPunchWorkOff().getTime() - punch.getPunchWorkOn().getTime();
 			punch.setPunchLate(punchLate);
 			punch.setPunchEarly(punchEarly);
 			punch.setPunchHours(punchHours);
