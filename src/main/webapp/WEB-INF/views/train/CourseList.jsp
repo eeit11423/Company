@@ -14,7 +14,7 @@
 	<style>
 		#outside{
 				  text-align:center;/*區塊內元素顯示置中*/
-				  width: 1000px;
+				  width: 1300px;
 				  height: 0px;
 				  margin:0 auto;/*區塊置中*/
 				}
@@ -26,26 +26,28 @@
 		<div id="outside" class="">
 			<table  class="table table-bordered">
 			<tr style='background:#646D73' class="text-white text-left">
-					<th width='80'>課程編號</th>
+					<th width='110'>課程編號</th>
 					<th width='56'>詳細資料</th>
-					<th width='50'>員工編號</th>
-					<th width='80'>員工姓名</th>
+					<th width='120'>員工編號</th>
+					<th width='120'>員工姓名</th>
 					<th width='120'>課程名稱</th>
-					<th width='50'>類型</th>
+					<th width='70'>類型</th>
 					<th width='80'>影片</th>
 					<th width='40'>照片</th>			
-					<th width='50'>學分</th>
-					<th width='100'>自我評點</th>
-<!-- 					<th width='80'>評點總分</th> -->
-<!-- 					<th width='80'>我的課程</th>						 -->
+					<th width='70'>學分</th>
+					<th width='120'>自我評點</th>
+					<th width='110'>評點總分</th>
+<!-- 					<th width='100'>管理</th> -->
+
 			</tr>
+			
 			
 <%-- 			<c:forEach var='roster3292' items='${CourseList}'> --%>
 			
 <%-- 			${roster3292.starSum} --%>
 <%-- 			</c:forEach> --%>
 		
-			
+			<c:set var="ai" value="0" scope="session"/>
 			<c:forEach var='roster329' items='${train001}'>
 			<tr>
 						<td>${roster329.trainingId}</td>
@@ -77,7 +79,27 @@
 						
 						<td><a href="<c:url value='/train/score/${roster329.trainingId}' />"
 	                        	class="btn btn-secondary btn-block text-white"><span
-	                        	class="glyphicon-info-sigh glyphicon"></span>開始</a>
+	                        	class="glyphicon-info-sigh glyphicon"></span>開始</a></td>
+							<td>
+							<c:if test="${roster329.starSum == 0}">
+								未評分
+							</c:if>
+							<c:if test="${roster329.starSum != 0}">
+								${roster329.starSum}
+							</c:if>
+								
+							</td>
+<!-- 							<td> -->
+<%-- 							<a href="deleteRoster/${roster329.rosterId}"class="btn btn-primary"> --%>
+<!-- 								<span class="glyphicon-info-sigh glyphicon"></span>刪除 -->
+<!-- 							</a> -->
+<!-- 							</td>		 -->
+			</tr>
+				
+			</c:forEach>
+			
+			
+			
 <!-- 	              		</td> -->
 		              		
 <!-- 	              		<td> -->
@@ -87,13 +109,8 @@
 <%-- 		              	<a href="deleteRoster/${roster329.rosterId}"class="btn btn-primary"> --%>
 <!-- 								<span class="glyphicon-info-sigh glyphicon"></span>刪除 -->
 <!-- 							</a>   -->
-<!-- 		              	</td>	 -->
-						
-		
-			</tr>
-			</c:forEach>
+<!-- 		              	</td>	 -->	
 			</table>
 			</div>
-
 </body>
 </html>

@@ -20,9 +20,10 @@
         <div class="jumbotron">
             <div class="container" style="text-align: center" >
                 <h1>所有訓練課程(後台)</h1>
-<%--                 <a href="<c:url value='/' />">首頁</a> --%>
-<%--                 <a href="<c:url value='/trainProduct/add' />">新增</a> --%>
-
+				<div class="container" style="text-align: center" >   	
+			    	<a href="<c:url value='/' />"class="btn btn-primary">
+					<span class="glyphicon-info-sigh glyphicon"></span>首頁</a>									
+    			</div>
             </div>
 <!--             <div align='center'> -->
 <!-- 				請挑選課程類型: <select id='Publish_course' onchange="memberChange()"> -->
@@ -35,10 +36,12 @@
 <!-- 			</div> -->
         </div>
     <section class="container"></section>
-    <hr style="height:1px;border:none;color:#333;background-color:#333;">
+<!--     <hr style="height:1px;border:none;color:#333;background-color:#333;"> -->
     </section>
     <section class="container">
         <div class="row">
+        
+        
         <c:forEach var='product' items='${trainAllProductsDelete}'> <!-- controller的識別字串trainAllProducts會導引過來這裡 -->
             <div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
                 <div class="thumbnail" style="width: 320px; height: 340px">
@@ -58,8 +61,7 @@
 <!--                         	class="btn btn-primary"><span -->
 <!--                         	class="glyphicon-info-sigh glyphicon"></span>詳細內容 -->
 <!--                         	</a> -->
-                        	
-           	
+                        	           	
                         	<a href="deleteTrain2/${product.trainingId}"class="btn btn-primary">
 								<span class="glyphicon-info-sigh glyphicon"></span>刪除
 							</a>
@@ -75,9 +77,7 @@
         	</c:forEach>
         </div>     
     </section>
-    <div class="container" style="text-align: center" >
-    	<a href="<c:url value='/' />">首頁</a>
-    </div>
+    
 </body>
 </html>
     

@@ -16,11 +16,14 @@
         .form1{
             font-weight: 900;  /*字體粗細*/
             margin: 80px auto; /*最上面與視窗距離*/
-            border: black solid;
-            width: 600px;            
+            border: 1px solid;
+            width: 600px; 
+            border:  solid;
+            border-color:#D0D0D0;           
         }
         .form11{
-            border: black solid;
+            border: 1px solid;
+            border-color:#D0D0D0;
             padding-top: 5px;
         }
     </style>
@@ -40,52 +43,58 @@
     </script>
 </head>
 <body>
-	<h1 style="text-align:center">線上學習評點</h1>
+	<h1 style="text-align:center">自我學習評點</h1>
     <div style="text-align:center" class="form1">
         <div class="form11" id="d1">
+        <div><a>1.理解程度。</a></div>
             <img class="c1" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c1" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c1" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c1" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c1" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <p id="p1" class="clap1">尚未評點</p>
-            <input type="button" id="btn1" value="重設1">
+            <input class="btn btn-secondary" type="button" id="btn1" value="重設" >
         </div>
-        <div class="form11" id="d2">
+            
+        <div class="form11" id="d2" >
+        <div><a>2.操作狀況。</a></div>
             <img class="c2" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c2" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c2" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c2" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c2" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <p id="p2" class="clap2">尚未評點</p>
-            <input type="button" id="btn2" value="重設2">
+            <input class="btn btn-secondary" type="button" id="btn2" value="重設">
         </div>
         <div class="form11" id="d3">
+        <div><a>3.題目完成度。</a></div>
             <img class="c3" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c3" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c3" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c3" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c3" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <p id="p3">尚未評點</p>
-            <input type="button" id="btn3" value="重設3">
+            <input class="btn btn-secondary" type="button" id="btn3" value="重設">
         </div>
         <div class="form11" id="d4">
+        <div><a>4.課程與工作應用。</a></div>
             <img class="c4" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c4" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c4" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c4" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c4" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <p id="p4">尚未評點</p>
-            <input type="button" id="btn4" value="重設4">
+            <input class="btn btn-secondary" type="button" id="btn4" value="重設">
         </div>
         <div  class="form11" id="d5">
+        <div><a>5.是否具備此課程開發能力。</a></div>
             <img class="c5" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c5" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c5" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c5" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <img class="c5" src="${pageContext.request.contextPath}/images/starsmall.gif" />
             <p id="p5">尚未評點</p>
-            <input id="btn5" type="button" value="重設5">
+            <input class="btn btn-secondary" id="btn5" type="button" value="重設">
         </div>
     </div>
      
@@ -104,7 +113,7 @@
             $(".c1").hover(function () {                
                 $(this).prevAll().attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
                 $(this).attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");                            
-                let rr = $(this).index()+1;
+                let rr = $(this).index();
                 $("#p1").text("評點中..." + rr+"分");            
             }, function () {
                 $(this).prevAll().attr("src", "${pageContext.request.contextPath}/images/starsmall.gif");
@@ -113,8 +122,8 @@
             });
 
             $(".c1").click(function () {
-                    $('#p1').empty().append("最終評點 :  " + ($(this).index()+1) + "分");
-                    let rr1 = $(this).index()+1; // 當點擊時自動把你的評分加進變數裡。
+                    $('#p1').empty().append("最終評點 :  " + ($(this).index()) + "分");
+                    let rr1 = $(this).index(); // 當點擊時自動把你的評分加進變數裡。
                     console.log("變數rr1+++++++++++"+rr1);
                     $(".c1").off("mouseenter mouseleave click");
                     $("#question1Id").val(rr1); //2; 點擊時把值丟給隱藏標籤
@@ -127,7 +136,7 @@
                 $(this).prevAll().attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
                 $(this).attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
                 $('p2').empty();              
-                let rr = $(this).index()+1;
+                let rr = $(this).index();
                 $("#p2").text("評點中..." + rr+"分");
                 console.log(rr);
             }, function () {
@@ -137,8 +146,8 @@
             });
 
             $(".c2").click(function () {
-                    $('#p2').empty().append("最終評點 :  " + ($(this).index() + 1) + "分");
-                    let rr2 = $(this).index()+1; // 當點擊時自動把你的評分加進變數裡。
+                    $('#p2').empty().append("最終評點 :  " + ($(this).index()) + "分");
+                    let rr2 = $(this).index(); // 當點擊時自動把你的評分加進變數裡。
                     console.log("變數rr2+++++++++++"+rr2);
                     $(".c2").off("mouseenter mouseleave click");
                     $("#question2Id").val(rr2); //2; 點擊時把值丟給隱藏標籤
@@ -150,7 +159,7 @@
                 $(this).prevAll().attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
                 $(this).attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
                 $('p3').empty();             
-                let rr = $(this).index()+1;
+                let rr = $(this).index();
                 $("#p3").text("評點中..." + rr+"分");
                 console.log(rr);
             }, function () {
@@ -160,8 +169,8 @@
             });
 
             $(".c3").click(function () {
-                    $('#p3').empty().append("最終評點 :  " + ($(this).index() + 1) + "分");
-                    let rr3 = $(this).index()+1; // 當點擊時自動把你的評分加進變數裡。
+                    $('#p3').empty().append("最終評點 :  " + ($(this).index()) + "分");
+                    let rr3 = $(this).index(); // 當點擊時自動把你的評分加進變數裡。
                     console.log("變數rr3+++++++++++"+rr3);
                     $(".c3").off("mouseenter mouseleave click");
                     $("#question3Id").val(rr3); //2; 點擊時把值丟給隱藏標籤
@@ -173,7 +182,7 @@
                 $(this).prevAll().attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
                 $(this).attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
                 $('p4').empty();               
-                let rr = $(this).index()+1;
+                let rr = $(this).index();
                 $("#p4").text("評點中..." + rr+"分");
                 console.log(rr);
             }, function () {
@@ -183,8 +192,8 @@
             });
 
             $(".c4").click(function () {
-                    $('#p4').empty().append("最終評點 :  " + ($(this).index() + 1) + "分");
-                    let rr4 = $(this).index()+1; // 當點擊時自動把你的評分加進變數裡。
+                    $('#p4').empty().append("最終評點 :  " + ($(this).index()) + "分");
+                    let rr4 = $(this).index(); // 當點擊時自動把你的評分加進變數裡。
                     console.log("變數rr4+++++++++++"+rr4);
                     $(".c4").off("mouseenter mouseleave click");
                     $("#question4Id").val(rr4); //2; 點擊時把值丟給隱藏標籤
@@ -196,7 +205,7 @@
 		                $(this).prevAll().attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
 		                $(this).attr("src", "${pageContext.request.contextPath}/images/chngstarsmall.gif");
 		                $('p5').empty();            
-		                let rr = $(this).index()+1;
+		                let rr = $(this).index();
 		                $("#p5").text("評點中..." + rr+"分");
 		                console.log(rr);
 		            }, function () {
@@ -206,8 +215,8 @@
 		            });
 		
 		            $(".c5").click(function () {
-		                    $('#p5').empty().append("最終評點 :  " + ($(this).index() + 1) + "分");
-		                    let rr5 = $(this).index()+1; // 當點擊時自動把你的評分加進變數裡。
+		                    $('#p5').empty().append("最終評點 :  " + ($(this).index()) + "分");
+		                    let rr5 = $(this).index(); // 當點擊時自動把你的評分加進變數裡。
 		                    console.log("變數rr5+++++++++++"+rr5);
 		                    $(".c5").off("mouseenter mouseleave click");
 		                    $("#question5Id").val(rr5); //2; 點擊時把值丟給隱藏標籤

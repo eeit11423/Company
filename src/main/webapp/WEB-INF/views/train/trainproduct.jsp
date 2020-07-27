@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	href="//netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <title>Product</title>
 <script type="text/javascript">
 		function reconfirmOrder() {

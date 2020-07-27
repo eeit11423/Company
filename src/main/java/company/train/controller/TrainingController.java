@@ -257,13 +257,13 @@ public class TrainingController {
 		return "redirect:/train/trainAllProductsDelete"; 
 	}
 	
-	@GetMapping("train/deleteRoster/{rosterId}")
-	public String deleteCourse(@PathVariable ("rosterId") Integer rosterId) {
-		System.out.println("");
-		service.delete(rosterId);	
-
-		return "redirect:/train/CourseList"; 
-	}
+//	@GetMapping("train/deleteRoster/{rosterId}")//刪除課程明細
+//	public String deleteCourse(@PathVariable ("rosterId") Integer rosterId) {
+//		System.out.println("");
+//		service.delete(rosterId);	
+//
+//		return "redirect:/train/CourseList"; 
+//	}
 	
 	@GetMapping("train/updateTrain/{trainingId}")
 	public String showDataForm(@PathVariable("trainingId") Integer trainingId, Model model) {
@@ -357,11 +357,20 @@ public class TrainingController {
 			}
 			List<RosterBean> trainCon = service.listRosterBean(memberBean.getMemberNumber());		
 			List<TrainingBean> CourseList = new LinkedList<TrainingBean>();
+//			List<RosterBean> starSum = new LinkedList<RosterBean>();
+			List<Integer> starSum = new LinkedList<Integer>();
 			for(RosterBean aa:trainCon) {
 				int add = aa.getTrainingId();
-				CourseList.add(service.getProductById(add));			
-			}			
+//				System.out.println("add"+add);
+				TrainingBean trainingBean = service.getProductById(add);
+				trainingBean.setStarSum(Integer.valueOf(aa.getStarSum()));
+				CourseList.add(trainingBean);
+				starSum.add(Integer.valueOf(aa.getStarSum()));
+			}
+			
+			System.out.println(starSum);
 			model.addAttribute("train001",CourseList);
+			model.addAttribute("train002",starSum);
 			return "train/CourseList";
 		}
 		
@@ -374,7 +383,7 @@ public class TrainingController {
 			MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");//從session裡抓出memberBean
 			String  membernumber = memberBean.getMemberNumber();
 			
-			RosterBean RB =new RosterBean(null,membernumber,trainingId,trainingcredit,null);//依序丟入
+			RosterBean RB =new RosterBean(null,membernumber,trainingId,trainingcredit,0);//依序丟入
 			service.insertCourseDao(RB);
 			return "redirect:/train/trainAllProducts";
 		}

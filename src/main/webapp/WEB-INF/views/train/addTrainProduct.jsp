@@ -17,6 +17,36 @@ fieldset {
 }
 </style>
 <title>addTrainProduct</title>
+<script >
+window.onload = function(){
+	var btn = document.getElementById("clickmeS");
+	btn.onclick = function(){
+	trainingCourse =  document.getElementById("trainingCourse")
+	trainingCourse.value ="您所不知道的PHP"
+	
+	brief = document.getElementById("brief")
+	brief.value = "PHP（全稱：PHP：Hypertext Preprocessor，即「PHP：超文字預處理器」）是一種開源的通用電腦手稿語言，尤其適用於網路開發並可嵌入HTML中使用。"
+	
+	elaborate = document.getElementById("elaborate")
+	elaborate.value="PHP的語法借鑑吸收C語言、Java和Perl等流行電腦語言的特點，易於一般程式設計師學習。PHP的主要目標是允許網路開發人員快速編寫動態頁面，但PHP也被用於其他很多領域。"
+	
+	category = document.getElementById("category")
+	category.value = "後端"
+	
+	trainingCredit = document.getElementById("trainingCredit")
+	trainingCredit.value = 37
+	
+	courseNo = document.getElementById("courseNo")
+	courseNo.value = 011
+	
+	
+	URLUpload = document.getElementById("URLUpload")
+	URLUpload.value = "https://www.youtube.com/embed/OK_JCtrrv-c"
+	
+	
+	}
+}
+</script>
 </head>
 <body>
 <%-- <jsp:include page="/fragment/header.jsp" /> --%>
@@ -41,7 +71,7 @@ fieldset {
 				</div>
 
 				<div class="form-group">
-					<label class="control-label col-lg-2 col-lg-2"  for='brief'>
+					<label class="control-label col-lg-2 col-lg-2"  for='brief' >
 						介紹 </label>
 					<div class="col-lg-10">
 						<form:input id="brief" path="brief" type='text'
@@ -50,7 +80,7 @@ fieldset {
 				</div>
 				
 				<div class="form-group">
-					<label class="control-label col-lg-2 col-lg-2"  for='elaborate'>
+					<label class="control-label col-lg-2 col-lg-2"  for='elaborate' >
 						內容 </label>
 					<div class="col-lg-10">
 						<form:input id="elaborate" path="elaborate" type='text'
@@ -59,7 +89,7 @@ fieldset {
 				</div>
 
 				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="category">
+					<label class='control-label col-lg-2 col-lg-2' for="category" >
 						類型 </label>
 					<div class='col-lg-10'>
 						<form:select path="category">
@@ -69,7 +99,7 @@ fieldset {
 				</div>
 
 				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="trainingCredit">
+					<label class='control-label col-lg-2 col-lg-2' for="trainingCredit" >
 						學分</label>
 					<div class='col-lg-10'>
 						<form:input id="trainingCredit" path="trainingCredit" type='text'
@@ -78,7 +108,7 @@ fieldset {
 				</div>
 				
 				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="courseNo">
+					<label class='control-label col-lg-2 col-lg-2' for="courseNo" >
 						課程編號 </label>
 					<div class='col-lg-10'>
 						<form:input id="courseNo" path="courseNo" type='text'
@@ -113,7 +143,7 @@ fieldset {
 <!-- 				</div> -->
 				
 				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="URLUpload">
+					<label class='control-label col-lg-2 col-lg-2' for="URLUpload" >
 						網址上傳連結 </label>
 					<div class='col-lg-10'>
 						<form:input id="URLUpload" path="URLUpload" type='text'
@@ -131,9 +161,10 @@ fieldset {
 				</div>
 				
 				<div class="form-group">
-					<div class='col-lg-offset-2 col-lg-10'>
+					<div class='col-lg-offset-3 col-lg-9'>
 						<input id="btnAdd" type='submit' class='btn btn-primary'
 							value="送出" />
+						<input type='button' class='btn btn-primary'  id='clickmeS' value='一鍵新增' >
 					</div>
 				</div>
 

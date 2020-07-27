@@ -49,7 +49,8 @@ public class TrainingBean implements Serializable {
     private CompanyBean companyBean;
 	@Transient
 	private MultipartFile  productImage;
-	
+	@Transient
+	private Integer  starSum;//星星評分
 	public TrainingBean(Integer trainingId,String trainingCourse,Integer trainingCredit
 	,Integer trainingStartDate,Integer trainingEndDate,String brief,String elaborate
 	,String pictureName,Blob pictureFile,String courseNo,String pictureFormatDecide
@@ -82,6 +83,16 @@ public class TrainingBean implements Serializable {
 	}
 
 	
+	public Integer getStarSum() {
+		return starSum;
+	}
+
+
+	public void setStarSum(Integer starSum) {
+		this.starSum = starSum;
+	}
+
+
 	public TrainingBean() {
 	}
 	
