@@ -138,7 +138,7 @@ public class LeaveController {
 		return re;
 	}
 	
-	@GetMapping(value="/leaveEdit/{leaveId}", produces= {"text/html"})
+	@PostMapping(value="/leaveEdit/{leaveId}", produces= {"text/html"})
 	public String editLeaveFromLeaveId(@PathVariable Integer leaveId, Model model) {
 		Leave leave = service.editLeaveFromLeaveId(leaveId);
 		model.addAttribute(leave);
@@ -162,7 +162,7 @@ public class LeaveController {
 	@GetMapping("/checkAudit/{leaveId}")
 	public String checkAudit(@PathVariable Integer leaveId) {
 		service.checkAudit(leaveId);
-		return "attendance/punch/queryPunchTime";
+		return "redirect:/attendance/punch/queryPunchTime";
 	}
 	
 	

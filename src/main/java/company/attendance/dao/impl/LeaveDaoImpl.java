@@ -256,12 +256,11 @@ public class LeaveDaoImpl implements LeaveDao {
 	}
 	
 	@Override
-	public void checkAudit(int leaveId) {
+	public void checkAudit(Integer leaveId) {
 		Session session = factory.getCurrentSession();
-		Leave leave = session.get(Leave.class, leaveId);
-		if (leave.getLeaveAudit()=="審核中") {
-			leave.setLeaveAudit("通過");
-		}
-		session.update(leave);
+		String hql = "UPDATE Leave SET leaveAudit = '通過' WHERE leaveId = :leaveId";
+		session.createQuery(hql)
+			   .setParameter("leaveId", leaveId)
+			   .executeUpdate();
 	}
 }

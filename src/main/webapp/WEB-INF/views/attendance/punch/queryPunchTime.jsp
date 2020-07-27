@@ -32,8 +32,10 @@
 					<button class="btn btn-secondary col-md-4" id='btn_early'>早退</button>
 					<button class="btn btn-secondary col-md-4" id='btn_leave'>請假</button>
 				</div>
+				<form method='POST'><input type='hidden' name='_method' value='DELETE'></form>
 			</div>
-			<div align='center' id='tablearea' class="table-responsive"></div>
+			<div align='center' id='tablearea' class="table-responsive">
+			</div>
 		</div>
 		
 		<script>
@@ -192,7 +194,7 @@
 						+ "<th align='center' width='100'>請假結束</th>"
 						+ "<th align='center' width='100'>假別</th>"
 						+ "<th align='center' width='140'>請假時數</th>"
-// 						+ "<th align='center' width='100'>請假審核</th>"
+						+ "<th align='center' width='100'>請假審核</th>"
 						+ "<th align='center' width='100'>出勤修改</th>"
 						+ "<th align='center' width='100'>請假修改</th></tr>";
 				for (var i = 0; i < attendances.length; i++) {
@@ -219,8 +221,7 @@
 							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveEnd)) + "</td>"
 							+ "<td align='center'>" + checkNull(leave.leaveCategory) + "</td>"
 							+ "<td align='center'>" + timeFn(checkZero(checkNull(leave.leaveHours))) + "</td>"
-
-// 							+ "<td align='center'>" + checkNull(leave.leaveAudit) + "</td>"
+							+ "<td align='center'>" + checkAudit(leave.leaveAudit) + "</td>"
 							+ "<td align='center'>" + checkPunchTimeDataExist(punch.memberName) + "</td>"
 // 							+ "<td align='center'><a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a class='deletelink' href='deletePunchTime/"
 // 							+ punch.punchId + "' onclick='confirmDelete()'>刪除</a></td>"
@@ -228,21 +229,32 @@
 // 							+ "<td align='center'><a href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='../leave/deleteLeave/"
 // 							+ leave.leaveId + "' onclick='confirmDelete()'>刪除</a></td>"
 							+ "</tr>";
-					function checkLeaveDataExist(String) {
-						if (String == null) {
-							return "<a href='../leave/insertLeave'>新增</a>";
-						} else {
-							return "<a class='deletelink' href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='../leave/deleteLeave/"
-								+ leave.leaveId + "' onclick='confirmDelete()'>刪除</a>";
+					function checkAudit(String){
+						if (String == '審核中'){
+							return "<a href='../leave/checkAudit/" + leave.leaveId +"'>審核中</a>";
+						}else if(String == '通過')
+							return '通過';
+						else{
+							return '';
 						}
 					}
-					
+										
 					function checkPunchTimeDataExist(String) {
 						if (String == null) {
 							return "<a href='insertPunchTime'>新增</a>";
 						} else {
-							return "<a class='deletelink' href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a href='deletePunchTime/"
-								+ punch.punchId + "' onclick='confirmDelete()'>刪除</a>";
+							return "<a class='updatelink' href='punchTimeEdit/" + punch.punchId + "'>更改</a>|"
+								+  "<a class='deletelink' href='deletePunchTime/" + punch.punchId + "'>刪除</a>";
+								
+						}
+					}
+					
+					function checkLeaveDataExist(String) {
+						if (String == null) {
+							return "<a href='../leave/insertLeave'>新增</a>";
+						} else {
+							return "<a class='updatelink' href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>|"
+							      +"<a class='deletelink' href='../leave/deleteLeave/" + leave.leaveId + "'>刪除</a>";
 						}
 					}
 					
@@ -341,6 +353,16 @@
 		            
 // 		        });
 // 		    })
+			$(document).ready(function() {
+				$('.deletelink').click(function() {
+					if (confirm('確定刪除此筆紀錄? ')) {
+	     	   		var href = $(this).attr('href');
+	      	          $('form').attr('action', href).submit();
+	     		   	} 
+	      		  	return false;
+	            
+				});
+			})
 		</script>
 		</div>
 		</div>

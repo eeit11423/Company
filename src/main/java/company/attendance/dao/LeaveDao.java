@@ -30,5 +30,5 @@ public interface LeaveDao {
 
 	List<Punch> getMemberAndPunchDateList(Leave leave);
 
-	void checkAudit(int leaveId);
+	void checkAudit(Integer leaveId);
 }

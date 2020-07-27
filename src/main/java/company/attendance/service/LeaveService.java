@@ -23,5 +23,5 @@ public interface LeaveService {
 	
 	int memberSaveLeave(Leave leave);
 	
-	void checkAudit(int leaveId);
+	void checkAudit(Integer leaveId);
 }

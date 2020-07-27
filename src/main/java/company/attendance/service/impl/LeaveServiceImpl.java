@@ -51,7 +51,7 @@ public class LeaveServiceImpl implements LeaveService {
 		return n;
 	}
 	
-	public void checkAudit(int leaveId){
+	public void checkAudit(Integer leaveId){
 		dao.checkAudit(leaveId);
 	}
 	
