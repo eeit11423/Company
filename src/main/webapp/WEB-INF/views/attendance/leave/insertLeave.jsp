@@ -51,7 +51,7 @@
 						<div class="col-md-10">
 							<div class="card">
 								<div class="card-header text-white" style='background: #646D73'>
-									<strong><h3>新增請假紀錄</h3></strong>
+									<strong><h2>新增請假紀錄</h2></strong>
 								</div>
 								<div class="card-body">
 

@@ -57,7 +57,7 @@
 			<div class="card-header text-white" style='background: #646D73'>
 <!-- 			<div class="text-white" style='background: #646D73'> -->
 				<div class="form-group row">	
-					<div class="col-md-4 text-md-left"><strong><h3>出勤紀錄表</h3></strong></div>
+					<div class="col-md-4 text-md-left"><strong><h1>出勤紀錄表</h1></strong></div>
 					<div  class="col-md-6 text-md-right"><h3 id="Date"></h3></div>
 				</div>
 <script type="text/javascript"> 
@@ -79,16 +79,16 @@
 <!-- 			<div> -->
 			<div class="card-body">
 				<div class="form-group row">		
-					<div class="col-md-3 text-md-right"><h4>使用者：</h4></div>
-					<div class="col-md-3 text-md-left"><h4>${memberBean.memberName}</h4></div>
-					<div class="col-md-3 text-md-right">選擇年月份：</div>
-					<div class="col-md-3"><select id='dateselect'></select></div>
+					<div class="col-md-3 text-md-right"><h3>使用者：</h3></div>
+					<div class="col-md-3 text-md-left"><h3>${memberBean.memberName}</h3></div>
+					<div class="col-md-3 text-md-right"><h3>選擇年月份：</h3></div>
+					<div class="col-md-3"><select style='font-size:20px;' id='dateselect'></select></div>
 				</div>
-				<div class="container" align='center' style="text-align: center">
-					<button onclick="location.href='punchWorkOn'">上班打卡</button>
-					<button onclick="location.href='punchWorkOff'">下班打卡</button>
-					<button id='btn_late'>遲到</button>
-					<button id='btn_early'>早退</button>
+				<div class="container form-group row" align='center' style="text-align: center">
+					<button class="btn btn-secondary col-md-3" onclick="location.href='punchWorkOn'">上班打卡</button>
+					<button class="btn btn-secondary col-md-3" onclick="location.href='punchWorkOff'">下班打卡</button>
+					<button class="btn btn-secondary col-md-3" id='btn_late'>遲到</button>
+					<button class="btn btn-secondary col-md-3" id='btn_early'>早退</button>
 				</div>
 			</div>
 			<div class="card-body">
@@ -173,95 +173,112 @@
 				var content = "<table class='table table-hover border border-secondary'>";
 
 				content += "<tr class='tm-tr-header' align='center'>"
-						+ "<th align='center' width='70'>流水號</th>"
-						+ "<th align='center' width='140'>日期</th>"
-						+ "<th align='center' width='140'>上班時間</th>"
-						+ "<th align='center' width='70'>遲到</th>"
-						+ "<th align='center' width='140'>下班時間</th>"
-						+ "<th align='center' width='70'>早退</th>"
-						+ "<th align='center' width='70'>上班時數</th></tr>";
+						+ "<th align='center' width='140' style='font-size:30px;'>日期</th>"
+						+ "<th align='center' width='140' style='font-size:30px;'>上班時間</th>"
+						+ "<th align='center' width='70' style='font-size:30px;'>遲到</th>"
+						+ "<th align='center' width='140' style='font-size:30px;'>下班時間</th>"
+						+ "<th align='center' width='70' style='font-size:30px;'>早退</th>"
+						+ "<th align='center' width='70' style='font-size:30px;'>上班時數</th></tr>";
 				for (var i = 0; i < punchtimes.length; i++) {
-					var punchday = punchtimes[i].punchDate; //or time=1439018115000; 结果一样
-					console.log(timeStampToDate(punchday));
-					var workOn = punchtimes[i].punchWorkOn;
-					console.log(timeStampToTime(workOn));
-					var workOff = punchtimes[i].punchWorkOff;
-					console.log(punchtimes[i].punchWorkOff);
-					console.log(timeStampToTime(workOff));
-					console.log('-------------------------------------');
+					var punch = punchtimes[i];
+					console.log(punch)
+					console.log(punch.punchWokrOn)
 					if(punchtimes[i].punchLate != null){
 						countEarly ++;
 					}
 					if(punchtimes[i].punchLate != null){
 						countLate ++;
 					}
-					content += "<tr ><td align='center'>" + punchtimes[i].punchId + "</a></td>"
-							+ "<td align='center'>"	+ timeStampToDate(punchday)	+ "</td>"
-							+ "<td align='center'>"	+ timeStampToTime(workOn) + "</td>"
-							+ "<td align='center'>"	+ checkNull(punchtimes[i].punchLate) + "</td>"
-							+ "<td align='center'>"	+ timeStampToTime(workOff) + "</td>"
-							+ "<td align='center'>"	+ checkNull(punchtimes[i].punchEarly) + "</td>"
-// 							+ "<td align='center'>"	+ checkZero(checkNull(punchtimes[i].punchHours)/(1000 * 60 * 60 )) + "</td></tr>";
-							+ "<td align='center'>"	+ timeFn(checkZero(checkNull(punchtimes[i].punchHours))) + "</td></tr>";
+					content += "<tr>"
+							+ "<td align='center' style='font-size:30px;'>"	+ timeStampToDate(punch.punchDate)	+ "</td>"
+							+ "<td align='center' style='font-size:30px;'>"	+ chekWorkOn(punch.punchWorkOn) + "</td>"
+							+ "<td align='center' style='font-size:30px;'>"	+ checkNull(punchtimes[i].punchLate) + "</td>"
+							+ "<td align='center' style='font-size:30px;'>"	+ chekWorkOff(punch.punchWorkOff) + "</td>"
+							+ "<td align='center' style='font-size:30px;'>"	+ checkNull(punchtimes[i].punchEarly) + "</td>"
+							+ "<td align='center' style='font-size:30px;'>"	+ timeFn(checkZero(checkNull(punchtimes[i].punchHours))) + "</td></tr>";
+
+			
+					function checkNull(String){
+						if (String == null){
+							return '';
+						}else{
+							return String;
+						}
+						
+					}
+					
+					function checkZero(Long) {
+						if (Long == 0) {
+							return '';
+						} else {
+							return Long;
+						}
+					}
+					
+					function timeStampToDate(date) {
+						var datetime = new Date();
+						datetime.setTime(date);
+						var year = datetime.getFullYear();
+						var month = ((datetime.getMonth() + 1) < 10 ? '0' : '') + (datetime.getMonth() + 1);
+						var date = (datetime.getDate()<10 ? '0' : '') + datetime.getDate();
+						var date = year + "-" + month + "-" + date;
+						return date;
+					};
+		
+					function chekWorkOn(time) {
+						if(punch.punchLate != null){
+							if (time != null){					
+								var datetime = new Date();
+								datetime.setTime(time);
+								var hour = (datetime.getHours()<10 ? '0' : '') +  datetime.getHours();
+								var minute = (datetime.getMinutes()<10 ? '0' : '') +  datetime.getMinutes();
+								var second = (datetime.getSeconds()<10 ? '0' : '') +  datetime.getSeconds();
+								var time = hour + ":" + minute + ":" + second;
+								return time;
+							}else{
+								return '';
+							}
+						}else{
+							return '';
+						}
+					}
+					
+					function chekWorkOff(time) {
+						if(punch.punchEarly != null){
+							if (time != null){					
+								var datetime = new Date();
+								datetime.setTime(time);
+								var hour = (datetime.getHours()<10 ? '0' : '') +  datetime.getHours();
+								var minute = (datetime.getMinutes()<10 ? '0' : '') +  datetime.getMinutes();
+								var second = (datetime.getSeconds()<10 ? '0' : '') +  datetime.getSeconds();
+								var time = hour + ":" + minute + ":" + second;
+								return time;
+							}else{
+								return '';
+							}
+						}else{
+							return '';
+						}
+					}
+					
+					function timeFn(timediff) {
+					    var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
+					    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
+					    //计算相差分钟数
+					    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
+					    var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
+					    //计算相差秒数
+					    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+					    var seconds=Math.round(leave3/1000)
+		
+					    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
+					    return timeFn;
+					}
 				}
 				content += "</table>";
 				tablearea.innerHTML = content;
 				console.log(countEarly);
 				console.log(countLate);
-			}
-			
-			function checkNull(String){
-				if (String == null){
-					return '';
-				}else{
-					return String;
-				}
-				
-			}
-			
-			function checkZero(Long) {
-				if (Long == 0) {
-					return '';
-				} else {
-					return Long;
-				}
-			}
-			
-			function timeStampToDate(date) {
-				var datetime = new Date();
-				datetime.setTime(date);
-				var year = datetime.getFullYear();
-				var month = datetime.getMonth() + 1;
-				var date = (datetime.getDate()<10 ? '0' : '') + datetime.getDate();
-				var date = year + "-" + month + "-" + date;
-				return date;
-			};
-
-			function timeStampToTime(time) {
-				if (time != null){					
-					var datetime = new Date();
-					datetime.setTime(time);
-					var hour = (datetime.getHours()<10 ? '0' : '') +  datetime.getHours();
-					var minute = (datetime.getMinutes()<10 ? '0' : '') +  datetime.getMinutes();
-					var second = (datetime.getSeconds()<10 ? '0' : '') +  datetime.getSeconds();
-					var time = hour + ":" + minute + ":" + second;
-					return time;
-				}else{
-					return '';
-				}
-			}
-			function timeFn(timediff) {
-			    var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
-			    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
-			    //计算相差分钟数
-			    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
-			    var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
-			    //计算相差秒数
-			    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
-			    var seconds=Math.round(leave3/1000)
-
-			    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
-			    return timeFn;
 			}
 		</script>
 			</div>

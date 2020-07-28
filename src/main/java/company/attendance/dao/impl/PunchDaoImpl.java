@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.NoResultException;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import company.attendance.dao.PunchDao;
 import company.member.model.MemberBean;
+import company.attendance.model.Leave;
 import company.attendance.model.Punch;
 
 @Repository
@@ -399,199 +402,297 @@ public class PunchDaoImpl implements PunchDao {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List queryAttendanceData(String memberNumber, String selectdate) {
+	public Map<String, List<?>> queryAttendanceData(String memberNumber, String selectdate) {
 		Session session = factory.getCurrentSession();
 		String timesplit[] = selectdate.split("-");
 		System.out.println(memberNumber);
 		System.out.println(selectdate);
+		Map<String, List<?>> map = new HashedMap();
 		
 		if (timesplit.length == 1) {                     //所有時間
 			if(memberNumber.equals("all")) {				//所有員工
 				System.out.println("所有員工-所有時間");
-				String hql = "FROM Punch as p FULL Join Leave as l on p.punchDate = l.leaveDate Order By punchDate";
-//				String hql = "FROM Punch Order By punchDate";
-				List listTarget = session.createQuery(hql)
+				String hql1 = "FROM Punch Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
 						.getResultList();
-				return listTarget;
+				String hql2 = "FROM Leave Order By LeaveDate DESC";
+				List<Leave> listLeave = session.createQuery(hql2)
+						.getResultList();
+				map.put("punch", listPunch);
+				map.put("leave", listLeave);
+				return map;
 			}else {
 				System.out.println("指定員工-所有時間");		//指定員工
-				String hql = "FROM Punch as p FULL Join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number Order By punchDate";
-//				String hql = "FROM Punch WHERE p.memberNumber = :number Order By punchDate";
-				List listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE memberNumber = :memberNumber Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("memberNumber", memberNumber)
+											   .getResultList();
+				String hql2 = "FROM Leave WHERE memberNumber = :memberNumber Order By LeaveDate DESC";
+				List<Leave> listLeave = session.createQuery(hql2)
+											   .setParameter("memberNumber", memberNumber)
+											   .getResultList();
+				map.put("punch", listPunch);
+				map.put("leave", listLeave);
+				return map;
 			}
 		}else {											 //指定時間
 			if(memberNumber.equals("all")){					//所有員工
 				System.out.println("所有員工-指定時間");
-				String hql = "FROM Punch as p FULL Join Leave as l on p.punchDate = l.leaveDate WHERE DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
-//				String hql = "FROM Punch  WHERE DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
-				List listTarget = session.createQuery(hql)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .getResultList();
+				String hql2 = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+				List<Leave> listLeave = session.createQuery(hql2)						
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .getResultList();
+				map.put("punch", listPunch);
+				map.put("leave", listLeave);
+				return map;
 			}else{											//指定員工
 				System.out.println("指定員工-指定時間");
-				String hql = "FROM Punch as p FULL Join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
-//				String hql = "FROM Punch  WHERE p.memberNumber = :number and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate";
-				List listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE memberNumber = :memberNumber and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("memberNumber", memberNumber)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .getResultList();
+				String hql2 = "FROM Leave WHERE memberNumber = :memberNumber and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+				List<Leave> listLeave = session.createQuery(hql2)						
+											   .setParameter("memberNumber", memberNumber)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .getResultList();
+				map.put("punch", listPunch);
+				map.put("leave", listLeave);
+				return map;
 				}
 		}
 	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List queryAttendanceDataByPunchLate(String memberNumber, String selectdate, String punchLate) {
+	public Map<String, List<?>> queryAttendanceDataByPunchLate(String memberNumber, String selectdate, String punchLate) {
 		Session session = factory.getCurrentSession();
-		System.out.println("搜尋條件：遲到");
 		String timesplit[] = selectdate.split("-");
 		System.out.println(memberNumber);
 		System.out.println(selectdate);
-		System.out.println(punchLate);
+		Map<String, List<?>> map = new HashedMap();
 		
 		if (timesplit.length == 1) {                     //所有時間
 			if(memberNumber.equals("all")) {				//所有員工
 				System.out.println("所有員工-所有時間");
-				String hql = "FROM Punch as p full join Leave as l on p.punchDate = l.leaveDate where p.punchLate = :punchLate Order By punchDate";
-				List listTarget = session.createQuery(hql)
-						.setParameter("punchLate", punchLate)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE punchLate = :punchLate Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("punchLate", punchLate)
+											   .getResultList();
+//				String hql2 = "FROM Leave Order By LeaveDate DESC";
+//				List<Leave> listLeave = session.createQuery(hql2)
+//												.getResultList();
+				map.put("punch", listPunch);
+//				map.put("leave", listLeave);
+				return map;
 			}else {
 				System.out.println("指定員工-所有時間");		//指定員工
-				String hql = "FROM Punch as p full join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and p.punchLate = :punchLate Order By punchDate";
-				List listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.setParameter("punchLate", punchLate)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE memberNumber = :memberNumber and punchLate = :punchLate Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("memberNumber", memberNumber)
+											   .setParameter("punchLate", punchLate)
+											   .getResultList();
+//				String hql2 = "FROM Leave WHERE memberNumber = :memberNumber Order By LeaveDate DESC";
+//				List<Leave> listLeave = session.createQuery(hql2)
+//											   .setParameter("memberNumber", memberNumber)
+//											   .getResultList();
+				map.put("punch", listPunch);
+//				map.put("leave", listLeave);
+				return map;
 			}
 		}else {											 //指定時間
 			if(memberNumber.equals("all")){					//所有員工
 				System.out.println("所有員工-指定時間");
-				String hql = "FROM Punch as p full join Leave as l on p.punchDate = l.leaveDate WHERE p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm and p.punchLate = :punchLate Order By punchDate";
-				List listTarget = session.createQuery(hql)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.setParameter("punchLate", punchLate)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE punchLate = :punchLate and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .setParameter("punchLate", punchLate)
+											   .getResultList();
+//				String hql2 = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+//				List<Leave> listLeave = session.createQuery(hql2)						
+//											   .setParameter("yyyy", timesplit[0])
+//											   .setParameter("mm", timesplit[1])
+//											   .getResultList();
+				map.put("punch", listPunch);
+//				map.put("leave", listLeave);
+				return map;
 			}else{											//指定員工
 				System.out.println("指定員工-指定時間");
-				String hql = "FROM Punch as p full join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm and p.punchLate = :punchLate Order By punchDate";
-				List listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.setParameter("punchLate", punchLate)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE memberNumber = :memberNumber and punchLate = :punchLate and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("memberNumber", memberNumber)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .setParameter("punchLate", punchLate)
+											   .getResultList();
+//				String hql2 = "FROM Leave WHERE memberNumber = :memberNumber and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+//				List<Leave> listLeave = session.createQuery(hql2)						
+//											   .setParameter("memberNumber", memberNumber)
+//											   .setParameter("yyyy", timesplit[0])
+//											   .setParameter("mm", timesplit[1])
+//											   .getResultList();
+				map.put("punch", listPunch);
+//				map.put("leave", listLeave);
+				return map;
 				}
 		}
 	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List queryAttendanceDataByPunchEarly(String memberNumber, String selectdate, String punchEarly) {
+	public Map<String, List<?>> queryAttendanceDataByPunchEarly(String memberNumber, String selectdate, String punchEarly) {
 		Session session = factory.getCurrentSession();
-		System.out.println("搜尋條件：早退");
 		String timesplit[] = selectdate.split("-");
 		System.out.println(memberNumber);
 		System.out.println(selectdate);
-		System.out.println(punchEarly);
+		Map<String, List<?>> map = new HashedMap();
 		
 		if (timesplit.length == 1) {                     //所有時間
 			if(memberNumber.equals("all")) {				//所有員工
 				System.out.println("所有員工-所有時間");
-				String hql = "FROM Punch as p full join Leave as l on p.punchDate = l.leaveDate WHERE p.punchEarly = :punchEarly Order By punchDate";
-				List<Punch> listTarget = session.createQuery(hql)
-						.setParameter("punchEarly", punchEarly)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE punchEarly = :punchEarly Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("punchEarly", punchEarly)
+											   .getResultList();
+//				String hql2 = "FROM Leave Order By LeaveDate DESC";
+//				List<Leave> listLeave = session.createQuery(hql2)
+//												.getResultList();
+				map.put("punch", listPunch);
+//				map.put("leave", listLeave);
+				return map;
 			}else {
 				System.out.println("指定員工-所有時間");		//指定員工
-				String hql = "FROM Punch as p full join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and p.punchEarly = :punchEarly Order By punchDate";
-				List<Punch> listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.setParameter("punchEarly", punchEarly)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE memberNumber = :memberNumber and punchEarly = :punchEarly Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("memberNumber", memberNumber)
+											   .setParameter("punchEarly", punchEarly)
+											   .getResultList();
+//				String hql2 = "FROM Leave WHERE memberNumber = :memberNumber Order By LeaveDate DESC";
+//				List<Leave> listLeave = session.createQuery(hql2)
+//											   .setParameter("memberNumber", memberNumber)
+//											   .getResultList();
+				map.put("punch", listPunch);
+//				map.put("leave", listLeave);
+				return map;
 			}
 		}else {											 //指定時間
 			if(memberNumber.equals("all")){					//所有員工
 				System.out.println("所有員工-指定時間");
-				String hql = "FROM Punch as p full join Leave as l on p.punchDate = l.leaveDate WHERE p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm and p.punchEarly = :punchEarly Order By punchDate";
-				List<Punch> listTarget = session.createQuery(hql)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.setParameter("punchEarly", punchEarly)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE punchEarly = :punchEarly and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .setParameter("punchEarly", punchEarly)
+											   .getResultList();
+//				String hql2 = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+//				List<Leave> listLeave = session.createQuery(hql2)						
+//											   .setParameter("yyyy", timesplit[0])
+//											   .setParameter("mm", timesplit[1])
+//											   .getResultList();
+				map.put("punch", listPunch);
+//				map.put("leave", listLeave);
+				return map;
 			}else{											//指定員工
 				System.out.println("指定員工-指定時間");
-				String hql = "FROM Punch as p full join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm and p.punchEarly = :punchEarly Order By punchDate";
-				List<Punch> listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.setParameter("punchEarly", punchEarly)
-						.getResultList();
-				return listTarget;
-			}
+				String hql1 = "FROM Punch WHERE memberNumber = :memberNumber and punchEarly = :punchEarly and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("memberNumber", memberNumber)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .setParameter("punchEarly", punchEarly)
+											   .getResultList();
+//				String hql2 = "FROM Leave WHERE memberNumber = :memberNumber and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+//				List<Leave> listLeave = session.createQuery(hql2)						
+//											   .setParameter("memberNumber", memberNumber)
+//											   .setParameter("yyyy", timesplit[0])
+//											   .setParameter("mm", timesplit[1])
+//											   .getResultList();
+				map.put("punch", listPunch);
+//				map.put("leave", listLeave);
+				return map;
+				}
 		}
 	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List queryAttendanceDataByLeave(String memberNumber, String selectdate, String leave) {
+	public Map<String, List<?>> queryAttendanceDataByLeave(String memberNumber, String selectdate, String leave) {
 		Session session = factory.getCurrentSession();
-		System.out.println("搜尋條件：請假");
 		String timesplit[] = selectdate.split("-");
 		System.out.println(memberNumber);
 		System.out.println(selectdate);
-		System.out.println(leave);
+		Map<String, List<?>> map = new HashedMap();
 		
 		if (timesplit.length == 1) {                     //所有時間
 			if(memberNumber.equals("all")) {				//所有員工
 				System.out.println("所有員工-所有時間");
-				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate Order By punchDate";
-				List<Punch> listTarget = session.createQuery(hql)
+				String hql1 = "FROM Punch Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
 						.getResultList();
-				return listTarget;
+				String hql2 = "FROM Leave Order By LeaveDate DESC";
+				List<Leave> listLeave = session.createQuery(hql2)
+						.getResultList();
+				map.put("punch", listPunch);
+				map.put("leave", listLeave);
+				return map;
 			}else {
 				System.out.println("指定員工-所有時間");		//指定員工
-				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number Order By punchDate";
-				List<Punch> listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE memberNumber = :memberNumber Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("memberNumber", memberNumber)
+											   .getResultList();
+				String hql2 = "FROM Leave WHERE memberNumber = :memberNumber Order By LeaveDate DESC";
+				List<Leave> listLeave = session.createQuery(hql2)
+											   .setParameter("memberNumber", memberNumber)
+											   .getResultList();
+				map.put("punch", listPunch);
+				map.put("leave", listLeave);
+				return map;
 			}
 		}else {											 //指定時間
 			if(memberNumber.equals("all")){					//所有員工
 				System.out.println("所有員工-指定時間");
-				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm Order By punchDate";
-				List<Punch> listTarget = session.createQuery(hql)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.getResultList();
-				return listTarget;
+				String hql1 = "FROM Punch WHERE DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .getResultList();
+				String hql2 = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+				List<Leave> listLeave = session.createQuery(hql2)						
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .getResultList();
+				map.put("punch", listPunch);
+				map.put("leave", listLeave);
+				return map;
 			}else{											//指定員工
 				System.out.println("指定員工-指定時間");
-				String hql = "FROM Punch as p right outer join Leave as l on p.punchDate = l.leaveDate WHERE p.memberNumber = :number and p.DATEPART(yyyy,punchDate) = :yyyy and p.DATEPART(mm,punchDate) = :mm Order By punchDate";
-				List<Punch> listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.getResultList();
-				return listTarget;
-			}
+				String hql1 = "FROM Punch WHERE memberNumber = :memberNumber and DATEPART(yyyy,punchDate) = :yyyy and DATEPART(mm,punchDate) = :mm Order By punchDate DESC";
+				List<Punch> listPunch = session.createQuery(hql1)
+											   .setParameter("memberNumber", memberNumber)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .getResultList();
+				String hql2 = "FROM Leave WHERE memberNumber = :memberNumber and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+				List<Leave> listLeave = session.createQuery(hql2)						
+											   .setParameter("memberNumber", memberNumber)
+											   .setParameter("yyyy", timesplit[0])
+											   .setParameter("mm", timesplit[1])
+											   .getResultList();
+				map.put("punch", listPunch);
+				map.put("leave", listLeave);
+				return map;
+				}
 		}
 	}
 	
