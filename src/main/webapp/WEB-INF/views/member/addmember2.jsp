@@ -53,7 +53,7 @@ window.onload = function(){
 <body>
 <jsp:include page="/fragment/headerRearend.jsp" />
 
-	<div class="main" style="background: url(../signup/images/3.jpg);width:1500px">
+	<div class="" style="background: url(../signup/images/3.jpg);width:1500px">
 
 		<!-- Sing in  Form -->
 		<section class="sign-in">

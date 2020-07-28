@@ -74,5 +74,10 @@ public class LeaveServiceImpl implements LeaveService {
 	public void deleteLeaveByLeaveId(int key) {
 		dao.deleteLeaveByLeaveId(key);
 	}
+
+	@Override
+	public List<Leave> queryAttendanceData(String memberNumber, String selectdate, String category) {
+		return dao.queryAttendanceData(memberNumber, selectdate, category);
+	}
 		
 }

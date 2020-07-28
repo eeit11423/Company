@@ -62,20 +62,20 @@
 										<fieldset>
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
-													for="memberNumber">姓名</label>
+													style="font-size:30px" for="memberNumber">姓名</label>
 												<div class="col-md-6">
 													<form:input id="memberNumber" path="memberNumber"
-														type='text'
+														type='text' style="font-size:30px"
 														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberNumber" cssClass="error" />
 												</div>
 											</div>
 
 											<div class="form-group row">
-												<label for="memberName"
+												<label for="memberName" style="font-size:30px"
 													class="col-md-4 col-form-label text-md-right">編號</label>
 												<div class="col-md-6">
-													<form:input type="text" id="memberName"
+													<form:input type="text" id="memberName" style="font-size:30px"
 														path="memberName" class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberName" cssClass="error" />
 												</div>
@@ -83,9 +83,9 @@
 
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
-													for="memberDepartment">部門</label>
+													style="font-size:30px" for="memberDepartment">部門</label>
 												<div class="col-md-6">
-													<form:input id="memberDepartment"
+													<form:input id="memberDepartment" style="font-size:30px"
 														path="memberDepartment" type='text'
 														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberDepartment" cssClass="error" />
@@ -93,20 +93,20 @@
 											</div>
 
 											<div class="form-group row">
-												<label class="col-md-4 col-form-label text-md-right"
+												<label class="col-md-4 col-form-label text-md-right" style="font-size:30px"
 													for="leaveDate">請假日期</label>
 												<div class="col-md-6">
 													<form:input id="leaveDate"
-														path="leaveDate" type='text'
+														path="leaveDate" type='text' style="font-size:30px"
 														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="leaveDate" cssClass="error" />
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4 col-form-label text-md-right"
-													for="leaveStart">請假開始</label>
+												<label class="col-md-4 col-form-label text-md-right" 
+													style="font-size:30px" for="leaveStart">請假開始</label>
 												<div class="col-md-6">
-													<form:input id="leaveStart" path="leaveStart"
+													<form:input id="leaveStart" path="leaveStart" style="font-size:30px"
 														type='text' class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="leaveStart" cssClass="error" />
 												</div>
@@ -114,10 +114,10 @@
 
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
-													for="leaveEnd">請假結束</label>
+													style="font-size:30px" for="leaveEnd">請假結束</label>
 												<div class="col-md-6">
 													<form:input id="leaveEnd"
-														path="leaveEnd" type='text'
+														path="leaveEnd" type='text' style="font-size:30px"
 														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="leaveEnd"
 														cssClass="error" />
@@ -126,15 +126,15 @@
 											
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
-													for="leaveCategory">假別</label>
+													style="font-size:30px" for="leaveCategory">假別</label>
 												<div class="col-md-6">
-													<form:select id="leaveCategory"
+													<form:select id="leaveCategory" style="font-size:30px"
 													path="leaveCategory" class="form-control input-md col-form-label text-md-center">
-														<form:option value='事假'>事假</form:option>
-														<form:option value='病假'>病假</form:option>
-														<form:option value='公假'>公假</form:option>
-														<form:option value='婚嫁'>婚嫁</form:option>
-														<form:option value='喪假'>喪假</form:option>
+														<form:option style="font-size:30px" value='事假'>事假</form:option>
+														<form:option style="font-size:30px" value='病假'>病假</form:option>
+														<form:option style="font-size:30px" value='公假'>公假</form:option>
+														<form:option style="font-size:30px" value='婚嫁'>婚嫁</form:option>
+														<form:option style="font-size:30px" value='喪假'>喪假</form:option>
 													</form:select>
 													<form:errors path="leaveCategory" cssClass="error" />
 												</div>
@@ -142,10 +142,10 @@
 					
 											<div class="form-group row">
 												<label class="col-md-4 col-form-label text-md-right"
-													for="leaveCause">原因</label>
+													style="font-size:30px" for="leaveCause">原因</label>
 												<div class="col-md-6">
 													<form:input id="leaveCause"
-														path="leaveCause" type='text'
+														path="leaveCause" type='text' style="font-size:30px"
 														class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="leaveCause"
 														cssClass="error" />
@@ -153,15 +153,14 @@
 											</div>
 											<div class="form-group row">
 												<div class='col-lg-offset-2 col-lg-12'>
-													<input id="btnAdd" type='submit'
+													<input id="btnAdd" type='submit' style="font-size:30px"
 														class="btn btn-secondary btn-lg btn-block" value="送出" />
 													<input type='button' class='btn btn-primary float-right'
-														id='clickmeS' value='一鍵Demo'>
+														style="font-size:30px" id='clickmeS' value='一鍵Demo'>
 												</div>
 											</div>
 										</fieldset>
 									</form:form>
-
 								</div>
 							</div>
 						</div>

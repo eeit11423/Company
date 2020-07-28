@@ -15,6 +15,16 @@
 	margin: auto;
 
 </style>
+<script >
+window.onload = function(){
+		var btn = document.getElementById("clickmeS1001");
+		btn.onclick = function(){
+		Name =  document.getElementById("account")
+		Name.value ="eeit114no4@gmail.com"
+		
+		}
+}
+</script>
 </head>
 <body style="background-image: url(${pageContext.request.contextPath}/personalcss/img/4.jpg);background-size: cover ;">
 	<link
@@ -50,7 +60,7 @@
 						</div>
 
 						<div class="form-group">
-							<label for="firstname" class="col-md-3 control-label">輸入註冊信箱:</label>
+							<label for="firstname" class="col-md-3 control-label" >輸入註冊信箱:</label>
 							<div class="col-md-9">
 								<form:input id="account" path="memberEmail" type='text'
 							class='form-control'  />
@@ -65,7 +75,7 @@
 							<!-- Button -->
 							<div class="col-md-offset-3 col-md-9">
 								<input id="btnAdd" type='submit' class='btn btn-primary' value="送出" />
-							
+								<input type='button' class='btn btn-primary'  id='clickmeS1001' value='Demo' >
 
 							</div>
 						</div>
