@@ -49,7 +49,7 @@ public class LeaveController {
 //	}
 	
 	@GetMapping("/memberLeave")
-	public String  getMemberPunch(Model model)  {
+	public String  getMemberLeave(Model model)  {
 		MemberBean memberBean = (MemberBean) model.getAttribute("memberBean");
 		if (memberBean == null) {
 			return "redirect: " + context.getContextPath() + "/login";
@@ -160,6 +160,18 @@ public class LeaveController {
 		return re;
 	}
 	
+	@GetMapping("/queryAttendanceDataByAudit")
+	public ResponseEntity<List<Leave>> queryAttendanceDataByAudit(
+			@RequestParam(value="checkaudit", defaultValue = "審核中", required = false) String checkaudit,Model model){ 
+		List<Leave> list = service.queryAttendanceDataByAudit(checkaudit);
+		System.out.println("attendance得到的List："+list);
+//		System.out.println(attendance);
+//		System.out.println(attendance.get(1));
+		ResponseEntity<List<Leave>> re = new ResponseEntity<>(list, HttpStatus.OK);
+		System.out.println("onload的到的LIST:"+list);
+		return re;
+	}
+	
 	@PostMapping("/leave/update/{key}")   
 	public String updateLeave(
 			@PathVariable Integer key, Leave leave) {
@@ -175,7 +187,7 @@ public class LeaveController {
 	}
 	
 	@GetMapping("/checkAudit/{leaveId}")
-	public String checkAudit(@PathVariable Integer leaveId) {
+	public String checkAudit(@PathVariable Integer leaveId, Leave leave, Model model) {
 		service.checkAudit(leaveId);
 		return "redirect:/attendance/leave/queryLeave";
 	}

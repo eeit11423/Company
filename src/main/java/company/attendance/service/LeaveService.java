@@ -26,4 +26,6 @@ public interface LeaveService {
 	void checkAudit(Integer leaveId);
 
 	List<Leave> queryAttendanceData(String memberNumber, String selectdate, String category);
+
+	List<Leave> queryAttendanceDataByAudit(String checkaudit);
 }

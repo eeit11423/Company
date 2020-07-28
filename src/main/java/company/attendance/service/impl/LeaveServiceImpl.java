@@ -37,9 +37,9 @@ public class LeaveServiceImpl implements LeaveService {
     
 	@Override
 	public int saveLeave(Leave leave) {
-		if (dao.getMemberAndPunchDateList(leave).size() != 0) {
-			int punchId = dao.getMemberAndPunchDateList(leave).get(0).getPunchId();
-			dao.updatePunchtime(leave, punchId);
+		if (dao.getMemberAndPunchDateList(leave.getLeaveId()).size() != 0) {
+			int punchId = dao.getMemberAndPunchDateList(leave.getLeaveId()).get(0).getPunchId();
+			dao.updatePunchtime(leave.getLeaveId(), punchId);
 		}
 		int n = dao.saveLeave(leave);
 		return n;
@@ -52,6 +52,11 @@ public class LeaveServiceImpl implements LeaveService {
 	}
 	
 	public void checkAudit(Integer leaveId){
+		if (dao.getMemberAndPunchDateList(leaveId) != null) {
+			System.out.println("AAAAAVVVVVVDDDDDDDWWWWWWWWWWWWWWW");
+			int punchId = dao.getMemberAndPunchDateList(leaveId).get(0).getPunchId();
+			dao.updatePunchtime(leaveId, punchId);
+		}
 		dao.checkAudit(leaveId);
 	}
 	
@@ -62,10 +67,9 @@ public class LeaveServiceImpl implements LeaveService {
 	
 	@Override
 	public void updateLeave(Leave leave) {
-		if (dao.getMemberAndPunchDateList(leave) != null) {
-			System.out.println("AAAAAVVVVVVDDDDDDDWWWWWWWWWWWWWWW");
-			int punchId = dao.getMemberAndPunchDateList(leave).get(0).getPunchId();
-			dao.updatePunchtime(leave, punchId);
+		if (dao.getMemberAndPunchDateList(leave.getLeaveId()) != null) {
+			int punchId = dao.getMemberAndPunchDateList(leave.getLeaveId()).get(0).getPunchId();
+			dao.updatePunchtime(leave.getLeaveId(), punchId);
 		}
 		dao.updateLeave(leave);
 	}
@@ -80,4 +84,9 @@ public class LeaveServiceImpl implements LeaveService {
 		return dao.queryAttendanceData(memberNumber, selectdate, category);
 	}
 		
+	@Override
+	public List<Leave> queryAttendanceDataByAudit(String checkaudit) {
+		return dao.queryAttendanceDataByAudit(checkaudit);
+	}
+	
 }

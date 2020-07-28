@@ -26,12 +26,13 @@ public interface LeaveDao {
 
 	void deleteLeaveByLeaveId(int key);
 
-	void updatePunchtime(Leave leave, int punchId);
+	void updatePunchtime(Integer leaveId, int punchId);
 
-	List<Punch> getMemberAndPunchDateList(Leave leave);
+	List<Punch> getMemberAndPunchDateList(Integer leaveId);
 
 	void checkAudit(Integer leaveId);
 
 	List<Leave> queryAttendanceData(String memberNumber, String selectdate, String category);
 
+	List<Leave> queryAttendanceDataByAudit(String checkaudit);
 }

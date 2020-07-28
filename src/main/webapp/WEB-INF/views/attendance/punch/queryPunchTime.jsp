@@ -15,7 +15,7 @@
 		<div class="row">
 		<div class="card">
 			<div class="card-header text-white text-md-center" style='background: #646D73'>
-				<strong><h2>出勤紀錄表</h2></strong>
+				<strong><h2>打卡紀錄表</h2></strong>
 			</div>
 			<div class="card-body">
 				<div class="form-group row">
