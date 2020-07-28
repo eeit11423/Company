@@ -188,6 +188,7 @@
 						<h4 class="title-color">產品分類</h4>
 						<select id='Publish_shoppingType' class='form-control'
 							onchange="memberChange()">
+							<option value="-1">請選擇</option>
 							<c:forEach var="shoppingType1" items="${AllShoppingType}">
 								<option value="${shoppingType1}">${shoppingType1}</option>
 							</c:forEach>
