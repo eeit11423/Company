@@ -6,13 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
-    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    href="//netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <title>Products</title>
 
 </head>
 <body>
 <%-- <jsp:include page="/fragment/header.jsp" /> --%>
+<jsp:include page="/fragment/headerRearend.jsp" />
+   <div class="main-panel">
+        <div class="content-wrapper">
 <form method='POST'>
 	<input type='hidden' name='_method' value='DELETE'>
 </form>
@@ -35,19 +38,27 @@
 
 <!-- 			</div> -->
         </div>
-    <section class="container"></section>
+
+   
 <!--     <hr style="height:1px;border:none;color:#333;background-color:#333;"> -->
     </section>
+    
+		<div class="main-panel" style="background-color:#FFFFF4"> 
+       <div class="content-wrapper" style="background-color:#FFFFF4;width:1200;height:1600">
+<!-- 			<section class="container"> -->
+		<div class="row" id='testshow' style="background-color:#FFFFF4">
     <section class="container">
         <div class="row">
         
+		
         
         <c:forEach var='product' items='${trainAllProductsDelete}'> <!-- controller的識別字串trainAllProducts會導引過來這裡 -->
-            <div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-                <div class="thumbnail" style="width: 320px; height: 340px">
+            <div class="col-sm-6 col-md-4" style="width: 360px; height: 400px">
+                <div class="thumbnail" style="width: 320px; height: 600px">
+              
                 <img width='80' height='80'
                 src="<c:url value='/getTrainPicture/${product.trainingId}'/>"/>
-                    <div class="caption" >
+                    <div class="caption" style="height: 235px">
                         <p>
 							<b style='font-size: 25px;'>${product.trainingCourse}</b>
                         </p>
@@ -56,12 +67,13 @@
                         <p>類型:${product.category}</p>             
                         <p>學分:${product.trainingCredit}</p>
                         
-                        <p>
+                    
 <%--                         	<a href="trainproduct/${product.trainingId}" --%>
 <!--                         	class="btn btn-primary"><span -->
 <!--                         	class="glyphicon-info-sigh glyphicon"></span>詳細內容 -->
 <!--                         	</a> -->
-                        	           	
+                        	  </div>     	    	
+                               	
                         	<a href="deleteTrain2/${product.trainingId}"class="btn btn-primary">
 								<span class="glyphicon-info-sigh glyphicon"></span>刪除
 							</a>
@@ -69,15 +81,20 @@
 							<a href="updateTrain/${product.trainingId}"class="btn btn-primary">
 								<span class="glyphicon-info-sigh glyphicon"></span>修改
 							</a>
-                        </p>
+							
+                     
                     
-                    </div>
+                
                 </div>                
             </div>
         	</c:forEach>
         </div>     
     </section>
-    
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
 </body>
 </html>
     

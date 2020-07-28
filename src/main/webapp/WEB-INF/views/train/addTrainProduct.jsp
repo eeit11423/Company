@@ -8,7 +8,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	href="//netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <style type="text/css">
 fieldset {
 	border: 1px solid 	#FFFFFF;
@@ -50,12 +50,17 @@ window.onload = function(){
 </head>
 <body>
 <%-- <jsp:include page="/fragment/header.jsp" /> --%>
+<jsp:include page="/fragment/headerRearend.jsp" />
+<div class="main-panel"><!-- 後面背景框架 -->
+ <div class="content-wrapper">
+	
 	<section>
 		<div class="container">
 			<h1 style="text-align: center">新增與編輯</h1>
 		</div>
 	</section>
 	<hr style="height: 1px; border: none; color: #333; background-color: #333;">
+	<div>
 	<section class="container">
 		<!--       三個地方要完全一樣 -->
 		<form:form method='POST' modelAttribute="trainingBean" class='form-horizontal'
@@ -99,7 +104,7 @@ window.onload = function(){
 				</div>
 
 				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="trainingCredit" >
+					<label class="control-label col-lg-2 col-lg-2" for="trainingCredit" >
 						學分</label>
 					<div class='col-lg-10'>
 						<form:input id="trainingCredit" path="trainingCredit" type='text'
@@ -108,7 +113,7 @@ window.onload = function(){
 				</div>
 				
 				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="courseNo" >
+					<label  for="courseNo" >
 						課程編號 </label>
 					<div class='col-lg-10'>
 						<form:input id="courseNo" path="courseNo" type='text'
@@ -117,7 +122,7 @@ window.onload = function(){
 				</div>
 
 				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="companyId">
+					<label >
 						課程來源 </label>
 					<div class='col-lg-10'>
 						<form:select path="companyId">
@@ -143,7 +148,7 @@ window.onload = function(){
 <!-- 				</div> -->
 				
 				<div class="form-group">
-					<label class='control-label col-lg-2 col-lg-2' for="URLUpload" >
+					<label  for="URLUpload" >
 						網址上傳連結 </label>
 					<div class='col-lg-10'>
 						<form:input id="URLUpload" path="URLUpload" type='text'
@@ -171,5 +176,8 @@ window.onload = function(){
 			</fieldset>
 		</form:form>
 	</section>
+	
+	</div>
+	</div>
 </body>
 </html>

@@ -20,17 +20,17 @@
 		var btn = document.getElementById("clickmeS");
 		btn.onclick = function() {
 			shoppingname = document.getElementById("shoppingname")
-			shoppingname.value = "Razer Lancehead 銳蝮蛇 無線電競滑鼠"
+			shoppingname.value = "戰戟鯊終極版 電競耳機"
 				shoppingProductTotal = document.getElementById("shoppingProductTotal")
 			shoppingProductTotal.value = 50
 				shoppingProductPrice = document.getElementById("shoppingProductPrice")
-			shoppingProductPrice.value = 4890
+			shoppingProductPrice.value = 9999
 			shoppingProductPrice = document.getElementById("productrelation")
-			shoppingProductPrice.value = "電競級的無線性能 全世界最精準的雷射感應器 支援 RAZER SYNAPSE 3 (測試版)*軟體"
+			shoppingProductPrice.value = "伸縮吊桿麥克風 伸縮式吊桿麥克風 隔音人造皮革耳墊  7.1 dolby 環繞音效 "
 			productrelation = document.getElementById("shoppingProductDiscount")
 			productrelation.value = 0.9
 			shoppingProductDiscount = document.getElementById("shoppingType")
-			shoppingProductDiscount.value = "滑鼠"
+			shoppingProductDiscount.value = "耳機"
 	
 
 		}

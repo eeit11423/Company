@@ -57,9 +57,9 @@
 						<strong><h3>請假紀錄表</h3></strong>
 					</div>
 				<div class="card-body">
-					<div>						
-						<h4>使用者：${memberBean.memberName}</h4>
-							選擇年月份：<select id='dateselect'></select>
+					<div class="form-group row">	
+						<div class="col-md-6 text-md-center"><h3>使用者：${memberBean.memberName}</h3></div>					
+						<div class="col-md-6 text-md-center"><h3>選擇年月份：<select style='font-siez:20px' id='dateselect'></select></h3></div>	
 		<!-- 顯示書籍資料的區域 -->
 					</div>
 				<div class="card-body">
@@ -114,14 +114,13 @@
 				var content = "<table class='table table-hover border border-secondary'>";
 
 				content += "<tr align='center'>"
-						+ "<th align='center' width='60'>流水號</th>"
-						+ "<th align='center' width='100'>姓名</th>"
-						+ "<th align='center' width='200'>日期</th>"
-						+ "<th align='center' width='100'>假別</th>"
-						+ "<th align='center' width='200'>請假開始</th>"
-						+ "<th align='center' width='200'>請假結束</th>"
-						+ "<th align='center' width='200'>請假時數</th>"
-						+ "<th align='center' width='200'>原因</th>"
+						+ "<th align='center' width='200' style='font-size:20px;'>日期</th>"
+						+ "<th align='center' width='100' style='font-size:20px;'>姓名</th>"
+						+ "<th align='center' width='100' style='font-size:20px;'>假別</th>"
+						+ "<th align='center' width='200' style='font-size:20px;'>請假開始</th>"
+						+ "<th align='center' width='200' style='font-size:20px;'>請假結束</th>"
+						+ "<th align='center' width='200' style='font-size:20px;'>請假時數</th>"
+						+ "<th align='center' width='200' style='font-size:20px;'>原因</th>"
 // 						+ "<th align='center' width='200'>審核</th>"
 						+"</tr>";
 				for (var i = 0; i < leave.length; i++) {
@@ -130,14 +129,13 @@
 					var leaveEnd = leave[i].leaveEnd;
 
 					content += "<tr>"
-					+ "<td align='center'>" + leave[i].leaveId + "</td>"
-					+ "<td align='center'>" + leave[i].memberName + "</td>" 
-					+ "<td align='center'>"	+ timeStampToDate(leaveDay) + "</td>"
-					+ "<td align='center'>" + leave[i].leaveCategory + "</td>" 
-					+ "<td align='center'>"	+ timeStampToTime(leaveStart) + "</td>"
-					+ "<td align='center'>" + timeStampToTime(leaveEnd)	+ "</td>"
-					+ "<td align='center'>" + timeFn(leave[i].leaveHours) + "</td>" 
-					+ "<td align='center'>" + leave[i].leaveCause + "</td>" 
+					+ "<td align='center' style='font-size:20px;'>"	+ timeStampToDate(leaveDay) + "</td>"
+					+ "<td align='center' style='font-size:20px;'>" + leave[i].memberName + "</td>" 
+					+ "<td align='center' style='font-size:20px;'>" + leave[i].leaveCategory + "</td>" 
+					+ "<td align='center' style='font-size:20px;'>"	+ timeStampToTime(leaveStart) + "</td>"
+					+ "<td align='center' style='font-size:20px;'>" + timeStampToTime(leaveEnd)	+ "</td>"
+					+ "<td align='center' style='font-size:20px;'>" + timeFn(leave[i].leaveHours) + "</td>" 
+					+ "<td align='center' style='font-size:20px;'>" + leave[i].leaveCause + "</td>" 
 // 					+ "<td align='center'>" + leave[i].leaveAudit + "</td>" 
 					+ "</tr>";
 				}
@@ -158,7 +156,7 @@
 				var datetime = new Date();
 				datetime.setTime(date);
 				var year = datetime.getFullYear();
-				var month = datetime.getMonth() + 1;
+				var month = ((datetime.getMonth() + 1) < 10 ? '0' : '') + (datetime.getMonth() + 1);
 				var date = (datetime.getDate()<10 ? '0' : '') + datetime.getDate();
 				var date = year + "-" + month + "-" + date;
 				return date;

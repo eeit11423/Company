@@ -9,7 +9,21 @@
     href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <title>Products</title>
-
+	<script>
+	function reconfirmOrder(Id) {
+		//getElementById裡面塞進trainingId讓這個請求認得某一個課程Id
+		if (confirm("確定參加此課程 ? ") ) { 
+			var form = document.getElementById("form"+Id)
+			form.action="<c:url value='/Course123' />";
+			form.method="POST";
+			form.submit();
+			
+			return;
+		} else {
+			return;
+		}
+	}
+	</script>
 </head>
 <body>
 <%-- <jsp:include page="/fragment/header.jsp" /> --%>
@@ -20,17 +34,23 @@
         <div class="jumbotron">
             <div class="container" style="text-align: center" >
                 <h1>所有訓練課程</h1>
-<%--                 <a href="<c:url value='/' />">首頁</a> --%>
-<%--                 <a href="<c:url value='/trainProduct/add' />">新增</a> --%>
+				<div class="container" style="text-align: center" >   	
+			    	<a href="<c:url value='/' />"class="btn btn-primary">
+					<span class="glyphicon-info-sigh glyphicon"></span>首頁</a>
+					
+					<a href="<c:url value='/CourseList' />"class="btn btn-primary">
+					<span class="glyphicon-info-sigh glyphicon"></span>我的課程</a>									
+    			</div>
 
             </div>
             <div align='center'>
-				請挑選課程類型: <select id='Publish_course' onchange="memberChange()">
+				請挑選課程類型: 
+				<select id='Publish_course' onchange="trainChange()">
 					<c:forEach var="category" items="${CategoryList}">
 						<option value="${category}">${category}</option>
 					</c:forEach>
 				</select>
-				<hr>
+				
 
 			</div>
         </div>
@@ -39,12 +59,15 @@
     </section>
     <section class="container">
         <div class="row">
-        <c:forEach var='product' items='${trainAllProducts}'> <!-- controller的識別字串trainAllProducts會導引過來這裡 -->
-            <div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-                <div class="thumbnail" style="width: 320px; height: 340px">
+         <c:forEach var='product' items='${trainAllProducts}'> <!-- controller的識別字串trainAllProducts會導引過來這裡 -->
+            <div class="col-sm-6 col-md-4" style="width: 360px; height: 400px">
+                <div class="thumbnail" style="width: 320px; height: 380px">
+              	<div style="height: 80px">
+              	
                 <img width='80' height='80'
                 src="<c:url value='/getTrainPicture/${product.trainingId}'/>"/>
-                    <div class="caption" >
+                </div>
+                    <div class="caption" style="height: 245px">
                         <p>
 							<b style='font-size: 25px;'>${product.trainingCourse}</b>
                         </p>
@@ -52,32 +75,39 @@
                         <p>簡介:${product.brief}</p>
                         <p>類型:${product.category}</p>             
                         <p>學分:${product.trainingCredit}</p>
-                        
-                        <p>
+                      
+                       </div>
                         	<a href="trainproduct/${product.trainingId}"
                         	class="btn btn-primary"><span
                         	class="glyphicon-info-sigh glyphicon"></span>詳細內容
                         	</a>
-                        	
-           	
+       							<input type='hidden' id='hiiii' name='trainingId' value='${product.trainingId}'> <!-- 把controller的三個存取值放進表單一起送 -->
+								<input type='hidden' id='hiiii' name='trainingCredit' value='${product.trainingCredit}'> 		
+				 				<input type='hidden'  name='page' value='secondPage'>
 <%--                         	<a href="deleteTrain/${product.trainingId}"class="btn btn-primary"> --%>
-<!-- 								<span class="glyphicon-info-sigh glyphicon"></span>刪除 -->
+<!-- 								<span class="glyphicon-info-sigh gly  phicon"></span>刪除 -->
 <!-- 							</a> -->
 							
 <%-- 							<a href="updateTrain/${product.trainingId}"class="btn btn-primary"> --%>
 <!-- 								<span class="glyphicon-info-sigh glyphicon"></span>修改 -->
 <!-- 							</a> -->
-                        </p>
+<%-- 							<input style="color:black" type="button" name="OrderBtn"  value="確定選課" onclick="reconfirmOrder(${product.trainingId})"> --%>
+                        	<a onclick="reconfirmOrder(${product.trainingId})""
+                        		class="btn btn-primary"><span
+                        		class="glyphicon-info-sigh glyphicon"></span>選課
+                        	</a>
+                
                     
-                    </div>
+                    
                 </div>                
             </div>
+            </form>
         	</c:forEach>
         </div>     
     </section>
-    <div class="container" style="text-align: center" >
-    	<a href="<c:url value='/' />">首頁</a>
-    </div>
+<!--     <div class="container" style="text-align: center" > -->
+<%--     	<a href="<c:url value='/' />">首頁</a> --%>
+<!--     </div> -->
 </body>
 </html>
     

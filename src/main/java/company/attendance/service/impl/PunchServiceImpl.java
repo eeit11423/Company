@@ -2,7 +2,9 @@ package company.attendance.service.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.service.spi.Manageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,22 +90,22 @@ public class PunchServiceImpl implements PunchService {
 	}
 	
 	@Override
-	public List queryAttendanceData(String memberNumber, String selectdate) {
+	public Map<String, List<?>> queryAttendanceData(String memberNumber, String selectdate) {
 		return dao.queryAttendanceData(memberNumber, selectdate);
 	}
 	
 	@Override
-	public List queryAttendanceDataByPunchLate(String memberNumber, String selectdate, String punchLate) {
+	public Map<String, List<?>> queryAttendanceDataByPunchLate(String memberNumber, String selectdate, String punchLate) {
 	return dao.queryAttendanceDataByPunchLate(memberNumber, selectdate, punchLate);
 	}	
 	
 	@Override
-	public List queryAttendanceDataByPunchEarly(String memberNumber, String selectdate, String punchEarly) {
+	public Map<String, List<?>> queryAttendanceDataByPunchEarly(String memberNumber, String selectdate, String punchEarly) {
 	return dao.queryAttendanceDataByPunchEarly(memberNumber, selectdate, punchEarly);
 	}	
 	@Override
 	
-	public List queryAttendanceDataByLeave(String memberNumber, String selectdate, String leave) {
+	public Map<String, List<?>> queryAttendanceDataByLeave(String memberNumber, String selectdate, String leave) {
 	return dao.queryAttendanceDataByLeave(memberNumber, selectdate, leave);
 	}
 }

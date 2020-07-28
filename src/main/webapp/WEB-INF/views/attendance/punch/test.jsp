@@ -32,8 +32,10 @@
 					<button class="btn btn-secondary col-md-4" id='btn_early'>早退</button>
 					<button class="btn btn-secondary col-md-4" id='btn_leave'>請假</button>
 				</div>
+				<form method='POST'><input type='hidden' name='_method' value='DELETE'></form>
 			</div>
-			<div align='center' id='tablearea' class="table-responsive"></div>
+			<div align='center' id='tablearea' class="table-responsive">
+			</div>
 		</div>
 		
 		<script>
@@ -178,10 +180,9 @@
 				console.log("typeof attendances:" + typeof attendances);
 				var content = "<table class='table table-hover border border-secondary'";
 				content += "<tr align='center'>"
-						+ "<th align='center' width='70'>流水號</th>"
+						+ "<th align='center' width='100'>日期</th>"
 						+ "<th align='center' width='100'>姓名</th>"
 						+ "<th align='center' width='70'>部門</th>"
-						+ "<th align='center' width='100'>上班日期</th>"
 						+ "<th align='center' width='140'>上班時間</th>"
 						+ "<th align='center' width='70'>遲到</th>"
 						+ "<th align='center' width='140'>下班時間</th>"
@@ -192,35 +193,32 @@
 						+ "<th align='center' width='100'>請假結束</th>"
 						+ "<th align='center' width='100'>假別</th>"
 						+ "<th align='center' width='140'>請假時數</th>"
-// 						+ "<th align='center' width='100'>請假審核</th>"
+						+ "<th align='center' width='100'>請假審核</th>"
 						+ "<th align='center' width='100'>出勤修改</th>"
 						+ "<th align='center' width='100'>請假修改</th></tr>";
 				for (var i = 0; i < attendances.length; i++) {
 					var punch = attendances[i][0]? attendances[i][0] : {};
 					var leave = attendances[i][1]? attendances[i][1] : {};
 					console.log("leave:"+leave);
-					var attendanceId = punch.length != 0 ? punch.punchId : leave.leaveId;
 					var attendanceName = punch.length != 0? punch.memberName : leave.memberName;
 					var attendanceDepartment = punch.length != 0? punch.memberDepartment : leave.memberDepartment;
 // 					content += "<tr><td align='center'>" + punch.punchId+ "</td>"
 // 							+ "<td align='center'>"	+ punch.memberName + "</td>"
 // 							+ "<td align='center'>" + punch.memberDepartment + "</td>"
-					content += "<tr><td align='center'>" + attendanceId+ "</td>"
-							+ "<td align='center'>"	+ attendanceName + "</td>"
+					content += "<tr><td align='center'>" + checkNull(timeStampToDate(punch.punchDate)) + "</td>"
+							+ "<td align='center'>" + attendanceName + "</td>"
 							+ "<td align='center'>" + attendanceDepartment + "</td>"
-							+ "<td align='center'>" + checkNull(timeStampToDate(punch.punchDate)) + "</td>"
 							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOn) + "</td>"
 							+ "<td align='center'>" + checkNull(punch.punchLate) + "</td>"
 							+ "<td align='center'>" + timeStampToTime(punch.punchWorkOff) + "</td>"
 							+ "<td align='center'>" + checkNull(punch.punchEarly) + "</td>"
 							+ "<td align='center'>" + timeFn(checkNull(checkZero(punch.punchHours))) + "</td>"
 							+ "<td align='center'>" + checkNull(timeStampToDate(leave.leaveDate)) + "</td>"
-							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveStart)) + "</td>"
-							+ "<td align='center'>" + checkNull(timeStampToTime(leave.leaveEnd)) + "</td>"
+							+ "<td align='center'>" + timeStampToTime(leave.leaveStart) + "</td>"
+							+ "<td align='center'>" + timeStampToTime(leave.leaveEnd) + "</td>"
 							+ "<td align='center'>" + checkNull(leave.leaveCategory) + "</td>"
-							+ "<td align='center'>" + timeFn(checkZero(checkNull(leave.leaveHours))) + "</td>"
-
-// 							+ "<td align='center'>" + checkNull(leave.leaveAudit) + "</td>"
+							+ "<td align='center'>" + timeFn(checkZero(leave.leaveHours)) + "</td>"
+							+ "<td align='center'>" + checkAudit(leave.leaveAudit) + "</td>"
 							+ "<td align='center'>" + checkPunchTimeDataExist(punch.memberName) + "</td>"
 // 							+ "<td align='center'><a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a class='deletelink' href='deletePunchTime/"
 // 							+ punch.punchId + "' onclick='confirmDelete()'>刪除</a></td>"
@@ -228,119 +226,174 @@
 // 							+ "<td align='center'><a href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='../leave/deleteLeave/"
 // 							+ leave.leaveId + "' onclick='confirmDelete()'>刪除</a></td>"
 							+ "</tr>";
-					function checkLeaveDataExist(String) {
-						if (String == null) {
-							return "<a href='../leave/insertLeave'>新增</a>";
-						} else {
-							return "<a class='deletelink' href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='../leave/deleteLeave/"
-								+ leave.leaveId + "' onclick='confirmDelete()'>刪除</a>";
+					function checkAudit(String){
+						if (String == '審核中'){
+							return "<a href='../leave/checkAudit/" + leave.leaveId +"'>審核中</a>";
+						}else if(String == '通過')
+							return '通過';
+						else{
+							return '';
 						}
 					}
-					
+										
 					function checkPunchTimeDataExist(String) {
 						if (String == null) {
 							return "<a href='insertPunchTime'>新增</a>";
 						} else {
-							return "<a class='deletelink' href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a href='deletePunchTime/"
-								+ punch.punchId + "' onclick='confirmDelete()'>刪除</a>";
+							return "<a class='updatelink' href='punchTimeEdit/" + punch.punchId + "'>更改</a>|"
+								+  "<a class='deletelink' href='deletePunchTime/" + punch.punchId + "'>刪除</a>";
+								
 						}
 					}
 					
-					function confirmDelete() {
-						var result = confirm("確定刪除此筆記錄?");
-						if (result) {
-							return window.location.href='../leave/deleteLeave/';
+					function checkLeaveDataExist(String) {
+						if (String == null) {
+							return "<a href='../leave/insertLeave'>新增</a>";
+						} else {
+							return "<a class='updatelink' href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>|"
+							      +"<a class='deletelink' href='../leave/deleteLeave/" + leave.leaveId + "'>刪除</a>";
 						}
-						return false;
+					}
+			
+					function checkNull(String) {
+						if (String == null) {
+							return '';
+						} else {
+							return String;
+						}
 					}
 					
-				}
+					function checkZero(Long) {
+						if (Long == 0) {
+							return '';
+						} else {
+							return Long;
+						}
+					}
+					
+		
+					function timeStampToDate(date) {
+						if (date != null) {
+							var datetime = new Date();
+								datetime.setTime(date);
+							var year = datetime.getFullYear();
+							var month = ((datetime.getMonth() + 1) < 10 ? '0' : '') + (datetime.getMonth() + 1);
+							var date =   (datetime.getDate() < 10 ? '0' : '')
+								+ datetime.getDate();
+							var date = year + "-" + month + "-" + date;
+							return date;
+						}else {
+							return '';
+						}
+					};
+					
+					function workOnCheck(time) {
+// 						if (punch.punchLate != null){
+							if (time != null) {
+								var datetime = new Date();
+								datetime.setTime(time);
+								var hour = (datetime.getHours() < 10 ? '0' : '')
+										+ datetime.getHours();
+								var minute = (datetime.getMinutes() < 10 ? '0' : '')
+										+ datetime.getMinutes();
+								var second = (datetime.getSeconds() < 10 ? '0' : '')
+										+ datetime.getSeconds();
+								var time = hour + ":" + minute + ":" + second;
+								return time;
+							} else {
+								return '';
+							}
+// 						}
+					}
+					
+					function workOffCheck(time) {
+// 						if (punch.punchEarly != null){
+							if (time != null) {
+								var datetime = new Date();
+								datetime.setTime(time);
+								var hour = (datetime.getHours() < 10 ? '0' : '')
+										+ datetime.getHours();
+								var minute = (datetime.getMinutes() < 10 ? '0' : '')
+										+ datetime.getMinutes();
+								var second = (datetime.getSeconds() < 10 ? '0' : '')
+										+ datetime.getSeconds();
+								var time = hour + ":" + minute + ":" + second;
+								return time;
+							} else {
+								return '';
+							}
+// 						}
+					}
+					
+					function timeStampToTime(time) {
+						if (time != null) {
+							var datetime = new Date();
+							datetime.setTime(time);
+							var hour = (datetime.getHours() < 10 ? '0' : '')
+									+ datetime.getHours();
+							var minute = (datetime.getMinutes() < 10 ? '0' : '')
+									+ datetime.getMinutes();
+							var second = (datetime.getSeconds() < 10 ? '0' : '')
+									+ datetime.getSeconds();
+							var time = hour + ":" + minute + ":" + second;
+							return time;
+						} else {
+							return '';
+						}
+					}
+					
+					
+					function timeFn(timediff) {
+					    if (timediff != null){
+							var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
+						    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
+					    //计算相差分钟数
+						    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
+					    	var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
+					    //计算相差秒数
+					    	var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+					    	var seconds=Math.round(leave3/1000)
+		
+						    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
+						    return timeFn;
+					    } else{
+					    	return '';
+					    }
+					}
+		// 			function confirmDelete() {
+		// 				var result = confirm("確定刪除此筆記錄?");
+		// 				if (result) {
+		// 					return window.location='../leave/deleteLeave/';
+		// 				}
+		// 				return false;
+		// 			}
+					
+		// 		    $(document).ready(function() {
+		// 		        $('.deletelink').click(function() {
+		// 		        	if (confirm('確定刪除此筆紀錄? ')) {
+		// 		        		var href = $(this).attr('href');
+		// 		                $('form').attr('action', href).submit();
+		// 		        	} 
+		// 		        	return false;
+				            
+		// 		        });
+		// 		    })
+					$(document).ready(function() {
+						$('.deletelink').click(function() {
+							if (confirm('確定刪除此筆紀錄? ')) {
+			     	   		var href = $(this).attr('href');
+			      	          $('form').attr('action', href).submit();
+			     		   	} 
+			      		  	return false;
+			            
+						});
+					})
+					
 				content += "</table>";
 				tablearea.innerHTML = content;
-			}
-			
-			function checkNull(String) {
-				if (String == null) {
-					return '';
-				} else {
-					return String;
 				}
-			}
 			
-			function checkZero(Long) {
-				if (Long == 0) {
-					return '';
-				} else {
-					return Long;
-				}
 			}
-			
-
-			function timeStampToDate(date) {
-				if (date != null) {
-					var datetime = new Date();
-						datetime.setTime(date);
-					var year = datetime.getFullYear();
-					var month = datetime.getMonth() + 1;
-					var date = (datetime.getDate() < 10 ? '0' : '')
-						+ datetime.getDate();
-					var date = year + "-" + month + "-" + date;
-					return date;
-				}
-			};
-
-			function timeStampToTime(time) {
-				if (time != null) {
-					var datetime = new Date();
-					datetime.setTime(time);
-					var hour = (datetime.getHours() < 10 ? '0' : '')
-							+ datetime.getHours();
-					var minute = (datetime.getMinutes() < 10 ? '0' : '')
-							+ datetime.getMinutes();
-					var second = (datetime.getSeconds() < 10 ? '0' : '')
-							+ datetime.getSeconds();
-					var time = hour + ":" + minute + ":" + second;
-					return time;
-				} else {
-					return '';
-				}
-			}
-			
-			function timeFn(timediff) {
-			    if (timediff != null){
-					var leave1=timediff%(24*3600*1000)    //计算天数后剩余的毫秒数
-				    var hours=Math.floor(leave1/(3600*1000))//计算出小时数
-			    //计算相差分钟数
-				    var leave2=leave1%(3600*1000)    //计算小时数后剩余的毫秒数
-			    	var minutes=Math.floor(leave2/(60*1000))//计算相差分钟数
-			    //计算相差秒数
-			    	var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
-			    	var seconds=Math.round(leave3/1000)
-
-				    var timeFn = hours+" 小時 "+minutes+" 分鐘 "+seconds+" 秒";
-				    return timeFn;
-			    } else{
-			    	return '';
-			    }
-			}
-// 			function confirmDelete() {
-// 				var result = confirm("確定刪除此筆記錄?");
-// 				if (result) {
-// 					return window.location='../leave/deleteLeave/';
-// 				}
-// 				return false;
-// 			}
-			
-// 		    $(document).ready(function() {
-// 		        $('.deletelink').click(function() {
-// 		        	if (confirm('確定刪除此筆紀錄? ')) {
-// 		        		var href = $(this).attr('href');
-// 		                $('form').attr('action', href).submit();
-// 		        	} 
-// 		        	return false;
-		            
-// 		        });
-// 		    })
 		</script>
 		</div>
 		</div>

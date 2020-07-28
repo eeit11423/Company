@@ -450,7 +450,12 @@ public class ProductController {
 
 		if (list.contains(mb.getMemberEmail())) {
 			System.out.println("有");
-			Gmailsend(mb.getMemberEmail());
+			try {
+				Gmailsend(mb.getMemberEmail());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			service.updatePasswd(mb.getMemberEmail());
 			return "redirect:/login";
 		} else {

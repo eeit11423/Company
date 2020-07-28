@@ -2,6 +2,7 @@ package company.attendance.dao;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import company.member.model.MemberBean;
 import company.attendance.model.Punch;
@@ -36,11 +37,11 @@ public interface PunchDao {
 
 	void deletePunchTimeByPunchId(int key);
 
-	List queryAttendanceData(String memberNumber, String selectdate);
+	Map<String, List<?>> queryAttendanceData(String memberNumber, String selectdate);
 
-	List queryAttendanceDataByPunchLate(String memberNumber, String selectdate, String punchLate) ;
+	Map<String, List<?>> queryAttendanceDataByPunchLate(String memberNumber, String selectdate, String punchLate) ;
 	
-	List queryAttendanceDataByPunchEarly(String memberNumber, String selectdate, String punchEarly) ;
+	Map<String, List<?>> queryAttendanceDataByPunchEarly(String memberNumber, String selectdate, String punchEarly) ;
 	
-	List queryAttendanceDataByLeave(String memberNumber, String selectdate, String leave) ;
+	Map<String, List<?>> queryAttendanceDataByLeave(String memberNumber, String selectdate, String leave) ;
 }
