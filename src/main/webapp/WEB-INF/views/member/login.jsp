@@ -31,6 +31,27 @@
 
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/logincss/css/util.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/logincss/css/main.css">
+<script >
+window.onload = function(){
+		var btn = document.getElementById("clickmeS1001");
+		var btn2 = document.getElementById("clickmeS1008");
+		btn.onclick = function(){
+		Name =  document.getElementById("account")
+		Name.value ="1001"
+		address = document.getElementById("pwd")
+		address.value = "1001"
+		}
+		btn2.onclick = function(){
+			Name =  document.getElementById("account")
+			Name.value ="1008"
+			address = document.getElementById("pwd")
+			address.value = "1008"
+		}
+	}
+
+
+
+</script >
 </head>
 <body style="background-color: #666666;">
 	
@@ -54,7 +75,7 @@
 					<div></div>
 					
 					<div class="wrap-input100 validate-input" data-validate="">
-						<form:input class="input100" id="account" path="password" type='password' placeholder="密碼" />
+						<form:input class="input100" id="pwd" path="password" type='password' placeholder="密碼" />
 						<span class="focus-input100"></span>
 						
 					</div>
@@ -82,7 +103,7 @@
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Login
+							登入
 						</button>
 					</div>
 					
@@ -94,13 +115,10 @@
 					</div>
 
 					<div class="login100-form-social flex-c-m">
-						<a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
-							<i class="fa fa-facebook-f" aria-hidden="true"></i>
-						</a>
-
-						<a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
-							<i class="fa fa-twitter" aria-hidden="true"></i>
-						</a>
+						
+						<input type='button' class='btn btn-secondary'  id='clickmeS1001' value='Demo1001' >
+						<span>&nbsp;&nbsp;</span>
+						<input type='button' class='btn btn-secondary'  id='clickmeS1008' value='Demo1008' >
 					</div>
 				</form:form>
 
