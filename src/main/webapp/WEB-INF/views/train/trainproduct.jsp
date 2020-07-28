@@ -69,7 +69,7 @@
 <!-- 					<a href='#' class='btn btn-warning btn-large'>  -->
 <!-- 					    <span class='glyphicon-shopping-cart glyphicon' type='submit' ></span>確定送出 -->
 <!-- 					</a> -->
-					<input style="color:black" type="button" name="OrderBtn"  value="確定選課" onclick="reconfirmOrder()">
+					<input style="color:black" type="button" name="OrderBtn"  value="選課" onclick="reconfirmOrder()">
 				</p>
 				
                     
