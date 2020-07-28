@@ -14,7 +14,17 @@ span.error {
 </style>
 <meta charset="UTF-8">
 <script>
-	
+window.onload = function() {
+	var btn = document.getElementById("clickmeS");
+	btn.onclick = function() {
+		indexH2 = document.getElementById("indexH2")
+		indexH2.value = "一顆感恩的心會讓我們成功在即。"
+			indexP = document.getElementById("indexP")
+		indexP.value = "沒有失敗，只有停止成功。"
+	}	
+
+
+	}	
 </script>
 
 
@@ -87,10 +97,10 @@ span.error {
 											<div class='col-lg-offset-2 col-lg-12'>
 												<input id="btnAdd" type='submit'
 													class="btn btn-secondary btn-lg btn-block" value="送出" /> 
-<!-- 													<input type='button' class='btn btn-primary float-right' -->
-<!-- 													id='clickmeS' value='一鍵Demo'> -->
+														<input type='button' class='btn btn-primary float-right'
+													id='clickmeS' value='一鍵Demo'>
 											</div>
-
+				
 
 										</fieldset>
 									</form:form>

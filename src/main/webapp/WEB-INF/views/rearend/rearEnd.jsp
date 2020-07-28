@@ -119,8 +119,8 @@
                       
                           <td>${TPp.value.shoppingType}</td>                             
                           <td>${TPp.value.shoppingProductName}</td>
-                          <td class="text-success"> ${TPp.value.countTest} <i class="ti-arrow-up"></i></td>
-                          <td><label class="badge badge-danger">${Math.round(TPp.value.countTest * (TPp.value.price*0.9))}</label></td>
+                          <td class="text-danger"><h3> ${TPp.value.countTest} <i class="ti-arrow-up"></i></h3></td>
+                          <td><label class="badge badge-danger"><b>${Math.round(TPp.value.countTest * (TPp.value.price*0.9))}</b></label></td>
                       </tr>
                       
                            </c:forEach>
@@ -339,7 +339,7 @@ function remove(id){
 		        	  Taipei1.innerHTML="<b>產品名稱</b>";
 		        	  Taipei2.innerHTML="<b>總數</b>";
 		        	  Taipei3.innerHTML="<b>總金額</b>";
-		        	  console.log(th);
+		        	  console.log(data);
 		        	  for (var i = 0; i < data.length; i++) {
 		        		  var tr = table.insertRow(1+i);
 		        		   var ProductType = tr.insertCell(0);
@@ -348,9 +348,9 @@ function remove(id){
 		        		   var PriceNumber = tr.insertCell(3);
 		        			  ProductType.innerHTML=data[i][0];
 		        			  ProductName.innerHTML=data[i][1];
-		        			  $(ProductNumber).attr("class","text-success");
-		        			  ProductNumber.innerHTML=data[i][2]+'<i class="ti-arrow-up"></i>';		        			  
-		        			  PriceNumber.innerHTML="<label class='badge badge-danger'>"+data[i][3]+"</label>";		        			  
+		        			  $(ProductNumber).attr("class","text-danger");
+		        			  ProductNumber.innerHTML='<h3>'+data[i][2]+'<i class="ti-arrow-up"></i>'+'</h3>';		        			  
+		        			  PriceNumber.innerHTML="<label class='badge badge-danger'>"+(data[i][3]*0.9)*data[i][2]+"</label>";		        			  
 						}
 		        	  
 		          },error : function(data) {

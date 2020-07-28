@@ -20,7 +20,7 @@ window.onload = function() {
 		indexH2 = document.getElementById("indexH2")
 		indexH2.value = "付酬者有限公司"
 			indexP = document.getElementById("indexP")
-		indexP.value = "員工每個人都好棒棒,程式語言小學三年級就學的會了"
+		indexP.value = "員工每個人真誠溝通，互助學習，態度積極，快速行動。"
 	}	
 
 

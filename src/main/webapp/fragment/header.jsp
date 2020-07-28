@@ -77,6 +77,8 @@
  						</div></li>
 					
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/activity/index' />">活動資訊</a>
+					<li class="nav-item"><a class="nav-link" href="<c:url value='orderLunch/order' />">訂餐系統</a>
+</li>
 					</li>
 <%-- 					<li class="nav-item"><a class="nav-link" href="<c:url value='orderLunch/order' />">訂餐系統</a> --%>
 <!-- 					</li>		 -->
