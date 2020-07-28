@@ -57,6 +57,8 @@ public class ShoppingController {
 
 	@GetMapping("/shopping/oneProduct") // 單項商品
 	public String oneProduct(@RequestParam("id") Integer id, Model model) {
+		List<ShoppingBean> AllShoppingType=service.getALLShoppingType();
+		model.addAttribute("AllShoppingType", AllShoppingType);
 		ShoppingBean shoppingBean = service.getshoppingId(id);
 		model.addAttribute("shoppingBean", shoppingBean);
 		return "shopping/oneProduct";
@@ -116,7 +118,8 @@ public class ShoppingController {
 		if (memberBean == null) {
 			return "redirect: " + context.getContextPath() + "/login";
 		}
-
+		List<ShoppingBean> AllShoppingType=service.getALLShoppingType();
+		model.addAttribute("AllShoppingType", AllShoppingType);
 		List<ShoppingBean> beans = service.getAllProducts();
 		model.addAttribute("products", beans);
 		return "shopping/allProducts";
