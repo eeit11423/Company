@@ -31,4 +31,7 @@ public interface LeaveDao {
 	List<Punch> getMemberAndPunchDateList(Leave leave);
 
 	void checkAudit(Integer leaveId);
+
+	List<Leave> queryAttendanceData(String memberNumber, String selectdate, String category);
+
 }

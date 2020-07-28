@@ -4,9 +4,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.NoResultException;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -262,5 +264,101 @@ public class LeaveDaoImpl implements LeaveDao {
 		session.createQuery(hql)
 			   .setParameter("leaveId", leaveId)
 			   .executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Leave> queryAttendanceData(String memberNumber, String selectdate, String category) {
+		Session session = factory.getCurrentSession();
+		String timesplit[] = selectdate.split("-");
+		System.out.println(memberNumber);
+		System.out.println(selectdate);
+		System.out.println(category);
+		
+		if (timesplit.length == 1) {                     //所有時間
+			if(memberNumber.equals("all")) {				//所有員工
+				if(category.equals("all")) {				    //所有分類
+					System.out.println("所有時間-所有員工-所有分類");
+					String hql = "FROM Leave Order By LeaveDate DESC";
+					List<Leave> listLeave = session.createQuery(hql)
+												   .getResultList();
+					System.out.println("1資料庫的到的list:"+listLeave);
+					return listLeave;
+				}else {
+					System.out.println("所有時間-所有員工-指定分類");   //指定分類
+					String hql = "FROM Leave WHERE leaveCategory =: leaveCategory Order By LeaveDate DESC";
+					List<Leave> listLeave = session.createQuery(hql)
+												   .setParameter("leaveCategory", category)
+												   .getResultList();
+					System.out.println("資料庫的到的list:"+listLeave);
+					return listLeave;
+				}
+			}else {											//指定員工
+				if(category.equals("all")) {				    //所有分類
+					System.out.println("所有時間-指定員工-所有分類");
+					String hql = "FROM Leave WHERE memberNumber =: memberNumber Order By LeaveDate DESC";
+					List<Leave> listLeave = session.createQuery(hql)
+												   .setParameter("memberNumber", memberNumber)
+												   .getResultList();
+					System.out.println("資料庫的到的list:"+listLeave);
+					return listLeave;
+				}else {
+					System.out.println("所有時間-指定員工-指定分類");  //指定分類
+					String hql = "FROM Leave WHERE memberNumber =: memberNumber and leaveCategory =: leaveCategory Order By LeaveDate DESC";
+					List<Leave> listLeave = session.createQuery(hql)
+												   .setParameter("leaveCategory", category)
+												   .setParameter("memberNumber", memberNumber)
+												   .getResultList();
+					System.out.println("資料庫的到的list:"+listLeave);
+					return listLeave;
+				}
+			}
+		}else {											 //指定時間
+			if(memberNumber.equals("all")) {				//所有員工
+				if(category.equals("all")) {				    //所有分類
+					System.out.println("指定時間-所有員工-所有分類");
+					String hql = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+					List<Leave> listLeave = session.createQuery(hql)
+												   .setParameter("yyyy", timesplit[0])
+												   .setParameter("mm", timesplit[1])
+												   .getResultList();
+					System.out.println("資料庫的到的list:"+listLeave);
+					return listLeave;
+				}else {
+					System.out.println("指定時間-所有員工-指定分類");   //指定分類
+					String hql = "FROM Leave WHERE leaveCategory =: leaveCategory and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+					List<Leave> listLeave = session.createQuery(hql)
+												   .setParameter("leaveCategory", category)
+												   .setParameter("yyyy", timesplit[0])
+												   .setParameter("mm", timesplit[1])
+												   .getResultList();
+					System.out.println("資料庫的到的list:"+listLeave);
+					return listLeave;
+				}
+			}else {											//指定員工
+				if(category.equals("all")) {				    //所有分類
+					System.out.println("指定時間-指定員工-所有分類");
+					String hql = "FROM Leave WHERE memberNumber =: memberNumber and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+					List<Leave> listLeave = session.createQuery(hql)
+												   .setParameter("memberNumber", memberNumber)
+												   .setParameter("yyyy", timesplit[0])
+												   .setParameter("mm", timesplit[1])
+												   .getResultList();
+					System.out.println("資料庫的到的list:"+listLeave);
+					return listLeave;
+				}else {
+					System.out.println("指定時間-指定員工-指定分類");  //指定分類
+					String hql = "FROM Leave WHERE memberNumber =: memberNumber and leaveCategory =: leaveCategory and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By LeaveDate DESC";
+					List<Leave> listLeave = session.createQuery(hql)
+												   .setParameter("leaveCategory", category)
+												   .setParameter("memberNumber", memberNumber)
+												   .setParameter("yyyy", timesplit[0])
+												   .setParameter("mm", timesplit[1])
+												   .getResultList();
+					System.out.println("資料庫的到的list:"+listLeave);
+					return listLeave;
+				}
+			}
+		}
 	}
 }

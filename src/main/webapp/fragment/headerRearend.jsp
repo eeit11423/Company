@@ -57,7 +57,13 @@
               <span class="menu-title">回首頁</span> 
             </a>
           </li>
-          
+          <li class="nav-item">
+           <i class="menu-arrow"></i>
+            <a class="nav-link" href="${pageContext.request.contextPath}/orderprice">
+     <i class="ti-layout-list-post menu-icon"></i>
+              <span class="menu-title">回後台首頁</span> 
+            </a>
+          </li>
          <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#index1" aria-expanded="false" aria-controls="index1">
               <i class="ti-layout-list-post menu-icon"></i>
@@ -95,7 +101,6 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/orderprice">數據分析圖</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/rearend/allSalary">人員分佈曲線圖</a></li>
 <!--                 <li class="nav-item"> <a class="nav-link" href="連結"></a></li> -->
               </ul>
@@ -123,8 +128,9 @@
             <div class="collapse" id="attendance">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/punch/insertPunchTime"> 新增打卡紀錄 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/leave/insertLeave"> 新增請假紀錄 </a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/punch/queryPunchTime"> 出勤記錄管理</a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/leave/insertLeave"> 新增請假紀錄 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/attendance/leave/queryLeave"> 請假記錄管理</a></li>
               </ul>
             </div>
           </li>

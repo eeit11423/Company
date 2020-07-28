@@ -1,6 +1,7 @@
 package company.attendance.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -90,7 +91,7 @@ public class LeaveController {
 		}
 		int n = service.saveLeave(leave);
 		if (n == 1) {
-			return "redirect:/attendance/punch/queryPunchTime";
+			return "redirect:/attendance/leave/queryLeave";
 		} else {
 			FieldError error = new FieldError("leave", "leaveDate",leave.getLeaveDate(), false, null, null,  (n==-1 ? "日期重複" : "資料庫錯誤"));
 			bindingResult.addError(error);
@@ -138,11 +139,25 @@ public class LeaveController {
 		return re;
 	}
 	
-	@PostMapping(value="/leaveEdit/{leaveId}", produces= {"text/html"})
+	@GetMapping(value="/leaveEdit/{leaveId}", produces= {"text/html"})
 	public String editLeaveFromLeaveId(@PathVariable Integer leaveId, Model model) {
 		Leave leave = service.editLeaveFromLeaveId(leaveId);
 		model.addAttribute(leave);
 		return "attendance/leave/updateLeave";
+	}
+	
+	@GetMapping("/queryAttendanceData")
+	public ResponseEntity<List<Leave>> queryAttendanceDataByPunch(
+			@RequestParam(value="memberNumber", defaultValue = "all") String memberNumber,
+			@RequestParam(value="selectdate", defaultValue = "all", required = false) String selectdate,
+			@RequestParam(value="selectcategory", defaultValue = "all", required = false) String category,Model model){ 
+		List<Leave> list = service.queryAttendanceData(memberNumber, selectdate, category);
+		System.out.println("attendance得到的List："+list);
+//		System.out.println(attendance);
+//		System.out.println(attendance.get(1));
+		ResponseEntity<List<Leave>> re = new ResponseEntity<>(list, HttpStatus.OK);
+		System.out.println("onload的到的LIST:"+list);
+		return re;
 	}
 	
 	@PostMapping("/leave/update/{key}")   
@@ -150,19 +165,19 @@ public class LeaveController {
 			@PathVariable Integer key, Leave leave) {
 		service.updateLeave(leave);
 		System.out.println("hi");
-		return "redirect:/attendance/punch/queryPunchTime";
+		return "redirect:/attendance/leave/queryLeave";
 	}
 
 	@GetMapping("/deleteLeave/{key}")
 	public String deletePunchTime(@PathVariable Integer key, Model model, HttpServletRequest req) {
 		service.deleteLeaveByLeaveId(key);
-		return "redirect:/attendance/punch/queryPunchTime";
+		return "redirect:/attendance/leave/queryLeave";
 	}
 	
 	@GetMapping("/checkAudit/{leaveId}")
 	public String checkAudit(@PathVariable Integer leaveId) {
 		service.checkAudit(leaveId);
-		return "redirect:/attendance/punch/queryPunchTime";
+		return "redirect:/attendance/leave/queryLeave";
 	}
 	
 	

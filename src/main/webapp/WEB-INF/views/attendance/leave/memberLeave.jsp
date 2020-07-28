@@ -21,12 +21,12 @@
 
 				<li class="nav-item"><a class="nav-link" data-toggle="collapse"
 					href="#punch" aria-expanded="false" aria-controls="punch">
-						<i class="ti-user menu-icon"></i> <span class="menu-title">打卡系統</span>
+						<i class="ti-user menu-icon"></i> <span style="font-size='30px'" class="menu-title">打卡系統</span>
 						<i class="menu-arrow"></i>
 				</a>
 					<div class="collapse" id="punch">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"><a class="nav-link"
+							<li  class="nav-item"><a class="nav-link" style="font-size='20px'"
 								href="${pageContext.request.contextPath}/attendance/punch/memberPunch">
 									出勤打卡 </a></li>
 						</ul>
@@ -34,15 +34,15 @@
 					
 				<li class="nav-item"><a class="nav-link" data-toggle="collapse"
 					href="#leave" aria-expanded="false" aria-controls="leave">
-						<i class="ti-user menu-icon"></i> <span class="menu-title">請假系統</span>
+						<i class="ti-user menu-icon"></i> <span style="font-size='30px'" class="menu-title">請假系統</span>
 						<i class="menu-arrow"></i>
 				</a>
 					<div class="collapse" id="leave">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item"><a class="nav-link" style="font-size='20px'"
 								href="${pageContext.request.contextPath}/attendance/leave/memberInsertLeave">
 									新增請假紀錄 </a></li>
-							<li class="nav-item"><a class="nav-link"
+							<li class="nav-item"><a class="nav-link" style="font-size='20px'"
 								href="${pageContext.request.contextPath}/attendance/leave/memberLeave">
 									請假記錄查詢</a></li>
 						</ul>
@@ -115,11 +115,11 @@
 
 				content += "<tr align='center'>"
 						+ "<th align='center' width='200' style='font-size:20px;'>日期</th>"
-						+ "<th align='center' width='100' style='font-size:20px;'>姓名</th>"
-						+ "<th align='center' width='100' style='font-size:20px;'>假別</th>"
-						+ "<th align='center' width='200' style='font-size:20px;'>請假開始</th>"
-						+ "<th align='center' width='200' style='font-size:20px;'>請假結束</th>"
-						+ "<th align='center' width='200' style='font-size:20px;'>請假時數</th>"
+						+ "<th align='center' width='200' style='font-size:20px;'>姓名</th>"
+						+ "<th align='center' width='170' style='font-size:20px;'>請假開始</th>"
+						+ "<th align='center' width='170' style='font-size:20px;'>請假結束</th>"
+						+ "<th align='center' width='140' style='font-size:20px;'>假別</th>"
+						+ "<th align='center' width='230' style='font-size:20px;'>請假時數</th>"
 						+ "<th align='center' width='200' style='font-size:20px;'>原因</th>"
 // 						+ "<th align='center' width='200'>審核</th>"
 						+"</tr>";
@@ -129,13 +129,13 @@
 					var leaveEnd = leave[i].leaveEnd;
 
 					content += "<tr>"
-					+ "<td align='center' style='font-size:20px;'>"	+ timeStampToDate(leaveDay) + "</td>"
-					+ "<td align='center' style='font-size:20px;'>" + leave[i].memberName + "</td>" 
-					+ "<td align='center' style='font-size:20px;'>" + leave[i].leaveCategory + "</td>" 
-					+ "<td align='center' style='font-size:20px;'>"	+ timeStampToTime(leaveStart) + "</td>"
-					+ "<td align='center' style='font-size:20px;'>" + timeStampToTime(leaveEnd)	+ "</td>"
-					+ "<td align='center' style='font-size:20px;'>" + timeFn(leave[i].leaveHours) + "</td>" 
-					+ "<td align='center' style='font-size:20px;'>" + leave[i].leaveCause + "</td>" 
+					+ "<td align='center' style='font-size:30px;'>"	+ timeStampToDate(leaveDay) + "</td>"
+					+ "<td align='center' style='font-size:30px;'>" + leave[i].memberName + "</td>" 
+					+ "<td align='center' style='font-size:30px;'>" + leave[i].leaveCategory + "</td>" 
+					+ "<td align='center' style='font-size:30px;'>"	+ timeStampToTime(leaveStart) + "</td>"
+					+ "<td align='center' style='font-size:30px;'>" + timeStampToTime(leaveEnd)	+ "</td>"
+					+ "<td align='center' style='font-size:30px;'>" + timeFn(leave[i].leaveHours) + "</td>" 
+					+ "<td align='center' style='font-size:30px;'>" + leave[i].leaveCause + "</td>" 
 // 					+ "<td align='center'>" + leave[i].leaveAudit + "</td>" 
 					+ "</tr>";
 				}
