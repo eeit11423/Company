@@ -53,15 +53,20 @@
           <li class="nav-item">
            <i class="menu-arrow"></i>
             <a class="nav-link" href="${pageContext.request.contextPath}/">
-     <i class="ti-palette menu-icon"></i>
-              <span class="menu-title">回首頁</span>
-              <i class="menu-arrow"></i>        
-            
+     <i class="ti-layout-list-post menu-icon"></i>
+              <span class="menu-title">回首頁</span> 
+            </a>
+          </li>
+          <li class="nav-item">
+           <i class="menu-arrow"></i>
+            <a class="nav-link" href="${pageContext.request.contextPath}/orderprice">
+     <i class="ti-layout-list-post menu-icon"></i>
+              <span class="menu-title">回後台首頁</span> 
             </a>
           </li>
          <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#index1" aria-expanded="false" aria-controls="index1">
-              <i class="ti-palette menu-icon"></i>
+              <i class="ti-layout-list-post menu-icon"></i>
               <span class="menu-title">首頁圖片管理</span>
               <i class="menu-arrow"></i>
             </a>
@@ -73,6 +78,20 @@
               </ul>
             </div>
               </li>
+           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+              <i class="ti-user menu-icon"></i>
+              <span class="menu-title">人員維護</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic2">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/register/add3">註冊會員</a></li>
+                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/members">查詢所有會員</a></li>
+                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/Resignup">查詢離職會員</a></li>               
+              </ul>
+            </div>
+          </li>
            
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -89,7 +108,7 @@
              	 </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
-              <i class="ti-palette menu-icon"></i>
+              <i class="ti-view-list-alt menu-icon"></i>
               <span class="menu-title">商品類</span>
               <i class="menu-arrow"></i>
             </a>
@@ -117,7 +136,7 @@
            
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#Training" aria-expanded="false" aria-controls="Training">
-              <i class="ti-user menu-icon"></i>
+              <i class="ti-write menu-icon"></i>
               <span class="menu-title">課程</span>
               <i class="menu-arrow"></i>
             </a>
@@ -130,55 +149,8 @@
             </div>
           </li> 
                     
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
-              <i class="ti-layout-list-post menu-icon"></i>
-              <span class="menu-title">人員維護</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic2">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/register/add3">註冊會員</a></li>
-                <li class="nav-item"> <a class="nav-link"  href="${pageContext.request.contextPath}/members">查詢所有會員</a></li>
-                <li class="nav-item"> <a  class="nav-link"  href="${pageContext.request.contextPath}/Resignup">查詢離職會員</a></li>               
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="連結">
-              <i class="ti-pie-chart menu-icon"></i>
-              <span class="menu-title">金額</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="連結">
-              <i class="ti-view-list-alt menu-icon"></i>
-              <span class="menu-title">訂單</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="ti-user menu-icon"></i>
-              <span class="menu-title">備用</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="連結"> 備用 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="連結"> 備用 2 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="連結"> 備用 3</a></li>
-                <li class="nav-item"> <a class="nav-link" href="連結"> 備用 4 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="連結"> 備用 5</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="documentation/documentation.html">
-              <i class="ti-write menu-icon"></i>
-              <span class="menu-title">備用</span>
-            </a>
-          </li>
-        </ul>
+          
+          
      
       </nav>
 
