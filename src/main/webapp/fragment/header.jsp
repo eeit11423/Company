@@ -93,7 +93,7 @@
 				
 				<span><c:if
 							test="${memberBean.memberId != null}">
-							<img height='80' width='80' class="rounded-circle" alt="Cinque Terre"
+							<img height='65' width='65' class="rounded-circle" alt="Cinque Terre"
 								src="<c:url value='/getPicture/${memberBean.memberId}' />" />
 						</c:if>${memberBean.memberNumber}</span>
 						<c:if test="${memberBean.memberId == null}">
