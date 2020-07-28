@@ -139,7 +139,7 @@ window.onload = function(){
 						</div>
 
 							<div>
-							<img id="productImage1" src="" >456456
+							<img id="productImage1" src="" >
 							</div>
 						<div class="form-group">
 								<label class='col-md-3 control-label' for="productImage">圖片</label>
