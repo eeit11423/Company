@@ -44,15 +44,12 @@
 				<table class="table table-hover border border-secondary"   >
 					<tr class="text-white text-left border border-secondary " style='background:#646D73'>
 						<th width='50' class="border border-secondary " >ID</th>
-						<th width='180'  class="border border-secondary ">商品名稱</th>
-					     <th width='150' class="border border-secondary ">敘述</th>
+						<th width='100'  class="border border-secondary ">商品名稱</th>
 						<th width='70' class="border border-secondary ">類型</th>
 						<th width='70' class="border border-secondary ">價格</th>
 						<th width='70' class="border border-secondary ">折扣</th>
 						<th width='70' class="border border-secondary ">庫存</th>
-						<th width='70'  class="border border-secondary ">照片名稱</th>
-						<th class="border border-secondary ">照片</th>
-						<th width='100' class="border border-secondary ">上傳日期</th>						
+						<th class="border border-secondary ">照片</th>					
 						<th colspan='2' width='150'  class="border border-secondary" style="text-align: center">維護</th>
 					</tr>
 					
@@ -61,15 +58,12 @@
 							<td  style="text-align: center" class="border border-secondary "><a
 								href="<spring:url value='oneProduct?id=${product.shoppingId}' />">${product.shoppingId}</a>
 							<td  class="border border-secondary ">${product.shoppingname}</td>
-							<td  class="border border-secondary " >${product.productrelation}</td>
 							<td  class="border border-secondary ">${product.shoppingType}</td>
 							<td  class="border border-secondary ">${product.shoppingProductPrice}</td>
 							<td  class="border border-secondary ">${product.shoppingProductDiscount}</td>
 							<td  class="border border-secondary ">${product.shoppingProductTotal}</td>
-							<td  class="border border-secondary ">${product.shoppingfileName}</td>
 							<td  class="border border-secondary "><img width='60' height='72'
 								src='picture/${product.shoppingId}' /></td>
-							<td  class="border border-secondary "><fmt:formatDate value="${product.shoppingDate}" pattern="yyyy-MM-dd"/></td>
 							<td  class="border border-secondary "><a
 								href="${pageContext.request.contextPath}/shopping/sh/${product.shoppingId}">編輯</a></td>
 							<td  class="border border-secondary "><a class='deletelink'

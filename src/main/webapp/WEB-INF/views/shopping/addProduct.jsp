@@ -22,7 +22,7 @@
 			shoppingname = document.getElementById("shoppingname")
 			shoppingname.value = "Razer Lancehead 銳蝮蛇 無線電競滑鼠"
 				shoppingProductTotal = document.getElementById("shoppingProductTotal")
-			shoppingProductTotal.value = 25
+			shoppingProductTotal.value = 50
 				shoppingProductPrice = document.getElementById("shoppingProductPrice")
 			shoppingProductPrice.value = 4890
 			shoppingProductPrice = document.getElementById("productrelation")
