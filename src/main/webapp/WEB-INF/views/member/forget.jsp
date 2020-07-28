@@ -20,7 +20,7 @@ window.onload = function(){
 		var btn = document.getElementById("clickmeS1001");
 		btn.onclick = function(){
 		Name =  document.getElementById("account")
-		Name.value ="k0928103546@gmail.com"
+		Name.value ="eeit114no4@gmail.com"
 		
 		}
 }

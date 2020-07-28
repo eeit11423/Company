@@ -116,9 +116,9 @@ window.onload = function(){
 
 					<div class="login100-form-social flex-c-m">
 						
-						<input type='button' class='btn btn-secondary'  id='clickmeS1001' value='Demo1001' >
+						<input type='button' class='btn btn-primary'  id='clickmeS1001' value='Demo1001' >
 						<span>&nbsp;&nbsp;</span>
-						<input type='button' class='btn btn-secondary'  id='clickmeS1008' value='Demo1008' >
+						<input type='button' class='btn btn-primary'  id='clickmeS1008' value='Demo1008' >
 					</div>
 				</form:form>
 
