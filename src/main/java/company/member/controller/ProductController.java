@@ -454,6 +454,7 @@ public class ProductController {
 				Gmailsend(mb.getMemberEmail());
 			} catch (Exception e) {
 				e.printStackTrace();
+				return "member/error";
 			}
 			
 			service.updatePasswd(mb.getMemberEmail());

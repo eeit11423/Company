@@ -19,6 +19,8 @@
 window.onload = function(){
 		var btn = document.getElementById("clickmeS1001");
 		btn.onclick = function(){
+		acc =  document.getElementById("acc")
+		acc.value = "3001"
 		Name =  document.getElementById("account")
 		Name.value ="eeit114no4@gmail.com"
 		
@@ -58,16 +60,42 @@ window.onload = function(){
 							<p>Error:</p>
 							<span></span>
 						</div>
+						
+						<div class="form-group">
+							<label for="memberPassword" class="col-md-3 control-label">輸入帳號:</label>
+							<div class="col-md-9">
+								<input id="acc" type="text" path="memberPassword"
+									class="form-control" />
+							</div>
+						</div>
 
 						<div class="form-group">
-							<label for="firstname" class="col-md-3 control-label" >輸入註冊信箱:</label>
+							<label class="col-md-3 control-label" for='memberName'>輸入信箱:
+							</label>
 							<div class="col-md-9">
 								<form:input id="account" path="memberEmail" type='text'
 							class='form-control'  />
-						<form:errors path="invalidCredentials" cssClass="error" style='color:red'/>
-
+							<form:errors path="invalidCredentials" cssClass="error" style='color:red'/>
 							</div>
 						</div>
+						
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="firstname" class="col-md-3 control-label" >輸入帳號:</label> -->
+<!-- 							<div class="col-md-9"> -->
+<!-- 								<input id="acc" path="memberEmail" type='text' -->
+<!-- 							class='form-control'  /> -->
+<!-- 							</div> -->
+<!-- 						<p></p> -->
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="firstname" class="col-md-3 control-label" >輸入註冊信箱:</label> -->
+<!-- 							<div class="col-md-9"> -->
+<%-- 								<form:input id="account" path="memberEmail" type='text' --%>
+<%-- 							class='form-control'  /> --%>
+<%-- 						<form:errors path="invalidCredentials" cssClass="error" style='color:red'/> --%>
+
+<!-- 							</div> -->
+<!-- 						</div> -->
 
 
 
