@@ -115,7 +115,7 @@ window.onload = function(){
 					</div>
 					
 					
-					<div class="text-center p-t-46 p-b-20">
+					<div class="text-center p-t-10 p-b-5">
 						<span class="txt2">
 							
 						</span>
