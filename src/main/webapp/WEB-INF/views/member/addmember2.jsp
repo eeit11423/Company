@@ -123,7 +123,7 @@ window.onload = function(){
 
 							<div class="form-group form-button">
 								<input type="submit" name="signin" id="signin"
-									class="form-submit" value="Log in" />
+									class="form-submit" value="註冊" />
 								<a href="test" class="btn btn-outline-success" class="btn btn-primary"
 									data-toggle="modal" data-target="#myModal" > 
 									<span class="glyphicon-info-sigh glyphicon"></span>上傳Excel
