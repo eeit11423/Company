@@ -17,6 +17,13 @@
 				<div>
 					<div class="container" style="text-align: center">
 						<h1>影音課程</h1>
+						<div class="container" style="text-align: center" >   	
+			    			<a href="<c:url value='/' />"class="btn btn-primary">
+							<span class="glyphicon-info-sigh glyphicon"></span>首頁</a>
+					
+							<a href="<c:url value='/CourseList' />"class="btn btn-primary">
+							<span class="glyphicon-info-sigh glyphicon"></span>我的課程</a>									
+    					</div>
 					</div>
 				</div>
 			</section>

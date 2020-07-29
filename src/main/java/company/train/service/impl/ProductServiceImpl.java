@@ -127,6 +127,12 @@ public class ProductServiceImpl implements ProductService {
 	public void insertCourseDao(RosterBean rb) {		
 		productDao.insertCourseDao(rb);
 	}
+	@Transactional
+	@Override
+	public List<String> getAllCategories123() {
+		// TODO Auto-generated method stub
+		return productDao.getAllCategories123();
+	}
 	
 	
 }

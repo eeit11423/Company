@@ -51,7 +51,7 @@ window.onload = function(){
 <body>
 <%-- <jsp:include page="/fragment/header.jsp" /> --%>
 <jsp:include page="/fragment/headerRearend.jsp" />
-<div class="main-panel"><!-- 後面背景框架 -->
+<div class="main-panel"> <!-- 後面背景框架 -->
  <div class="content-wrapper">
 	
 	<section>
@@ -177,6 +177,7 @@ window.onload = function(){
 		</form:form>
 	</section>
 	
+	</div>
 	</div>
 	</div>
 </body>

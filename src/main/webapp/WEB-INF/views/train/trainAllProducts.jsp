@@ -12,9 +12,9 @@
 	<script>
 	function reconfirmOrder(Id) {
 		//getElementById裡面塞進trainingId讓這個請求認得某一個課程Id
-		if (confirm("確定參加此課程 ? ") ) { 
+		if (confirm("確定參加此課程 ? ")) { 
 			var form = document.getElementById("form"+Id)
-			form.action="<c:url value='/Course123' />";
+			form.action="<c:url value='/Course123'/>";
 			form.method="POST";
 			form.submit();
 			
@@ -24,6 +24,15 @@
 		}
 	}
 	</script>
+	<style>
+		#outside{
+/* 			  background-color:#FF9900; */
+/* 			  width: 400px; */
+/* 			  height: 100px; */
+			  text-align:center;
+				}
+	
+	</style>
 </head>
 <body>
 <%-- <jsp:include page="/fragment/header.jsp" /> --%>
@@ -41,28 +50,40 @@
 					<a href="<c:url value='/CourseList' />"class="btn btn-primary">
 					<span class="glyphicon-info-sigh glyphicon"></span>我的課程</a>									
     			</div>
-
             </div>
+            
+            <form id="trainCategory" action='/train/trainAllProducts'>  
             <div align='center'>
 				請挑選課程類型: 
-				<select id='Publish_course' onchange="trainChange()">
+				<select id='Publish_course' onchange="trainChange()" >
+				<option  value="-1">類別選擇</option>
 					<c:forEach var="category" items="${CategoryList}">
-						<option value="${category}">${category}</option>
+						<option  value="${category}">${category}</option>
 					</c:forEach>
 				</select>
-				
+			
 
-			</div>
+<!-- 			</div> -->
+<!--         </form> -->
         </div>
+<!--         		<tr height='52' bgcolor="lightblue" align="center"> -->
+<!-- 					<td width="350"><p align="left"/> -->
+<!-- 						<a href='queryByCategory'>課程分類</a><BR> -->
+<!-- 					</td> -->
+<!-- 					<td width="350"><p align="left" /> -->
+<!-- 						<a href=''></a><br> -->
+<!-- 					</td>	 -->
+<!-- 				</tr> -->
     <section class="container"></section>
     <hr style="height:1px;border:none;color:#333;background-color:#333;">
     </section>
     <section class="container">
         <div class="row">
          <c:forEach var='product' items='${trainAllProducts}'> <!-- controller的識別字串trainAllProducts會導引過來這裡 -->
+            <form id="form${product.trainingId}" >
             <div class="col-sm-6 col-md-4" style="width: 360px; height: 400px">
                 <div class="thumbnail" style="width: 320px; height: 380px">
-              	<div style="height: 80px">
+              	<div id='outside' style="height: 80px" >
               	
                 <img width='80' height='80'
                 src="<c:url value='/getTrainPicture/${product.trainingId}'/>"/>
@@ -92,10 +113,11 @@
 <!-- 								<span class="glyphicon-info-sigh glyphicon"></span>修改 -->
 <!-- 							</a> -->
 <%-- 							<input style="color:black" type="button" name="OrderBtn"  value="確定選課" onclick="reconfirmOrder(${product.trainingId})"> --%>
-                        	<a onclick="reconfirmOrder(${product.trainingId})""
+                        	<a onclick="reconfirmOrder(${product.trainingId})"
                         		class="btn btn-primary"><span
                         		class="glyphicon-info-sigh glyphicon"></span>選課
                         	</a>
+<%--                         	<input style="color:black" type="button" name="OrderBtn"  value="確定選課" onclick="reconfirmOrder(${product.trainingId})"> --%>
                 
                     
                     
@@ -105,9 +127,18 @@
         	</c:forEach>
         </div>     
     </section>
-<!--     <div class="container" style="text-align: center" > -->
-<%--     	<a href="<c:url value='/' />">首頁</a> --%>
-<!--     </div> -->
+	<script>
+		function trainChange(){
+			
+			 var select = document.getElementById("Publish_course").value;
+// 			 console.log(select);
+			 var URL = select;
+// 			 document.trainCategory.action ="/train/trainAllProducts?category="+select;
+			 document.getElementById("trainCategory").action =URL;
+			 document.getElementById("trainCategory").submit();
+			 
+		};
+	</script>
 </body>
 </html>
     

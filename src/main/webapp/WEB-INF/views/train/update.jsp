@@ -8,7 +8,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	href="//netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <style type="text/css">
 fieldset {
 	border: 1px solid rgb(255, 232, 57);
@@ -19,6 +19,9 @@ fieldset {
 <title>Products</title>
 </head>
 <body>
+<jsp:include page="/fragment/headerRearend.jsp" />
+<div class="main-panel"><!-- 後面背景框架 -->
+ <div class="content-wrapper">
 <section>
 		<div class="container">
 			<h1 style="text-align: center">新增課程資料</h1>
@@ -112,5 +115,7 @@ fieldset {
 			</fieldset>
 		</form:form>
 	</section>
+	</div>
+	</div>
 </body>
 </html>

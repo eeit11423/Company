@@ -1,6 +1,7 @@
 package company.train.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Console;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -106,20 +107,36 @@ public class TrainingController {
 	public String getCategoryList(Model model) {
 		List<String>  list = service.getAllCategories();
 		model.addAttribute("CategoryList", list);
-		return "types/category";
+		return "train/category";
 	}
-	@RequestMapping("/productss/{category}")
+	@RequestMapping("/train/{category}")
 	public String getProductsByCategory(@PathVariable("category") String category, Model model){
+//		System.out.println("9999999999999999999999999999999999999999999");
 		List<TrainingBean> productss = service.getProductsByCategory(category);
+		System.out.println("tsrtsesdfsdfsdgsdgs11111111111111111111111111111111dg");
+		
+//		String hql = "FROM TrainingBean b WHERE b.category = :cate";
+		List<String> list = new ArrayList<>();
+		list = service.getAllCategories123();
+//		Session session = factory.getCurrentSession();
+//		System.out.println("9999999999999999999999999999999999999999999");
+//		System.out.println("1123123"+category);
+//		list = session.createQuery(hql)
+//				   .setParameter("cate", category)
+//				   .getResultList();
+		
+		model.addAttribute("products", list);
 		model.addAttribute("productss", productss);
-		return "productss";
+		return "train/category";
 	}
+	
+	
 	@RequestMapping("train/trainproduct/{id}")
 	public String getProductById(@PathVariable("id") Integer id, Model model){
-
 		model.addAttribute("product", service.getProductById(id));
 		return "train/trainproduct";
 	}
+	
 	@RequestMapping("train/trainproduct2/{id}")
 	public String Video(@PathVariable("id") Integer id, Model model){
 
