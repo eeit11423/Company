@@ -684,6 +684,10 @@ public class ProductController {
 					mb.setMemberAdmin(list1.get(6));
 					mb.setMemberSalary(Integer.valueOf(list1.get(7)));
 					mb.setMemberGender(list1.get(8));
+					mb.setMemberAddress(list1.get(9));
+					mb.setMemberPhone(list1.get(10));
+					mb.setMemberBirthdaay(list1.get(11));
+					mb.setMemberEmail(list1.get(12));
 					service.updateMember(mb);
 					System.out.println("HIHIHI+++++++++++++++");
 //					service.updateCsv(list1.get(0), list1.get(1), list1.get(2), list1.get(3));
