@@ -21,7 +21,7 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Override
 	public List<MemberBean> getAllMember() {
-		String hql = "FROM MemberBean";
+		String hql = "FROM MemberBean order by memberId desc";
 		Session session = null;
 		List<MemberBean> list = new ArrayList<MemberBean>();
 		session = factory.getCurrentSession();
