@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>出勤系統</title>
+<title>打卡系統</title>
 <link href="${pageContext.request.contextPath}/css/attendance-form.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/dist/css/vendor.bundle.base.css" rel="stylesheet"  media="all" />
 <link href="${pageContext.request.contextPath}/dist/css/style.css" rel="stylesheet"  media="all" />
@@ -28,7 +28,7 @@
 						<ul class="nav flex-column sub-menu">
 							<li class="nav-item"><a class="nav-link"
 								href="${pageContext.request.contextPath}/attendance/punch/memberPunch">
-									出勤打卡 </a></li>
+									打卡紀錄查詢 </a></li>
 						</ul>
 					</div></li>
 					
@@ -57,7 +57,7 @@
 			<div class="card-header text-white" style='background: #646D73'>
 <!-- 			<div class="text-white" style='background: #646D73'> -->
 				<div class="form-group row">	
-					<div class="col-md-4 text-md-left"><strong><h1>出勤紀錄表</h1></strong></div>
+					<div class="col-md-4 text-md-left"><strong><h1>打卡紀錄表</h1></strong></div>
 					<div  class="col-md-6 text-md-right"><h3 id="Date"></h3></div>
 				</div>
 <script type="text/javascript"> 
@@ -84,11 +84,11 @@
 					<div class="col-md-3 text-md-right"><h3>選擇年月份：</h3></div>
 					<div class="col-md-3"><select style='font-size:20px;' id='dateselect'></select></div>
 				</div>
-				<div class="container form-group row" align='center' style="text-align: center">
-					<button class="btn btn-secondary col-md-3" onclick="location.href='punchWorkOn'">上班打卡</button>
-					<button class="btn btn-secondary col-md-3" onclick="location.href='punchWorkOff'">下班打卡</button>
-					<button class="btn btn-secondary col-md-3" id='btn_late'>遲到</button>
-					<button class="btn btn-secondary col-md-3" id='btn_early'>早退</button>
+				<div class="form-group row">
+					<button class="btn btn-primary col-md-3" style='font-size:20px;' onclick="location.href='punchWorkOn'">上班打卡</button>
+					<button class="btn btn-primary col-md-3" style='font-size:20px;' onclick="location.href='punchWorkOff'">下班打卡</button>
+					<button class="btn btn-primary col-md-3" style='font-size:20px;' id='btn_late'>遲到</button>
+					<button class="btn btn-primary col-md-3" style='font-size:20px;' id='btn_early'>早退</button>
 				</div>
 			</div>
 			<div class="card-body">
@@ -174,9 +174,9 @@
 
 				content += "<tr class='tm-tr-header' align='center'>"
 						+ "<th align='center' width='140' style='font-size:30px;'>日期</th>"
-						+ "<th align='center' width='140' style='font-size:30px;'>上班時間</th>"
+						+ "<th align='center' width='140' style='font-size:30px;'>上班時間(09:00:00)</th>"
 						+ "<th align='center' width='70' style='font-size:30px;'>遲到</th>"
-						+ "<th align='center' width='140' style='font-size:30px;'>下班時間</th>"
+						+ "<th align='center' width='140' style='font-size:30px;'>下班時間(18:00:00)</th>"
 						+ "<th align='center' width='70' style='font-size:30px;'>早退</th>"
 						+ "<th align='center' width='70' style='font-size:30px;'>上班時數</th></tr>";
 				for (var i = 0; i < punchtimes.length; i++) {
@@ -192,9 +192,9 @@
 					content += "<tr>"
 							+ "<td align='center' style='font-size:30px;'>"	+ timeStampToDate(punch.punchDate)	+ "</td>"
 							+ "<td align='center' style='font-size:30px;'>"	+ chekWorkOn(punch.punchWorkOn) + "</td>"
-							+ "<td align='center' style='font-size:30px;'>"	+ checkNull(punchtimes[i].punchLate) + "</td>"
+							+ "<td align='center' style='font-size:30px;color:red'>"	+ checkNull(punchtimes[i].punchLate) + "</td>"
 							+ "<td align='center' style='font-size:30px;'>"	+ chekWorkOff(punch.punchWorkOff) + "</td>"
-							+ "<td align='center' style='font-size:30px;'>"	+ checkNull(punchtimes[i].punchEarly) + "</td>"
+							+ "<td align='center' style='font-size:30px;color:red'>"	+ checkNull(punchtimes[i].punchEarly) + "</td>"
 							+ "<td align='center' style='font-size:30px;'>"	+ timeFn(checkZero(checkNull(punchtimes[i].punchHours))) + "</td></tr>";
 
 			

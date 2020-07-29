@@ -24,4 +24,8 @@ public interface LeaveService {
 	int memberSaveLeave(Leave leave);
 	
 	void checkAudit(Integer leaveId);
+
+	List<Leave> queryAttendanceData(String memberNumber, String selectdate, String category);
+
+	List<Leave> queryAttendanceDataByAudit(String checkaudit);
 }

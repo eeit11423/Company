@@ -15,6 +15,8 @@ public interface ProductDao {
 	List<RosterBean> getAllCourse();
 	
 	List<String>  getAllCategories();
+	List<String>  getAllCategories123();
+	
 	List<TrainingBean>  getProductsByCategory(String category);
 	public TrainingBean getProductById(int productId);
 

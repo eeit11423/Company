@@ -18,11 +18,11 @@
 		var btn = document.getElementById("clickmeS");
 		btn.onclick = function() {
 			leaveDate = document.getElementById("leaveDate") 
-			leaveDate.value = "2020-8-1" 
+			leaveDate.value = "2020-7-29" 
 			leaveStart = document.getElementById("leaveStart") 
-			leaveStart.value = "2020-8-1 09:00:00.000" 
+			leaveStart.value = "2020-7-29 09:00:00.000" 
 			leaveEnd = document.getElementById("leaveEnd") 
- 			leaveEnd.value = "2020-8-1 18:00:00.000" 
+ 			leaveEnd.value = "2020-7-29 12:00:00.000" 
  			Category = document.getElementById("leaveCategory") 
  			option=Category.getElementsByTagName("option")
  			option[0].selected = true 
@@ -74,7 +74,7 @@
 			<div class="row justify-content-center" >
 				<div class="card col-md-12">
 					<div class="card-header text-white" style='background: #646D73'>
-						<strong><h3>新增請假紀錄</h3></strong>
+						<strong><h2>新增請假紀錄</h2></strong>
 					</div>
 					<div class="card-body">
 						<form:form method='POST' modelAttribute="leave" action='memberSaveInsertLeave'
@@ -87,42 +87,45 @@
 							<fieldset>
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right"
-										for="memberNumber">姓名</label>
-									<div class="col-md-6 col-form-label text-md-center">${leave.memberName}</div>
+										style="font-size:30px" for="memberNumber">姓名</label>
+									<div class="col-md-6 col-form-label text-md-center"
+									style="font-size:30px">${leave.memberName}</div>
 								</div>
 								<div class="form-group row">
-									<label for="memberName"
+									<label for="memberName" style="font-size:30px"
 										class="col-md-4 col-form-label text-md-right">編號</label>
-									<div class="col-md-6 col-form-label text-md-center">${leave.memberNumber}</div>
+									<div class="col-md-6 col-form-label text-md-center" 
+									style="font-size:30px">${leave.memberNumber}</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right"
-										for="memberDepartment">部門</label>
-									<div class="col-md-6 col-form-label text-md-center">${leave.memberDepartment}</div>
+										style="font-size:30px" for="memberDepartment">部門</label>
+									<div class="col-md-6 col-form-label text-md-center"
+									style="font-size:30px">${leave.memberDepartment}</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right"
-											for="leaveDate">請假日期</label>
+										style="font-size:30px" for="leaveDate">請假日期</label>
 									<div class="col-md-6">
-										<form:input id="leaveDate" path="leaveDate" 
+										<form:input id="leaveDate" path="leaveDate" style="font-size:30px"
 												type='text'	class="form-control input-md col-form-label text-md-center" />
 										<form:errors path="leaveDate" cssClass="error" />
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right"
-													for="leaveStart">請假開始</label>
+											style="font-size:30px" for="leaveStart">請假開始</label>
 									<div class="col-md-6">
-										<form:input id="leaveStart" path="leaveStart"
+										<form:input id="leaveStart" path="leaveStart" style="font-size:30px"
 														type='text' class="form-control input-md col-form-label text-md-center" />
 										<form:errors path="leaveStart" cssClass="error" />
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right"
-													for="leaveEnd">請假結束</label>
+												style="font-size:30px" for="leaveEnd">請假結束</label>
 									<div class="col-md-6">
-										<form:input id="leaveEnd" path="leaveEnd" type='text'
+										<form:input id="leaveEnd" path="leaveEnd" type='text' style="font-size:30px"
 														class="form-control input-md col-form-label text-md-center" />
 										<form:errors path="leaveEnd" cssClass="error" />
 									</div>
@@ -130,15 +133,15 @@
 											
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right"
-											for="leaveCategory">假別</label>
+										style="font-size:30px" for="leaveCategory">假別</label>
 									<div class="col-md-6">
-										<form:select id="leaveCategory"	path="leaveCategory"
-													class="form-control input-md col-form-label text-md-center">
-											<form:option value='事假'>事假</form:option>
-											<form:option value='病假'>病假</form:option>
-											<form:option value='公假'>公假</form:option>
-											<form:option value='婚嫁'>婚嫁</form:option>
-											<form:option value='喪假'>喪假</form:option>
+										<form:select id="leaveCategory" style="font-size:30px"
+										path="leaveCategory" class="form-control input-md col-form-label text-md-center">
+											<form:option align='center' style="font-size:30px" value='事假'>事假</form:option>
+											<form:option align='center' style="font-size:30px" value='病假'>病假</form:option>
+											<form:option align='center' style="font-size:30px" value='公假'>公假</form:option>
+											<form:option align='center' style="font-size:30px" value='婚嫁'>婚嫁</form:option>
+											<form:option align='center' style="font-size:30px" value='喪假'>喪假</form:option>
 										</form:select>
 										<form:errors path="leaveCategory" cssClass="error" />
 									</div>
@@ -146,9 +149,9 @@
 								
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right"
-													for="leaveCause">原因</label>
+											style="font-size:30px" for="leaveCause">原因</label>
 									<div class="col-md-6">
-										<form:input id="leaveCause"	path="leaveCause"
+										<form:input id="leaveCause"	path="leaveCause" style="font-size:30px"
 													 type='text' class="form-control input-md col-form-label text-md-center" />
 										<form:errors path="leaveCause" cssClass="error" />
 									</div>
@@ -156,10 +159,10 @@
 								
 								<div class="form-group row">
 									<div class='col-lg-offset-2 col-lg-12'>
-										<input id="btnAdd" type='submit'
+										<input id="btnAdd" type='submit' style="font-size:30px"
 											class="btn btn-secondary btn-lg btn-block" value="送出" />
 										<input type='button' class='btn btn-primary float-right'
-											id='clickmeS' value='一鍵Demo'>
+											style="font-size:30px" id='clickmeS' value='一鍵Demo'>
 									</div>
 								</div>
 							</fieldset>

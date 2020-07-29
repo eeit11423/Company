@@ -49,10 +49,17 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<TrainingBean> getProductsByCategory(String category) {
 		String hql = "FROM TrainingBean b WHERE b.category = :cate";
+		List<TrainingBean> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
-		return session.createQuery(hql)
+		list = session.createQuery(hql)
 				   .setParameter("cate", category)
 				   .getResultList();
+		return list;
+		
+//		Session session = factory.getCurrentSession();
+//		return session.createQuery(hql)
+//				   .setParameter("cate", category)
+//				   .getResultList();
 	}
 	@Override
 	public void saveTraining(TrainingBean Tb) {
@@ -61,7 +68,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	@Override
 	public void updateTraining(TrainingBean bean) {
-		if (bean != null && bean.getTrainingId() != null) {//範例是擷取memberNumber，這裡沒有，須注意。
+		if (bean != null && bean.getTrainingId() != null) {
 			Session session = factory.getCurrentSession();
 			session.saveOrUpdate(bean);
 		}
@@ -174,5 +181,19 @@ public class ProductDaoImpl implements ProductDao {
 										.setParameter("tid", trainingId)
 										.getResultList();
 		return tb;
+	}
+	@Override
+	public List<String> getAllCategories123() {
+//		String hql = "FROM TrainingBean b WHERE b.category = :cate";
+		String hql = " Select Distinct category From TrainingBean "  ;
+		List<String> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+//		System.out.println("9999999999999999999999999999999999999999999");
+//		System.out.println("1123123"+test);
+		list = session.createQuery(hql)
+//				   .setParameter("cate", test)
+				   .getResultList();
+//		System.out.println("DAO55555555555555"+list);
+		return list;
 	}
 }

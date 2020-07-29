@@ -9,7 +9,14 @@
     href="//netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <title>Products</title>
-
+	<style>
+		#outside{
+/* 			  background-color:#FF9900; */
+/* 			  width: 400px; */
+/* 			  height: 100px; */
+			  text-align:center;
+				}	
+	</style>
 </head>
 <body>
 <%-- <jsp:include page="/fragment/header.jsp" /> --%>
@@ -23,10 +30,10 @@
         <div class="jumbotron">
             <div class="container" style="text-align: center" >
                 <h1>所有訓練課程(後台)</h1>
-				<div class="container" style="text-align: center" >   	
-			    	<a href="<c:url value='/' />"class="btn btn-primary">
-					<span class="glyphicon-info-sigh glyphicon"></span>首頁</a>									
-    			</div>
+<!-- 				<div class="container" style="text-align: center" >   	 -->
+<%-- 			    	<a href="<c:url value='/' />"class="btn btn-primary"> --%>
+<!-- 					<span class="glyphicon-info-sigh glyphicon"></span>首頁</a>									 -->
+<!--     			</div> -->
             </div>
 <!--             <div align='center'> -->
 <!-- 				請挑選課程類型: <select id='Publish_course' onchange="memberChange()"> -->
@@ -48,16 +55,16 @@
 <!-- 			<section class="container"> -->
 		<div class="row" id='testshow' style="background-color:#FFFFF4">
     <section class="container">
-        <div class="row">
-        
+        <div class="row">       
 		
         
         <c:forEach var='product' items='${trainAllProductsDelete}'> <!-- controller的識別字串trainAllProducts會導引過來這裡 -->
             <div class="col-sm-6 col-md-4" style="width: 360px; height: 400px">
                 <div class="thumbnail" style="width: 320px; height: 600px">
               
-                <img width='80' height='80'
+                <img id='outside' width='80' height='80'
                 src="<c:url value='/getTrainPicture/${product.trainingId}'/>"/>
+                
                     <div class="caption" style="height: 235px">
                         <p>
 							<b style='font-size: 25px;'>${product.trainingCourse}</b>

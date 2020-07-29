@@ -14,39 +14,34 @@
 		<div class="contnt-wrapper">
 		<div class="row">
 		<div class="card">
-			<div class="card-header text-white" style='background: #646D73'>
-				<strong><h2>出勤紀錄表</h2></strong>
+			<div class="card-header text-white text-md-center" style='background: #646D73'>
+				<strong><h2>打卡紀錄表</h2></strong>
 			</div>
 			<div class="card-body">
 				<div class="form-group row">
 					<span class="col-md-3 text-md-right" style="font-size:30px;">請挑選姓名：</span>
-					<div class="col-md-3 text-md-center"><select style="font-size:30px;" id='membername'></select></div>
+					<div class="col-md-3 text-md-center"><select style="font-size:30px;=" id='membername'></select></div>
 					<span class="col-md-3 text-md-right" style="font-size:30px;">選擇年月份：</span>
 					<div class="col-md-3 text-md-center"><select style="font-size:30px;" id='dateselect'></select></div>
 				</div>
 			</div>
-			<hr>
 			<div class="card-body">
 				<div class="form-group row">
-					<div align='center' class='col-md-6'>
-						<h3>打卡紀錄</h3>
-						<button class="btn btn-secondary col-md-4" style="font-size:20px;" id='btn_late'>遲到</button>
-						<button class="btn btn-secondary col-md-4" style="font-size:20px;" id='btn_early'>早退</button>
+					<div align='center' class='col-md-12'>
+						<button class="btn btn-secondary col-md-3" style="font-size:20px;" id='btn_late'>遲到</button>
+						<button class="btn btn-secondary col-md-3" style="font-size:20px;" id='btn_early'>早退</button>
+						<button class="btn btn-secondary col-md-3" style="font-size:20px;" id='btn_reset'>重設</button>
 					</div>
-					<div align='center' class='col-md-6'>
-						<h3>請假紀錄</h3>
-						<button class="btn btn-secondary col-md-4" style="font-size:20px;" id='btn_leave'>請假</button>
-					</div>
-					<div align='center' id='tablePunch' class="table-responsive col-md-6"></div>
-					<div align='center' id='tableLeave' class="table-responsive col-md-6"></div>
-		</div>
+				<hr>
+				</div>
+				<div align='center' id='tablePunch' class="table-responsive col-md-12"></div>
 		
 		<script>
 			var selectElement = document.getElementById('membername'); 
 			var selectElement2 = document.getElementById('dateselect'); 
 			var btn_late = document.getElementById("btn_late");
 			var btn_early = document.getElementById("btn_early");
-			var btn_leave = document.getElementById("btn_leave");			
+			var btn_reset = document.getElementById("btn_reset");
 			var tablePunch = document.getElementById('tablePunch'); 
 			var detail = document.getElementById('detail'); 
 			var xhr = new XMLHttpRequest();			
@@ -89,11 +84,9 @@
 				xhr2.onreadystatechange = function() {
 					if (xhr2.readyState == 4 && xhr2.status == 200) {
 						displayPagePunchTime(xhr2.responseText);
-						displayPageLeave(xhr2.responseText);
 					}
 				}
 				xhr2.open("GET", "<c:url value='queryAttendanceData' />?memberNumber=all&selectdate=all", true);
-				// 			// 送出請求						
 				xhr2.send();
 			}
 
@@ -101,7 +94,6 @@
 				xhr3.onreadystatechange = function() {
 					if (xhr3.readyState == 4 && xhr3.status == 200) {
 						displayPagePunchTime(xhr3.responseText);
-						displayPageLeave(xhr3.responseText);
 					}
 				}
 				var memberNumber = selectElement.options[selectElement.selectedIndex].value;
@@ -116,7 +108,6 @@
 				xhr3.onreadystatechange = function() {
 					if (xhr3.readyState == 4 && xhr3.status == 200) {
 						displayPagePunchTime(xhr3.responseText);
-						displayPageLeave(xhr3.responseText);
 					}
 				}
 				// 			//使用者挑選的書籍之主鍵值是存放在selectElement.options[selectElement.selectedIndex].value中
@@ -128,6 +119,20 @@
 				xhr3.send();
 			}
 
+			btn_reset.onclick = function(){
+				xhr4.onreadystatechange = function() {
+					if (xhr4.readyState == 4 && xhr4.status == 200) {
+						displayPagePunchTime(xhr4.responseText);
+					}
+				}
+				var memberNumber = selectElement.options[selectElement.selectedIndex].value;
+				var selectdate = selectElement.options[selectElement.selectedIndex].value;
+			xhr4.open("GET",
+					"<c:url value='queryAttendanceData' />?memberNumber="+ memberNumber 
+					+ "&selectdate=" + selectdate, true);
+			xhr4.send();
+			}
+			
 			btn_late.onclick = function(){
 				xhr4.onreadystatechange = function() {
 					if (xhr4.readyState == 4 && xhr4.status == 200) {
@@ -156,49 +161,30 @@
 			xhr4.send();
 			}
 			
-			btn_leave.onclick = function(){
-				xhr4.onreadystatechange = function() {
-					if (xhr4.readyState == 4 && xhr4.status == 200) {
-						displayPagePunchTime(xhr4.responseText);
-					}
-				}
-				var memberNumber = selectElement.options[selectElement.selectedIndex].value;
-				var selectdate = selectElement.options[selectElement.selectedIndex].value;
-			xhr4.open("GET",
-					"<c:url value='queryAttendanceDataByLeave' />?memberNumber="+ memberNumber 
-					+ "&selectdate=" + selectdate + "&leave=all", true);
-			xhr4.send();
-			}
-			
-			
-			
-			
-
-				
 			function displayPagePunchTime(responseText) {
 				var mapData = JSON.parse(responseText);
 				var punchData = mapData.punch;
 				var contentPunch = "<table class='table table-hover border border-secondary'";
-				contentPunch += "<tr align='center'>"
-						+ "<th align='center' width='100'>日期</th>"
-						+ "<th align='center' width='100'>姓名</th>"
-						+ "<th align='center' width='140'>上班時間</th>"
-						+ "<th align='center' width='70'>遲到</th>"
-						+ "<th align='center' width='140'>下班時間</th>"
-						+ "<th align='center' width='70'>早退</th>"
-						+ "<th align='center' width='140'>上班時數</th>"
-						+ "<th align='center' width='100'>出勤修改</th></tr>";
+				contentPunch += "<tr class='tm-tr-header' align='center'>"
+						+ "<th align='left' width='200' style='font-size:30px;'>日期</th>"
+						+ "<th align='left' width='200' style='font-size:30px;'>姓名</th>"
+						+ "<th align='left' width='170' style='font-size:30px;'>上班時間</th>"
+						+ "<th align='left' width='140' style='font-size:30px;'>遲到</th>"
+						+ "<th align='left' width='170' style='font-size:30px;'>下班時間</th>"
+						+ "<th align='left' width='140' style='font-size:30px;'>早退</th>"
+						+ "<th align='left' width='230' style='font-size:30px;'>上班時數</th>"
+						+ "<th align='left' width='140' style='font-size:30px'>修改</th></tr>";
 				for (var i = 0; i < punchData.length; i++) {
 					var punch = punchData[i];
 					contentPunch += "<tr>"
-						    		+ "<td align='center'>" + timeStampToDate(punch.punchDate) + "</td>"
-									+ "<td align='center'>"	+ punch.memberName + "</td>"
-									+ "<td align='center'>" + chekWorkOn(punch.punchWorkOn) + "</td>"
-									+ "<td align='center'>" + checkNull(punch.punchLate) + "</td>"
-									+ "<td align='center'>" + chekWorkOff(punch.punchWorkOff) + "</td>"
-									+ "<td align='center'>" + checkNull(punch.punchEarly) + "</td>"
-									+ "<td align='center'>" + timeFn(punch.punchHours) + "</td>"
-									+ "<td align='center'>" + checkPunchTimeDataExist(punch.memberName) + "</td></tr>";
+						    		+ "<td align='left' style='font-size:30px'>" + timeStampToDate(punch.punchDate) + "</td>"
+									+ "<td align='left' style='font-size:30px'>"	+ punch.memberName + "</td>"
+									+ "<td align='left' style='font-size:30px'>" + chekWorkOn(punch.punchWorkOn) + "</td>"
+									+ "<td align='left' style='font-size:30px;color:red;'>" + checkNull(punch.punchLate) + "</td>"
+									+ "<td align='left' style='font-size:30px'>" + chekWorkOff(punch.punchWorkOff) + "</td>"
+									+ "<td align='left' style='font-size:30px;color:red;'>" + checkNull(punch.punchEarly) + "</td>"
+									+ "<td align='left' style='font-size:30px'>" + timeFn(punch.punchHours) + "</td>"
+									+ "<td align='left' style='font-size:30px'>" + checkPunchTimeDataExist(punch.memberName) + "</td></tr>";
 									
 					function checkNull(String) {
 						if (String == null) {
@@ -248,79 +234,11 @@
 						if (String == null) {
 							return "<a href='insertPunchTime'>新增</a>";
 						} else {
-							return "<a class='deletelink' href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a href='deletePunchTime/"
+							return "<a href='punchTimeEdit/" + punch.punchId + "'>更改</a>/<a href='deletePunchTime/"
 								+ punch.punchId + "' onclick='confirm(\"確認刪除此筆請假紀錄？\")'>刪除</a>";
 						}
 					}
-							
-				}
-				contentPunch += "</table>";
-				tablePunch.innerHTML = contentPunch;
-			}
-			function displayPageLeave(responseText) {
-				var mapData = JSON.parse(responseText);
-				var leaveData = mapData.leave;
-				var contentLeave = "<table class='table table-hover border border-secondary'";
-
-				contentLeave += "<tr align='center'>"
-						+ "<th align='center' width='100'>日期</th>"
-						+ "<th align='center' width='100'>姓名</th>"
-						+ "<th align='center' width='100'>請假開始</th>"
-						+ "<th align='center' width='100'>請假結束</th>"
-						+ "<th align='center' width='100'>假別</th>"
-						+ "<th align='center' width='140'>請假時數</th>"
-						+ "<th align='center' width='100'>請假審核</th>"
-						+ "<th align='center' width='100'>請假修改</th></tr>";
-						
-				for (var i = 0; i < leaveData.length; i++) {
-					var leave = leaveData[i];
-					contentLeave += "<tr>"							
-								+ "<td align='center'>" + timeStampToDate(leave.leaveDate) + "</td>"
-								+ "<td align='center'>"	+ leave.memberName + "</td>"
-								+ "<td align='center'>" + timeStampToTime(leave.leaveStart) + "</td>"
-								+ "<td align='center'>" + timeStampToTime(leave.leaveEnd) + "</td>"
-								+ "<td align='center'>" + leave.leaveCategory + "</td>"
-								+ "<td align='center'>" + timeFn(leave.leaveHours) + "</td>"
-								+ "<td align='center'>" + checkAudit(leave.leaveAudit) + "</td>"
-								+ "<td align='center'>" + checkLeaveDataExist(leave.memberName) + "</td></tr>";
-								
-					function checkAudit(String){
-						if (String == '審核中'){
-							return "<a href='../leave/checkAudit/" + leave.leaveId +"' onclick='confirm(\"確認通過審核？\")'>審核中</a>";
-						}else if(String == '通過')
-							return '通過';
-						else{
-							return '';
-						}
-					}
-					function checkLeaveDataExist(String) {
-						if (String == null) {
-							return "<a href='../leave/insertLeave'>新增</a>";
-						} else {
-							return "<a class='deletelink' href='../leave/leaveEdit/" + leave.leaveId + "'>更改</a>/<a href='../leave/deleteLeave/"
-								+ leave.leaveId + "' onclick='confirm(\"確認刪除此筆請假紀錄？\")'>刪除</a>";
-						}
-					}
 					
-					function timeStampToTime(time) {
-						if (time != null) {
-							var datetime = new Date();
-							datetime.setTime(time);
-							var hour = (datetime.getHours() < 10 ? '0' : '')
-									+ datetime.getHours();
-							var minute = (datetime.getMinutes() < 10 ? '0' : '')
-									+ datetime.getMinutes();
-							var time = hour + ":" + minute;
-							return time;
-						} else {
-							return '';
-						}
-					}
-				}
-					
-				contentLeave += "</table>";
-				tableLeave.innerHTML = contentLeave;
-			}
 					function timeStampToDate(date) {
 						if (date != null) {
 							var datetime = new Date();
@@ -347,7 +265,13 @@
 					    	return '';
 					    }
 					}
+				}
+				contentPunch += "</table>";
+				tablePunch.innerHTML = contentPunch;
+			}
 		</script>
+			</div>
+		</div>
 		</div>
 		</div>
 	</div>

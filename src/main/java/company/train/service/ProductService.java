@@ -10,7 +10,7 @@ public interface ProductService {
 	List<TrainingBean>  getAllProducts(); 
 	List<RosterBean>  getAllCourse(); 
 
-	
+	List<String>  getAllCategories123();
 	
 	public TrainingBean getProductById(int productId);	
 	
