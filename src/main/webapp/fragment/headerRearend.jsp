@@ -57,13 +57,7 @@
               <span class="menu-title">回首頁</span> 
             </a>
           </li>
-          <li class="nav-item">
-           <i class="menu-arrow"></i>
-            <a class="nav-link" href="${pageContext.request.contextPath}/orderprice">
-     <i class="ti-layout-list-post menu-icon"></i>
-              <span class="menu-title">回後台首頁</span> 
-            </a>
-          </li>
+     
          <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#index1" aria-expanded="false" aria-controls="index1">
               <i class="ti-layout-list-post menu-icon"></i>
@@ -101,8 +95,8 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/orderprice">數據分析</a></li>
                 <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/rearend/allSalary">人員分佈曲線圖</a></li>
-<!--                 <li class="nav-item"> <a class="nav-link" href="連結"></a></li> -->
               </ul>
             </div>
              	 </li>
