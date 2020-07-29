@@ -15,6 +15,12 @@
 			indexP2.value = "胭脂紅茶"
 				indexP3 = document.getElementById("price2")
 			indexP3.value = "45"
+				indexP4 = document.getElementById("quantity3")
+			indexP4.value = "6"
+			indexP4 = document.getElementById("userName3")
+			indexP4.value = "尼克"
+			indexP5 = document.getElementById("seachOrder")
+			indexP5.value = "尼克"
 		}	
 
 

@@ -92,7 +92,7 @@
 <!-- 								<span class="glyphicon-info-sigh glyphicon"></span>修改 -->
 <!-- 							</a> -->
 <%-- 							<input style="color:black" type="button" name="OrderBtn"  value="確定選課" onclick="reconfirmOrder(${product.trainingId})"> --%>
-                        	<a onclick="reconfirmOrder(${product.trainingId})""
+                        	<a onclick="reconfirmOrder(${product.trainingId})"
                         		class="btn btn-primary"><span
                         		class="glyphicon-info-sigh glyphicon"></span>選課
                         	</a>
