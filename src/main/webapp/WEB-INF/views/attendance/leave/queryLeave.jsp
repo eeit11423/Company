@@ -27,6 +27,7 @@
 					<div class="col-md-2 text-md-center"><select style="font-size:30px;" id='category'></select></div>
 				</div>
 			</div>
+			<div align='center'><button class="btn btn-primary col-md-3" style='font-size:20px;' id='btn_checkaudit'>未審核</button></div>
 			<hr>
 			<div class="card-body">
 				<div align='center' id='tableLeave' class="table-responsive col-md-12"></div>
@@ -36,6 +37,7 @@
 			var selectElement = document.getElementById('membername'); 
 			var selectElement2 = document.getElementById('dateselect'); 
 			var selectElement3 = document.getElementById('category'); 
+			var btn_checkaudit = document.getElementById("btn_checkaudit");
 			var tablePunch = document.getElementById('tablePunch'); 
 			var detail = document.getElementById('detail'); 
 			var xhr = new XMLHttpRequest();			
@@ -131,6 +133,18 @@
 						+ memberNumber + "&selectdate=" + selectdate +"&selectcategory=" + selectcategory, true);
 				// 			// 送出請求						
 				xhr3.send();
+			}
+			
+			btn_checkaudit.onclick = function(){
+				xhr3.onreadystatechange = function() {
+					if (xhr3.readyState == 4 && xhr3.status == 200) {
+						displayPageLeave(xhr3.responseText);
+					}
+				}
+			xhr3.open("GET",
+					"<c:url value='queryAttendanceDataByAudit'/>?memberNumber=all" 
+					+ "&selectdate=all&selectcategory=all&='審核中'", true);
+			xhr3.send();
 			}
 
 			function displayPageLeave(responseText) {

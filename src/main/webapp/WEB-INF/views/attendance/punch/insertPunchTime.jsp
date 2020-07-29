@@ -26,11 +26,11 @@
 			memberDepartment = document.getElementById("memberDepartment")
 			memberDepartment.value = "董事長"
 			punchDate = document.getElementById("punchDate") 
-			punchDate.value = "2020-1-1" 
+			punchDate.value = "2020-8-1" 
 			punchWorkOn = document.getElementById("punchWorkOn") 
-			punchWorkOn.value = "2020-1-1 09:00:00.000" 
+			punchWorkOn.value = "2020-8-1 10:00:00.000" 
 			punchWorkOff = document.getElementById("punchWorkOff") 
- 			punchWorkOff.value = "2020-1-1 18:00:00.000" 
+ 			punchWorkOff.value = "2020-8-1 18:00:00.000" 
 		}
 	}
 </script>

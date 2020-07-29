@@ -139,13 +139,13 @@ public class LeaveDaoImpl implements LeaveDao {
 		if (timesplit.length == 1) {                     //所有時間
 			if(memberNumber.equals("all")) {				//所有員工
 				System.out.println("所有員工-所有時間");
-				String hql = "FROM Leave Order By leaveDate";
+				String hql = "FROM Leave Order By leaveDate DESC";
 				List<Leave> listTarget = session.createQuery(hql)
 						.getResultList();
 				return listTarget;
 			}else {
 				System.out.println("指定員工-所有時間");	//指定員工
-				String hql = "FROM Leave WHERE memberNumber = :number Order By leaveDate";
+				String hql = "FROM Leave WHERE memberNumber = :number Order By leaveDate DESC";
 				List<Leave> listTarget = session.createQuery(hql)
 						.setParameter("number", memberNumber)
 						.getResultList();
@@ -154,7 +154,7 @@ public class LeaveDaoImpl implements LeaveDao {
 		}else {											 //指定時間
 			if(memberNumber.equals("all")){					//所有員工
 				System.out.println("所有員工-指定時間");
-				String hql = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By leaveDate";
+				String hql = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By leaveDate DESC";
 				List<Leave> listTarget = session.createQuery(hql)
 						.setParameter("yyyy", timesplit[0])
 						.setParameter("mm", timesplit[1])
@@ -162,7 +162,7 @@ public class LeaveDaoImpl implements LeaveDao {
 				return listTarget;
 			}else{											//指定員工
 				System.out.println("指定員工-指定時間");
-				String hql = "FROM Leave WHERE memberNumber = :number and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By leaveDate";
+				String hql = "FROM Leave WHERE memberNumber = :number and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By leaveDate DESC";
 				List<Leave> listTarget = session.createQuery(hql)
 						.setParameter("number", memberNumber)
 						.setParameter("yyyy", timesplit[0])
@@ -197,10 +197,12 @@ public class LeaveDaoImpl implements LeaveDao {
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	public List<Punch> getMemberAndPunchDateList(Leave leave) {
+	public List<Punch> getMemberAndPunchDateList(Integer leaveId) {
 		Session session = factory.getCurrentSession();
+		System.out.println(leaveId);
+		Leave leave = session.get(Leave.class, leaveId);
 		int leaveDateMomth = leave.getLeaveDate().getMonth()+1;
-		int leaveDateDay = leave.getLeaveDate().getDate();
+		int leaveDateDay =  leave.getLeaveDate().getDate();
 		String hql = "FROM Punch WHERE memberName=:memberName and DATEPART(mm,punchDate) = :month and DATEPART(dd,punchDate) = :day";
 		List<Punch> list = (List<Punch>) session.createQuery(hql)
 												.setParameter("memberName", leave.getMemberName())
@@ -216,10 +218,17 @@ public class LeaveDaoImpl implements LeaveDao {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public void updatePunchtime(Leave leave, int punchId){
+	public void updatePunchtime(Integer leaveId, int punchId){
 		Session session = factory.getCurrentSession();
+		Leave leave = session.get(Leave.class, leaveId);
 		Timestamp leaveStart = leave.getLeaveStart();
 		Timestamp leaveEnd = leave.getLeaveEnd();
+		System.out.println(leave);
+		System.out.println(leave.getLeaveStart());
+		System.out.println(leave.getLeaveId());
+		System.out.println(punchId);
+		System.out.println(leaveStart);
+		System.out.println(leaveEnd);
 		Punch punch = session.get(Punch.class, punchId);
 		
 		//請假 9點開始
@@ -233,7 +242,7 @@ public class LeaveDaoImpl implements LeaveDao {
 					   .executeUpdate();
 			//請假 18點以前結束
 			}else {
-				String hql = "UPDATE Punch SET  punchWorkOn = :Start, punchEarly = null "
+				String hql = "UPDATE Punch SET  punchWorkOn = :Start, punchLate = null "
 						+ " WHERE punchId = :punchId";
 				session.createQuery(hql)
 				.setParameter("punchId", punchId)
@@ -244,7 +253,7 @@ public class LeaveDaoImpl implements LeaveDao {
 		}else {
 			//請假 18點結束
 			if (leaveEnd.getHours() == 18 ) {
-				String hql = "UPDATE Punch SET punchWorkOff = :end, punchLate = null WHERE punchId = :punchId";
+				String hql = "UPDATE Punch SET punchWorkOff = :end, punchEarly = null WHERE punchId = :punchId";
 				session.createQuery(hql)
 				.setParameter("punchId", punchId)
 				.setParameter("end", leave.getLeaveStart())
@@ -360,5 +369,17 @@ public class LeaveDaoImpl implements LeaveDao {
 				}
 			}
 		}
+		
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Leave> queryAttendanceDataByAudit(String checkaudit) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Leave WHERE leaveAudit = '審核中' Order by leaveDate DESC";
+			List<Leave> listLeave = session.createQuery(hql)
+					   					   .getResultList();
+//				System.out.println("資料庫的到的list:"+listLeave);
+			return listLeave;
+	}
+
 }

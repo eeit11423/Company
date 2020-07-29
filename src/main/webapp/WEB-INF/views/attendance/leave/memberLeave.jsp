@@ -54,7 +54,7 @@
 			<div class="row justify-content-center">
 				<div class="card col-md-12">
 					<div class="card-header text-white" style='background: #646D73'>
-						<strong><h3>請假紀錄表</h3></strong>
+						<strong><h2>請假紀錄表</h2></strong>
 					</div>
 				<div class="card-body">
 					<div class="form-group row">	
@@ -63,7 +63,7 @@
 		<!-- 顯示書籍資料的區域 -->
 					</div>
 				<div class="card-body">
-					<div align='center' id='tablearea' style='height: 150px;' class='center'>
+					<div align='center' id='tablearea' class='class="col-md-12 grid-margin stretch-card"'></div>
 		<script>
 			var selectElement = document.getElementById('dateselect'); 
 			var tablearea = document.getElementById('tablearea'); 
@@ -114,14 +114,14 @@
 				var content = "<table class='table table-hover border border-secondary'>";
 
 				content += "<tr align='center'>"
-						+ "<th align='center' width='200' style='font-size:20px;'>日期</th>"
-						+ "<th align='center' width='200' style='font-size:20px;'>姓名</th>"
-						+ "<th align='center' width='170' style='font-size:20px;'>請假開始</th>"
-						+ "<th align='center' width='170' style='font-size:20px;'>請假結束</th>"
-						+ "<th align='center' width='140' style='font-size:20px;'>假別</th>"
-						+ "<th align='center' width='230' style='font-size:20px;'>請假時數</th>"
-						+ "<th align='center' width='200' style='font-size:20px;'>原因</th>"
-// 						+ "<th align='center' width='200'>審核</th>"
+						+ "<th align='center' width='200' style='font-size:30px;'>日期</th>"
+						+ "<th align='center' width='200' style='font-size:30px;'>姓名</th>"
+						+ "<th align='center' width='140' style='font-size:30px;'>假別</th>"
+						+ "<th align='center' width='170' style='font-size:30px;'>請假開始</th>"
+						+ "<th align='center' width='170' style='font-size:30px;'>請假結束</th>"
+						+ "<th align='center' width='230' style='font-size:30px;'>請假時數</th>"
+						+ "<th align='center' width='200' style='font-size:30px;'>原因</th>"
+						+ "<th align='center' width='140' style='font-size:30px;'>審核</th>"
 						+"</tr>";
 				for (var i = 0; i < leave.length; i++) {
 					var leaveDay = leave[i].leaveDate; //or time=1439018115000; 结果一样
@@ -136,7 +136,7 @@
 					+ "<td align='center' style='font-size:30px;'>" + timeStampToTime(leaveEnd)	+ "</td>"
 					+ "<td align='center' style='font-size:30px;'>" + timeFn(leave[i].leaveHours) + "</td>" 
 					+ "<td align='center' style='font-size:30px;'>" + leave[i].leaveCause + "</td>" 
-// 					+ "<td align='center'>" + leave[i].leaveAudit + "</td>" 
+					+ "<td align='center' style='font-size:30px;'>" + leave[i].leaveAudit + "</td>" 
 					+ "</tr>";
 				}
 				content += "</table>";
