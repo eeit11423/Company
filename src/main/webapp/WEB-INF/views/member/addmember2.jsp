@@ -30,7 +30,7 @@
 span.error {
 	color: red;
 	display: inline-block;
-	font-size: 5pt;
+	font-size: 25pt;
 }
 </style>
 <script >
