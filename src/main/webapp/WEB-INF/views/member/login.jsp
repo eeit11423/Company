@@ -68,7 +68,7 @@ window.onload = function(){
 			<form:form method='POST' modelAttribute='loginBean'
 					enctype="multipart/form-data" class="login100-form validate-form" onsubmit="return submitUserForm();">
 				
-					<span class="login100-form-title p-b-43">
+					<span class="login100-form-title p-b-5">
 						付酬者員工內部網
 					</span>
 					
@@ -91,7 +91,7 @@ window.onload = function(){
 					
 					
 
-					<div class="flex-sb-m w-full p-t-3 p-b-32">
+					<div class="flex-sb-m w-full p-t-3 p-b-10">
 						<div class="contact100-form-checkbox">
 							<form:checkbox path="rememberMe" />
 							<span class="text-muted" style="font-size: 14px">Remember me</span>
