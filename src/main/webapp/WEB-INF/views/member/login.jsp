@@ -35,6 +35,7 @@
 window.onload = function(){
 		var btn = document.getElementById("clickmeS1001");
 		var btn2 = document.getElementById("clickmeS1008");
+		var btn3 = document.getElementById("clickmeS3001");
 		btn.onclick = function(){
 		Name =  document.getElementById("account")
 		Name.value ="1001"
@@ -46,6 +47,12 @@ window.onload = function(){
 			Name.value ="1008"
 			address = document.getElementById("pwd")
 			address.value = "1008"
+		}
+		btn3.onclick = function(){
+			Name =  document.getElementById("account")
+			Name.value ="3001"
+			address = document.getElementById("pwd")
+			address.value = "1234"
 		}
 	}
 
@@ -119,6 +126,8 @@ window.onload = function(){
 						<input type='button' class='btn btn-primary'  id='clickmeS1001' value='Demo1001' >
 						<span>&nbsp;&nbsp;</span>
 						<input type='button' class='btn btn-primary'  id='clickmeS1008' value='Demo1008' >
+						<span>&nbsp;&nbsp;</span>
+						<input type='button' class='btn btn-primary'  id='clickmeS3001' value='Demo3001' >
 					</div>
 				</form:form>
 

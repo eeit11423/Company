@@ -3,6 +3,22 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 	<head>
+	<script >
+	window.onload = function() {
+		var btn = document.getElementById("clickmeS");
+		btn.onclick = function() {
+			indexH2 = document.getElementById("first-box-store")
+			indexH2.value = "可不可"
+				indexP = document.getElementById("datepicker")
+			indexP.value = "2020-08-01"
+				indexP2 = document.getElementById("menu2")
+			indexP2.value = "胭脂紅茶"
+				indexP3 = document.getElementById("price2")
+			indexP3.value = "45"
+		}	
+
+
+		}</script>
 		<title>訂餐系統</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -35,6 +51,7 @@
 							<li><a href="#intro" class="active">訂單查詢</a></li>
 							<li><a href="#first">新增清單</a></li>
 							<li><a href="#second">訂購名單</a></li>
+							<li><a href="${pageContext.request.contextPath}/">回首頁</a></li>
 						</ul>
 					</nav>
 				<!-- Main -->
@@ -61,6 +78,8 @@
 							<section id="first" class="main special">
 								<header class="major">
 									<h2>自己建立想吃的東西吧！</h2>
+									<input type='button' class='btn btn-primary float-right'
+													id='clickmeS' value='一鍵Demo'>
 								</header>
 								  <div>
                                    <div style="display: flex; align-items: center; padding-bottom: 5%; border-bottom: 1px solid rgb(197, 197, 197);">

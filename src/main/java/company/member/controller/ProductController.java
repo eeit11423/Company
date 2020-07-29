@@ -500,7 +500,7 @@ public class ProductController {
 			}
 		}
 		service.updateMember(mb);
-		return "redirect:/updatepasswd/"+id+"";
+		return "redirect:/";
 	}
 	
 //更改密碼
@@ -666,8 +666,12 @@ public class ProductController {
 					BufferedReader reader = new BufferedReader(isr)) {
 				ArrayList<String> list1 = new ArrayList<String>();
 				String line = null;
+				reader.readLine();
 				while ((line = reader.readLine()) != null) {
+					System.out.println("++++++++++++++++++++++++++++++++++");
+					System.out.println(line);
 					String item[] = line.split(",");
+					
 					for (int i = 0; i < item.length; i++) {
 						list1.add(item[i].trim());
 					}
@@ -711,52 +715,103 @@ public class ProductController {
 		System.out.println(map);
 		Row row = null;
 		Cell cell = null;
-		for(int r = 0; r < x; r++){
+		for(int r = 0; r < 1; r++){
+		    row = sheet.createRow(r);
+		    for(int c = 0; c <14; c++){
+		    	cell = row.createCell(c);
+		    	 switch (c) {
+					case 0:
+						cell.setCellValue("");
+						break;
+					case 1:
+						cell.setCellValue("員工編號");
+						break;
+					case 2:
+						cell.setCellValue("員工姓名");
+						break;
+					case 3:
+						cell.setCellValue("員工密碼");
+						break;
+					case 4:
+						cell.setCellValue("員工地址");
+						break;
+					case 5:
+						cell.setCellValue("員工身分");
+						break;
+					case 6:
+						cell.setCellValue("員工電話");
+						break;
+					case 7:
+						cell.setCellValue("員工生日");
+						break;
+					case 8:
+						cell.setCellValue("員工薪資");
+						break;
+					case 9:
+						cell.setCellValue("員工性別");
+						break;
+					case 10:
+						cell.setCellValue("員工信箱");
+						break;
+					case 11:
+						cell.setCellValue("員工部門");
+						break;
+					case 12:
+						cell.setCellValue("到職日期");
+						break;
+					case 13:
+						cell.setCellValue("照片檔名");
+						break;
+		    }
+		}
+		    	
+		}
+		for(int r = 1; r <= x; r++){
 		    row = sheet.createRow(r);
 		    for(int c = 0; c < 14; c++){
 		        cell = row.createCell(c);
 		        switch (c) {
 				case 0:
-					cell.setCellValue((map.get(r)).getMemberId());
+					cell.setCellValue((map.get(r-1)).getMemberId());
 					break;
 				case 1:
-					cell.setCellValue((map.get(r)).getMemberNumber());
+					cell.setCellValue((map.get(r-1)).getMemberNumber());
 					break;
 				case 2:
-					cell.setCellValue((map.get(r)).getMemberName());
+					cell.setCellValue((map.get(r-1)).getMemberName());
 					break;
 				case 3:
-					cell.setCellValue((map.get(r)).getMemberPassword());
+					cell.setCellValue((map.get(r-1)).getMemberPassword());
 					break;
 				case 4:
-					cell.setCellValue((map.get(r)).getMemberAddress());
+					cell.setCellValue((map.get(r-1)).getMemberAddress());
 					break;
 				case 5:
-					cell.setCellValue((map.get(r)).getMemberAdmin());
+					cell.setCellValue((map.get(r-1)).getMemberAdmin());
 					break;
 				case 6:
-					cell.setCellValue((map.get(r)).getMemberPhone());
+					cell.setCellValue((map.get(r-1)).getMemberPhone());
 					break;
 				case 7:
-					cell.setCellValue((map.get(r)).getMemberBirthdaay());
+					cell.setCellValue((map.get(r-1)).getMemberBirthdaay());
 					break;
 				case 8:
-					cell.setCellValue((map.get(r)).getMemberSalary());
+					cell.setCellValue((map.get(r-1)).getMemberSalary());
 					break;
 				case 9:
-					cell.setCellValue((map.get(r)).getMemberGender());
+					cell.setCellValue((map.get(r-1)).getMemberGender());
 					break;
 				case 10:
-					cell.setCellValue((map.get(r)).getMemberEmail());
+					cell.setCellValue((map.get(r-1)).getMemberEmail());
 					break;
 				case 11:
-					cell.setCellValue((map.get(r)).getMemberDepartment());
+					cell.setCellValue((map.get(r-1)).getMemberDepartment());
 					break;
 				case 12:
-					cell.setCellValue((map.get(r)).getMemberRegisterDate());
+					cell.setCellValue((map.get(r-1)).getMemberRegisterDate());
 					break;
 				case 13:
-					cell.setCellValue((map.get(r)).getMemberfilename());
+					cell.setCellValue((map.get(r-1)).getMemberfilename());
 					break;
 //				case 14:
 //					cell.setCellValue((map.get(r)).getMemberPicture1());

@@ -12,6 +12,8 @@
 window.onload = function(){
 		var btn = document.getElementById("clickmeS");
 		btn.onclick = function(){
+		pwd = document.getElementById("memberPassword")
+		pwd.value="12345"
 		Name =  document.getElementById("memberName")
 		Name.value ="哲賢"
 		address = document.getElementById("memberAddress")
@@ -74,13 +76,13 @@ window.onload = function(){
 						</div>
 
 
-<!-- 						<div class="form-group"> -->
-<!-- 							<label for="memberPassword" class="col-md-3 control-label">密碼</label> -->
-<!-- 							<div class="col-md-9"> -->
-<%-- 								<form:input type="password" path="memberPassword" --%>
-<%-- 									class="form-control" /> --%>
-<!-- 							</div> -->
-<!-- 						</div> -->
+						<div class="form-group">
+							<label for="memberPassword" class="col-md-3 control-label">密碼</label>
+							<div class="col-md-9">
+								<form:input type="password" path="memberPassword"
+									class="form-control" />
+							</div>
+						</div>
 
 						<div class="form-group">
 							<label class="col-md-3 control-label" for='memberName'>姓名
@@ -133,7 +135,7 @@ window.onload = function(){
 							<label class="col-md-3 control-label" for='memberBirthdaay'>出生日期
 							</label>
 							<div class="col-md-9">
-								<form:input id="memberBirthdaay" path="memberBirthdaay" type='date'
+								<form:input id="memberBirthdaay" path="memberBirthdaay" type='text'
 									class='form-control' />
 							</div>
 						</div>
