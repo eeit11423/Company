@@ -15,7 +15,8 @@
 </head>
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<div class="container-fluid page-body-wrapper">
+	<div class="container-fluid row">
+		<div class="card col-md-2">
     	<nav class="sidebar sidebar-offcanvas" id="sidebar">
 			<ul class="nav">
 
@@ -49,7 +50,8 @@
 					</div></li>
 			</ul>
 		</nav>
-	<div class="main-panel" >
+		</div>
+	<div class="main-panel card col-md-10" >
 		<div class="contnt-wrapper">
 			<div class="row justify-content-center">
 				<div class="card col-md-12">
@@ -196,6 +198,7 @@
 			</div>
 		</div>
 	</div>
+	
 </div>
 </body>
 </html>

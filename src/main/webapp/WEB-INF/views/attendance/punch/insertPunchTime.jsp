@@ -43,7 +43,7 @@
 			<main class="my-form">
 				<div class="cotainer">
 					<div class="row justify-content-center">
-						<div class="col-md-10">
+						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header text-white" style='background: #646D73'>
 									<strong><h2>新增打卡紀錄</h2></strong>
@@ -55,30 +55,31 @@
 										enctype='application/x-www-form-urlencoded' class='form-horizontal'>
 										<fieldset>
 											<div class="form-group row">
-												<label class="col-md-4 col-form-label text-md-right" style="font-size:30px"
-													for="memberNumber">姓名</label>
-												<div class="col-md-6">
+												<label class="col-md-2 col-form-label text-md-right" style="font-size:30px"
+													for="memberNumber">姓名：</label>
+												<div class="col-md-4">
 													<form:input id="memberNumber" path="memberNumber"
 														type='text' style="font-size:30px"
 														class="form-control col-form-label text-md-center" />
 													<form:errors path="memberNumber" cssClass="error" />
 												</div>
+												<div class="col-md-6"></div>
 											</div>
 
 											<div class="form-group row">
 												<label for="memberName" style="font-size:30px"
-													class="col-md-4 col-form-label text-md-right">編號</label>
-												<div class="col-md-6">
+													class="col-md-2 col-form-label text-md-right">編號：</label>
+												<div class="col-md-4">
 													<form:input type="text" id="memberName" style="font-size:30px"
 														path="memberName" class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="memberName" cssClass="error" />
 												</div>
-											</div>
+<!-- 											</div> -->
 
-											<div class="form-group row">
-												<label class="col-md-4 col-form-label text-md-right" style="font-size:30px"
-													for="memberDepartment">部門</label>
-												<div class="col-md-6">
+<!-- 											<div class="form-group row"> -->
+												<label class="col-md-2 col-form-label text-md-right" style="font-size:30px"
+													for="memberDepartment">部門：</label>
+												<div class="col-md-4">
 													<form:input id="memberDepartment" style="font-size:30px"
 														path="memberDepartment" type='text'
 														class="form-control input-md col-form-label text-md-center" />
@@ -87,9 +88,9 @@
 											</div>
 
 											<div class="form-group row">
-												<label class="col-md-4 col-form-label text-md-right" style="font-size:30px"
-													for="punchDate">上班日期</label>
-												<div class="col-md-6">
+												<label class="col-md-2 col-form-label text-md-right" style="font-size:30px"
+													for="punchDate">上班日期：</label>
+												<div class="col-md-4">
 													<form:input id="punchDate" style="font-size:30px"
 														path="punchDate" type='text'
 														class="form-control input-md col-form-label text-md-center" />
@@ -98,19 +99,19 @@
 											</div>
 											
 											<div class="form-group row">
-												<label class="col-md-4 col-form-label text-md-right" style="font-size:30px"
-													for="punchWorkOn">上班時間</label>
-												<div class="col-md-6">
+												<label class="col-md-2 col-form-label text-md-right" style="font-size:30px"
+													for="punchWorkOn">上班時間：</label>
+												<div class="col-md-4">
 													<form:input id="punchWorkOn" path="punchWorkOn" style="font-size:30px"
 														type='text' class="form-control input-md col-form-label text-md-center" />
 													<form:errors path="punchWorkOn" cssClass="error" />
 												</div>
-											</div>
+<!-- 											</div> -->
 
-											<div class="form-group row">
-												<label class="col-md-4 col-form-label text-md-right" style="font-size:30px"
-													for="punchWorkOff">下班時間</label>
-												<div class="col-md-6">
+<!-- 											<div class="form-group row"> -->
+												<label class="col-md-2 col-form-label text-md-right" style="font-size:30px"
+													for="punchWorkOff">下班時間：</label>
+												<div class="col-md-4">
 													<form:input id="punchWorkOff" style="font-size:30px"
 														path="punchWorkOff" type='text'
 														class="form-control input-md col-form-label text-md-center" />
