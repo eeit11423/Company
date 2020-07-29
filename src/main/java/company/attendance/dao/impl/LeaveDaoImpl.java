@@ -130,44 +130,33 @@ public class LeaveDaoImpl implements LeaveDao {
 	
 	@Override
 	@SuppressWarnings("unchecked")
+	//AJAX判斷搜尋條件
 	public List<Leave> queryLeave(String memberNumber, String selectdate) {
 		Session session = factory.getCurrentSession();
 		String timesplit[] = selectdate.split("-");
-		System.out.println(memberNumber);
-		System.out.println(selectdate);
-		
 		if (timesplit.length == 1) {                     //所有時間
 			if(memberNumber.equals("all")) {				//所有員工
-				System.out.println("所有員工-所有時間");
 				String hql = "FROM Leave Order By leaveDate DESC";
-				List<Leave> listTarget = session.createQuery(hql)
-						.getResultList();
+				List<Leave> listTarget = session.createQuery(hql).getResultList();
 				return listTarget;
-			}else {
-				System.out.println("指定員工-所有時間");	//指定員工
+			}else {											//指定員工
 				String hql = "FROM Leave WHERE memberNumber = :number Order By leaveDate DESC";
-				List<Leave> listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
+				List<Leave> listTarget = session.createQuery(hql).setParameter("number", memberNumber)
 						.getResultList();
 				return listTarget;
 			}
 		}else {											 //指定時間
 			if(memberNumber.equals("all")){					//所有員工
-				System.out.println("所有員工-指定時間");
-				String hql = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By leaveDate DESC";
-				List<Leave> listTarget = session.createQuery(hql)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.getResultList();
+				String hql = "FROM Leave WHERE DATEPART(yyyy,leaveDate) = :yyyy "
+						+ "and DATEPART(mm,leaveDate) = :mm Order By leaveDate DESC";
+				List<Leave> listTarget = session.createQuery(hql).setParameter("yyyy", timesplit[0])
+						.setParameter("mm", timesplit[1]).getResultList();
 				return listTarget;
 			}else{											//指定員工
-				System.out.println("指定員工-指定時間");
-				String hql = "FROM Leave WHERE memberNumber = :number and DATEPART(yyyy,leaveDate) = :yyyy and DATEPART(mm,leaveDate) = :mm Order By leaveDate DESC";
-				List<Leave> listTarget = session.createQuery(hql)
-						.setParameter("number", memberNumber)
-						.setParameter("yyyy", timesplit[0])
-						.setParameter("mm", timesplit[1])
-						.getResultList();
+				String hql = "FROM Leave WHERE memberNumber = :number and DATEPART(yyyy,leaveDate) = :yyyy "
+						+ "and DATEPART(mm,leaveDate) = :mm Order By leaveDate DESC";
+				List<Leave> listTarget = session.createQuery(hql).setParameter("number", memberNumber)
+						.setParameter("yyyy", timesplit[0]).setParameter("mm", timesplit[1]).getResultList();
 				return listTarget;
 				}
 		}

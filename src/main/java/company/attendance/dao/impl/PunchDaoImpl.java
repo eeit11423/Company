@@ -372,7 +372,11 @@ public class PunchDaoImpl implements PunchDao {
 		Session session = factory.getCurrentSession();
 		String punchLate = null;		
 		String punchEarly = null;
-		if (punch.getPunchWorkOn().getHours() > 9 || (punch.getPunchWorkOn().getHours() ==9 && (punch.getPunchWorkOn().getMinutes() + punch.getPunchWorkOn().getSeconds()>0))) {
+		//判斷新增或修改的時間紀錄是否異常
+		if (punch.getPunchWorkOn().getHours() > 9 || 
+				(punch.getPunchWorkOn().getHours() ==9 && 
+				(punch.getPunchWorkOn().getMinutes() + 
+						punch.getPunchWorkOn().getSeconds()>0))) {
 			punchLate = "遲到";
 		}
 		if (punch.getPunchWorkOff().getHours() < 18 ) {

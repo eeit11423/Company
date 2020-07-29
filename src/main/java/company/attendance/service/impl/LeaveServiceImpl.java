@@ -37,10 +37,13 @@ public class LeaveServiceImpl implements LeaveService {
     
 	@Override
 	public int saveLeave(Leave leave) {
+		
+		//判斷請假的日期是否有打卡紀錄，有的話進行修改
 		if (dao.getMemberAndPunchDateList(leave.getLeaveId()).size() != 0) {
 			int punchId = dao.getMemberAndPunchDateList(leave.getLeaveId()).get(0).getPunchId();
 			dao.updatePunchtime(leave.getLeaveId(), punchId);
 		}
+		
 		int n = dao.saveLeave(leave);
 		return n;
 	}

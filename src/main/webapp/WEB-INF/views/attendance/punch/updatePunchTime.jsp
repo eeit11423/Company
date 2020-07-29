@@ -10,22 +10,23 @@
 </style>
 <meta charset="UTF-8">
 <title>修改出勤紀錄</title>
-<script type="text/javascript">
-// 	function confirmDelete(userId) {
-// 		var result = confirm("確定刪除此筆記錄(帳號:" + userId.trim() + ")?");
-// 		if (result) {
-// 			document.forms[0].putOrDelete.value = "DELETE";
-// 			return true;
-// 		}
-// 		return false;
-// 	}
-	function confirmUpdate(userId) {
-		var result = confirm("確定送出此筆記錄(帳號:" + userId.trim() + ")?");
-		if (result) {
-// 			document.forms[0].putOrDelete.value = "PUT";
-			return true;
+<script>
+	window.onload = function() {
+		var btn = document.getElementById("clickmeS");
+		btn.onclick = function() {
+// 			memberName = document.getElementById("memberName")
+// 			memberName.value = "尼克"
+// 			memberNumber = document.getElementById("memberNumber");
+// 			memberNumber.value = "1001"
+// 			memberDepartment = document.getElementById("memberDepartment")
+// 			memberDepartment.value = "董事長"
+// 			punchDate = document.getElementById("punchDate") 
+// 			punchDate.value = "2020-7-29" 
+			punchWorkOn = document.getElementById("punchWorkOn") 
+			punchWorkOn.value = "2020-7-29 12:00:00.000" 
+			punchWorkOff = document.getElementById("punchWorkOff") 
+ 			punchWorkOff.value = "2020-7-29 18:00:00.000" 
 		}
-		return false;
 	}
 </script>
 </head>
