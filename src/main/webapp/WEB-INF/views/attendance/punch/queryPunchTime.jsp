@@ -180,11 +180,26 @@
 						    		+ "<td align='left' style='font-size:30px'>" + timeStampToDate(punch.punchDate) + "</td>"
 									+ "<td align='left' style='font-size:30px'>"	+ punch.memberName + "</td>"
 									+ "<td align='left' style='font-size:30px'>" + chekWorkOn(punch.punchWorkOn) + "</td>"
-									+ "<td align='left' style='font-size:30px;color:red;'>" + checkNull(punch.punchLate) + "</td>"
+									+ "<td align='left' style='font-size:30px;'>" + checkState(punch.punchLate) + "</td>"
 									+ "<td align='left' style='font-size:30px'>" + chekWorkOff(punch.punchWorkOff) + "</td>"
-									+ "<td align='left' style='font-size:30px;color:red;'>" + checkNull(punch.punchEarly) + "</td>"
+									+ "<td align='left' style='font-size:30px;'>" + checkState(punch.punchEarly) + "</td>"
 									+ "<td align='left' style='font-size:30px'>" + timeFn(punch.punchHours) + "</td>"
 									+ "<td align='left' style='font-size:30px'>" + checkPunchTimeDataExist(punch.memberName) + "</td></tr>";
+									
+					function checkState(String){
+						if (String == null){
+							return '正常';
+						}else{
+							console.log('punchLateTd'+i);
+							var punchLateTdd = document.getElementById('punchLateTd'+i);
+// 							var punchLateTdd = $('#punchLateTd'+i);
+							console.log(punchLateTdd);
+								$(punchLateTdd).attr("background-color","red");
+// 								punchLateTdd.css("background-color","red");
+							return String;
+						}
+						
+					}
 									
 					function checkNull(String) {
 						if (String == null) {

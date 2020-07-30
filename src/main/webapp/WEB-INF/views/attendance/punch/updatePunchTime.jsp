@@ -23,9 +23,9 @@
 // 			punchDate = document.getElementById("punchDate") 
 // 			punchDate.value = "2020-7-29" 
 			punchWorkOn = document.getElementById("punchWorkOn") 
-			punchWorkOn.value = "2020-7-29 12:00:00.000" 
+			punchWorkOn.value = "2020-7-30 12:00:00.000" 
 			punchWorkOff = document.getElementById("punchWorkOff") 
- 			punchWorkOff.value = "2020-7-29 18:00:00.000" 
+ 			punchWorkOff.value = "2020-7-30 18:00:00.000" 
 		}
 	}
 	var time = new Date('${punch.punchDate}').Format("yyyy-MM-dd HH:mm:ss");

@@ -18,11 +18,11 @@
 		var btn = document.getElementById("clickmeS");
 		btn.onclick = function() {
 			leaveDate = document.getElementById("leaveDate") 
-			leaveDate.value = "2020-7-29" 
+			leaveDate.value = "2020-7-30" 
 			leaveStart = document.getElementById("leaveStart") 
-			leaveStart.value = "2020-7-29 09:00:00.000" 
+			leaveStart.value = "2020-7-30 09:00:00.000" 
 			leaveEnd = document.getElementById("leaveEnd") 
- 			leaveEnd.value = "2020-7-29 12:00:00.000" 
+ 			leaveEnd.value = "2020-7-30 12:00:00.000" 
  			Category = document.getElementById("leaveCategory") 
  			option=Category.getElementsByTagName("option")
  			option[0].selected = true 
