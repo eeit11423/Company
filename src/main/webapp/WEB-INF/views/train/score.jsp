@@ -224,27 +224,37 @@
             }
         
             $("#btn1").click(function () {
+            	$(".c1").attr("src", "${pageContext.request.contextPath}/images/starsmall.gif");
+            	$("#p1").text("尚未評點");
                 star();
 
                 alert("重新評點1");
             });
 
             $("#btn2").click(function () {
+            	$(".c2").attr("src", "${pageContext.request.contextPath}/images/starsmall.gif");
+            	$("#p2").text("尚未評點");
                 star2();
                 alert("重新評點2");
             });
             
             $("#btn3").click(function () {
+            	$(".c3").attr("src", "${pageContext.request.contextPath}/images/starsmall.gif");
+            	$("#p3").text("尚未評點");
                 star3();
                 alert("重新評點3");
             });
 
             $("#btn4").click(function () {
+            	$(".c4").attr("src", "${pageContext.request.contextPath}/images/starsmall.gif");
+            	$("#p4").text("尚未評點");
                 star4();
                 alert("重新評點4");
             });
 
             $("#btn5").click(function () {
+            	$(".c5").attr("src", "${pageContext.request.contextPath}/images/starsmall.gif");
+            	$("#p5").text("尚未評點");
                 star5();
                 alert("重新評點5");
             });
